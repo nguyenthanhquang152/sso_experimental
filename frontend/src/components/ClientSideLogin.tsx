@@ -1,4 +1,5 @@
-import { GoogleLogin, CredentialResponse } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+import type { CredentialResponse } from '@react-oauth/google';
 import { apiFetch } from '../api/client';
 
 interface ClientSideLoginProps {
