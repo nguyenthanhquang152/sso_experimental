@@ -19,6 +19,9 @@ frontend/test-results/
 *.iml
 .vscode/
 *.swp
+.project
+.classpath
+.settings/
 
 # Environment
 .env

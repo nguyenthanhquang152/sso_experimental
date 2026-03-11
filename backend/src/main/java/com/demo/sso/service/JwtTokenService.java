@@ -12,11 +12,15 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.UUID;
 
 @Service
 public class JwtTokenService {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenService.class);
+
+    private static final String ISSUER = "sso-demo-backend";
+    private static final String AUDIENCE = "sso-demo-api";
 
     private final SecretKey key;
     private final long expirationMs;
@@ -34,7 +38,8 @@ public class JwtTokenService {
             throw new IllegalStateException(
                     "JWT secret must be at least 32 characters. Set the JWT_SECRET environment variable.");
         }
-        if (secret.contains("default") || secret.contains("change-me")) {
+        String normalized = secret.trim().toLowerCase();
+        if ("default".equals(normalized) || "change-me".equals(normalized)) {
             throw new IllegalStateException(
                     "JWT secret must not be a default/placeholder value. Set the JWT_SECRET environment variable.");
         }
@@ -47,6 +52,9 @@ public class JwtTokenService {
         return Jwts.builder()
                 .subject(email)
                 .claim("googleId", googleId)
+                .issuer(ISSUER)
+                .audience().add(AUDIENCE).and()
+                .id(UUID.randomUUID().toString())
                 .issuedAt(now)
                 .expiration(expiry)
                 .signWith(key)
@@ -56,6 +64,8 @@ public class JwtTokenService {
     public Claims parseToken(String token) {
         return Jwts.parser()
                 .verifyWith(key)
+                .requireIssuer(ISSUER)
+                .requireAudience(AUDIENCE)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();

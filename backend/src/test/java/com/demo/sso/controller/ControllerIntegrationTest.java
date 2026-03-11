@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -50,8 +50,8 @@ class ControllerIntegrationTest {
         user.setName("Test User");
         user.setPictureUrl("http://example.com/pic.jpg");
         user.setLoginMethod("SERVER_SIDE");
-        user.setCreatedAt(LocalDateTime.now());
-        user.setLastLoginAt(LocalDateTime.now());
+        user.setCreatedAt(Instant.now());
+        user.setLastLoginAt(Instant.now());
         return userRepository.save(user);
     }
 

@@ -31,8 +31,8 @@ public class UserController {
                         "name", user.getName() != null ? user.getName() : "",
                         "pictureUrl", user.getPictureUrl() != null ? user.getPictureUrl() : "",
                         "loginMethod", user.getLoginMethod() != null ? user.getLoginMethod() : "",
-                        "createdAt", user.getCreatedAt().toString(),
-                        "lastLoginAt", user.getLastLoginAt().toString()
+                        "createdAt", user.getCreatedAt() != null ? user.getCreatedAt().toString() : "",
+                        "lastLoginAt", user.getLastLoginAt() != null ? user.getLastLoginAt().toString() : ""
                 )))
                 .orElse(ResponseEntity.notFound().build());
     }

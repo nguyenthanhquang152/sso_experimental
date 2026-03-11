@@ -27,8 +27,8 @@ A demo application showing Google SSO integration using two OAuth2 flows side-by
 ```
 ┌─────────────────────────────────────────────────────┐
 │                   Browser                           │
-│  http://sso.localhost/           (React SPA)        │
-│  http://sso.localhost/api/       (Spring Boot API)  │
+│  http://localhost:8000/           (React SPA)        │
+│  http://localhost:8000/api/       (Spring Boot API)  │
 └──────────────────────┬──────────────────────────────┘
                        │ :80
               ┌────────┴────────┐
@@ -47,23 +47,23 @@ A demo application showing Google SSO integration using two OAuth2 flows side-by
                         └──────────────────┘
 ```
 
-**Routing:** Path-based via Traefik. Single domain `sso.localhost`.
+**Routing:** Path-based via Traefik. Single domain `localhost:8000`.
 
 **Google Console:**
-- Authorised JavaScript origins: `http://sso.localhost`
-- Authorised redirect URIs: `http://sso.localhost/api/login/oauth2/code/google`
+- Authorised JavaScript origins: `http://localhost:8000`
+- Authorised redirect URIs: `http://localhost:8000/api/login/oauth2/code/google`
 
 ## OAuth2 Flows
 
 ### Flow 1: Server-Side Authorization Code
 
 1. User clicks "Server-Side Login" on React
-2. Browser navigates to `sso.localhost/api/oauth2/authorization/google`
+2. Browser navigates to `localhost:8000/api/oauth2/authorization/google`
 3. Spring Security redirects to Google consent screen
-4. Google redirects back to `sso.localhost/api/login/oauth2/code/google?code=xxx`
+4. Google redirects back to `localhost:8000/api/login/oauth2/code/google?code=xxx`
 5. Spring Security exchanges code for tokens, loads user info
 6. Backend saves/updates user in PostgreSQL
-7. Backend generates JWT, redirects to `sso.localhost/?token=jwt`
+7. Backend generates JWT, redirects to `localhost:8000/?token=jwt`
 8. React stores JWT, navigates to dashboard
 
 ### Flow 2: Client-Side (Google Identity Services)
@@ -71,7 +71,7 @@ A demo application showing Google SSO integration using two OAuth2 flows side-by
 1. User clicks "Client-Side Login" on React
 2. @react-oauth/google shows Google Sign-In popup
 3. Google returns credential (ID token) to React
-4. React POSTs `{ credential }` to `sso.localhost/api/auth/google/verify`
+4. React POSTs `{ credential }` to `localhost:8000/api/auth/google/verify`
 5. Backend verifies ID token with Google
 6. Backend saves/updates user in PostgreSQL
 7. Backend returns `{ jwt }` to React
@@ -175,8 +175,8 @@ Four services:
 4. **postgres** — PostgreSQL 18.3 on port 5432
 
 Traefik routing:
-- `Host(sso.localhost)` priority=1 → frontend
-- `Host(sso.localhost) && PathPrefix(/api)` priority=2 → backend
+- `Host(localhost:8000)` priority=1 → frontend
+- `Host(localhost:8000) && PathPrefix(/api)` priority=2 → backend
 
 ## Environment Variables
 

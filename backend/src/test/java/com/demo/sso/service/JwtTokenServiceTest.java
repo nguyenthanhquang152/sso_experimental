@@ -38,6 +38,16 @@ class JwtTokenServiceTest {
     }
 
     @Test
+    void parseToken_containsIssuerAudienceAndJti() {
+        String token = jwtTokenService.generateToken("user@example.com", "google-123");
+        var claims = jwtTokenService.parseToken(token);
+        assertEquals("sso-demo-backend", claims.getIssuer());
+        assertTrue(claims.getAudience().contains("sso-demo-api"));
+        assertNotNull(claims.getId());
+        assertFalse(claims.getId().isBlank());
+    }
+
+    @Test
     void isTokenValid_returnsTrueForValidToken() {
         String token = jwtTokenService.generateToken("user@example.com", "google-123");
         assertTrue(jwtTokenService.isTokenValid(token));
@@ -79,8 +89,17 @@ class JwtTokenServiceTest {
 
     @Test
     void constructor_rejectsDefaultPlaceholder() {
+        // Exact match "default" (padded to 32+ chars)
         assertThrows(IllegalStateException.class,
             () -> new JwtTokenService(
-                "default-dev-secret-change-me-in-production-please", 86400000));
+                "default                          ", 86400000));
+    }
+
+    @Test
+    void constructor_allowsSecretContainingDefaultSubstring() {
+        // Should NOT reject a random secret that happens to contain "default" as substring
+        assertDoesNotThrow(
+            () -> new JwtTokenService(
+                "my-random-string-with-default-in-it-but-is-valid", 86400000));
     }
 }

@@ -2,10 +2,11 @@ package com.demo.sso.service;
 
 import com.demo.sso.model.User;
 import com.demo.sso.repository.UserRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Optional;
 
 @Service
@@ -27,7 +28,7 @@ public class UserService {
             user.setName(name);
             user.setPictureUrl(pictureUrl);
             user.setLoginMethod(loginMethod);
-            user.setLastLoginAt(LocalDateTime.now());
+            user.setLastLoginAt(Instant.now());
             return userRepository.save(user);
         }
 
@@ -37,7 +38,12 @@ public class UserService {
         user.setName(name);
         user.setPictureUrl(pictureUrl);
         user.setLoginMethod(loginMethod);
-        return userRepository.save(user);
+        try {
+            return userRepository.save(user);
+        } catch (DataIntegrityViolationException e) {
+            return userRepository.findByGoogleId(googleId)
+                .orElseThrow(() -> new IllegalStateException("Concurrent user creation failed", e));
+        }
     }
 
     public Optional<User> findByEmail(String email) {

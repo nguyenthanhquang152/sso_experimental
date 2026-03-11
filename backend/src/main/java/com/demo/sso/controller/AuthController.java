@@ -45,6 +45,11 @@ public class AuthController {
         try {
             GoogleIdToken.Payload payload = googleTokenVerifier.verify(credential);
 
+            if (!Boolean.TRUE.equals(payload.getEmailVerified())) {
+                return ResponseEntity.badRequest()
+                    .body(Map.of("error", "Email not verified by Google"));
+            }
+
             String googleId = payload.getSubject();
             String email = payload.getEmail();
             String name = (String) payload.get("name");

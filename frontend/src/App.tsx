@@ -3,11 +3,15 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { HomePage } from './pages/HomePage';
 import { DashboardPage } from './pages/DashboardPage';
 
-const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+if (!GOOGLE_CLIENT_ID) {
+  console.error('VITE_GOOGLE_CLIENT_ID is not set. Google Sign-In will not work.');
+}
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID || ''}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />

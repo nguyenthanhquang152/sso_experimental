@@ -13,8 +13,13 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Component
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
+
+    private static final Logger logger = LoggerFactory.getLogger(OAuth2SuccessHandler.class);
 
     private final UserService userService;
     private final JwtTokenService jwtTokenService;
@@ -36,8 +41,22 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                                          Authentication authentication) throws IOException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
 
+        Boolean emailVerified = oAuth2User.getAttribute("email_verified");
+        if (!Boolean.TRUE.equals(emailVerified)) {
+            logger.warn("OAuth2 login rejected: email not verified");
+            response.sendRedirect(frontendUrl + "/?error=email_not_verified");
+            return;
+        }
+
         String googleId = oAuth2User.getAttribute("sub");
         String email = oAuth2User.getAttribute("email");
+
+        if (googleId == null || email == null) {
+            logger.warn("OAuth2 login rejected: missing sub or email attribute");
+            response.sendRedirect(frontendUrl + "/?error=missing_attributes");
+            return;
+        }
+
         String name = oAuth2User.getAttribute("name");
         String picture = oAuth2User.getAttribute("picture");
 

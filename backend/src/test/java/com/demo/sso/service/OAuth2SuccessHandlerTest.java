@@ -12,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.io.IOException;
-import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
@@ -36,13 +35,22 @@ class OAuth2SuccessHandlerTest {
             userService, jwtTokenService, authCodeStore, "http://localhost:8000");
     }
 
+    private void setupVerifiedOAuth2User(String sub, String email, String name, String picture) {
+        when(authentication.getPrincipal()).thenReturn(oAuth2User);
+        when(oAuth2User.getAttribute("email_verified")).thenReturn(true);
+        when(oAuth2User.getAttribute("sub")).thenReturn(sub);
+        when(oAuth2User.getAttribute("email")).thenReturn(email);
+        if (name != null) {
+            when(oAuth2User.getAttribute("name")).thenReturn(name);
+        }
+        if (picture != null) {
+            when(oAuth2User.getAttribute("picture")).thenReturn(picture);
+        }
+    }
+
     @Test
     void onAuthenticationSuccess_extractsAttributesAndRedirects() throws IOException {
-        when(authentication.getPrincipal()).thenReturn(oAuth2User);
-        when(oAuth2User.getAttribute("sub")).thenReturn("google-123");
-        when(oAuth2User.getAttribute("email")).thenReturn("user@example.com");
-        when(oAuth2User.getAttribute("name")).thenReturn("Test User");
-        when(oAuth2User.getAttribute("picture")).thenReturn("http://pic.url");
+        setupVerifiedOAuth2User("google-123", "user@example.com", "Test User", "http://pic.url");
 
         User user = new User();
         user.setEmail("user@example.com");
@@ -61,11 +69,7 @@ class OAuth2SuccessHandlerTest {
 
     @Test
     void onAuthenticationSuccess_savesUserAsServerSide() throws IOException {
-        when(authentication.getPrincipal()).thenReturn(oAuth2User);
-        when(oAuth2User.getAttribute("sub")).thenReturn("g-id");
-        when(oAuth2User.getAttribute("email")).thenReturn("test@test.com");
-        when(oAuth2User.getAttribute("name")).thenReturn("Name");
-        when(oAuth2User.getAttribute("picture")).thenReturn(null);
+        setupVerifiedOAuth2User("g-id", "test@test.com", "Name", null);
 
         User user = new User();
         user.setEmail("test@test.com");
@@ -86,6 +90,7 @@ class OAuth2SuccessHandlerTest {
             userService, jwtTokenService, authCodeStore, "https://myapp.com");
 
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
+        when(oAuth2User.getAttribute("email_verified")).thenReturn(true);
         when(oAuth2User.getAttribute("sub")).thenReturn("g");
         when(oAuth2User.getAttribute("email")).thenReturn("e@e.com");
 
@@ -99,5 +104,53 @@ class OAuth2SuccessHandlerTest {
         customHandler.onAuthenticationSuccess(request, response, authentication);
 
         verify(response).sendRedirect("https://myapp.com/?code=code-xyz");
+    }
+
+    @Test
+    void onAuthenticationSuccess_rejectsUnverifiedEmail() throws IOException {
+        when(authentication.getPrincipal()).thenReturn(oAuth2User);
+        when(oAuth2User.getAttribute("email_verified")).thenReturn(false);
+
+        handler.onAuthenticationSuccess(request, response, authentication);
+
+        verify(response).sendRedirect("http://localhost:8000/?error=email_not_verified");
+        verifyNoInteractions(userService);
+    }
+
+    @Test
+    void onAuthenticationSuccess_rejectsNullEmailVerified() throws IOException {
+        when(authentication.getPrincipal()).thenReturn(oAuth2User);
+        when(oAuth2User.getAttribute("email_verified")).thenReturn(null);
+
+        handler.onAuthenticationSuccess(request, response, authentication);
+
+        verify(response).sendRedirect("http://localhost:8000/?error=email_not_verified");
+        verifyNoInteractions(userService);
+    }
+
+    @Test
+    void onAuthenticationSuccess_rejectsMissingSub() throws IOException {
+        when(authentication.getPrincipal()).thenReturn(oAuth2User);
+        when(oAuth2User.getAttribute("email_verified")).thenReturn(true);
+        when(oAuth2User.getAttribute("sub")).thenReturn(null);
+        when(oAuth2User.getAttribute("email")).thenReturn("test@test.com");
+
+        handler.onAuthenticationSuccess(request, response, authentication);
+
+        verify(response).sendRedirect("http://localhost:8000/?error=missing_attributes");
+        verifyNoInteractions(userService);
+    }
+
+    @Test
+    void onAuthenticationSuccess_rejectsMissingEmail() throws IOException {
+        when(authentication.getPrincipal()).thenReturn(oAuth2User);
+        when(oAuth2User.getAttribute("email_verified")).thenReturn(true);
+        when(oAuth2User.getAttribute("sub")).thenReturn("google-123");
+        when(oAuth2User.getAttribute("email")).thenReturn(null);
+
+        handler.onAuthenticationSuccess(request, response, authentication);
+
+        verify(response).sendRedirect("http://localhost:8000/?error=missing_attributes");
+        verifyNoInteractions(userService);
     }
 }

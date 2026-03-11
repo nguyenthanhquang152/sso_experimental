@@ -1,7 +1,5 @@
 # Google SSO Demo — Implementation Plan
 
-> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
-
 **Goal:** Build a demo app showing Google SSO with two OAuth2 flows (server-side authorization code + client-side Google Identity Services) using React, Spring Boot, PostgreSQL, and Traefik.
 
 **Architecture:** Path-based routing via Traefik on `sso.localhost`. React SPA at `/`, Spring Boot API at `/api/`. Single origin eliminates CORS. PostgreSQL stores user records. JWT for stateless auth between frontend and backend.
