@@ -5,12 +5,12 @@ services:
       - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.address=:8000"
     ports:
-      - "80:80"
-      - "8080:8080"
+      - "8000:8000"
+      - "8888:8080"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${DOCKER_SOCK:-/run/user/1000/docker.sock}:/var/run/docker.sock:ro
 
   frontend:
     build: ./frontend
@@ -32,7 +32,7 @@ services:
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - JWT_SECRET=${JWT_SECRET}
-      - FRONTEND_URL=http://sso.localhost
+      - FRONTEND_URL=http://sso.localhost:8000
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.rule=Host(`sso.localhost`) && PathPrefix(`/api`)"
