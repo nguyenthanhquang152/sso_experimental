@@ -1,0 +1,35 @@
+# Java
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/.m2/
+backend/~/
+*.class
+*.jar
+*.war
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/playwright-report/
+frontend/test-results/
+.playwright-mcp/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+.project
+.classpath
+.settings/
+
+# Environment
+.env
+client_secret_*.json
+
+# Docker
+postgres_data/
+
+# OS
+.DS_Store
+Thumbs.db
