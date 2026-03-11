@@ -1,14 +1,17 @@
 package com.demo.sso.controller;
 
-import com.demo.sso.config.JwtConfig;
+import com.demo.sso.config.TestAuthCodeStoreConfig;
 import com.demo.sso.model.User;
 import com.demo.sso.repository.UserRepository;
+import com.demo.sso.service.AuthCodeStore;
+import com.demo.sso.service.JwtTokenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -20,16 +23,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Import(TestAuthCodeStoreConfig.class)
 class ControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
-    private JwtConfig jwtConfig;
+    private JwtTokenService jwtTokenService;
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AuthCodeStore authCodeStore;
 
     @BeforeEach
     void setUp() {
@@ -67,7 +74,7 @@ class ControllerIntegrationTest {
         @Test
         void returnsUserProfileWithValidToken() throws Exception {
             User user = createTestUser();
-            String token = jwtConfig.generateToken(user.getEmail(), user.getGoogleId());
+            String token = jwtTokenService.generateToken(user.getEmail(), user.getGoogleId());
 
             mockMvc.perform(get("/user/me")
                     .header("Authorization", "Bearer " + token))
@@ -80,8 +87,7 @@ class ControllerIntegrationTest {
 
         @Test
         void returns404WhenUserNotInDatabase() throws Exception {
-            // Token is valid but user doesn't exist in DB
-            String token = jwtConfig.generateToken("nonexistent@example.com", "google-999");
+            String token = jwtTokenService.generateToken("nonexistent@example.com", "google-999");
 
             mockMvc.perform(get("/user/me")
                     .header("Authorization", "Bearer " + token))
@@ -116,7 +122,59 @@ class ControllerIntegrationTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .content("{\"credential\": \"fake-google-id-token\"}"))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.error", containsString("Invalid")));
+                .andExpect(jsonPath("$.error").value("Invalid Google credential"));
+        }
+    }
+
+    @Nested
+    class AuthExchangeEndpoint {
+
+        @Test
+        void returnsBadRequestWithMissingCode() throws Exception {
+            mockMvc.perform(post("/auth/exchange")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Missing code"));
+        }
+
+        @Test
+        void returnsBadRequestWithInvalidCode() throws Exception {
+            mockMvc.perform(post("/auth/exchange")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"code\": \"nonexistent-code\"}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Invalid or expired code"));
+        }
+
+        @Test
+        void returnsTokenForValidCode() throws Exception {
+            String jwt = jwtTokenService.generateToken("test@example.com", "google-123");
+            String code = authCodeStore.storeJwt(jwt);
+
+            mockMvc.perform(post("/auth/exchange")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"code\": \"" + code + "\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.token").value(jwt));
+        }
+
+        @Test
+        void codeCannotBeReused() throws Exception {
+            String code = authCodeStore.storeJwt("some.jwt");
+
+            // First use succeeds
+            mockMvc.perform(post("/auth/exchange")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"code\": \"" + code + "\"}"))
+                .andExpect(status().isOk());
+
+            // Second use fails
+            mockMvc.perform(post("/auth/exchange")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"code\": \"" + code + "\"}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Invalid or expired code"));
         }
     }
 
@@ -132,11 +190,10 @@ class ControllerIntegrationTest {
     }
 
     @Nested
-    class SecurityFilterChain {
+    class SecurityFilterChainTests {
 
         @Test
         void authEndpointsArePublic() throws Exception {
-            // /auth/** should be accessible without authentication
             mockMvc.perform(post("/auth/logout"))
                 .andExpect(status().isOk());
         }
@@ -144,6 +201,20 @@ class ControllerIntegrationTest {
         @Test
         void userEndpointsRequireAuthentication() throws Exception {
             mockMvc.perform(get("/user/me"))
+                .andExpect(status().isUnauthorized());
+        }
+
+        @Test
+        void bearerWithoutTokenIsIgnored() throws Exception {
+            mockMvc.perform(get("/user/me")
+                    .header("Authorization", "Bearer "))
+                .andExpect(status().isUnauthorized());
+        }
+
+        @Test
+        void basicAuthHeaderIsIgnored() throws Exception {
+            mockMvc.perform(get("/user/me")
+                    .header("Authorization", "Basic dXNlcjpwYXNz"))
                 .andExpect(status().isUnauthorized());
         }
     }

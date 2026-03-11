@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ServerSideLogin } from '../components/ServerSideLogin';
 import { ClientSideLogin } from '../components/ClientSideLogin';
 import { useAuth } from '../hooks/useAuth';
+import { apiFetch } from '../api/client';
 
 export function HomePage() {
   const { login, isAuthenticated } = useAuth();
@@ -10,10 +11,23 @@ export function HomePage() {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    const token = searchParams.get('token');
-    if (token) {
-      login(token);
-      navigate('/dashboard', { replace: true });
+    const code = searchParams.get('code');
+    if (code) {
+      // Strip code from URL immediately to prevent leakage
+      window.history.replaceState({}, '', '/');
+
+      // Exchange the single-use code for a JWT
+      apiFetch<{ token: string }>('/auth/exchange', {
+        method: 'POST',
+        body: JSON.stringify({ code }),
+      })
+        .then((data) => {
+          login(data.token);
+          navigate('/dashboard', { replace: true });
+        })
+        .catch(() => {
+          // Code was invalid or expired — stay on homepage
+        });
     }
   }, [searchParams, login, navigate]);
 

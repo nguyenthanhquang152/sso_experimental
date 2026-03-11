@@ -3,6 +3,7 @@ package com.demo.sso.service;
 import com.demo.sso.model.User;
 import com.demo.sso.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -16,6 +17,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
     public User findOrCreateUser(String googleId, String email, String name,
                                   String pictureUrl, String loginMethod) {
         Optional<User> existing = userRepository.findByGoogleId(googleId);

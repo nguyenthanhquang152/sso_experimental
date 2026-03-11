@@ -1,6 +1,5 @@
 package com.demo.sso.service;
 
-import com.demo.sso.config.JwtConfig;
 import com.demo.sso.model.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,18 +10,23 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Component
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final UserService userService;
-    private final JwtConfig jwtConfig;
+    private final JwtTokenService jwtTokenService;
+    private final AuthCodeStore authCodeStore;
     private final String frontendUrl;
 
-    public OAuth2SuccessHandler(UserService userService, JwtConfig jwtConfig,
+    public OAuth2SuccessHandler(UserService userService, JwtTokenService jwtTokenService,
+                                 AuthCodeStore authCodeStore,
                                  @Value("${app.frontend-url}") String frontendUrl) {
         this.userService = userService;
-        this.jwtConfig = jwtConfig;
+        this.jwtTokenService = jwtTokenService;
+        this.authCodeStore = authCodeStore;
         this.frontendUrl = frontendUrl;
     }
 
@@ -39,8 +43,10 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         User user = userService.findOrCreateUser(googleId, email, name, picture, "SERVER_SIDE");
 
-        String jwt = jwtConfig.generateToken(user.getEmail(), user.getGoogleId());
+        String jwt = jwtTokenService.generateToken(user.getEmail(), user.getGoogleId());
+        String code = authCodeStore.storeJwt(jwt);
 
-        response.sendRedirect(frontendUrl + "/?token=" + jwt);
+        String encodedCode = URLEncoder.encode(code, StandardCharsets.UTF_8);
+        response.sendRedirect(frontendUrl + "/?code=" + encodedCode);
     }
 }

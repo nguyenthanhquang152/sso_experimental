@@ -1,26 +1,43 @@
-package com.demo.sso.config;
+package com.demo.sso.service;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
-@Component
-public class JwtConfig {
+@Service
+public class JwtTokenService {
+
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenService.class);
 
     private final SecretKey key;
     private final long expirationMs;
 
-    public JwtConfig(
+    public JwtTokenService(
             @Value("${app.jwt.secret}") String secret,
             @Value("${app.jwt.expiration-ms}") long expirationMs) {
+        validateSecret(secret);
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.expirationMs = expirationMs;
+    }
+
+    private static void validateSecret(String secret) {
+        if (secret.length() < 32) {
+            throw new IllegalStateException(
+                    "JWT secret must be at least 32 characters. Set the JWT_SECRET environment variable.");
+        }
+        if (secret.contains("default") || secret.contains("change-me")) {
+            throw new IllegalStateException(
+                    "JWT secret must not be a default/placeholder value. Set the JWT_SECRET environment variable.");
+        }
     }
 
     public String generateToken(String email, String googleId) {
@@ -52,7 +69,8 @@ public class JwtConfig {
         try {
             parseToken(token);
             return true;
-        } catch (Exception e) {
+        } catch (JwtException | IllegalArgumentException e) {
+            logger.debug("JWT validation failed: {}", e.getMessage());
             return false;
         }
     }

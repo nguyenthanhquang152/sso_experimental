@@ -7,6 +7,8 @@ import com.google.api.client.json.gson.GsonFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Collections;
 
 @Service
@@ -21,7 +23,8 @@ public class GoogleTokenVerifier {
                 .build();
     }
 
-    public GoogleIdToken.Payload verify(String idTokenString) throws Exception {
+    public GoogleIdToken.Payload verify(String idTokenString)
+            throws GeneralSecurityException, IOException {
         GoogleIdToken idToken = verifier.verify(idTokenString);
         if (idToken == null) {
             throw new IllegalArgumentException("Invalid Google ID token");
