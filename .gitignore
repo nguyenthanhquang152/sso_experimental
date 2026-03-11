@@ -1,6 +1,8 @@
 # Java
 backend/target/
 backend/.mvn/wrapper/maven-wrapper.jar
+backend/.m2/
+backend/~/
 *.class
 *.jar
 *.war
@@ -8,6 +10,9 @@ backend/.mvn/wrapper/maven-wrapper.jar
 # Node
 frontend/node_modules/
 frontend/dist/
+frontend/playwright-report/
+frontend/test-results/
+.playwright-mcp/
 
 # IDE
 .idea/
