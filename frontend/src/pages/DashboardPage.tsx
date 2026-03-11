@@ -39,6 +39,8 @@ export function DashboardPage() {
             <img
               src={user.pictureUrl}
               alt={user.name}
+              referrerPolicy="no-referrer"
+              crossOrigin="anonymous"
               style={{ width: '64px', height: '64px', borderRadius: '50%' }}
             />
           )}

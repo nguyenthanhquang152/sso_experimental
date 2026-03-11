@@ -16,9 +16,11 @@ services:
     build: ./frontend
     environment:
       - VITE_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+    volumes:
+      - ./frontend/src:/app/src
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`sso.localhost`)"
+      - "traefik.http.routers.frontend.rule=Host(`localhost`)"
       - "traefik.http.routers.frontend.entrypoints=web"
       - "traefik.http.routers.frontend.priority=1"
       - "traefik.http.services.frontend.loadbalancer.server.port=5173"
@@ -32,10 +34,10 @@ services:
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - JWT_SECRET=${JWT_SECRET}
-      - FRONTEND_URL=http://sso.localhost:8000
+      - FRONTEND_URL=http://localhost:8000
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=Host(`sso.localhost`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.backend.rule=Host(`localhost`) && PathPrefix(`/api`)"
       - "traefik.http.routers.backend.entrypoints=web"
       - "traefik.http.routers.backend.priority=2"
       - "traefik.http.services.backend.loadbalancer.server.port=8080"
