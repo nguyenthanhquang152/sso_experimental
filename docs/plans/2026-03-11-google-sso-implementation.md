@@ -2,7 +2,7 @@
 
 **Goal:** Build a demo app showing Google SSO with two OAuth2 flows (server-side authorization code + client-side Google Identity Services) using React, Spring Boot, PostgreSQL, and Traefik.
 
-**Architecture:** Path-based routing via Traefik on `sso.localhost`. React SPA at `/`, Spring Boot API at `/api/`. Single origin eliminates CORS. PostgreSQL stores user records. JWT for stateless auth between frontend and backend.
+**Architecture:** Path-based routing via Traefik on `localhost:8000`. React SPA at `/`, Spring Boot API at `/api/`. Single origin eliminates CORS. PostgreSQL stores user records. Redis stores short-lived auth codes for the server-side OAuth2 flow. JWT for stateless auth between frontend and backend.
 
 **Tech Stack:** React 19.2.4, Vite 7.3.1, @react-oauth/google 0.13.4, Spring Boot 3.5.11, Spring Security 6.x, PostgreSQL 18.3, Traefik 3.6.x, Java 17+, JJWT, Google API Client.
 
@@ -202,6 +202,10 @@ spring:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/sso_demo}
     username: ${SPRING_DATASOURCE_USERNAME:sso_user}
     password: ${SPRING_DATASOURCE_PASSWORD:sso_pass}
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
   jpa:
     hibernate:
       ddl-auto: update
@@ -221,13 +225,13 @@ spring:
 
 app:
   jwt:
-    secret: ${JWT_SECRET:default-dev-secret-change-me-in-production-please}
+    secret: ${JWT_SECRET}
     expiration-ms: 86400000  # 24 hours
-  frontend-url: ${FRONTEND_URL:http://sso.localhost}
+  frontend-url: ${FRONTEND_URL:http://localhost:8000}
   google-client-id: ${GOOGLE_CLIENT_ID}
 ```
 
-**Note on `server.servlet.context-path: /api`:** This makes all Spring Boot endpoints automatically prefixed with `/api`. Spring Security OAuth2's default paths become `/api/oauth2/authorization/google` and `/api/login/oauth2/code/google`. Combined with `forward-headers-strategy: framework`, Spring Security uses the Traefik-forwarded `Host` header (`sso.localhost`) when constructing redirect URIs.
+**Note on `server.servlet.context-path: /api`:** This makes all Spring Boot endpoints automatically prefixed with `/api`. Spring Security OAuth2's default paths become `/api/oauth2/authorization/google` and `/api/login/oauth2/code/google`. Combined with `forward-headers-strategy: framework`, Spring Security uses the Traefik-forwarded `Host` header (`localhost`) when constructing redirect URIs.
 
 **Step 4: Verify the project compiles**
 
@@ -351,39 +355,61 @@ git commit -m "feat: add User entity and UserRepository"
 
 ---
 
-## Task 4: Backend — JWT Utilities
+## Task 4: Backend — JWT Token Service
 
 **Files:**
-- Create: `backend/src/main/java/com/demo/sso/config/JwtConfig.java`
+- Create: `backend/src/main/java/com/demo/sso/service/JwtTokenService.java`
 
-**Step 1: Create `JwtConfig.java`**
+**Step 1: Create `JwtTokenService.java`**
 
-This class generates and validates JWT tokens. It reads the secret and expiration from `application.yml`.
+This service generates and validates JWT tokens. It reads the secret and expiration from `application.yml`. It validates the secret at startup (minimum 32 chars, rejects placeholder values). Tokens include issuer (`sso-demo-backend`), audience (`sso-demo-api`), and a random `jti`.
 
 ```java
-package com.demo.sso.config;
+package com.demo.sso.service;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.UUID;
 
-@Component
-public class JwtConfig {
+@Service
+public class JwtTokenService {
+
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenService.class);
+
+    private static final String ISSUER = "sso-demo-backend";
+    private static final String AUDIENCE = "sso-demo-api";
 
     private final SecretKey key;
     private final long expirationMs;
 
-    public JwtConfig(
+    public JwtTokenService(
             @Value("${app.jwt.secret}") String secret,
             @Value("${app.jwt.expiration-ms}") long expirationMs) {
+        validateSecret(secret);
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.expirationMs = expirationMs;
+    }
+
+    private static void validateSecret(String secret) {
+        if (secret.length() < 32) {
+            throw new IllegalStateException(
+                    "JWT secret must be at least 32 characters. Set the JWT_SECRET environment variable.");
+        }
+        String normalized = secret.trim().toLowerCase();
+        if ("default".equals(normalized) || "change-me".equals(normalized)) {
+            throw new IllegalStateException(
+                    "JWT secret must not be a default/placeholder value. Set the JWT_SECRET environment variable.");
+        }
     }
 
     public String generateToken(String email, String googleId) {
@@ -393,6 +419,9 @@ public class JwtConfig {
         return Jwts.builder()
                 .subject(email)
                 .claim("googleId", googleId)
+                .issuer(ISSUER)
+                .audience().add(AUDIENCE).and()
+                .id(UUID.randomUUID().toString())
                 .issuedAt(now)
                 .expiration(expiry)
                 .signWith(key)
@@ -402,6 +431,8 @@ public class JwtConfig {
     public Claims parseToken(String token) {
         return Jwts.parser()
                 .verifyWith(key)
+                .requireIssuer(ISSUER)
+                .requireAudience(AUDIENCE)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
@@ -415,7 +446,8 @@ public class JwtConfig {
         try {
             parseToken(token);
             return true;
-        } catch (Exception e) {
+        } catch (JwtException | IllegalArgumentException e) {
+            logger.debug("JWT validation failed: {}", e.getMessage());
             return false;
         }
     }
@@ -431,7 +463,7 @@ cd backend && mvn compile -q
 **Step 3: Commit**
 
 ```bash
-git add backend/src/main/java/com/demo/sso/config/JwtConfig.java
+git add backend/src/main/java/com/demo/sso/service/JwtTokenService.java
 git commit -m "feat: add JWT token generation and validation"
 ```
 
@@ -566,23 +598,100 @@ git commit -m "feat: add Google ID token verification service"
 
 ---
 
-## Task 7: Backend — OAuth2 Success Handler
+## Task 7: Backend — Auth Code Store & OAuth2 Success Handler
 
 **Files:**
+- Create: `backend/src/main/java/com/demo/sso/service/AuthCodeStore.java`
+- Create: `backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java`
 - Create: `backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java`
 
-**Step 1: Create `OAuth2SuccessHandler.java`**
+**Step 1: Create `AuthCodeStore.java` interface**
 
-Handles the server-side OAuth2 flow callback. When Google redirects back with the auth code and Spring Security exchanges it for user info, this handler:
-1. Extracts user attributes from the OAuth2User
-2. Saves/updates the user in PostgreSQL
-3. Generates a JWT
-4. Redirects to the React frontend with the JWT as a query parameter
+This interface abstracts the storage of short-lived, single-use authorization codes that map to JWTs. The server-side OAuth2 flow stores a JWT in the store and redirects with a code; the frontend exchanges the code for the JWT. This avoids exposing JWTs in URL query parameters.
 
 ```java
 package com.demo.sso.service;
 
-import com.demo.sso.config.JwtConfig;
+/**
+ * Stores short-lived, single-use authorization codes that map to JWTs.
+ * Codes are generated during OAuth2 success and exchanged by the frontend for a JWT.
+ */
+public interface AuthCodeStore {
+
+    /**
+     * Store a JWT and return a single-use authorization code.
+     */
+    String storeJwt(String jwt);
+
+    /**
+     * Exchange a code for the stored JWT. Returns null if invalid/expired.
+     * The code is consumed and cannot be reused.
+     */
+    String exchangeCode(String code);
+}
+```
+
+**Step 2: Create `RedisAuthCodeStore.java`**
+
+Implements `AuthCodeStore` using Redis. Generates a 32-byte random code (URL-safe Base64), stores in Redis with key prefix `authcode:` and 30-second TTL. Exchange uses Redis `GETDEL` for atomic single-use. Excluded from test profile via `@Profile("!test")`.
+
+```java
+package com.demo.sso.service;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Service;
+
+import java.security.SecureRandom;
+import java.time.Duration;
+import java.util.Base64;
+
+@Service
+@Profile("!test")
+public class RedisAuthCodeStore implements AuthCodeStore {
+
+    private static final Duration CODE_TTL = Duration.ofSeconds(30);
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+    private static final String KEY_PREFIX = "authcode:";
+
+    private final StringRedisTemplate redisTemplate;
+
+    public RedisAuthCodeStore(StringRedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
+
+    @Override
+    public String storeJwt(String jwt) {
+        byte[] bytes = new byte[32];
+        SECURE_RANDOM.nextBytes(bytes);
+        String code = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+
+        redisTemplate.opsForValue().set(KEY_PREFIX + code, jwt, CODE_TTL);
+        return code;
+    }
+
+    @Override
+    public String exchangeCode(String code) {
+        // GETDEL: atomically get and delete — guarantees single-use
+        return redisTemplate.opsForValue().getAndDelete(KEY_PREFIX + code);
+    }
+}
+```
+
+**Step 3: Create `OAuth2SuccessHandler.java`**
+
+Handles the server-side OAuth2 flow callback. When Google redirects back with the auth code and Spring Security exchanges it for user info, this handler:
+1. Verifies email is verified (rejects with `?error=email_not_verified` if not)
+2. Validates required attributes are present (rejects with `?error=missing_attributes` if not)
+3. Extracts user attributes from the OAuth2User
+4. Saves/updates the user in PostgreSQL
+5. Generates a JWT
+6. Stores JWT in Redis via `AuthCodeStore` and gets a single-use code
+7. Redirects to the React frontend with `?code=AUTH_CODE`
+
+```java
+package com.demo.sso.service;
+
 import com.demo.sso.model.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -593,18 +702,28 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Component
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(OAuth2SuccessHandler.class);
+
     private final UserService userService;
-    private final JwtConfig jwtConfig;
+    private final JwtTokenService jwtTokenService;
+    private final AuthCodeStore authCodeStore;
     private final String frontendUrl;
 
-    public OAuth2SuccessHandler(UserService userService, JwtConfig jwtConfig,
+    public OAuth2SuccessHandler(UserService userService, JwtTokenService jwtTokenService,
+                                 AuthCodeStore authCodeStore,
                                  @Value("${app.frontend-url}") String frontendUrl) {
         this.userService = userService;
-        this.jwtConfig = jwtConfig;
+        this.jwtTokenService = jwtTokenService;
+        this.authCodeStore = authCodeStore;
         this.frontendUrl = frontendUrl;
     }
 
@@ -614,16 +733,32 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                                          Authentication authentication) throws IOException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
 
+        Boolean emailVerified = oAuth2User.getAttribute("email_verified");
+        if (!Boolean.TRUE.equals(emailVerified)) {
+            logger.warn("OAuth2 login rejected: email not verified");
+            response.sendRedirect(frontendUrl + "/?error=email_not_verified");
+            return;
+        }
+
         String googleId = oAuth2User.getAttribute("sub");
         String email = oAuth2User.getAttribute("email");
+
+        if (googleId == null || email == null) {
+            logger.warn("OAuth2 login rejected: missing sub or email attribute");
+            response.sendRedirect(frontendUrl + "/?error=missing_attributes");
+            return;
+        }
+
         String name = oAuth2User.getAttribute("name");
         String picture = oAuth2User.getAttribute("picture");
 
         User user = userService.findOrCreateUser(googleId, email, name, picture, "SERVER_SIDE");
 
-        String jwt = jwtConfig.generateToken(user.getEmail(), user.getGoogleId());
+        String jwt = jwtTokenService.generateToken(user.getEmail(), user.getGoogleId());
+        String code = authCodeStore.storeJwt(jwt);
 
-        response.sendRedirect(frontendUrl + "/?token=" + jwt);
+        String encodedCode = URLEncoder.encode(code, StandardCharsets.UTF_8);
+        response.sendRedirect(frontendUrl + "/?code=" + encodedCode);
     }
 }
 ```
@@ -637,8 +772,8 @@ cd backend && mvn compile -q
 **Step 3: Commit**
 
 ```bash
-git add backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java
-git commit -m "feat: add OAuth2 success handler for server-side flow"
+git add backend/src/main/java/com/demo/sso/service/AuthCodeStore.java backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java
+git commit -m "feat: add auth code store and OAuth2 success handler for server-side flow"
 ```
 
 ---
@@ -646,56 +781,106 @@ git commit -m "feat: add OAuth2 success handler for server-side flow"
 ## Task 8: Backend — Security Configuration
 
 **Files:**
+- Create: `backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java`
 - Create: `backend/src/main/java/com/demo/sso/config/SecurityConfig.java`
 
-**Step 1: Create `SecurityConfig.java`**
+**Step 1: Create `JwtAuthenticationFilter.java`**
+
+A dedicated `OncePerRequestFilter` that extracts the `Authorization: Bearer <token>` header, validates the JWT via `JwtTokenService`, and sets a `UsernamePasswordAuthenticationToken` in `SecurityContextHolder` with the user's email as principal and `ROLE_USER` authority.
+
+```java
+package com.demo.sso.config;
+
+import com.demo.sso.service.JwtTokenService;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.List;
+
+@Component
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+    private final JwtTokenService jwtTokenService;
+
+    public JwtAuthenticationFilter(JwtTokenService jwtTokenService) {
+        this.jwtTokenService = jwtTokenService;
+    }
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                     HttpServletResponse response,
+                                     FilterChain filterChain)
+            throws ServletException, IOException {
+
+        String header = request.getHeader("Authorization");
+
+        if (header != null && header.startsWith("Bearer ")) {
+            String token = header.substring(7);
+
+            if (!token.isBlank() && jwtTokenService.isTokenValid(token)) {
+                String email = jwtTokenService.getEmailFromToken(token);
+                var auth = new UsernamePasswordAuthenticationToken(
+                        email, null,
+                        List.of(new SimpleGrantedAuthority("ROLE_USER")));
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            }
+        }
+
+        filterChain.doFilter(request, response);
+    }
+}
+```
+
+**Step 2: Create `SecurityConfig.java`**
 
 This is the core security configuration. It:
-- Disables CSRF (stateless JWT-based API)
+- Disables CSRF for `/auth/**` and `/user/**` endpoints (API-only paths)
 - Sets session management to stateless
 - Configures OAuth2 login with our custom success handler
-- Adds a JWT authentication filter for protected endpoints
-- Permits public access to auth endpoints, requires JWT for `/user/**`
+- Injects the `JwtAuthenticationFilter` for protected endpoints
+- Permits public access to auth endpoints, requires authentication for `/user/**` and all others
+- Returns JSON 401 responses instead of redirecting
 
 ```java
 package com.demo.sso.config;
 
 import com.demo.sso.service.OAuth2SuccessHandler;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.filter.OncePerRequestFilter;
-
-import java.io.IOException;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
-    private final JwtConfig jwtConfig;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public SecurityConfig(OAuth2SuccessHandler oAuth2SuccessHandler, JwtConfig jwtConfig) {
+    public SecurityConfig(OAuth2SuccessHandler oAuth2SuccessHandler,
+                          JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.oAuth2SuccessHandler = oAuth2SuccessHandler;
-        this.jwtConfig = jwtConfig;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
+            .csrf(csrf -> csrf
+                .ignoringRequestMatchers("/auth/**", "/user/**")
+            )
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
@@ -705,42 +890,21 @@ public class SecurityConfig {
                     "/auth/**"
                 ).permitAll()
                 .requestMatchers("/user/**").authenticated()
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
             )
             .oauth2Login(oauth2 -> oauth2
                 .successHandler(oAuth2SuccessHandler)
             )
-            .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+            .exceptionHandling(ex -> ex
+                .authenticationEntryPoint((request, response, authException) -> {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.setContentType("application/json");
+                    response.getWriter().write("{\"error\":\"Unauthorized\"}");
+                })
+            )
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-    }
-
-    @Bean
-    public OncePerRequestFilter jwtAuthenticationFilter() {
-        return new OncePerRequestFilter() {
-            @Override
-            protected void doFilterInternal(HttpServletRequest request,
-                                             HttpServletResponse response,
-                                             FilterChain filterChain)
-                    throws ServletException, IOException {
-
-                String header = request.getHeader("Authorization");
-
-                if (header != null && header.startsWith("Bearer ")) {
-                    String token = header.substring(7);
-
-                    if (jwtConfig.isTokenValid(token)) {
-                        String email = jwtConfig.getEmailFromToken(token);
-                        var auth = new UsernamePasswordAuthenticationToken(
-                                email, null,
-                                List.of(new SimpleGrantedAuthority("ROLE_USER")));
-                        SecurityContextHolder.getContext().setAuthentication(auth);
-                    }
-                }
-
-                filterChain.doFilter(request, response);
-            }
-        };
     }
 }
 ```
@@ -756,7 +920,7 @@ cd backend && mvn compile -q
 **Step 3: Commit**
 
 ```bash
-git add backend/src/main/java/com/demo/sso/config/SecurityConfig.java
+git add backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java backend/src/main/java/com/demo/sso/config/SecurityConfig.java
 git commit -m "feat: add Spring Security config with OAuth2 + JWT filter"
 ```
 
@@ -770,16 +934,21 @@ git commit -m "feat: add Spring Security config with OAuth2 + JWT filter"
 
 **Step 1: Create `AuthController.java`**
 
-Handles the client-side flow token verification and logout.
+Handles the client-side flow token verification, auth code exchange (server-side flow), and logout.
 
 ```java
 package com.demo.sso.controller;
 
-import com.demo.sso.config.JwtConfig;
 import com.demo.sso.model.User;
+import com.demo.sso.service.AuthCodeStore;
 import com.demo.sso.service.GoogleTokenVerifier;
+import com.demo.sso.service.JwtTokenService;
 import com.demo.sso.service.UserService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -789,15 +958,20 @@ import java.util.Map;
 @RequestMapping("/auth")
 public class AuthController {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     private final GoogleTokenVerifier googleTokenVerifier;
     private final UserService userService;
-    private final JwtConfig jwtConfig;
+    private final JwtTokenService jwtTokenService;
+    private final AuthCodeStore authCodeStore;
 
     public AuthController(GoogleTokenVerifier googleTokenVerifier,
-                           UserService userService, JwtConfig jwtConfig) {
+                           UserService userService, JwtTokenService jwtTokenService,
+                           AuthCodeStore authCodeStore) {
         this.googleTokenVerifier = googleTokenVerifier;
         this.userService = userService;
-        this.jwtConfig = jwtConfig;
+        this.jwtTokenService = jwtTokenService;
+        this.authCodeStore = authCodeStore;
     }
 
     @PostMapping("/google/verify")
@@ -810,6 +984,11 @@ public class AuthController {
         try {
             GoogleIdToken.Payload payload = googleTokenVerifier.verify(credential);
 
+            if (!Boolean.TRUE.equals(payload.getEmailVerified())) {
+                return ResponseEntity.badRequest()
+                    .body(Map.of("error", "Email not verified by Google"));
+            }
+
             String googleId = payload.getSubject();
             String email = payload.getEmail();
             String name = (String) payload.get("name");
@@ -817,18 +996,34 @@ public class AuthController {
 
             User user = userService.findOrCreateUser(googleId, email, name, picture, "CLIENT_SIDE");
 
-            String jwt = jwtConfig.generateToken(user.getEmail(), user.getGoogleId());
+            String jwt = jwtTokenService.generateToken(user.getEmail(), user.getGoogleId());
 
             return ResponseEntity.ok(Map.of("token", jwt));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Invalid token: " + e.getMessage()));
+        } catch (GeneralSecurityException | IOException | IllegalArgumentException e) {
+            logger.warn("Google token verification failed", e);
+            return ResponseEntity.badRequest().body(Map.of("error", "Invalid Google credential"));
         }
+    }
+
+    @PostMapping("/exchange")
+    public ResponseEntity<?> exchangeCode(@RequestBody Map<String, String> body) {
+        String code = body.get("code");
+        if (code == null || code.isBlank()) {
+            return ResponseEntity.badRequest().body(Map.of("error", "Missing code"));
+        }
+
+        String jwt = authCodeStore.exchangeCode(code);
+        if (jwt == null) {
+            logger.debug("Auth code exchange failed for code: {}...",
+                    code.length() > 8 ? code.substring(0, 8) : code);
+            return ResponseEntity.badRequest().body(Map.of("error", "Invalid or expired code"));
+        }
+
+        return ResponseEntity.ok(Map.of("token", jwt));
     }
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout() {
-        // JWT is stateless — client simply discards the token.
-        // This endpoint exists for completeness; a real app might blacklist the token.
         return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
     }
 }
@@ -966,7 +1161,7 @@ export default defineConfig({
 })
 ```
 
-**Note:** `host: '0.0.0.0'` is required so the Vite dev server is accessible from outside the Docker container (Traefik needs to reach it). `strictPort: true` prevents Vite from using a different port if 5173 is occupied.
+**Note:** `host: '0.0.0.0'` is required so the Vite dev server listens on all interfaces when running locally. `strictPort: true` prevents Vite from using a different port if 5173 is occupied. In Docker, the production build uses nginx instead of the Vite dev server.
 
 **Step 4: Clean up default Vite files**
 
@@ -1205,7 +1400,7 @@ git commit -m "feat: add ServerSideLogin and ClientSideLogin components"
 
 **Step 1: Create `HomePage.tsx`**
 
-The landing page with two login options. Also checks URL for `?token=` (from server-side flow redirect).
+The landing page with two login options. Also checks URL for `?code=` (from server-side flow redirect) and exchanges it for a JWT via `POST /api/auth/exchange`.
 
 ```tsx
 import { useEffect } from 'react';
@@ -1213,6 +1408,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ServerSideLogin } from '../components/ServerSideLogin';
 import { ClientSideLogin } from '../components/ClientSideLogin';
 import { useAuth } from '../hooks/useAuth';
+import { apiFetch } from '../api/client';
 
 export function HomePage() {
   const { login, isAuthenticated } = useAuth();
@@ -1220,11 +1416,23 @@ export function HomePage() {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    // Handle server-side flow redirect: /?token=jwt
-    const token = searchParams.get('token');
-    if (token) {
-      login(token);
-      navigate('/dashboard', { replace: true });
+    const code = searchParams.get('code');
+    if (code) {
+      // Strip code from URL immediately to prevent leakage
+      window.history.replaceState({}, '', '/');
+
+      // Exchange the single-use code for a JWT
+      apiFetch<{ token: string }>('/auth/exchange', {
+        method: 'POST',
+        body: JSON.stringify({ code }),
+      })
+        .then((data) => {
+          login(data.token);
+          navigate('/dashboard', { replace: true });
+        })
+        .catch(() => {
+          // Code was invalid or expired — stay on homepage
+        });
     }
   }, [searchParams, login, navigate]);
 
@@ -1404,24 +1612,50 @@ git commit -m "feat: add pages, routing, and GoogleOAuthProvider setup"
 
 ---
 
-## Task 15: Frontend — Dockerfile & Environment
+## Task 15: Frontend — Dockerfile, Nginx & Environment
 
 **Files:**
 - Create: `frontend/Dockerfile`
+- Create: `frontend/nginx.conf`
 - Create: `frontend/.env.example`
 
 **Step 1: Create `frontend/Dockerfile`**
 
-Uses Node to run the Vite dev server in Docker (suitable for a demo).
+Multi-stage build: builds the React app with Node, then serves it with nginx.
 
 ```dockerfile
-FROM node:22-alpine
+# Stage 1: Build
+FROM node:22-alpine AS build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-EXPOSE 5173
-CMD ["npm", "run", "dev", "--", "--host"]
+RUN npm run build
+
+# Stage 2: Serve with nginx
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+RUN chown -R nginx:nginx /usr/share/nginx/html
+USER nginx
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+**Step 2: Create `frontend/nginx.conf`**
+
+Simple config for SPA routing — all requests fall back to `index.html`.
+
+```nginx
+server {
+    listen 80;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
 ```
 
 **Step 2: Create `frontend/.env.example`**
@@ -1432,11 +1666,11 @@ VITE_GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
 
 **Note:** Vite exposes environment variables prefixed with `VITE_` to the client bundle. The Google Client ID is not a secret — it's publicly visible in the browser anyway.
 
-**Step 3: Commit**
+**Step 4: Commit**
 
 ```bash
-git add frontend/Dockerfile frontend/.env.example
-git commit -m "feat: add frontend Dockerfile and env example"
+git add frontend/Dockerfile frontend/nginx.conf frontend/.env.example
+git commit -m "feat: add frontend Dockerfile (nginx), nginx.conf, and env example"
 ```
 
 ---
@@ -1454,57 +1688,64 @@ services:
   traefik:
     image: traefik:v3.6
     command:
-      - "--api.insecure=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.address=:8000"
     ports:
-      - "80:80"
-      - "8080:8080"
+      - "8000:8000"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${DOCKER_SOCK:-/run/user/1000/docker.sock}:/var/run/docker.sock:ro
 
   frontend:
     build: ./frontend
-    environment:
-      - VITE_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`sso.localhost`)"
+      - "traefik.http.routers.frontend.rule=Host(`localhost`)"
       - "traefik.http.routers.frontend.entrypoints=web"
       - "traefik.http.routers.frontend.priority=1"
-      - "traefik.http.services.frontend.loadbalancer.server.port=5173"
+      - "traefik.http.services.frontend.loadbalancer.server.port=80"
 
   backend:
     build: ./backend
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/sso_demo
-      - SPRING_DATASOURCE_USERNAME=sso_user
-      - SPRING_DATASOURCE_PASSWORD=sso_pass
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB:-sso_demo}
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER:-sso_user}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD:-sso_pass}
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
       - JWT_SECRET=${JWT_SECRET}
-      - FRONTEND_URL=http://sso.localhost
+      - FRONTEND_URL=http://localhost:8000
+      - SPRING_DATA_REDIS_HOST=redis
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=Host(`sso.localhost`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.backend.rule=Host(`localhost`) && PathPrefix(`/api`)"
       - "traefik.http.routers.backend.entrypoints=web"
       - "traefik.http.routers.backend.priority=2"
       - "traefik.http.services.backend.loadbalancer.server.port=8080"
     depends_on:
       postgres:
         condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   postgres:
     image: postgres:18-alpine
     environment:
-      - POSTGRES_DB=sso_demo
-      - POSTGRES_USER=sso_user
-      - POSTGRES_PASSWORD=sso_pass
+      - POSTGRES_DB=${POSTGRES_DB:-sso_demo}
+      - POSTGRES_USER=${POSTGRES_USER:-sso_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-sso_pass}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U sso_user -d sso_demo"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-sso_user} -d ${POSTGRES_DB:-sso_demo}"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -1525,7 +1766,7 @@ JWT_SECRET=change-me-to-a-random-string-at-least-32-characters-long
 
 ```bash
 git add docker-compose.yml .env.example
-git commit -m "feat: add Docker Compose with Traefik, backend, frontend, Postgres"
+git commit -m "feat: add Docker Compose with Traefik, backend, frontend, Postgres, Redis"
 ```
 
 ---
@@ -1533,8 +1774,8 @@ git commit -m "feat: add Docker Compose with Traefik, backend, frontend, Postgre
 ## Task 17: End-to-End Smoke Test
 
 **Prerequisites:** You must have a Google Cloud project with OAuth2 credentials configured:
-- Authorised JavaScript origins: `http://sso.localhost`
-- Authorised redirect URIs: `http://sso.localhost/api/login/oauth2/code/google`
+- Authorised JavaScript origins: `http://localhost:8000`
+- Authorised redirect URIs: `http://localhost:8000/api/login/oauth2/code/google`
 
 **Step 1: Create `.env` from `.env.example` and fill in real credentials**
 
@@ -1548,7 +1789,7 @@ cp .env.example .env
 ```bash
 docker compose up --build -d
 ```
-Expected: All 4 containers start (traefik, frontend, backend, postgres)
+Expected: All 5 containers start (traefik, frontend, backend, postgres, redis)
 
 **Step 3: Verify services are healthy**
 
@@ -1560,18 +1801,18 @@ Expected: All services showing "Up" / "healthy"
 **Step 4: Test Traefik routing**
 
 ```bash
-curl -s http://sso.localhost/ | head -5
+curl -s http://localhost:8000/ | head -5
 ```
-Expected: HTML from Vite dev server
+Expected: HTML from nginx (React production build)
 
 ```bash
-curl -s http://sso.localhost/api/auth/logout -X POST
+curl -s http://localhost:8000/api/auth/logout -X POST
 ```
 Expected: `{"message":"Logged out successfully"}`
 
 **Step 5: Test in browser**
 
-1. Open `http://sso.localhost` in your browser
+1. Open `http://localhost:8000` in your browser
 2. You should see the Home page with two login options
 3. Click "Sign in with Google (Server-Side)" — you should be redirected to Google consent
 4. After consent, you should land on `/dashboard` with your profile displayed
@@ -1602,17 +1843,17 @@ git commit -m "chore: final adjustments from smoke testing"
 | 1 | Project scaffolding | `.gitignore`, `.env.example` |
 | 2 | Backend Maven project | `pom.xml`, `SsoApplication.java`, `application.yml` |
 | 3 | User entity + repository | `User.java`, `UserRepository.java` |
-| 4 | JWT utilities | `JwtConfig.java` |
+| 4 | JWT token service | `JwtTokenService.java` |
 | 5 | UserService | `UserService.java` |
 | 6 | Google token verifier | `GoogleTokenVerifier.java` |
-| 7 | OAuth2 success handler | `OAuth2SuccessHandler.java` |
-| 8 | Security configuration | `SecurityConfig.java` |
+| 7 | Auth code store + OAuth2 success handler | `AuthCodeStore.java`, `RedisAuthCodeStore.java`, `OAuth2SuccessHandler.java` |
+| 8 | Security configuration | `JwtAuthenticationFilter.java`, `SecurityConfig.java` |
 | 9 | Controllers | `AuthController.java`, `UserController.java` |
 | 10 | Backend Dockerfile | `backend/Dockerfile` |
 | 11 | Frontend scaffolding | Vite + React + deps |
 | 12 | API client + auth hook | `client.ts`, `useAuth.ts` |
 | 13 | Login components | `ServerSideLogin.tsx`, `ClientSideLogin.tsx` |
 | 14 | Pages + routing | `HomePage.tsx`, `DashboardPage.tsx`, `App.tsx` |
-| 15 | Frontend Dockerfile | `frontend/Dockerfile` |
+| 15 | Frontend Dockerfile + nginx | `frontend/Dockerfile`, `nginx.conf` |
 | 16 | Docker Compose + Traefik | `docker-compose.yml` |
 | 17 | End-to-end smoke test | Manual test checklist |

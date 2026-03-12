@@ -19,6 +19,7 @@ A demo application showing Google SSO integration using two OAuth2 flows side-by
 | Spring Boot | 3.5.11 | Backend API |
 | Spring Security | 6.x | OAuth2 client + JWT |
 | PostgreSQL | 18.3 | User persistence |
+| Redis | 7 | Short-lived auth code store |
 | Traefik | 3.6.x | Reverse proxy |
 | Java | 17+ | Runtime |
 
@@ -30,21 +31,21 @@ A demo application showing Google SSO integration using two OAuth2 flows side-by
 │  http://localhost:8000/           (React SPA)        │
 │  http://localhost:8000/api/       (Spring Boot API)  │
 └──────────────────────┬──────────────────────────────┘
-                       │ :80
+                       │ :8000
               ┌────────┴────────┐
               │    Traefik      │
-              │   (port 80)     │
+              │  (port 8000)    │
               └───┬─────────┬───┘
         path /    │         │  path /api/
     ┌─────────────┴──┐  ┌───┴──────────────┐
-    │   React (Vite) │  │  Spring Boot     │
-    │   :5173        │  │  :8080           │
-    └────────────────┘  └────────┬─────────┘
-                                 │
-                        ┌────────┴─────────┐
-                        │  PostgreSQL 18.3 │
-                        │  :5432           │
-                        └──────────────────┘
+    │Frontend (nginx)│  │  Spring Boot     │
+    │   :80          │  │  :8080           │
+    └────────────────┘  └───┬──────────┬───┘
+                            │          │
+                   ┌────────┴───┐  ┌───┴──────────┐
+                   │ PostgreSQL │  │    Redis 7    │
+                   │   :5432    │  │    :6379      │
+                   └────────────┘  └──────────────┘
 ```
 
 **Routing:** Path-based via Traefik. Single domain `localhost:8000`.
@@ -63,8 +64,11 @@ A demo application showing Google SSO integration using two OAuth2 flows side-by
 4. Google redirects back to `localhost:8000/api/login/oauth2/code/google?code=xxx`
 5. Spring Security exchanges code for tokens, loads user info
 6. Backend saves/updates user in PostgreSQL
-7. Backend generates JWT, redirects to `localhost:8000/?token=jwt`
-8. React stores JWT, navigates to dashboard
+7. Backend generates JWT, stores it in Redis with a single-use auth code (30s TTL)
+8. Backend redirects to `localhost:8000/?code=AUTH_CODE`
+9. React detects `?code=` param, exchanges it via `POST /api/auth/exchange`
+10. Backend retrieves JWT from Redis (get-and-delete), returns it to React
+11. React stores JWT, navigates to dashboard
 
 ### Flow 2: Client-Side (Google Identity Services)
 
@@ -84,8 +88,9 @@ A demo application showing Google SSO integration using two OAuth2 flows side-by
 | GET | `/api/oauth2/authorization/google` | No | Spring Security built-in — initiates server-side OAuth2 |
 | GET | `/api/login/oauth2/code/google` | No | Spring Security built-in — Google callback |
 | POST | `/api/auth/google/verify` | No | Custom — verifies client-side Google ID token |
+| POST | `/api/auth/exchange` | No | Exchanges single-use auth code for JWT (server-side flow) |
 | GET | `/api/user/me` | JWT | Returns current user profile |
-| POST | `/api/auth/logout` | JWT | Invalidates session |
+| POST | `/api/auth/logout` | No | Returns logout confirmation message |
 
 ## Database Schema
 
@@ -112,7 +117,7 @@ backend/
 │   ├── SsoApplication.java
 │   ├── config/
 │   │   ├── SecurityConfig.java
-│   │   └── JwtConfig.java
+│   │   └── JwtAuthenticationFilter.java
 │   ├── controller/
 │   │   ├── AuthController.java
 │   │   └── UserController.java
@@ -121,7 +126,10 @@ backend/
 │   ├── repository/
 │   │   └── UserRepository.java
 │   └── service/
+│       ├── AuthCodeStore.java          (interface)
+│       ├── RedisAuthCodeStore.java
 │       ├── GoogleTokenVerifier.java
+│       ├── JwtTokenService.java
 │       ├── UserService.java
 │       └── OAuth2SuccessHandler.java
 ├── src/main/resources/
@@ -148,6 +156,7 @@ frontend/
 │   └── api/
 │       └── client.ts
 ├── index.html
+├── nginx.conf
 ├── Dockerfile
 ├── package.json
 └── vite.config.ts
@@ -168,15 +177,16 @@ frontend/
 
 ## Docker Compose
 
-Four services:
-1. **traefik** — Reverse proxy on port 80 (dashboard on 8080)
-2. **frontend** — React dev server (Vite) on port 5173
+Five services:
+1. **traefik** — Reverse proxy on port 8000
+2. **frontend** — React production build served by nginx on port 80
 3. **backend** — Spring Boot on port 8080
 4. **postgres** — PostgreSQL 18.3 on port 5432
+5. **redis** — Redis 7 on port 6379 (stores short-lived auth codes)
 
 Traefik routing:
-- `Host(localhost:8000)` priority=1 → frontend
-- `Host(localhost:8000) && PathPrefix(/api)` priority=2 → backend
+- `Host(localhost)` priority=1 → frontend
+- `Host(localhost) && PathPrefix(/api)` priority=2 → backend
 
 ## Environment Variables
 
