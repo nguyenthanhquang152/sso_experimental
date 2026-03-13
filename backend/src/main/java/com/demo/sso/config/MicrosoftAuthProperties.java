@@ -47,7 +47,17 @@ public class MicrosoftAuthProperties {
     }
 
     public boolean isConfigured() {
+        return isClientSideConfigured();
+    }
+
+    public boolean isClientSideConfigured() {
         return clientId != null && !clientId.isBlank()
             && authority != null && !authority.isBlank();
+    }
+
+    public boolean isServerSideConfigured() {
+        return isClientSideConfigured()
+            && clientSecret != null
+            && !clientSecret.isBlank();
     }
 }

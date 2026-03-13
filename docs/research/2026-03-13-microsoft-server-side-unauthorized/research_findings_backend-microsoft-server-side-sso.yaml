@@ -1,0 +1,492 @@
+plan_id: 2026-03-13-microsoft-server-side-unauthorized
+objective: >-
+  Investigate why clicking Microsoft server-side login returns {"error":"Unauthorized"}
+  in the backend Spring Security OAuth2 path, determine the exact root cause, and
+  identify the minimal backend fix.
+focus_area: backend-microsoft-server-side-sso
+created_at: 2026-03-13T00:00:00Z
+created_by: GitHub Copilot
+status: completed
+
+tldr: |
+  - The Microsoft server-side route is exposed and allowed through Spring Security, but the backend never defines a Spring OAuth2 client registration for `microsoft`; `application.yml` only registers `google` under `spring.security.oauth2.client.registration` while Microsoft values live separately under `app.microsoft.*`.
+  - Because the route `/api/oauth2/authorization/microsoft` is still permitted and the global authentication entry point returns JSON 401, a Microsoft authorize request that cannot resolve a client registration surfaces to the user as `{"error":"Unauthorized"}` instead of starting OAuth.
+  - The homepage can still show the Microsoft server-side button because `GET /auth/providers` computes `microsoft.serverSideEnabled` from rollout flags plus `MicrosoftAuthProperties.isConfigured()`, and that helper only requires `clientId` + `authority`, not a real Spring client registration or server-side `clientSecret`.
+  - Even after adding the missing client registration, the current callback path is still Google-shaped: `SecurityConfig` wires only a generic success handler, and `OAuth2SuccessHandler` assumes Google claims (`email_verified`, `sub`, `email`) and mints `NormalizedIdentity.google(...)`.
+  - Existing tests cover Microsoft-disabled behavior and generic filter wiring, but I found no enabled Microsoft server-side integration coverage; that gap likely allowed the broken authorize path to ship.
+
+research_metadata:
+  methodology: >-
+    Hybrid retrieval using semantic_search for conceptual discovery, grep_search for exact
+    line-number matches, targeted read_file inspection of backend config/controllers/tests/docs,
+    and file_search to confirm whether planned server-side helper artifacts exist.
+  tools_used:
+    - read_file
+    - semantic_search
+    - grep_search
+    - file_search
+    - create_directory
+    - create_file
+  scope: >-
+    Focused on backend Spring Security OAuth2 server-side Microsoft path and adjacent config:
+    SecurityConfig, Microsoft gate filter, provider config controller, auth properties/guard,
+    OAuth2 success handler, application.yml, relevant docs, and relevant backend tests.
+  confidence: high
+  coverage: 88
+
+files_analyzed:
+  - file: SecurityConfig.java
+    path: /home/nt-quang/Workspaces/personal/sso_experimental/backend/src/main/java/com/demo/sso/config/SecurityConfig.java
+    purpose: Defines the Spring Security filter chain for OAuth2 entrypoints, exception handling, and custom filters.
+    key_elements:
+      - element: filterChain
+        type: function
+        location: backend/src/main/java/com/demo/sso/config/SecurityConfig.java:31-60
+        description: >-
+          Permits `/oauth2/**` and `/login/oauth2/**`, enables `oauth2Login`, installs the global
+          JSON 401 entry point, and inserts `MicrosoftAuthorizationGateFilter` before
+          `OAuth2AuthorizationRequestRedirectFilter`.
+        citations:
+          - backend/src/main/java/com/demo/sso/config/SecurityConfig.java:37-58
+    language: java
+    lines: 60
+
+  - file: MicrosoftAuthorizationGateFilter.java
+    path: /home/nt-quang/Workspaces/personal/sso_experimental/backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java
+    purpose: Hard-gates Microsoft authorize and callback routes when the rollout flag is disabled.
+    key_elements:
+      - element: doFilterInternal
+        type: function
+        location: backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java:24-48
+        description: >-
+          Returns 503 for `/oauth2/authorization/microsoft` when server-side rollout is off and
+          redirects callback traffic to the frontend when disablement happens before completion.
+        citations:
+          - backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java:28-45
+    language: java
+    lines: 48
+
+  - file: application.yml
+    path: /home/nt-quang/Workspaces/personal/sso_experimental/backend/src/main/resources/application.yml
+    purpose: Declares backend runtime config, including Spring OAuth client registration and Microsoft feature/public config.
+    key_elements:
+      - element: spring.security.oauth2.client.registration
+        type: pattern
+        location: backend/src/main/resources/application.yml:31-34
+        description: Only the `google` client registration is present under Spring Security OAuth2 client configuration.
+        citations:
+          - backend/src/main/resources/application.yml:31-34
+      - element: app.auth.microsoft and app.microsoft
+        type: pattern
+        location: backend/src/main/resources/application.yml:46-53
+        description: Microsoft rollout flags and public config live under `app.*`, separate from Spring's client registration tree.
+        citations:
+          - backend/src/main/resources/application.yml:47-53
+    language: yaml
+    lines: 53
+
+  - file: ProviderConfigController.java
+    path: /home/nt-quang/Workspaces/personal/sso_experimental/backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java
+    purpose: Publishes runtime provider metadata that drives frontend auth button rendering.
+    key_elements:
+      - element: getProviders
+        type: function
+        location: backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java:32-59
+        description: >-
+          Computes `microsoft.serverSideEnabled` from rollout flags plus `MicrosoftAuthProperties.isConfigured()`.
+        citations:
+          - backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java:35-55
+    language: java
+    lines: 60
+
+  - file: MicrosoftAuthProperties.java
+    path: /home/nt-quang/Workspaces/personal/sso_experimental/backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java
+    purpose: Holds Microsoft public/server config values used by provider metadata and token verification.
+    key_elements:
+      - element: isConfigured
+        type: function
+        location: backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java:49-51
+        description: Treats Microsoft as configured when only `clientId` and `authority` are present.
+        citations:
+          - backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java:49-51
+    language: java
+    lines: 52
+
+  - file: IdentityContractGuard.java
+    path: /home/nt-quang/Workspaces/personal/sso_experimental/backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java
+    purpose: Startup guard for rollout modes and minimal Microsoft config.
+    key_elements:
+      - element: validate
+        type: function
+        location: backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java:18-44
+        description: Requires Microsoft feature enablement to have `identity-contract-mode=V2_ONLY` and configured `client-id` + `authority`.
+        citations:
+          - backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java:34-43
+    language: java
+    lines: 44
+
+  - file: OAuth2SuccessHandler.java
+    path: /home/nt-quang/Workspaces/personal/sso_experimental/backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java
+    purpose: Handles successful server-side OAuth logins by creating/updating the user, minting JWT/auth code, and redirecting to the SPA.
+    key_elements:
+      - element: onAuthenticationSuccess
+        type: function
+        location: backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java:39-71
+        description: >-
+          Assumes Google-specific claims (`email_verified`, `sub`, `email`) and always builds
+          `NormalizedIdentity.google(...)`.
+        citations:
+          - backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java:45-65
+    language: java
+    lines: 73
+
+  - file: ControllerIntegrationTest.java
+    path: /home/nt-quang/Workspaces/personal/sso_experimental/backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java
+    purpose: Integration coverage for auth endpoints and disabled Microsoft contracts.
+    key_elements:
+      - element: microsoftAuthorizationEntryReturns503WhenServerSideFlowDisabled
+        type: function
+        location: backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java:291-294
+        description: Confirms only the disabled Microsoft authorize-entry contract is covered.
+        citations:
+          - backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java:291-294
+    language: java
+    lines: 321
+
+  - file: MicrosoftAuthorizationGateFilterTest.java
+    path: /home/nt-quang/Workspaces/personal/sso_experimental/backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java
+    purpose: Unit tests for disabled/enabled gate behavior on Microsoft authorize/callback routes.
+    key_elements:
+      - element: authorizationEndpoint tests
+        type: testing
+        location: backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java:58-76
+        description: Verifies 503 when disabled and pass-through when enabled at the filter level only.
+        citations:
+          - backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java:58-76
+    language: java
+    lines: 285
+
+  - file: ProviderConfigControllerTest.java
+    path: /home/nt-quang/Workspaces/personal/sso_experimental/backend/src/test/java/com/demo/sso/controller/ProviderConfigControllerTest.java
+    purpose: Verifies the runtime provider payload used by the frontend.
+    key_elements:
+      - element: hardDisablesMicrosoftWhenFlagsAreOnButPublicConfigIsMissing
+        type: function
+        location: backend/src/test/java/com/demo/sso/controller/ProviderConfigControllerTest.java:14-38
+        description: Demonstrates that the runtime payload is driven by `MicrosoftAuthProperties`, not by Spring OAuth client registration.
+        citations:
+          - backend/src/test/java/com/demo/sso/controller/ProviderConfigControllerTest.java:14-38
+    language: java
+    lines: 84
+
+  - file: microsoft-sso-integration.md
+    path: /home/nt-quang/Workspaces/personal/sso_experimental/docs/guides/microsoft-sso-integration.md
+    purpose: Describes intended Microsoft server-side/client-side behavior and required environment variables.
+    key_elements:
+      - element: server-side flow documentation
+        type: documentation
+        location: docs/guides/microsoft-sso-integration.md:70-75
+        description: States that clicking the Microsoft server-side card should send the browser to `/api/oauth2/authorization/microsoft` and start the Spring Security authorization code flow.
+        citations:
+          - docs/guides/microsoft-sso-integration.md:73-74
+      - element: server-side secret requirement
+        type: documentation
+        location: docs/guides/microsoft-sso-integration.md:129-136
+        description: Documents `MICROSOFT_CLIENT_SECRET` as required for the server-side flow.
+        citations:
+          - docs/guides/microsoft-sso-integration.md:132-135
+    language: markdown
+    lines: 180
+
+  - file: 2026-03-13-microsoft-sso-implementation.md
+    path: /home/nt-quang/Workspaces/personal/sso_experimental/docs/plans/2026-03-13-microsoft-sso-implementation.md
+    purpose: Implementation plan describing intended Microsoft server-side backend pieces.
+    key_elements:
+      - element: server-side implementation plan
+        type: documentation
+        location: docs/plans/2026-03-13-microsoft-sso-implementation.md:41-60
+        description: Expects SecurityConfig cookie-based OAuth continuity, provider-aware success handling, and a `MicrosoftOidcUserService` for server-side login.
+        citations:
+          - docs/plans/2026-03-13-microsoft-sso-implementation.md:41-42
+          - docs/plans/2026-03-13-microsoft-sso-implementation.md:60
+    language: markdown
+    lines: 95
+
+patterns_found:
+  - category: architecture
+    pattern: Route reserved before provider exists
+    description: >-
+      The backend reserves `/oauth2/authorization/microsoft` through filter-chain matchers and a gate filter,
+      but the actual Spring OAuth2 client/provider configuration for `microsoft` is absent.
+    examples:
+      - file: backend/src/main/java/com/demo/sso/config/SecurityConfig.java
+        location: 39-58
+        snippet: |
+          .requestMatchers(
+              "/oauth2/**",
+              "/login/oauth2/**",
+              "/auth/**"
+          ).permitAll()
+          ...
+          .addFilterBefore(microsoftAuthorizationGateFilter, OAuth2AuthorizationRequestRedirectFilter.class)
+      - file: backend/src/main/resources/application.yml
+        location: 31-34
+        snippet: |
+          registration:
+            google:
+              client-id: ${GOOGLE_CLIENT_ID}
+              client-secret: ${GOOGLE_CLIENT_SECRET}
+    prevalence: common
+
+  - category: structure
+    pattern: Runtime provider metadata uses app-level public config, not Spring OAuth registration state
+    description: >-
+      The frontend-facing `/auth/providers` payload derives Microsoft enablement from rollout flags plus
+      `MicrosoftAuthProperties.isConfigured()`, which only checks `clientId` and `authority`.
+    examples:
+      - file: backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java
+        location: 35-47
+        snippet: |
+          boolean microsoftConfigured = microsoftAuthProperties.isConfigured();
+          boolean microsoftServerSideEnabled = rolloutProperties.getMicrosoft().isServerSideEnabled() && microsoftConfigured;
+          ...
+          microsoft.put("serverSideEnabled", microsoftServerSideEnabled);
+      - file: backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java
+        location: 49-51
+        snippet: |
+          public boolean isConfigured() {
+              return clientId != null && !clientId.isBlank()
+                  && authority != null && !authority.isBlank();
+          }
+    prevalence: common
+
+  - category: error_handling
+    pattern: Global JSON 401 masks OAuth2 misconfiguration as generic unauthorized
+    description: >-
+      The filter chain returns a fixed JSON 401 response for authentication failures, which makes
+      missing/invalid OAuth2 authorize setup appear as `{"error":"Unauthorized"}`.
+    examples:
+      - file: backend/src/main/java/com/demo/sso/config/SecurityConfig.java
+        location: 47-54
+        snippet: |
+          .oauth2Login(oauth2 -> oauth2
+              .successHandler(oAuth2SuccessHandler)
+          )
+          .exceptionHandling(ex -> ex
+              .authenticationEntryPoint((request, response, authException) -> {
+                  response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                  response.setContentType("application/json");
+                  response.getWriter().write("{\"error\":\"Unauthorized\"}");
+              })
+          )
+    prevalence: common
+
+  - category: architecture
+    pattern: Server-side callback implementation remains Google-specific
+    description: >-
+      Successful OAuth2 logins are handled by code that assumes Google claim names and builds a Google identity,
+      so Microsoft server-side callback parity is not yet implemented in the current source.
+    examples:
+      - file: backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java
+        location: 45-65
+        snippet: |
+          Boolean emailVerified = oAuth2User.getAttribute("email_verified");
+          ...
+          String googleId = oAuth2User.getAttribute("sub");
+          String email = oAuth2User.getAttribute("email");
+          ...
+          User user = userService.findOrCreateUser(
+              NormalizedIdentity.google(googleId, email, name, picture, AuthFlow.SERVER_SIDE)
+          );
+    prevalence: common
+
+  - category: testing
+    pattern: Microsoft server-side tests cover disabled gating, not enabled end-to-end authorize flow
+    description: >-
+      Existing tests validate the disabled contract and filter pass-through, but not a real enabled Microsoft
+      authorize request backed by Spring client registration.
+    examples:
+      - file: backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java
+        location: 291-294
+        snippet: |
+          mockMvc.perform(get("/oauth2/authorization/microsoft"))
+              .andExpect(status().isServiceUnavailable())
+              .andExpect(content().json("{\"error\":\"Microsoft server-side login is disabled\"}"));
+      - file: backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java
+        location: 58-76
+        snippet: |
+          when(request.getRequestURI()).thenReturn("/oauth2/authorization/microsoft");
+          ...
+          verify(filterChain).doFilter(request, response);
+    prevalence: occasional
+
+related_architecture:
+  components_relevant_to_domain:
+    - component: SecurityConfig
+      responsibility: Owns authorize-path permissions, OAuth2 login activation, entry-point error handling, and custom filter ordering.
+      location: backend/src/main/java/com/demo/sso/config/SecurityConfig.java
+      relationship_to_domain: domain entry point
+    - component: MicrosoftAuthorizationGateFilter
+      responsibility: Blocks or redirects Microsoft server-side traffic when rollout is off.
+      location: backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java
+      relationship_to_domain: pre-authorize and pre-callback gate
+    - component: ProviderConfigController
+      responsibility: Exposes runtime provider flags that determine whether the frontend renders Microsoft login UI.
+      location: backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java
+      relationship_to_domain: frontend/backend contract for button visibility
+    - component: OAuth2SuccessHandler
+      responsibility: Finishes server-side OAuth logins by normalizing the principal, minting JWT/auth code, and redirecting.
+      location: backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java
+      relationship_to_domain: callback completion path
+    - component: application.yml OAuth2 client config
+      responsibility: Supplies Spring Security OAuth2 client registrations/providers.
+      location: backend/src/main/resources/application.yml
+      relationship_to_domain: authorize-path dependency
+  interfaces_used_by_domain:
+    - interface: SecurityFilterChain
+      location: backend/src/main/java/com/demo/sso/config/SecurityConfig.java
+      usage_pattern: Configures permit rules, OAuth2 login, exception handling, and filter ordering.
+    - interface: AuthenticationSuccessHandler
+      location: backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java
+      usage_pattern: Converts successful OAuth2 logins into JWT/auth-code redirects.
+  data_flow_involving_domain: >-
+    Home page fetches `/api/auth/providers` -> frontend decides whether to render the Microsoft server-side card ->
+    click sends browser to `/api/oauth2/authorization/microsoft` -> `MicrosoftAuthorizationGateFilter` either blocks or
+    passes the request -> Spring OAuth2 authorize filter needs a `microsoft` client registration -> on success the
+    `OAuth2SuccessHandler` maps the principal to a local user and redirects the SPA with an auth code.
+  key_relationships_to_domain:
+    - from: ProviderConfigController
+      to: MicrosoftAuthProperties
+      relationship: calls
+    - from: SecurityConfig
+      to: MicrosoftAuthorizationGateFilter
+      relationship: composes
+    - from: SecurityConfig
+      to: OAuth2SuccessHandler
+      relationship: composes
+    - from: OAuth2SuccessHandler
+      to: UserService
+      relationship: calls
+    - from: OAuth2SuccessHandler
+      to: JwtTokenService
+      relationship: calls
+    - from: OAuth2SuccessHandler
+      to: AuthCodeStore
+      relationship: calls
+
+related_technology_stack:
+  languages_used_in_domain:
+    - Java
+    - YAML
+    - Markdown
+  frameworks_used_in_domain:
+    - name: Spring Boot
+      usage_in_domain: Application configuration and REST/controller wiring.
+    - name: Spring Security OAuth2 Client
+      usage_in_domain: Authorize endpoint handling and OAuth2 login filter chain.
+    - name: JUnit 5 / MockMvc / Mockito
+      usage_in_domain: Unit and integration verification of security and controller contracts.
+  libraries_used_in_domain:
+    - name: spring-security-oauth2-client
+      purpose_in_domain: Server-side OAuth2 authorization-code login flow.
+  external_apis_used_in_domain:
+    - name: Microsoft identity platform v2.0
+      integration_point: Server-side authorize/callback flow documented in Microsoft SSO docs.
+
+related_conventions:
+  naming_patterns_in_domain: >-
+    Auth rollout toggles live under `app.auth.microsoft.*`; public/provider metadata lives under
+    `app.microsoft.*`; auth endpoints are rooted at `/auth`; OAuth2 framework endpoints use `/oauth2/**`
+    and `/login/oauth2/**` behind the `/api` servlet context path.
+  structure_of_domain: >-
+    Security rules live in `config/`, UI-facing runtime provider contract in `controller/`, and
+    login completion logic in `service/`.
+  error_handling_in_domain: >-
+    Disabled Microsoft authorize entry returns 503 JSON; generic authentication failures return a fixed
+    JSON 401 body from the global authentication entry point.
+  testing_in_domain: >-
+    Tests prefer narrow MockMvc/controller contracts and filter unit tests; current server-side Microsoft
+    coverage focuses on disabled behavior rather than a fully enabled flow.
+  documentation_in_domain: >-
+    Developer docs describe both Microsoft flows and expected env vars; the superpowers plan captures
+    the intended backend artifacts for parity.
+
+related_dependencies:
+  internal:
+    - component: AuthRolloutProperties
+      relationship_to_domain: supplies Microsoft enablement flags
+      direction: outbound
+    - component: MicrosoftAuthProperties
+      relationship_to_domain: supplies Microsoft public/server config values
+      direction: outbound
+    - component: UserService
+      relationship_to_domain: persists normalized user identity after successful OAuth login
+      direction: outbound
+    - component: JwtTokenService
+      relationship_to_domain: mints API JWT after successful OAuth login
+      direction: outbound
+    - component: AuthCodeStore
+      relationship_to_domain: stores single-use auth codes for SPA exchange after server-side login
+      direction: outbound
+  external:
+    - name: Microsoft identity platform
+      purpose_for_domain: OAuth2/OIDC authorize + callback provider
+    - name: Spring Security OAuth2 client infrastructure
+      purpose_for_domain: resolves client registrations and drives server-side login filters
+
+domain_security_considerations:
+  sensitive_areas:
+    - area: OAuth2 authorize entry
+      location: backend/src/main/java/com/demo/sso/config/SecurityConfig.java:39-58
+      concern: A missing or invalid client registration currently surfaces as a generic 401 JSON response.
+    - area: Server-side callback identity normalization
+      location: backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java:45-65
+      concern: Current callback logic is provider-specific and assumes Google claim semantics.
+  authentication_patterns_in_domain: >-
+    Browser-initiated OAuth2 authorization code flow backed by Spring Security, followed by JWT minting
+    and a frontend auth-code exchange.
+  authorization_patterns_in_domain: >-
+    `/oauth2/**`, `/login/oauth2/**`, and `/auth/**` are publicly accessible; `/user/**` and all other
+    routes require authentication.
+  data_validation_in_domain: >-
+    Current success-handler validation expects Google's `email_verified`, `sub`, and `email` claims;
+    Microsoft-specific callback validation is not wired in the current source.
+
+testing_patterns:
+  framework: JUnit 5 with MockMvc and Mockito
+  coverage_areas:
+    - disabled Microsoft authorize entry contract
+    - filter pass-through vs gate behavior
+    - provider config payload generation
+    - Google-oriented OAuth success handling
+  test_organization: >-
+    Controller integration tests cover API contracts, filter tests cover unit gate behavior, and service
+    tests cover OAuth success handling.
+  mock_patterns:
+    - Mock `HttpSecurity` for filter-chain construction tests
+    - Mock `HttpServletRequest` / `HttpServletResponse` / `FilterChain` in filter tests
+    - Mock `Authentication` / `OAuth2User` in success-handler tests
+
+open_questions:
+  - question: What exact Spring exception class is thrown on the current enabled `/oauth2/authorization/microsoft` path?
+    context: >-
+      The line-cited source strongly indicates a missing client registration and a fall-through into the global 401 entry point,
+      but I did not run a live request with Microsoft rollout enabled and credentials present.
+  - question: Should the runtime provider contract consider Microsoft server-side "enabled" only when `clientSecret` and a Spring client registration are present?
+    context: >-
+      Current provider enablement is based on `clientId` + `authority`, while the docs state `MICROSOFT_CLIENT_SECRET`
+      is required for the server-side flow.
+
+gaps:
+  - area: Live request reproduction
+    description: >-
+      I did not execute the backend with a Microsoft-enabled environment and inspect runtime logs/stack traces for the authorize request.
+    impact: >-
+      Low impact on the root-cause conclusion because the static code path and current configuration mismatch are explicit,
+      but it prevents naming the exact thrown Spring exception class with certainty.
+  - area: Enabled-path automated coverage
+    description: >-
+      I found disabled-path tests and filter pass-through tests, but no integration test that exercises an enabled
+      Microsoft authorize request backed by a registered Spring OAuth2 client.
+    impact: >-
+      Medium impact for regression prevention; this gap explains why the miswired enabled path was not caught earlier.

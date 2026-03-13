@@ -6,7 +6,7 @@
 
 **Tech Stack:** React 19.2.4, Vite 7.3.1, @react-oauth/google 0.13.4, Spring Boot 3.5.11, Spring Security 6.x, PostgreSQL 18.3, Traefik 3.6.x, Java 17+, JJWT, Google API Client.
 
-**Design doc:** `docs/plans/2026-03-11-google-sso-design.md`
+**Design doc:** `docs/specs/2026-03-11-google-sso-design.md`
 
 ---
 

@@ -68,6 +68,30 @@ class ProviderConfigControllerTest {
     }
 
     @Test
+    void hardDisablesMicrosoftServerSideWhenSecretIsMissing() {
+        AuthRolloutProperties rollout = new AuthRolloutProperties();
+        rollout.getMicrosoft().setClientSideEnabled(true);
+        rollout.getMicrosoft().setServerSideEnabled(true);
+
+        MicrosoftAuthProperties microsoft = new MicrosoftAuthProperties();
+        microsoft.setClientId("microsoft-client-id");
+        microsoft.setAuthority("https://login.microsoftonline.com/common/v2.0");
+        microsoft.setScopes(List.of("openid", "profile", "email"));
+
+        ProviderConfigController controller = new ProviderConfigController(
+            rollout,
+            microsoft,
+            "google-client-id.apps.googleusercontent.com");
+
+        ResponseEntity<Map<String, Object>> response = controller.getProviders();
+        @SuppressWarnings("unchecked")
+        Map<String, Object> payload = (Map<String, Object>) response.getBody().get("microsoft");
+
+        assertFalse((Boolean) payload.get("serverSideEnabled"));
+        assertTrue((Boolean) payload.get("clientSideEnabled"));
+    }
+
+    @Test
     void hardDisablesGoogleClientSideWhenPublicClientIdIsMissing() {
         ProviderConfigController controller = new ProviderConfigController(
             new AuthRolloutProperties(),

@@ -3,6 +3,7 @@ package com.demo.sso.service;
 import com.demo.sso.config.AuthRolloutProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -21,6 +22,7 @@ public class RedisAuthCodeStore implements AuthCodeStore {
     private final StringRedisTemplate redisTemplate;
     private final AuthRolloutProperties rolloutProperties;
 
+    @Autowired
     public RedisAuthCodeStore(StringRedisTemplate redisTemplate, AuthRolloutProperties rolloutProperties) {
         this.redisTemplate = redisTemplate;
         this.rolloutProperties = rolloutProperties;

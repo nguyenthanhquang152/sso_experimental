@@ -1,0 +1,341 @@
+plan_id: "2026-03-13-microsoft-sso-config-expectations"
+objective: "Investigate Microsoft SSO configuration expectations across docs, env, compose, and tests; determine expected account-type/tenant/authority behavior and whether current .env values contradict it."
+focus_area: "microsoft_auth_config"
+created_at: "2026-03-13"
+created_by: "GitHub Copilot (GPT-5.4)"
+status: "completed"
+
+tldr: |
+  - The repository’s docs and tests consistently expect Microsoft sign-in to use the public authority `https://login.microsoftonline.com/common/v2.0` as the interactive/browser-facing authority while validating final ID-token issuers against tenant-specific `https://login.microsoftonline.com/{tid}/v2.0` values.
+  - The design/spec docs explicitly target a multi-tenant Microsoft app that supports personal Microsoft accounts plus organizational member/home-tenant accounts, while rejecting guest/B2B identities.
+  - The current root `.env` enables Microsoft and pins `MICROSOFT_AUTHORITY` to a single tenant-specific authority (`.../{tenant-id}/v2.0`), which conflicts with the documented/tested `common` authority expectation and would be surfaced to the frontend through `/auth/providers`.
+  - The repository does not contain Azure portal metadata, so the actual app-registration “supported account types” setting cannot be verified from source alone; however, if the registration is still single-tenant, it would also contradict the documented multi-tenant requirement.
+
+research_metadata:
+  methodology: "Hybrid retrieval: semantic search for conceptual discovery, regex search for exact config/test/doc matches, targeted file reads for high-signal evidence, and one terminal line-count pass for report metadata."
+  tools_used:
+    - "semantic_search"
+    - "grep_search"
+    - "read_file"
+    - "list_dir"
+    - "run_in_terminal"
+    - "create_file"
+  scope: "Focused on Microsoft auth expectations in root env/compose, backend runtime config exposure, developer/spec docs, and backend/frontend tests that assert Microsoft authority, tenant, and supported identity behavior."
+  confidence: "high"
+  coverage: 90
+
+files_analyzed:
+  - file: ".env"
+    path: "/home/nt-quang/Workspaces/personal/sso_experimental/.env"
+    purpose: "Local runtime overrides for Microsoft auth enablement and authority selection."
+    key_elements:
+      - element: "MICROSOFT_AUTHORITY"
+        type: "variable"
+        location: ".env:14"
+        description: "Pins Microsoft authority to a tenant-specific v2.0 authority instead of `common`."
+      - element: "Microsoft rollout toggles"
+        type: "variable"
+        location: ".env:16-.env:19"
+        description: "Enables V2 identity/JWT modes and both Microsoft flows locally."
+    language: "dotenv"
+    lines: 19
+
+  - file: "docker-compose.yml"
+    path: "/home/nt-quang/Workspaces/personal/sso_experimental/docker-compose.yml"
+    purpose: "Passes host env values into the backend container in local Docker runs."
+    key_elements:
+      - element: "MICROSOFT_* passthrough"
+        type: "pattern"
+        location: "docker-compose.yml:30-docker-compose.yml:33"
+        description: "Forwards Microsoft client ID, secret, authority, and scopes from the root env into the backend container unchanged."
+      - element: "APP_AUTH_MICROSOFT_* passthrough"
+        type: "pattern"
+        location: "docker-compose.yml:39-docker-compose.yml:40"
+        description: "Forwards Microsoft server-side and client-side rollout flags into the backend container."
+    language: "yaml"
+    lines: 76
+
+  - file: "application.yml"
+    path: "/home/nt-quang/Workspaces/personal/sso_experimental/backend/src/main/resources/application.yml"
+    purpose: "Maps environment variables into backend Microsoft auth configuration."
+    key_elements:
+      - element: "Microsoft rollout mapping"
+        type: "pattern"
+        location: "backend/src/main/resources/application.yml:47-backend/src/main/resources/application.yml:48"
+        description: "Binds rollout flags from `APP_AUTH_MICROSOFT_*`."
+      - element: "Microsoft authority mapping"
+        type: "pattern"
+        location: "backend/src/main/resources/application.yml:50-backend/src/main/resources/application.yml:52"
+        description: "Uses `MICROSOFT_AUTHORITY` if set, otherwise defaults to `https://login.microsoftonline.com/common/v2.0`."
+    language: "yaml"
+    lines: 53
+
+  - file: "microsoft-sso-integration.md"
+    path: "/home/nt-quang/Workspaces/personal/sso_experimental/docs/guides/microsoft-sso-integration.md"
+    purpose: "Developer-facing runtime contract and configuration documentation for Microsoft SSO."
+    key_elements:
+      - element: "Provider contract example"
+        type: "pattern"
+        location: "docs/guides/microsoft-sso-integration.md:60"
+        description: "Documents Microsoft public authority as `https://login.microsoftonline.com/common/v2.0`."
+      - element: "Validation rules"
+        type: "pattern"
+        location: "docs/guides/microsoft-sso-integration.md:92-docs/guides/microsoft-sso-integration.md:96"
+        description: "Documents tenant-aware issuer checks and rejection of unsupported guest/external identities."
+      - element: "Microsoft env table"
+        type: "pattern"
+        location: "docs/guides/microsoft-sso-integration.md:131-docs/guides/microsoft-sso-integration.md:136"
+        description: "Documents `MICROSOFT_AUTHORITY` as optional with default `common/v2.0`."
+    language: "markdown"
+    lines: 175
+
+  - file: "2026-03-13-microsoft-sso-design.md"
+    path: "/home/nt-quang/Workspaces/personal/sso_experimental/docs/specs/2026-03-13-microsoft-sso-design.md"
+    purpose: "Detailed design/spec for supported Microsoft account types and authority strategy."
+    key_elements:
+      - element: "Supported-account-types requirement"
+        type: "pattern"
+        location: "docs/specs/2026-03-13-microsoft-sso-design.md:14-docs/specs/2026-03-13-microsoft-sso-design.md:25"
+        description: "Specifies support for personal Microsoft accounts and organizational member/home-tenant accounts."
+      - element: "Authority strategy"
+        type: "pattern"
+        location: "docs/specs/2026-03-13-microsoft-sso-design.md:206-docs/specs/2026-03-13-microsoft-sso-design.md:218"
+        description: "Requires multi-tenant app config, `common` for interactive entry, tenant-specific final issuers, and guest/B2B rejection."
+      - element: "Server-side validation note"
+        type: "pattern"
+        location: "docs/specs/2026-03-13-microsoft-sso-design.md:372"
+        description: "States that single-issuer validation against `common` is not acceptable; `common` is only the entry point."
+    language: "markdown"
+    lines: 738
+
+  - file: "ProviderConfigControllerTest.java"
+    path: "/home/nt-quang/Workspaces/personal/sso_experimental/backend/src/test/java/com/demo/sso/controller/ProviderConfigControllerTest.java"
+    purpose: "Unit tests for the runtime provider-config payload exposed to the frontend."
+    key_elements:
+      - element: "Enabled Microsoft provider contract"
+        type: "test"
+        location: "backend/src/test/java/com/demo/sso/controller/ProviderConfigControllerTest.java:42-backend/src/test/java/com/demo/sso/controller/ProviderConfigControllerTest.java:67"
+        description: "Asserts that when configured, the Microsoft authority returned to the frontend is `common/v2.0`."
+    language: "java"
+    lines: 84
+
+  - file: "MicrosoftClientSideIntegrationTest.java"
+    path: "/home/nt-quang/Workspaces/personal/sso_experimental/backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java"
+    purpose: "Integration tests for Microsoft client-side flow and `/auth/providers` payload."
+    key_elements:
+      - element: "Spring test properties"
+        type: "test"
+        location: "backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java:42-backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java:45"
+        description: "Bootstraps Microsoft client-side flow with authority set to `common/v2.0`."
+      - element: "Provider payload assertion"
+        type: "test"
+        location: "backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java:75-backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java:82"
+        description: "Asserts that `/auth/providers` exposes `common/v2.0` to the frontend for Microsoft client-side login."
+    language: "java"
+    lines: 144
+
+  - file: "MicrosoftTokenVerifierTest.java"
+    path: "/home/nt-quang/Workspaces/personal/sso_experimental/backend/src/test/java/com/demo/sso/service/MicrosoftTokenVerifierTest.java"
+    purpose: "Unit tests for Microsoft ID-token verification behavior."
+    key_elements:
+      - element: "Verifier config uses common"
+        type: "test"
+        location: "backend/src/test/java/com/demo/sso/service/MicrosoftTokenVerifierTest.java:23-backend/src/test/java/com/demo/sso/service/MicrosoftTokenVerifierTest.java:25"
+        description: "Constructs the verifier with `common/v2.0` as the configured authority."
+      - element: "Final issuer expectation"
+        type: "test"
+        location: "backend/src/test/java/com/demo/sso/service/MicrosoftTokenVerifierTest.java:36-backend/src/test/java/com/demo/sso/service/MicrosoftTokenVerifierTest.java:36"
+        description: "Expects normalized Microsoft identities to use tenant-specific issuers, not `common`."
+    language: "java"
+    lines: 91
+
+  - file: "ProviderIdentityNormalizerTest.java"
+    path: "/home/nt-quang/Workspaces/personal/sso_experimental/backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java"
+    purpose: "Unit tests for supported/rejected Microsoft identity shapes."
+    key_elements:
+      - element: "Guest rejection"
+        type: "test"
+        location: "backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java:54-backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java:59"
+        description: "Rejects guest-style identifiers containing `#EXT#`."
+      - element: "External identity-provider rejection"
+        type: "test"
+        location: "backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java:64-backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java:70"
+        description: "Rejects an org-tenant token whose `idp` is `live.com`, reinforcing the member/home-tenant-only rule for org accounts."
+    language: "java"
+    lines: 72
+
+  - file: "homepage.spec.ts"
+    path: "/home/nt-quang/Workspaces/personal/sso_experimental/frontend/tests/e2e/homepage.spec.ts"
+    purpose: "Frontend runtime-config tests for Microsoft card rendering."
+    key_elements:
+      - element: "Microsoft runtime config fixture"
+        type: "test"
+        location: "frontend/tests/e2e/homepage.spec.ts:75-frontend/tests/e2e/homepage.spec.ts:79"
+        description: "Mocks runtime config with Microsoft authority set to `common/v2.0`."
+      - element: "Visible Microsoft cards"
+        type: "test"
+        location: "frontend/tests/e2e/homepage.spec.ts:64-frontend/tests/e2e/homepage.spec.ts:95"
+        description: "Confirms both Microsoft login cards render when the mocked provider config uses `common/v2.0`."
+    language: "typescript"
+    lines: 97
+
+patterns_found:
+  - category: "configuration"
+    pattern: "Public Microsoft authority is modeled as `common/v2.0` in docs/tests, with tenant-specific issuer validation happening after token receipt."
+    description: "The project repeatedly treats `common` as the browser-facing/interactive entry authority rather than the final token issuer."
+    examples:
+      - file: "docs/guides/microsoft-sso-integration.md"
+        location: "docs/guides/microsoft-sso-integration.md:60"
+        snippet: "\"authority\": \"https://login.microsoftonline.com/common/v2.0\""
+      - file: "ProviderConfigControllerTest.java"
+        location: "backend/src/test/java/com/demo/sso/controller/ProviderConfigControllerTest.java:48"
+        snippet: "microsoft.setAuthority(\"https://login.microsoftonline.com/common/v2.0\");"
+      - file: "homepage.spec.ts"
+        location: "frontend/tests/e2e/homepage.spec.ts:79"
+        snippet: "authority: 'https://login.microsoftonline.com/common/v2.0'"
+    prevalence: "common"
+
+  - category: "supported_accounts"
+    pattern: "Repository design targets personal Microsoft accounts plus organizational member/home-tenant accounts, while explicitly rejecting guest/B2B identities."
+    description: "The strongest statement of intended support lives in the design spec; developer docs and tests align on guest/external rejection but do not fully test consumer-tenant success cases."
+    examples:
+      - file: "2026-03-13-microsoft-sso-design.md"
+        location: "docs/specs/2026-03-13-microsoft-sso-design.md:206-docs/specs/2026-03-13-microsoft-sso-design.md:218"
+        snippet: "configure the application as a multi-tenant app supporting both personal and organizational accounts"
+      - file: "ProviderIdentityNormalizerTest.java"
+        location: "backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java:54-backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java:70"
+        snippet: "rejectsGuestStyleIdentifiers ... rejectsExternalIdentityProviders"
+    prevalence: "common"
+
+  - category: "runtime_propagation"
+    pattern: "Root env values flow directly into Docker Compose, backend config, and the frontend-facing provider payload."
+    description: "A local authority override in `.env` is not isolated; it propagates all the way to `/auth/providers` for client-side login initialization."
+    examples:
+      - file: ".env"
+        location: ".env:14"
+        snippet: "MICROSOFT_AUTHORITY=https://login.microsoftonline.com/{tenant-id}/v2.0"
+      - file: "docker-compose.yml"
+        location: "docker-compose.yml:32"
+        snippet: "- MICROSOFT_AUTHORITY=${MICROSOFT_AUTHORITY}"
+      - file: "application.yml"
+        location: "backend/src/main/resources/application.yml:52"
+        snippet: "authority: ${MICROSOFT_AUTHORITY:https://login.microsoftonline.com/common/v2.0}"
+    prevalence: "common"
+
+related_architecture:
+  components_relevant_to_domain:
+    - component: "Root environment file"
+      responsibility: "Defines local Microsoft authority and rollout overrides."
+      location: ".env"
+      relationship_to_domain: "domain source of truth for local runs"
+    - component: "Docker Compose backend service"
+      responsibility: "Injects Microsoft runtime variables into the backend container."
+      location: "docker-compose.yml"
+      relationship_to_domain: "domain propagates through this container boundary"
+    - component: "Spring app config"
+      responsibility: "Maps env values into `app.microsoft.*` and rollout flags."
+      location: "backend/src/main/resources/application.yml"
+      relationship_to_domain: "domain runtime binding"
+    - component: "Provider config endpoint"
+      responsibility: "Returns Microsoft public config to the frontend."
+      location: "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+      relationship_to_domain: "this uses domain outputs"
+  interfaces_used_by_domain:
+    - interface: "GET /auth/providers"
+      location: "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java:35-backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java:55"
+      usage_pattern: "Returns Microsoft `clientId`, `authority`, and `scopes` when client-side flow is enabled and configured."
+  data_flow_involving_domain: ".env `MICROSOFT_AUTHORITY` -> `docker-compose.yml` env passthrough -> `backend/src/main/resources/application.yml` binds `app.microsoft.authority` -> `ProviderConfigController` exposes that authority to `/auth/providers` -> frontend/MSAL uses returned authority for Microsoft sign-in."
+  key_relationships_to_domain:
+    - from: ".env"
+      to: "docker-compose.yml"
+      relationship: "injects"
+    - from: "docker-compose.yml"
+      to: "backend/src/main/resources/application.yml"
+      relationship: "configures"
+    - from: "backend/src/main/resources/application.yml"
+      to: "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+      relationship: "binds"
+    - from: "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+      to: "frontend/tests/e2e/homepage.spec.ts"
+      relationship: "contract tested by"
+
+related_technology_stack:
+  languages_used_in_domain:
+    - "YAML"
+    - "Markdown"
+    - "Java"
+    - "TypeScript"
+    - "dotenv"
+  frameworks_used_in_domain:
+    - name: "Spring Boot"
+      usage_in_domain: "Binds Microsoft auth config and exposes runtime provider metadata."
+    - name: "JUnit / Spring Boot Test"
+      usage_in_domain: "Asserts backend Microsoft config and provider behavior."
+    - name: "Playwright"
+      usage_in_domain: "Asserts frontend behavior against mocked Microsoft runtime config."
+  libraries_used_in_domain:
+    - name: "MSAL Browser"
+      purpose_in_domain: "Consumes the frontend-facing Microsoft authority/clientId/scopes contract described in docs and tests."
+  external_apis_used_in_domain:
+    - name: "Microsoft identity platform v2.0"
+      integration_point: "Authority and issuer expectations in docs, tests, and backend token validation."
+
+related_conventions:
+  naming_patterns_in_domain: "Microsoft runtime env uses `MICROSOFT_*` and rollout uses `APP_AUTH_MICROSOFT_*`; frontend/provider payload exposes lowercase `microsoft` with `clientId`, `authority`, and `scopes`."
+  structure_of_domain: "Docs/specs define expected authority/account behavior, compose forwards env, backend binds config, and tests assert both backend payloads and frontend rendering against the same runtime contract."
+  error_handling_in_domain: "Docs/tests treat Microsoft as hard-disabled when required public config is missing; guest/external identities are rejected rather than partially accepted."
+  testing_in_domain: "Backend tests pin `common/v2.0` as configured authority and tenant-specific issuers as token facts; frontend e2e tests mock the same authority in `/auth/providers`."
+  documentation_in_domain: "The strongest account-type and authority guidance lives in `docs/specs/2026-03-13-microsoft-sso-design.md`; `docs/guides/microsoft-sso-integration.md` summarizes runtime contracts and env defaults."
+
+related_dependencies:
+  internal:
+    - component: "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+      relationship_to_domain: "Publishes configured Microsoft authority to the SPA."
+      direction: "outbound"
+    - component: "backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java"
+      relationship_to_domain: "Uses the configured authority to build the JWK-set URI while validating final token issuer against `tid`."
+      direction: "outbound"
+    - component: "frontend/src/components/MicrosoftClientSideLogin.tsx"
+      relationship_to_domain: "Consumes runtime authority/clientId for MSAL bootstrap."
+      direction: "inbound"
+  external:
+    - name: "Microsoft identity platform"
+      purpose_for_domain: "Provides interactive sign-in, ID-token issuer semantics, and v2.0 discovery/JWKS endpoints."
+
+domain_security_considerations:
+  sensitive_areas:
+    - area: "Authority selection"
+      location: ".env:14, docker-compose.yml:32, backend/src/main/resources/application.yml:52"
+      concern: "A tenant-pinned authority narrows who can sign in and changes the frontend-visible authority contract."
+    - area: "Identity acceptance rules"
+      location: "docs/specs/2026-03-13-microsoft-sso-design.md:207-docs/specs/2026-03-13-microsoft-sso-design.md:218, backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java:54-backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java:70"
+      concern: "Guest/B2B and external/home-identity cases are intentionally rejected; changing authority/account-type settings can alter which identities reach this logic."
+  authentication_patterns_in_domain: "Interactive auth should enter via `common`, while successful tokens must carry tenant-specific issuers that match `tid`."
+  authorization_patterns_in_domain: "No role-based Microsoft authorization behavior was examined; the focus here is identity acceptance and provider enablement."
+  data_validation_in_domain: "Tests/docs require matching audience, nonce, token version 2.0, and tenant-consistent issuer; guest-style identifiers and external identity providers are rejected."
+
+testing_patterns:
+  framework: "JUnit 5 + Spring Boot Test for backend, Playwright for frontend"
+  coverage_areas:
+    - "Runtime provider payload contains Microsoft public config"
+    - "Client-side flow bootstraps with `common/v2.0` authority"
+    - "Token verification expects tenant-specific issuers and v2 tokens"
+    - "Guest/external Microsoft identities are rejected"
+  test_organization: "Backend unit/integration tests live under `backend/src/test/java/...`; frontend runtime-config behavior is mocked in `frontend/tests/e2e/homepage.spec.ts`."
+  mock_patterns:
+    - "Spring tests set `app.microsoft.authority=https://login.microsoftonline.com/common/v2.0` via inline properties"
+    - "Playwright tests stub `/api/auth/providers` with a Microsoft payload using `common/v2.0`"
+
+open_questions:
+  - question: "What is the actual Azure app-registration ‘supported account types’ setting for the client ID referenced in `.env`?"
+    context: "The repo spec requires a multi-tenant app that supports personal and organizational accounts, but source files do not contain Azure portal metadata to verify that registration setting."
+  - question: "Are personal consumer-tenant success cases intentionally untested, or is test coverage incomplete?"
+    context: "The spec names personal account support explicitly, but the inspected tests only cover org-tenant success paths plus guest/external rejection."
+
+gaps:
+  - area: "Azure portal configuration visibility"
+    description: "No repository artifact reveals the real Microsoft app-registration supported-account-types setting or reply-URL registration details."
+    impact: "The repo can establish intended behavior and runtime mismatches, but it cannot prove whether the portal itself is already configured as multi-tenant or still single-tenant."
+  - area: "Personal-account test coverage"
+    description: "Inspected tests do not include a successful Microsoft token using the consumer tenant ID `9188040d-6c67-4c5b-b112-36a304b66dad`."
+    impact: "Confidence is high about the intended support from docs, but lower about whether consumer-account behavior is fully verified by tests."

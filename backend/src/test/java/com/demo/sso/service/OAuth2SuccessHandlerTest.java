@@ -5,6 +5,8 @@ import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +14,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.io.IOException;
@@ -37,7 +42,7 @@ class OAuth2SuccessHandlerTest {
     @BeforeEach
     void setUp() {
         handler = new OAuth2SuccessHandler(
-            userService, jwtTokenService, authCodeStore, "http://localhost:8000");
+            userService, jwtTokenService, authCodeStore, new ProviderIdentityNormalizer(), "http://localhost:8000");
     }
 
     private void setupVerifiedOAuth2User(String sub, String email, String name, String picture) {
@@ -101,7 +106,7 @@ class OAuth2SuccessHandlerTest {
     @Test
     void onAuthenticationSuccess_redirectsToConfiguredFrontendUrl() throws IOException {
         OAuth2SuccessHandler customHandler = new OAuth2SuccessHandler(
-            userService, jwtTokenService, authCodeStore, "https://myapp.com");
+            userService, jwtTokenService, authCodeStore, new ProviderIdentityNormalizer(), "https://myapp.com");
 
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
         when(oAuth2User.getAttribute("email_verified")).thenReturn(true);
@@ -186,5 +191,49 @@ class OAuth2SuccessHandlerTest {
 
         verify(jwtTokenService).generateToken(user);
         verify(jwtTokenService, never()).generateToken(anyString(), anyString());
+    }
+
+    @Test
+    void onAuthenticationSuccess_normalizesMicrosoftServerSideIdentityAndRedirects() throws IOException {
+        Authentication microsoftAuthentication = new OAuth2AuthenticationToken(
+            new DefaultOAuth2User(
+                List.of(new SimpleGrantedAuthority("ROLE_USER")),
+                Map.of(
+                    "iss", "https://login.microsoftonline.com/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/v2.0",
+                    "tid", "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                    "sub", "microsoft-subject",
+                    "email", "employee@example.com",
+                    "name", "Microsoft Employee"
+                ),
+                "sub"
+            ),
+            List.of(new SimpleGrantedAuthority("ROLE_USER")),
+            "microsoft"
+        );
+
+        User user = new User();
+        user.setId(7L);
+        user.setProvider(AuthProvider.MICROSOFT);
+        user.setProviderUserId(
+            "https://login.microsoftonline.com/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/v2.0|microsoft-subject");
+        user.setEmail("employee@example.com");
+
+        ArgumentCaptor<NormalizedIdentity> identityCaptor = ArgumentCaptor.forClass(NormalizedIdentity.class);
+        when(userService.findOrCreateUser(any(NormalizedIdentity.class))).thenReturn(user);
+        when(jwtTokenService.generateToken(user)).thenReturn("microsoft.jwt.token");
+        when(authCodeStore.storeJwt("microsoft.jwt.token")).thenReturn("ms-auth-code");
+
+        handler.onAuthenticationSuccess(request, response, microsoftAuthentication);
+
+        verify(userService).findOrCreateUser(identityCaptor.capture());
+        NormalizedIdentity identity = identityCaptor.getValue();
+        assertEquals(AuthProvider.MICROSOFT, identity.provider());
+        assertEquals(AuthFlow.SERVER_SIDE, identity.loginFlow());
+        assertEquals(
+            "https://login.microsoftonline.com/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/v2.0|microsoft-subject",
+            identity.providerUserId());
+        assertEquals("employee@example.com", identity.email());
+        assertEquals("Microsoft Employee", identity.name());
+        verify(response).sendRedirect("http://localhost:8000/?code=ms-auth-code");
     }
 }

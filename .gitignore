@@ -6,6 +6,7 @@ backend/~/
 *.class
 *.jar
 *.war
+.m2/
 
 # Node
 frontend/node_modules/

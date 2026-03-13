@@ -80,6 +80,26 @@ class IdentityContractGuardTest {
         assertTrue(error.getMessage().contains("Microsoft SSO requires configured client-id and authority"));
     }
 
+    @Test
+    void rejectsMicrosoftServerSideEnablementWhenClientSecretIsMissing() {
+        AuthRolloutProperties properties = rolloutProperties(
+            AuthRolloutProperties.IdentityContractMode.V2_ONLY,
+            AuthRolloutProperties.JwtMintMode.V2,
+            false,
+            true
+        );
+
+        MicrosoftAuthProperties microsoftProperties = new MicrosoftAuthProperties();
+        microsoftProperties.setClientId("microsoft-client-id");
+        microsoftProperties.setAuthority("https://login.microsoftonline.com/common/v2.0");
+
+        IllegalStateException error = assertThrows(IllegalStateException.class,
+            () -> new IdentityContractGuard(properties, microsoftProperties).validate());
+
+        assertTrue(error.getMessage().contains(
+            "Microsoft server-side SSO requires configured client-id, client-secret, and authority"));
+    }
+
     private static AuthRolloutProperties rolloutProperties(
             AuthRolloutProperties.IdentityContractMode contractMode,
             AuthRolloutProperties.JwtMintMode mintMode,

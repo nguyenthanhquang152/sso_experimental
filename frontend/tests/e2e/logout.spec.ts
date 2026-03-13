@@ -18,18 +18,16 @@ test.describe('Logout Flow', () => {
       });
     });
 
-    // Simulate an authenticated state by setting a token in localStorage
-    await page.goto('/');
-    await page.evaluate(() => {
+    // Simulate an authenticated state before the app boots
+    await page.addInitScript(() => {
       localStorage.setItem('jwt', 'fake-jwt-for-logout-test');
     });
 
-    // Verify the token is stored
-    const tokenBefore = await page.evaluate(() => localStorage.getItem('jwt'));
-    expect(tokenBefore).toBe('fake-jwt-for-logout-test');
-
     await page.goto('/dashboard');
     await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+
+    const tokenBefore = await page.evaluate(() => localStorage.getItem('jwt'));
+    expect(tokenBefore).toBe('fake-jwt-for-logout-test');
 
     await page.getByRole('button', { name: 'Logout' }).click();
     await page.waitForURL('/');

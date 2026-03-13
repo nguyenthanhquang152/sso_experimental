@@ -37,10 +37,14 @@ public class IdentityContractGuard {
             throw new IllegalStateException("Microsoft SSO requires identity-contract-mode=V2_ONLY");
         }
 
-        if ((rolloutProperties.getMicrosoft().isClientSideEnabled()
-                || rolloutProperties.getMicrosoft().isServerSideEnabled())
-                && !microsoftAuthProperties.isConfigured()) {
+        if (rolloutProperties.getMicrosoft().isClientSideEnabled()
+                && !microsoftAuthProperties.isClientSideConfigured()) {
             throw new IllegalStateException("Microsoft SSO requires configured client-id and authority");
+        }
+
+        if (rolloutProperties.getMicrosoft().isServerSideEnabled()
+                && !microsoftAuthProperties.isServerSideConfigured()) {
+            throw new IllegalStateException("Microsoft server-side SSO requires configured client-id, client-secret, and authority");
         }
     }
 }

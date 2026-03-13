@@ -2,6 +2,24 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useEffect } from 'react';
 
+function getAvatarInitials(name: string, email: string) {
+  const source = name.trim() || email.trim();
+  const words = source
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2);
+
+  if (words.length === 0) {
+    return '?';
+  }
+
+  if (words.length === 1) {
+    return words[0].slice(0, 2).toUpperCase();
+  }
+
+  return words.map((word) => word[0]?.toUpperCase() ?? '').join('');
+}
+
 export function DashboardPage() {
   const { user, loading, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
@@ -25,6 +43,15 @@ export function DashboardPage() {
     navigate('/');
   };
 
+  const avatarInitials = getAvatarInitials(user.name, user.email);
+
+  const avatarStyle = {
+    width: '64px',
+    height: '64px',
+    borderRadius: '50%',
+    flexShrink: 0,
+  } as const;
+
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto', padding: '40px 20px' }}>
       <h1>Dashboard</h1>
@@ -35,14 +62,31 @@ export function DashboardPage() {
         marginTop: '20px',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
-          {user.pictureUrl && (
+          {user.pictureUrl ? (
             <img
               src={user.pictureUrl}
               alt={user.name}
               referrerPolicy="no-referrer"
               crossOrigin="anonymous"
-              style={{ width: '64px', height: '64px', borderRadius: '50%' }}
+              style={avatarStyle}
             />
+          ) : (
+            <div
+              role="img"
+              aria-label={`Avatar fallback for ${user.name}`}
+              style={{
+                ...avatarStyle,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#e3f2fd',
+                color: '#1565c0',
+                fontWeight: 700,
+                fontSize: '24px',
+              }}
+            >
+              {avatarInitials}
+            </div>
           )}
           <div>
             <h2 style={{ margin: 0 }}>{user.name}</h2>

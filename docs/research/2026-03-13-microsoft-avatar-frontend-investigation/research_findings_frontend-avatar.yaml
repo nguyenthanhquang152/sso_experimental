@@ -1,0 +1,327 @@
+plan_id: "2026-03-13-microsoft-avatar-frontend-investigation"
+objective: "Investigate why avatar is missing after Microsoft SSO, with focus on frontend current-user fetch, types, rendering, and data contract boundaries"
+focus_area: "frontend-avatar"
+created_at: "2026-03-13"
+created_by: "GitHub Copilot GPT-5.4"
+status: "completed"
+
+tldr: |
+	- The frontend currently expects an avatar in `user.pictureUrl`, fetched from `GET /user/me` inside `useAuth` and rendered only on `DashboardPage`.
+	- `HomePage` does not render any current-user profile data; avatar display is limited to `DashboardPage`, where the `<img>` is omitted when `user.pictureUrl` is falsy.
+	- The backend `/user/me` response includes `pictureUrl`, so there is no frontend/backend field-name mismatch in the current contract.
+	- Microsoft identity normalization populates avatar data only from a `picture` claim, and the Microsoft integration tests explicitly exercise `null` avatar values, which supports the hypothesis that Microsoft logins often persist an empty `pictureUrl`.
+	- Within the current frontend code, the smallest possible UI-side mitigation would be to add a fallback avatar or initials on `DashboardPage`; no evidence shows a frontend fetch or typing bug preventing avatar rendering when `pictureUrl` is present.
+
+research_metadata:
+	methodology: "Hybrid retrieval using semantic_search, exact grep_search queries, targeted read_file review, and one terminal wc pass for file metadata. Relationship tracing followed frontend `/user/me` fetch -> `DashboardPage` rendering -> backend `/user/me` response -> Microsoft identity normalization."
+	tools_used:
+		- "read_file"
+		- "semantic_search"
+		- "grep_search"
+		- "file_search"
+		- "run_in_terminal"
+		- "apply_patch"
+	scope: "Frontend auth hook, dashboard and home pages, provider config types/components, plus backend `/user/me` contract and Microsoft identity normalization/tests relevant to avatar population"
+	confidence: "high"
+	coverage: 90
+
+files_analyzed:
+	- file: "useAuth.ts"
+		path: "/home/nt-quang/Workspaces/personal/sso_experimental/frontend/src/hooks/useAuth.ts"
+		purpose: "Fetches current user state after JWT login and defines the frontend user shape"
+		key_elements:
+			- element: "UserProfile"
+				type: "pattern"
+				location: "frontend/src/hooks/useAuth.ts:4-11"
+				description: "Frontend user contract includes `pictureUrl` as the avatar field"
+			- element: "apiFetch('/user/me')"
+				type: "function"
+				location: "frontend/src/hooks/useAuth.ts:39"
+				description: "Fetches current-user data after a token is present"
+		language: "TypeScript"
+		lines: 54
+	- file: "DashboardPage.tsx"
+		path: "/home/nt-quang/Workspaces/personal/sso_experimental/frontend/src/pages/DashboardPage.tsx"
+		purpose: "Renders the authenticated user profile card on the dashboard"
+		key_elements:
+			- element: "useAuth()"
+				type: "function"
+				location: "frontend/src/pages/DashboardPage.tsx:6"
+				description: "Consumes current-user data from the auth hook"
+			- element: "{user.pictureUrl && <img ...>}"
+				type: "pattern"
+				location: "frontend/src/pages/DashboardPage.tsx:38-45"
+				description: "Conditionally renders the avatar only when `pictureUrl` is truthy"
+		language: "TypeScript/TSX"
+		lines: 95
+	- file: "HomePage.tsx"
+		path: "/home/nt-quang/Workspaces/personal/sso_experimental/frontend/src/pages/HomePage.tsx"
+		purpose: "Handles login flows and redirect to dashboard after authentication"
+		key_elements:
+			- element: "useAuth()"
+				type: "function"
+				location: "frontend/src/pages/HomePage.tsx:15"
+				description: "Uses auth state only to log in and redirect; does not render profile data"
+			- element: "MicrosoftClientSideLogin"
+				type: "component"
+				location: "frontend/src/pages/HomePage.tsx:87-91"
+				description: "Mounts Microsoft sign-in control but does not display avatar/current-user data"
+		language: "TypeScript/TSX"
+		lines: 96
+	- file: "MicrosoftClientSideLogin.tsx"
+		path: "/home/nt-quang/Workspaces/personal/sso_experimental/frontend/src/components/MicrosoftClientSideLogin.tsx"
+		purpose: "Obtains Microsoft ID token in-browser and exchanges it for backend JWT"
+		key_elements:
+			- element: "onSuccess(verification.token)"
+				type: "function"
+				location: "frontend/src/components/MicrosoftClientSideLogin.tsx:73-74"
+				description: "Only returns the app JWT; it does not fetch or map avatar data directly"
+		language: "TypeScript/TSX"
+		lines: 121
+	- file: "types/auth.ts"
+		path: "/home/nt-quang/Workspaces/personal/sso_experimental/frontend/src/types/auth.ts"
+		purpose: "Defines provider configuration contract for Google and Microsoft login options"
+		key_elements:
+			- element: "MicrosoftProviderConfig"
+				type: "pattern"
+				location: "frontend/src/types/auth.ts:9-14"
+				description: "Provider config includes login metadata only, not current-user avatar fields"
+		language: "TypeScript"
+		lines: 50
+	- file: "useProviderConfig.ts"
+		path: "/home/nt-quang/Workspaces/personal/sso_experimental/frontend/src/hooks/useProviderConfig.ts"
+		purpose: "Fetches `/auth/providers` runtime configuration"
+		key_elements:
+			- element: "apiFetch('/auth/providers')"
+				type: "function"
+				location: "frontend/src/hooks/useProviderConfig.ts:16"
+				description: "Separate runtime config fetch, unrelated to current-user avatar payload"
+		language: "TypeScript"
+		lines: 39
+	- file: "UserController.java"
+		path: "/home/nt-quang/Workspaces/personal/sso_experimental/backend/src/main/java/com/demo/sso/controller/UserController.java"
+		purpose: "Publishes `/user/me` response consumed by the frontend"
+		key_elements:
+			- element: "pictureUrl response field"
+				type: "pattern"
+				location: "backend/src/main/java/com/demo/sso/controller/UserController.java:35"
+				description: "Returns `pictureUrl` in the current-user JSON payload, defaulting null to empty string"
+		language: "Java"
+		lines: 45
+	- file: "ProviderIdentityNormalizer.java"
+		path: "/home/nt-quang/Workspaces/personal/sso_experimental/backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
+		purpose: "Normalizes Google and Microsoft identity claims into persisted user data"
+		key_elements:
+			- element: "normalizeMicrosoftClaims"
+				type: "function"
+				location: "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java:23-62"
+				description: "Builds Microsoft identities and sources avatar from `stringClaim(claims, \"picture\")`"
+			- element: "stringClaim(claims, 'picture')"
+				type: "pattern"
+				location: "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java:61"
+				description: "Only Microsoft avatar source in this normalization path"
+		language: "Java"
+		lines: 101
+	- file: "OAuth2SuccessHandler.java"
+		path: "/home/nt-quang/Workspaces/personal/sso_experimental/backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java"
+		purpose: "Handles server-side OAuth login success and Microsoft claim normalization"
+		key_elements:
+			- element: "microsoft registration branch"
+				type: "pattern"
+				location: "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java:70-73"
+				description: "Server-side Microsoft logins also go through `normalizeMicrosoftClaims`"
+		language: "Java"
+		lines: 102
+	- file: "MicrosoftClientSideIntegrationTest.java"
+		path: "/home/nt-quang/Workspaces/personal/sso_experimental/backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java"
+		purpose: "Exercises Microsoft client-side verification and persistence"
+		key_elements:
+			- element: "NormalizedIdentity.microsoft(..., null, ...)"
+				type: "pattern"
+				location: "backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java:106-110"
+				description: "Explicitly tests Microsoft login persistence with a null avatar"
+		language: "Java"
+		lines: 144
+	- file: "ProviderIdentityNormalizerTest.java"
+		path: "/home/nt-quang/Workspaces/personal/sso_experimental/backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java"
+		purpose: "Unit-tests Microsoft claim normalization rules"
+		key_elements:
+			- element: "normalizeMicrosoftClaims(Map.of(...))"
+				type: "pattern"
+				location: "backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java:23-28"
+				description: "Happy-path Microsoft test omits any picture claim"
+		language: "Java"
+		lines: 72
+	- file: "logout.spec.ts"
+		path: "/home/nt-quang/Workspaces/personal/sso_experimental/frontend/tests/e2e/logout.spec.ts"
+		purpose: "Exercises dashboard/logout behavior with mocked `/api/user/me`"
+		key_elements:
+			- element: "pictureUrl: null"
+				type: "pattern"
+				location: "frontend/tests/e2e/logout.spec.ts:13"
+				description: "Frontend test fixture treats missing avatar as a supported payload state"
+		language: "TypeScript"
+		lines: 63
+	- file: "token-handling.spec.ts"
+		path: "/home/nt-quang/Workspaces/personal/sso_experimental/frontend/tests/e2e/token-handling.spec.ts"
+		purpose: "Exercises exchange flow and mocked dashboard user payload"
+		key_elements:
+			- element: "pictureUrl: null"
+				type: "pattern"
+				location: "frontend/tests/e2e/token-handling.spec.ts:38"
+				description: "Frontend test fixture likewise accepts absent avatar data"
+		language: "TypeScript"
+		lines: 79
+
+patterns_found:
+	- category: "structure"
+		pattern: "Current-user data is owned by `useAuth`"
+		description: "The SPA centralizes authenticated user loading inside `useAuth`, which reads the JWT from localStorage and fetches `/user/me` once a token exists."
+		examples:
+			- file: "frontend/src/hooks/useAuth.ts"
+				location: "frontend/src/hooks/useAuth.ts:14-47"
+				snippet: "apiFetch<UserProfile>('/user/me').then(setUser)"
+		prevalence: "common"
+	- category: "architecture"
+		pattern: "Avatar rendering is isolated to the dashboard"
+		description: "The home page mounts login components and redirects, while `DashboardPage` is the only frontend location that renders `user.pictureUrl`."
+		examples:
+			- file: "frontend/src/pages/DashboardPage.tsx"
+				location: "frontend/src/pages/DashboardPage.tsx:38-45"
+				snippet: "{user.pictureUrl && (<img src={user.pictureUrl} ... />)}"
+			- file: "frontend/src/pages/HomePage.tsx"
+				location: "frontend/src/pages/HomePage.tsx:50-92"
+				snippet: "Home page render contains login cards only; no current-user avatar or profile display"
+		prevalence: "common"
+	- category: "error_handling"
+		pattern: "Missing avatar is silently tolerated"
+		description: "Dashboard rendering simply omits the `<img>` when `pictureUrl` is falsy; tests also mock `pictureUrl: null` without treating it as an error."
+		examples:
+			- file: "frontend/src/pages/DashboardPage.tsx"
+				location: "frontend/src/pages/DashboardPage.tsx:38"
+				snippet: "{user.pictureUrl && (...)}"
+			- file: "frontend/tests/e2e/logout.spec.ts"
+				location: "frontend/tests/e2e/logout.spec.ts:13"
+				snippet: "pictureUrl: null"
+		prevalence: "common"
+	- category: "architecture"
+		pattern: "Microsoft avatar population depends on a single claim"
+		description: "Both Microsoft flows normalize identity through `normalizeMicrosoftClaims`, which reads only the `picture` claim for avatar data."
+		examples:
+			- file: "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
+				location: "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java:57-61"
+				snippet: "return NormalizedIdentity.microsoft(..., stringClaim(claims, \"picture\"), loginFlow)"
+			- file: "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java"
+				location: "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java:70-73"
+				snippet: "if (\"microsoft\".equalsIgnoreCase(registrationId)) { return providerIdentityNormalizer.normalizeMicrosoftClaims(...) }"
+		prevalence: "common"
+
+related_architecture:
+	components_relevant_to_domain:
+		- component: "useAuth"
+			responsibility: "Owns token storage and current-user fetch"
+			location: "frontend/src/hooks/useAuth.ts"
+			relationship_to_domain: "domain depends on this"
+		- component: "DashboardPage"
+			responsibility: "Displays user profile card and optional avatar"
+			location: "frontend/src/pages/DashboardPage.tsx"
+			relationship_to_domain: "domain depends on this"
+		- component: "HomePage"
+			responsibility: "Starts auth flows and redirects to dashboard"
+			location: "frontend/src/pages/HomePage.tsx"
+			relationship_to_domain: "domain depends on this"
+		- component: "UserController"
+			responsibility: "Publishes `/user/me` contract"
+			location: "backend/src/main/java/com/demo/sso/controller/UserController.java"
+			relationship_to_domain: "this uses domain outputs"
+		- component: "ProviderIdentityNormalizer"
+			responsibility: "Maps Microsoft claims into persisted avatar/name/email fields"
+			location: "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
+			relationship_to_domain: "this uses domain outputs"
+	interfaces_used_by_domain:
+		- interface: "UserProfile"
+			location: "frontend/src/hooks/useAuth.ts:4-11"
+			usage_pattern: "Typed response model for `/user/me`"
+		- interface: "ProviderConfig / MicrosoftProviderConfig"
+			location: "frontend/src/types/auth.ts:3-19"
+			usage_pattern: "Controls login UI availability only; not used for avatar data"
+	data_flow_involving_domain: "Login flow returns an app JWT -> `useAuth` detects token -> frontend calls `/user/me` -> backend `UserController` returns `pictureUrl` -> `DashboardPage` renders `<img>` only when `pictureUrl` is truthy. Microsoft client-side and server-side flows both populate persisted identity through `ProviderIdentityNormalizer.normalizeMicrosoftClaims`."
+	key_relationships_to_domain:
+		- from: "frontend/src/pages/HomePage.tsx"
+			to: "frontend/src/hooks/useAuth.ts"
+			relationship: "calls"
+		- from: "frontend/src/pages/DashboardPage.tsx"
+			to: "frontend/src/hooks/useAuth.ts"
+			relationship: "calls"
+		- from: "frontend/src/hooks/useAuth.ts"
+			to: "backend/src/main/java/com/demo/sso/controller/UserController.java"
+			relationship: "imports"
+		- from: "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java"
+			to: "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
+			relationship: "calls"
+
+related_technology_stack:
+	languages_used_in_domain:
+		- "TypeScript"
+		- "TSX"
+		- "Java"
+	frameworks_used_in_domain:
+		- name: "React"
+			usage_in_domain: "Frontend pages/components and auth hooks"
+		- name: "React Router"
+			usage_in_domain: "Home/dashboard routing and redirects"
+		- name: "Spring Boot / Spring Security"
+			usage_in_domain: "Current-user endpoint and Microsoft OAuth2 processing"
+	libraries_used_in_domain:
+		- name: "@azure/msal-browser"
+			purpose_in_domain: "Microsoft client-side popup login to obtain ID token"
+		- name: "Playwright"
+			purpose_in_domain: "Frontend end-to-end tests with mocked `/api/user/me` payloads"
+	external_apis_used_in_domain:
+		- name: "Microsoft Entra ID / OAuth2 ID token claims"
+			integration_point: "Microsoft client-side and server-side login normalization"
+
+related_conventions:
+	naming_patterns_in_domain: "Avatar/profile image is consistently named `pictureUrl` in persisted user data and frontend consumption. Provider runtime config uses separate `ProviderConfig` types and does not mix with current-user types."
+	structure_of_domain: "Login bootstrap concerns are separated from authenticated profile rendering: provider config in `useProviderConfig`, auth state in `useAuth`, login UI in `HomePage` and provider components, profile display in `DashboardPage`."
+	error_handling_in_domain: "If `/user/me` fails, `useAuth` logs out the user. Missing avatar is not treated as an error; the UI simply hides the image element."
+	testing_in_domain: "Frontend E2E tests mock `/api/user/me` directly and allow `pictureUrl: null`; backend tests validate Microsoft login without requiring picture data."
+	documentation_in_domain: "Microsoft integration doc documents scopes and login flows, but does not document any explicit avatar/photo retrieval path beyond token normalization."
+
+related_dependencies:
+	internal:
+		- component: "frontend/src/pages/DashboardPage.tsx"
+			relationship_to_domain: "Consumes `useAuth` user data and renders optional avatar"
+			direction: "inbound"
+		- component: "backend/src/main/java/com/demo/sso/controller/UserController.java"
+			relationship_to_domain: "Supplies `/user/me` payload used by frontend"
+			direction: "outbound"
+		- component: "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
+			relationship_to_domain: "Supplies persisted `pictureUrl` value for Microsoft identities"
+			direction: "outbound"
+	external:
+		- name: "Microsoft identity claims"
+			purpose_for_domain: "Potential source of `pictureUrl` for Microsoft logins"
+
+testing_patterns:
+	framework: "Playwright on frontend; JUnit/MockMvc on backend"
+	coverage_areas:
+		- "Dashboard/logout behavior with `/api/user/me` mocks"
+		- "Auth code exchange flow with mocked current-user payload"
+		- "Microsoft client-side identity verification and persistence"
+		- "Microsoft claim normalization"
+	test_organization: "Frontend E2E tests live under `frontend/tests/e2e`; backend login/normalization tests live under `backend/src/test/java/...`"
+	mock_patterns:
+		- "Mock `/api/user/me` responses with `pictureUrl: null`"
+		- "Mock Microsoft verifier to return `NormalizedIdentity.microsoft(..., null, ...)`"
+
+open_questions:
+	- question: "Does the real Microsoft tenant/app registration ever emit a `picture` claim in the ID token for this app?"
+		context: "The code only maps Microsoft avatar data from `claims.picture`, but tests and docs do not establish that this claim is present in production tokens."
+	- question: "If Microsoft does not provide `picture` in the token, should avatar support come from a separate backend fetch rather than token claims?"
+		context: "No code in this repository performs a secondary Microsoft photo lookup, yet the UI is prepared to show an avatar when `pictureUrl` exists."
+
+gaps:
+	- area: "Live production token payload"
+		description: "This investigation did not inspect a real Microsoft ID token or a live `/user/me` payload after Microsoft login."
+		impact: "The upstream-avatar hypothesis is strongly supported by code/tests, but not directly confirmed against a live environment in this read-only pass."

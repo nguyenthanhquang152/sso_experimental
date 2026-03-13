@@ -32,9 +32,12 @@ public class ProviderConfigController {
     @GetMapping("/providers")
     public ResponseEntity<Map<String, Object>> getProviders() {
         boolean googleConfigured = googleClientId != null && !googleClientId.isBlank();
-        boolean microsoftConfigured = microsoftAuthProperties.isConfigured();
-        boolean microsoftServerSideEnabled = rolloutProperties.getMicrosoft().isServerSideEnabled() && microsoftConfigured;
-        boolean microsoftClientSideEnabled = rolloutProperties.getMicrosoft().isClientSideEnabled() && microsoftConfigured;
+        boolean microsoftClientSideConfigured = microsoftAuthProperties.isClientSideConfigured();
+        boolean microsoftServerSideConfigured = microsoftAuthProperties.isServerSideConfigured();
+        boolean microsoftServerSideEnabled = rolloutProperties.getMicrosoft().isServerSideEnabled()
+            && microsoftServerSideConfigured;
+        boolean microsoftClientSideEnabled = rolloutProperties.getMicrosoft().isClientSideEnabled()
+            && microsoftClientSideConfigured;
 
         Map<String, Object> response = new LinkedHashMap<>();
         Map<String, Object> google = new LinkedHashMap<>();

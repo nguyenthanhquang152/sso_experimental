@@ -94,4 +94,52 @@ test.describe('HomePage', () => {
       page.getByRole('link', { name: 'Continue with Microsoft (Server-Side)' })
     ).toHaveAttribute('href', '/api/oauth2/authorization/microsoft');
   });
+
+  test('should send the configured app root as redirect_uri for Microsoft client-side login', async ({ page }) => {
+    await page.route('**/api/auth/providers', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          google: {
+            serverSideEnabled: true,
+            clientSideEnabled: true,
+            clientId: 'google-client-id.apps.googleusercontent.com',
+          },
+          microsoft: {
+            serverSideEnabled: true,
+            clientSideEnabled: true,
+            clientId: 'microsoft-client-id',
+            authority: 'https://login.microsoftonline.com/common/v2.0',
+            scopes: ['openid', 'profile', 'email'],
+          },
+        }),
+      });
+    });
+
+    await page.route('**/api/auth/microsoft/challenge', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          challengeId: 'test-challenge-id',
+          nonce: 'test-nonce',
+        }),
+      });
+    });
+
+    await page.goto('/');
+
+    const popupPromise = page.waitForEvent('popup');
+    await page.getByRole('button', { name: 'Continue with Microsoft' }).click();
+    const popup = await popupPromise;
+    await popup.waitForURL(/login\.microsoftonline\.com\/.*\/oauth2\/v2\.0\/authorize/);
+
+    const authorizeUrl = new URL(popup.url());
+    expect(authorizeUrl.searchParams.get('redirect_uri')).toBe('http://localhost:8000');
+    expect(authorizeUrl.searchParams.get('nonce')).toBe('test-nonce');
+
+    await popup.close();
+    await expect(page.getByRole('alert')).toHaveText('Microsoft sign-in failed. Please try again.');
+  });
 });
