@@ -1,5 +1,8 @@
 package com.demo.sso.service;
 
+import com.demo.sso.config.AuthRolloutProperties;
+import com.demo.sso.model.AuthProvider;
+import com.demo.sso.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -101,5 +104,75 @@ class JwtTokenServiceTest {
         assertDoesNotThrow(
             () -> new JwtTokenService(
                 "my-random-string-with-default-in-it-but-is-valid", 86400000));
+    }
+
+    @Test
+    void generateToken_forUserInV2MintMode_usesUserIdSubjectAndProviderClaims() {
+        JwtTokenService v2Service = new JwtTokenService(
+            "test-secret-key-that-is-at-least-32-characters-long-for-hmac",
+            86400000,
+            rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.V2)
+        );
+
+        User user = new User();
+        user.setId(42L);
+        user.setEmail("user@example.com");
+        user.setGoogleId("google-123");
+        user.setProvider(AuthProvider.GOOGLE);
+        user.setProviderUserId("google-123");
+
+        String token = v2Service.generateToken(user);
+        var claims = v2Service.parseToken(token);
+
+        assertEquals("42", claims.getSubject());
+        assertEquals(2, claims.get("ver", Integer.class));
+        assertEquals("GOOGLE", claims.get("provider", String.class));
+        assertEquals("google-123", claims.get("providerUserId", String.class));
+        assertEquals("user@example.com", claims.get("email", String.class));
+        assertNull(claims.get("googleId", String.class));
+    }
+
+    @Test
+    void parseAuthenticatedUser_acceptsLegacyTokenDuringCompatibilityMode() {
+        JwtTokenService compatibilityService = new JwtTokenService(
+            "test-secret-key-that-is-at-least-32-characters-long-for-hmac",
+            86400000,
+            rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.LEGACY)
+        );
+
+        String token = compatibilityService.generateToken("user@example.com", "google-123");
+        AuthenticatedUserIdentity identity = compatibilityService.parseAuthenticatedUser(token);
+
+        assertTrue(identity.isLegacy());
+        assertEquals("user@example.com", identity.email());
+        assertNull(identity.userId());
+    }
+
+    @Test
+    void isTokenValid_rejectsLegacyTokenWhenContractIsV2Only() {
+        JwtTokenService legacyService = new JwtTokenService(
+            "test-secret-key-that-is-at-least-32-characters-long-for-hmac",
+            86400000,
+            rolloutProperties(AuthRolloutProperties.IdentityContractMode.LEGACY_ONLY, AuthRolloutProperties.JwtMintMode.LEGACY)
+        );
+        JwtTokenService v2OnlyService = new JwtTokenService(
+            "test-secret-key-that-is-at-least-32-characters-long-for-hmac",
+            86400000,
+            rolloutProperties(AuthRolloutProperties.IdentityContractMode.V2_ONLY, AuthRolloutProperties.JwtMintMode.V2)
+        );
+
+        String legacyToken = legacyService.generateToken("user@example.com", "google-123");
+
+        assertFalse(v2OnlyService.isTokenValid(legacyToken));
+        assertThrows(IllegalArgumentException.class, () -> v2OnlyService.parseAuthenticatedUser(legacyToken));
+    }
+
+    private static AuthRolloutProperties rolloutProperties(
+            AuthRolloutProperties.IdentityContractMode identityContractMode,
+            AuthRolloutProperties.JwtMintMode jwtMintMode) {
+        AuthRolloutProperties properties = new AuthRolloutProperties();
+        properties.setIdentityContractMode(identityContractMode);
+        properties.setJwtMintMode(jwtMintMode);
+        return properties;
     }
 }

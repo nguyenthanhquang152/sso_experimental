@@ -14,7 +14,7 @@ test.describe('Protected Route - Dashboard', () => {
     await page.waitForURL('/');
 
     // Verify we are on the homepage with login cards
-    await expect(page.locator('h1')).toHaveText('Google SSO Demo');
+    await expect(page.locator('h1')).toHaveText('SSO Demo');
   });
 
   test('should not show dashboard content when unauthenticated', async ({ page }) => {

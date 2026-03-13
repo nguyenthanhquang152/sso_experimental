@@ -9,13 +9,17 @@ spring:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/sso_demo}
     username: ${SPRING_DATASOURCE_USERNAME:sso_user}
     password: ${SPRING_DATASOURCE_PASSWORD:sso_pass}
+  flyway:
+    enabled: ${SPRING_FLYWAY_ENABLED:true}
+    baseline-on-migrate: ${SPRING_FLYWAY_BASELINE_ON_MIGRATE:false}
+    baseline-version: ${SPRING_FLYWAY_BASELINE_VERSION:1}
   data:
     redis:
       host: ${SPRING_DATA_REDIS_HOST:localhost}
       port: ${SPRING_DATA_REDIS_PORT:6379}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
@@ -36,3 +40,14 @@ app:
     expiration-ms: 86400000
   frontend-url: ${FRONTEND_URL:http://localhost:8000}
   google-client-id: ${GOOGLE_CLIENT_ID}
+  auth:
+    identity-contract-mode: ${APP_AUTH_IDENTITY_CONTRACT_MODE:LEGACY_ONLY}
+    jwt-mint-mode: ${APP_AUTH_JWT_MINT_MODE:legacy}
+    microsoft:
+      server-side-enabled: ${APP_AUTH_MICROSOFT_SERVER_SIDE_ENABLED:false}
+      client-side-enabled: ${APP_AUTH_MICROSOFT_CLIENT_SIDE_ENABLED:false}
+  microsoft:
+    client-id: ${MICROSOFT_CLIENT_ID:}
+    client-secret: ${MICROSOFT_CLIENT_SECRET:}
+    authority: ${MICROSOFT_AUTHORITY:https://login.microsoftonline.com/common/v2.0}
+    scopes: ${MICROSOFT_SCOPES:openid,profile,email}

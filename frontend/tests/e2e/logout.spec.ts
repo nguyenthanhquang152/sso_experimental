@@ -1,7 +1,23 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Logout Flow', () => {
-  test('should clear localStorage jwt when logout API succeeds', async ({ page, request }) => {
+  test('should clear localStorage jwt when the logout button is clicked', async ({ page }) => {
+    await page.route('**/api/user/me', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          id: 1,
+          email: 'logout@example.com',
+          name: 'Logout User',
+          pictureUrl: null,
+          loginMethod: 'CLIENT_SIDE',
+          createdAt: '2026-03-13T10:00:00Z',
+          lastLoginAt: '2026-03-13T10:05:00Z',
+        }),
+      });
+    });
+
     // Simulate an authenticated state by setting a token in localStorage
     await page.goto('/');
     await page.evaluate(() => {
@@ -12,14 +28,11 @@ test.describe('Logout Flow', () => {
     const tokenBefore = await page.evaluate(() => localStorage.getItem('jwt'));
     expect(tokenBefore).toBe('fake-jwt-for-logout-test');
 
-    // Verify the logout API endpoint works
-    const response = await request.post('/api/auth/logout');
-    expect(response.status()).toBe(200);
+    await page.goto('/dashboard');
+    await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
 
-    // Simulate what the app does on logout: clear localStorage
-    await page.evaluate(() => {
-      localStorage.removeItem('jwt');
-    });
+    await page.getByRole('button', { name: 'Logout' }).click();
+    await page.waitForURL('/');
 
     const tokenAfter = await page.evaluate(() => localStorage.getItem('jwt'));
     expect(tokenAfter).toBeNull();
@@ -41,7 +54,7 @@ test.describe('Logout Flow', () => {
     await page.waitForURL('/', { timeout: 10000 });
 
     // Verify we are on the homepage
-    await expect(page.locator('h1')).toHaveText('Google SSO Demo');
+    await expect(page.locator('h1')).toHaveText('SSO Demo');
 
     // Verify token was cleared by the failed auth
     const token = await page.evaluate(() => localStorage.getItem('jwt'));

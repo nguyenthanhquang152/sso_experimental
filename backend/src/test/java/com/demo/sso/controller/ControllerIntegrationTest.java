@@ -1,10 +1,17 @@
 package com.demo.sso.controller;
 
 import com.demo.sso.config.TestAuthCodeStoreConfig;
+import com.demo.sso.model.AuthFlow;
+import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
 import com.demo.sso.repository.UserRepository;
 import com.demo.sso.service.AuthCodeStore;
+import com.demo.sso.service.GoogleTokenVerifier;
 import com.demo.sso.service.JwtTokenService;
+import com.demo.sso.service.MicrosoftTokenVerifier;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -13,11 +20,17 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.Instant;
+import java.util.Map;
 
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -25,6 +38,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Import(TestAuthCodeStoreConfig.class)
 class ControllerIntegrationTest {
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private MockMvc mockMvc;
@@ -38,6 +53,12 @@ class ControllerIntegrationTest {
     @Autowired
     private AuthCodeStore authCodeStore;
 
+    @MockBean
+    private GoogleTokenVerifier googleTokenVerifier;
+
+    @MockBean
+    private MicrosoftTokenVerifier microsoftTokenVerifier;
+
     @BeforeEach
     void setUp() {
         userRepository.deleteAll();
@@ -50,6 +71,9 @@ class ControllerIntegrationTest {
         user.setName("Test User");
         user.setPictureUrl("http://example.com/pic.jpg");
         user.setLoginMethod("SERVER_SIDE");
+        user.setProvider(AuthProvider.GOOGLE);
+        user.setProviderUserId("google-test-123");
+        user.setLastLoginFlow(AuthFlow.SERVER_SIDE);
         user.setCreatedAt(Instant.now());
         user.setLastLoginAt(Instant.now());
         return userRepository.save(user);
@@ -118,11 +142,52 @@ class ControllerIntegrationTest {
 
         @Test
         void returnsBadRequestWithInvalidGoogleToken() throws Exception {
+            when(googleTokenVerifier.verify("fake-google-id-token"))
+                .thenThrow(new IllegalArgumentException("Invalid Google credential"));
+
             mockMvc.perform(post("/auth/google/verify")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content("{\"credential\": \"fake-google-id-token\"}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.error").value("Invalid Google credential"));
+        }
+
+        @Test
+        void returnsTokenAndDualWritesProviderFieldsForValidGoogleToken() throws Exception {
+            GoogleIdToken.Payload payload = new GoogleIdToken.Payload();
+            payload.setSubject("google-123");
+            payload.setEmail("user@example.com");
+            payload.setEmailVerified(true);
+            payload.put("name", "Google User");
+            payload.put("picture", "http://example.com/google.png");
+
+            when(googleTokenVerifier.verify("valid-google-id-token")).thenReturn(payload);
+
+            MvcResult result = mockMvc.perform(post("/auth/google/verify")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"credential\": \"valid-google-id-token\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.token", not(blankOrNullString())))
+                .andReturn();
+
+            Map<String, String> response = objectMapper.readValue(
+                result.getResponse().getContentAsByteArray(),
+                new TypeReference<>() {}
+            );
+            String token = response.get("token");
+            assertNotNull(token);
+
+            var claims = jwtTokenService.parseToken(token);
+            assertEquals("user@example.com", claims.getSubject());
+            assertEquals("google-123", claims.get("googleId", String.class));
+
+            User savedUser = userRepository.findByGoogleId("google-123").orElseThrow();
+            assertEquals(AuthProvider.GOOGLE, savedUser.getProvider());
+            assertEquals("google-123", savedUser.getProviderUserId());
+            assertEquals(AuthFlow.CLIENT_SIDE, savedUser.getLastLoginFlow());
+            assertEquals("CLIENT_SIDE", savedUser.getLoginMethod());
+            assertEquals("Google User", savedUser.getName());
+            assertEquals("user@example.com", savedUser.getEmail());
         }
     }
 
@@ -186,6 +251,47 @@ class ControllerIntegrationTest {
             mockMvc.perform(post("/auth/logout"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value("Logged out successfully"));
+        }
+    }
+
+    @Nested
+    class MicrosoftDisabledContracts {
+
+        @Test
+        void providerConfigReportsMicrosoftDisabledByDefault() throws Exception {
+            mockMvc.perform(get("/auth/providers"))
+                .andExpect(status().isOk())
+                .andExpect(header().string("Cache-Control", containsString("no-store")))
+                .andExpect(jsonPath("$.google.serverSideEnabled").value(true))
+                .andExpect(jsonPath("$.google.clientSideEnabled").value(true))
+                .andExpect(jsonPath("$.microsoft.serverSideEnabled").value(false))
+                .andExpect(jsonPath("$.microsoft.clientSideEnabled").value(false))
+                .andExpect(jsonPath("$.microsoft.clientId").doesNotExist())
+                .andExpect(jsonPath("$.microsoft.authority").doesNotExist())
+                .andExpect(jsonPath("$.microsoft.scopes", hasSize(0)));
+        }
+
+        @Test
+        void microsoftChallengeReturns503WhenClientSideFlowDisabled() throws Exception {
+            mockMvc.perform(post("/auth/microsoft/challenge"))
+                .andExpect(status().isServiceUnavailable())
+                .andExpect(jsonPath("$.error").value("Microsoft client-side login is disabled"));
+        }
+
+        @Test
+        void microsoftVerifyReturns503WhenClientSideFlowDisabled() throws Exception {
+            mockMvc.perform(post("/auth/microsoft/verify")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"credential\":\"token\",\"challengeId\":\"challenge\"}"))
+                .andExpect(status().isServiceUnavailable())
+                .andExpect(jsonPath("$.error").value("Microsoft client-side login is disabled"));
+        }
+
+        @Test
+        void microsoftAuthorizationEntryReturns503WhenServerSideFlowDisabled() throws Exception {
+            mockMvc.perform(get("/oauth2/authorization/microsoft"))
+                .andExpect(status().isServiceUnavailable())
+                .andExpect(content().json("{\"error\":\"Microsoft server-side login is disabled\"}"));
         }
     }
 

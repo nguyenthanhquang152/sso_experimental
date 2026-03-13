@@ -1,5 +1,6 @@
 package com.demo.sso.service;
 
+import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -60,9 +61,11 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         String name = oAuth2User.getAttribute("name");
         String picture = oAuth2User.getAttribute("picture");
 
-        User user = userService.findOrCreateUser(googleId, email, name, picture, "SERVER_SIDE");
+        User user = userService.findOrCreateUser(
+            NormalizedIdentity.google(googleId, email, name, picture, AuthFlow.SERVER_SIDE)
+        );
 
-        String jwt = jwtTokenService.generateToken(user.getEmail(), user.getGoogleId());
+        String jwt = jwtTokenService.generateToken(user);
         String code = authCodeStore.storeJwt(jwt);
 
         String encodedCode = URLEncoder.encode(code, StandardCharsets.UTF_8);
