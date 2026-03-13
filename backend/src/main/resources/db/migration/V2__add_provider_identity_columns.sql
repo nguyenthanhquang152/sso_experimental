@@ -1,0 +1,3 @@
+ALTER TABLE users ADD COLUMN provider VARCHAR(32);
+ALTER TABLE users ADD COLUMN provider_user_id VARCHAR(255);
+ALTER TABLE users ADD COLUMN last_login_flow VARCHAR(20);

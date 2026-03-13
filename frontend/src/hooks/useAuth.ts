@@ -15,12 +15,14 @@ export function useAuth() {
   const [token, setToken] = useState<string | null>(() =>
     localStorage.getItem('jwt')
   );
-  const [user, setUser] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState<UserProfile | null | undefined>(() =>
+    localStorage.getItem('jwt') ? undefined : null
+  );
 
   const login = useCallback((jwt: string) => {
     localStorage.setItem('jwt', jwt);
     setToken(jwt);
+    setUser(undefined);
   }, []);
 
   const logout = useCallback(() => {
@@ -31,18 +33,22 @@ export function useAuth() {
 
   useEffect(() => {
     if (!token) {
-      setUser(null);
       return;
     }
 
-    setLoading(true);
     apiFetch<UserProfile>('/user/me')
       .then(setUser)
       .catch(() => {
         logout();
-      })
-      .finally(() => setLoading(false));
+      });
   }, [token, logout]);
 
-  return { token, user, loading, login, logout, isAuthenticated: !!token };
+  return {
+    token,
+    user: user ?? null,
+    loading: Boolean(token) && user === undefined,
+    login,
+    logout,
+    isAuthenticated: !!token,
+  };
 }

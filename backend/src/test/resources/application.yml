@@ -6,6 +6,10 @@ server:
 spring:
   profiles:
     active: test
+  flyway:
+    enabled: false
+    baseline-on-migrate: false
+    baseline-version: 1
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
@@ -35,3 +39,14 @@ app:
     expiration-ms: 86400000
   frontend-url: http://localhost:3000
   google-client-id: test-client-id
+  auth:
+    identity-contract-mode: LEGACY_ONLY
+    jwt-mint-mode: legacy
+    microsoft:
+      server-side-enabled: false
+      client-side-enabled: false
+  microsoft:
+    client-id:
+    client-secret:
+    authority: https://login.microsoftonline.com/common/v2.0
+    scopes: openid,profile,email

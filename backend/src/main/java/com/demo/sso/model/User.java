@@ -4,17 +4,23 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "users")
+@Table(
+    name = "users",
+    uniqueConstraints = @UniqueConstraint(
+        name = "uk_users_provider_identity",
+        columnNames = {"provider", "provider_user_id"}
+    )
+)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "google_id", unique = true, nullable = false)
+    @Column(name = "google_id", unique = true, nullable = true)
     private String googleId;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String email;
 
     private String name;
@@ -24,6 +30,17 @@ public class User {
 
     @Column(name = "login_method", length = 20)
     private String loginMethod;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 32, nullable = false)
+    private AuthProvider provider;
+
+    @Column(name = "provider_user_id", nullable = false)
+    private String providerUserId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "last_login_flow", length = 20)
+    private AuthFlow lastLoginFlow;
 
     @Column(name = "created_at")
     private Instant createdAt;
@@ -54,6 +71,15 @@ public class User {
 
     public String getLoginMethod() { return loginMethod; }
     public void setLoginMethod(String loginMethod) { this.loginMethod = loginMethod; }
+
+    public AuthProvider getProvider() { return provider; }
+    public void setProvider(AuthProvider provider) { this.provider = provider; }
+
+    public String getProviderUserId() { return providerUserId; }
+    public void setProviderUserId(String providerUserId) { this.providerUserId = providerUserId; }
+
+    public AuthFlow getLastLoginFlow() { return lastLoginFlow; }
+    public void setLastLoginFlow(AuthFlow lastLoginFlow) { this.lastLoginFlow = lastLoginFlow; }
 
     public Instant getCreatedAt() { return createdAt; }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }

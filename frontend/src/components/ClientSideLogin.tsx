@@ -1,12 +1,25 @@
 import { GoogleLogin } from '@react-oauth/google';
 import type { CredentialResponse } from '@react-oauth/google';
 import { apiFetch } from '../api/client';
+import { LoginCard } from './LoginCard';
 
 interface ClientSideLoginProps {
   onSuccess: (token: string) => void;
+  clientReady: boolean;
 }
 
-export function ClientSideLogin({ onSuccess }: ClientSideLoginProps) {
+const fallbackButtonStyle = {
+  width: '100%',
+  padding: '12px 16px',
+  backgroundColor: '#e5e7eb',
+  color: '#4b5563',
+  border: 'none',
+  borderRadius: '8px',
+  fontWeight: 700,
+  cursor: 'not-allowed',
+} as const;
+
+export function ClientSideLogin({ onSuccess, clientReady }: ClientSideLoginProps) {
   const handleSuccess = async (credentialResponse: CredentialResponse) => {
     if (!credentialResponse.credential) return;
 
@@ -22,21 +35,21 @@ export function ClientSideLogin({ onSuccess }: ClientSideLoginProps) {
   };
 
   return (
-    <div style={{
-      border: '1px solid #e0e0e0',
-      borderRadius: '8px',
-      padding: '24px',
-      maxWidth: '400px',
-    }}>
-      <h2>Client-Side Flow</h2>
-      <p style={{ color: '#666', fontSize: '14px' }}>
-        Google Sign-In happens directly in the browser via a popup.
-        The ID token is sent to the backend for verification.
-      </p>
-      <GoogleLogin
-        onSuccess={handleSuccess}
-        onError={() => console.error('Google Login Failed')}
-      />
-    </div>
+    <LoginCard
+      title="Google · Client-Side Flow"
+      description="Google Sign-In happens directly in the browser via a popup. The ID token is sent to the backend for verification."
+      accentColor="#4285f4"
+    >
+      {clientReady ? (
+        <GoogleLogin
+          onSuccess={handleSuccess}
+          onError={() => console.error('Google Login Failed')}
+        />
+      ) : (
+        <button type="button" disabled style={fallbackButtonStyle}>
+          Google client login is temporarily unavailable
+        </button>
+      )}
+    </LoginCard>
   );
 }

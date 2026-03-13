@@ -1,5 +1,7 @@
 package com.demo.sso.service;
 
+import com.demo.sso.model.AuthFlow;
+import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
 import com.demo.sso.repository.UserRepository;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,32 +24,83 @@ public class UserService {
     @Transactional
     public User findOrCreateUser(String googleId, String email, String name,
                                   String pictureUrl, String loginMethod) {
-        Optional<User> existing = userRepository.findByGoogleId(googleId);
+        return findOrCreateUser(NormalizedIdentity.google(
+            googleId,
+            email,
+            name,
+            pictureUrl,
+            AuthFlow.fromLoginMethod(loginMethod))
+        );
+    }
+
+    @Transactional
+    public User findOrCreateUser(NormalizedIdentity identity) {
+        Optional<User> existing = userRepository.findByProviderAndProviderUserId(
+            identity.provider(),
+            identity.providerUserId()
+        );
+
+        if (existing.isEmpty() && identity.provider() == AuthProvider.GOOGLE) {
+            existing = userRepository.findByGoogleId(identity.providerUserId());
+        }
 
         if (existing.isPresent()) {
             User user = existing.get();
-            user.setName(name);
-            user.setPictureUrl(pictureUrl);
-            user.setLoginMethod(loginMethod);
+            user.setEmail(identity.email());
+            user.setName(identity.name());
+            user.setPictureUrl(identity.pictureUrl());
+            applyProviderIdentityFields(user, identity);
             user.setLastLoginAt(Instant.now());
             return userRepository.save(user);
         }
 
         User user = new User();
-        user.setGoogleId(googleId);
-        user.setEmail(email);
-        user.setName(name);
-        user.setPictureUrl(pictureUrl);
-        user.setLoginMethod(loginMethod);
+        user.setGoogleId(legacyGoogleCompatibilityId(identity));
+        user.setEmail(identity.email());
+        user.setName(identity.name());
+        user.setPictureUrl(identity.pictureUrl());
+        applyProviderIdentityFields(user, identity);
         try {
             return userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
-            return userRepository.findByGoogleId(googleId)
+            if (identity.provider() != AuthProvider.GOOGLE) {
+                return userRepository.findByProviderAndProviderUserId(identity.provider(), identity.providerUserId())
+                    .orElseThrow(() -> new IllegalStateException("Concurrent user creation failed", e));
+            }
+            return userRepository.findByGoogleId(identity.providerUserId())
                 .orElseThrow(() -> new IllegalStateException("Concurrent user creation failed", e));
         }
     }
 
+    private static void applyProviderIdentityFields(User user, NormalizedIdentity identity) {
+        user.setProvider(identity.provider());
+        user.setProviderUserId(identity.providerUserId());
+        user.setLastLoginFlow(identity.loginFlow());
+        if (identity.loginFlow() != null) {
+            user.setLoginMethod(identity.loginFlow().name());
+        }
+        user.setGoogleId(legacyGoogleCompatibilityId(identity));
+    }
+
+    private static String legacyGoogleCompatibilityId(NormalizedIdentity identity) {
+        if (identity.provider() == AuthProvider.GOOGLE) {
+            return identity.providerUserId();
+        }
+        return identity.provider().name().toLowerCase() + ":" + identity.providerUserId();
+    }
+
     public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
+        List<User> matches = userRepository.findAllByEmail(email);
+        if (matches.size() > 1) {
+            throw new IllegalStateException("Ambiguous legacy email identity for " + email);
+        }
+        return matches.stream().findFirst();
+    }
+
+    public Optional<User> findCurrentUser(AuthenticatedUserIdentity identity) {
+        if (identity.isLegacy()) {
+            return findByEmail(identity.email());
+        }
+        return userRepository.findById(identity.userId());
     }
 }

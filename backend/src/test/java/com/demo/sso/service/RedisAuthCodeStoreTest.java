@@ -1,5 +1,6 @@
 package com.demo.sso.service;
 
+import com.demo.sso.config.AuthRolloutProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -76,5 +77,59 @@ class RedisAuthCodeStoreTest {
         String code1 = store.storeJwt("jwt1");
         String code2 = store.storeJwt("jwt2");
         assertNotEquals(code1, code2);
+    }
+
+    @Test
+    void storeJwt_usesV2NamespaceWhenMintModeIsV2() {
+        RedisAuthCodeStore v2Store = new RedisAuthCodeStore(
+            redisTemplate,
+            rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.V2)
+        );
+
+        v2Store.storeJwt("v2.jwt.token");
+
+        ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
+        verify(valueOps).set(keyCaptor.capture(), eq("v2.jwt.token"), eq(Duration.ofSeconds(30)));
+        assertTrue(keyCaptor.getValue().startsWith("authcode:v2:"));
+    }
+
+    @Test
+    void exchangeCode_readsLegacyThenV2NamespaceDuringCompatibilityMode() {
+        RedisAuthCodeStore compatibilityStore = new RedisAuthCodeStore(
+            redisTemplate,
+            rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.LEGACY)
+        );
+        when(valueOps.getAndDelete("authcode:compat-code")).thenReturn(null);
+        when(valueOps.getAndDelete("authcode:v2:compat-code")).thenReturn("stored.v2.jwt");
+
+        String jwt = compatibilityStore.exchangeCode("compat-code");
+
+        assertEquals("stored.v2.jwt", jwt);
+        verify(valueOps).getAndDelete("authcode:compat-code");
+        verify(valueOps).getAndDelete("authcode:v2:compat-code");
+    }
+
+    @Test
+    void exchangeCode_ignoresLegacyNamespaceWhenContractIsV2Only() {
+        RedisAuthCodeStore v2OnlyStore = new RedisAuthCodeStore(
+            redisTemplate,
+            rolloutProperties(AuthRolloutProperties.IdentityContractMode.V2_ONLY, AuthRolloutProperties.JwtMintMode.V2)
+        );
+        when(valueOps.getAndDelete("authcode:v2:compat-code")).thenReturn("stored.v2.jwt");
+
+        String jwt = v2OnlyStore.exchangeCode("compat-code");
+
+        assertEquals("stored.v2.jwt", jwt);
+        verify(valueOps, never()).getAndDelete("authcode:compat-code");
+        verify(valueOps).getAndDelete("authcode:v2:compat-code");
+    }
+
+    private static AuthRolloutProperties rolloutProperties(
+            AuthRolloutProperties.IdentityContractMode identityContractMode,
+            AuthRolloutProperties.JwtMintMode jwtMintMode) {
+        AuthRolloutProperties properties = new AuthRolloutProperties();
+        properties.setIdentityContractMode(identityContractMode);
+        properties.setJwtMintMode(jwtMintMode);
+        return properties;
     }
 }

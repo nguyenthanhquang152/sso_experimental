@@ -1,6 +1,7 @@
 package com.demo.sso.config;
 
 import com.demo.sso.service.AuthCodeStore;
+import com.demo.sso.service.MicrosoftChallengeStore;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -16,6 +17,12 @@ public class TestAuthCodeStoreConfig {
     @Primary
     public AuthCodeStore inMemoryAuthCodeStore() {
         return new InMemoryAuthCodeStore();
+    }
+
+    @Bean
+    @Primary
+    public MicrosoftChallengeStore inMemoryMicrosoftChallengeStore() {
+        return new InMemoryMicrosoftChallengeStore();
     }
 
     static class InMemoryAuthCodeStore implements AuthCodeStore {
@@ -52,5 +59,46 @@ public class TestAuthCodeStoreConfig {
         }
 
         private record CodeEntry(String jwt, long createdAt) {}
+    }
+
+    static class InMemoryMicrosoftChallengeStore implements MicrosoftChallengeStore {
+
+        private static final long CHALLENGE_TTL_MS = 5 * 60_000;
+        private static final SecureRandom SECURE_RANDOM = new SecureRandom();
+        private final ConcurrentHashMap<String, ChallengeEntry> store = new ConcurrentHashMap<>();
+
+        @Override
+        public MicrosoftChallenge issueChallenge(String sessionId) {
+            evictExpired();
+            String challengeId = randomValue();
+            String nonce = randomValue();
+            store.put(sessionId + ":" + challengeId, new ChallengeEntry(nonce, System.currentTimeMillis()));
+            return new MicrosoftChallenge(challengeId, nonce);
+        }
+
+        @Override
+        public String consumeNonce(String sessionId, String challengeId) {
+            ChallengeEntry entry = store.remove(sessionId + ":" + challengeId);
+            if (entry == null) {
+                return null;
+            }
+            if (System.currentTimeMillis() - entry.createdAt > CHALLENGE_TTL_MS) {
+                return null;
+            }
+            return entry.nonce;
+        }
+
+        private void evictExpired() {
+            long now = System.currentTimeMillis();
+            store.entrySet().removeIf(e -> now - e.getValue().createdAt > CHALLENGE_TTL_MS);
+        }
+
+        private static String randomValue() {
+            byte[] bytes = new byte[32];
+            SECURE_RANDOM.nextBytes(bytes);
+            return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+        }
+
+        private record ChallengeEntry(String nonce, long createdAt) {}
     }
 }

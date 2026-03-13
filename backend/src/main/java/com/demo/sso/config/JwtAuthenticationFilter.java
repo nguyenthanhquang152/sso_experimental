@@ -1,5 +1,6 @@
 package com.demo.sso.config;
 
+import com.demo.sso.service.AuthenticatedUserIdentity;
 import com.demo.sso.service.JwtTokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -35,9 +36,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = header.substring(7);
 
             if (!token.isBlank() && jwtTokenService.isTokenValid(token)) {
-                String email = jwtTokenService.getEmailFromToken(token);
+                AuthenticatedUserIdentity identity = jwtTokenService.parseAuthenticatedUser(token);
                 var auth = new UsernamePasswordAuthenticationToken(
-                        email, null,
+                        identity, null,
                         List.of(new SimpleGrantedAuthority("ROLE_USER")));
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
