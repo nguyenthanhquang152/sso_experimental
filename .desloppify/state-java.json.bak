@@ -12,8 +12,8 @@
     "auto_resolved": 0,
     "deferred": 3,
     "false_positive": 0,
-    "fixed": 29,
-    "open": 65,
+    "fixed": 31,
+    "open": 63,
     "triaged_out": 0,
     "wontfix": 0,
     "by_tier": {
@@ -30,8 +30,8 @@
         "auto_resolved": 0,
         "deferred": 0,
         "false_positive": 0,
-        "fixed": 6,
-        "open": 9,
+        "fixed": 8,
+        "open": 7,
         "triaged_out": 0,
         "wontfix": 0
       },
@@ -1798,11 +1798,11 @@
         "reasoning": "",
         "summary_hash": "2504743b"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "AuthFlow.fromLoginMethod already throws IllegalArgumentException on null/blank/invalid values (fixed in contract-guards commit). No null sentinel remains \u2014 the legacy overload that called it was also removed.",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-14T20:47:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -1810,7 +1810,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "manual",
+        "text": "I have actually AuthFlow.fromLoginMethod already throws IllegalArgumentException on null/blank/invalid values (fixed in contract-guards commit). No null sentinel remains \u2014 the legacy overload that called it was also removed. and I am not gaming the score.",
+        "attested_at": "2026-03-14T20:47:53+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity": {
       "id": "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
@@ -2387,11 +2393,11 @@
         "reasoning": "",
         "summary_hash": "2f0f4296"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "GoogleTokenVerifier now returns VerifiedGoogleIdentity (a provider-neutral record) instead of GoogleIdToken.Payload. AuthController no longer imports or depends on the Google API library \u2014 all Google SDK types are encapsulated in GoogleTokenVerifier.",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-14T20:51:41+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -2399,7 +2405,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "manual",
+        "text": "I have actually GoogleTokenVerifier now returns VerifiedGoogleIdentity (a provider-neutral record) instead of GoogleIdToken.Payload. AuthController no longer imports or depends on the Google API library \u2014 all Google SDK types are encapsulated in GoogleTokenVerifier. and I am not gaming the score.",
+        "attested_at": "2026-03-14T20:51:41+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads": {
       "id": "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads",
@@ -3340,7 +3352,7 @@
       "assessed_at": "2026-03-14T19:10:42+00:00",
       "needs_review_refresh": true,
       "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:45:20+00:00"
+      "stale_since": "2026-03-14T20:51:41+00:00"
     },
     "authorization_consistency": {
       "score": 88.0,
@@ -3387,7 +3399,7 @@
       "assessed_at": "2026-03-14T19:10:42+00:00",
       "needs_review_refresh": true,
       "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:31:09+00:00"
+      "stale_since": "2026-03-14T20:47:53+00:00"
     },
     "high_level_elegance": {
       "score": 74.0,
@@ -4165,13 +4177,13 @@
       "strict": 81.0,
       "verified_strict_score": 81.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.81,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 1.9,
           "assessment_score": 81.0,
           "placeholder": false,
@@ -4312,13 +4324,13 @@
       "strict": 77.4,
       "verified_strict_score": 77.4,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.774,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 2.26,
           "assessment_score": 77.4,
           "placeholder": false,

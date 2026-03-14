@@ -2,104 +2,6 @@
   "command": "next",
   "items": [
     {
-      "id": "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
-      "confidence": "medium",
-      "detector": "review",
-      "file": ".",
-      "summary": "Provider verification APIs expose three different contract layers for the same job",
-      "detail": {
-        "holistic": true,
-        "dimension": "api_surface_coherence",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java",
-          "backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java",
-          "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java",
-          "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java",
-          "backend/src/main/java/com/demo/sso/controller/AuthController.java"
-        ],
-        "evidence": [
-          "`GoogleTokenVerifier.verify(String)` returns the vendor-specific `GoogleIdToken.Payload`, and callers then unpack fields to call `ProviderIdentityNormalizer.normalizeGoogleClaims(String googleId, String email, String name, String pictureUrl, AuthFlow loginFlow)`.",
-          "`MicrosoftTokenVerifier.verifyIdToken(String credential, String expectedNonce, AuthFlow authFlow)` already returns `NormalizedIdentity`, while `ProviderIdentityNormalizer.normalizeMicrosoftClaims(Map<String, Object> claims, AuthFlow loginFlow)` accepts a raw claims map on other code paths.",
-          "Similar 'verify an identity and hand it to user creation' flows therefore make callers remember three different public contract shapes: provider payload, raw claim map, and already-normalized domain object."
-        ],
-        "suggestion": "Choose one public contract level for provider adapters\u2014either have both verifiers return `NormalizedIdentity`, or have both expose typed raw claims and let one normalizer own the mapping\u2014so Google and Microsoft flows can be used with the same mental model.",
-        "reasoning": "",
-        "summary_hash": "2f0f4296"
-      },
-      "status": "open",
-      "kind": "issue",
-      "primary_command": "desloppify plan resolve \"review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels\" --note \"<what you did>\" --confirm",
-      "queue_position": 9,
-      "plan_cluster": {
-        "name": "abstraction-alignment",
-        "description": "Align provider verifier abstractions",
-        "total_items": 3,
-        "action_steps": [
-          {
-            "title": "Make GoogleTokenVerifier return NormalizedIdentity",
-            "effort": "medium"
-          },
-          {
-            "title": "Remove Google SDK import from AuthController",
-            "effort": "small"
-          },
-          {
-            "title": "Improve AuthenticatedUserIdentity typing",
-            "effort": "medium"
-          }
-        ]
-      }
-    },
-    {
-      "id": "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
-      "confidence": "high",
-      "detector": "review",
-      "file": ".",
-      "summary": "Google verification ties the auth flow to the broad google-api-client library",
-      "detail": {
-        "holistic": true,
-        "dimension": "dependency_health",
-        "related_files": [
-          "backend/pom.xml",
-          "backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java",
-          "backend/src/main/java/com/demo/sso/controller/AuthController.java",
-          "backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java"
-        ],
-        "evidence": [
-          "`backend/pom.xml` adds `com.google.api-client:google-api-client` as a dedicated runtime dependency for Google token verification.",
-          "`GoogleTokenVerifier.java` uses that library only to build `GoogleIdTokenVerifier` and returns `GoogleIdToken.Payload` directly to callers.",
-          "`AuthController.java` imports `com.google.api.client.googleapis.auth.oauth2.GoogleIdToken` and works with the vendor payload in web-layer code, so the dependency is not confined to a single adapter.",
-          "By contrast, `MicrosoftTokenVerifier.java` translates vendor JWT data into app-local `NormalizedIdentity`, showing the Google path is more dependency-coupled than the rest of the auth stack."
-        ],
-        "suggestion": "Keep Google SDK usage inside `GoogleTokenVerifier` by translating verified claims into an app-local DTO or `NormalizedIdentity` before returning, and when this path is next touched evaluate replacing `google-api-client` with a narrower Google token-verification library so the auth subsystem depends on less vendor surface area.",
-        "reasoning": "",
-        "summary_hash": "608c44f3"
-      },
-      "status": "open",
-      "kind": "issue",
-      "primary_command": "desloppify plan resolve \"review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow\" --note \"<what you did>\" --confirm",
-      "queue_position": 10,
-      "plan_cluster": {
-        "name": "abstraction-alignment",
-        "description": "Align provider verifier abstractions",
-        "total_items": 3,
-        "action_steps": [
-          {
-            "title": "Make GoogleTokenVerifier return NormalizedIdentity",
-            "effort": "medium"
-          },
-          {
-            "title": "Remove Google SDK import from AuthController",
-            "effort": "small"
-          },
-          {
-            "title": "Improve AuthenticatedUserIdentity typing",
-            "effort": "medium"
-          }
-        ]
-      }
-    },
-    {
       "id": "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
       "confidence": "medium",
       "detector": "review",
@@ -126,7 +28,7 @@
       "status": "open",
       "kind": "issue",
       "primary_command": "desloppify plan resolve \"review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union\" --note \"<what you did>\" --confirm",
-      "queue_position": 11,
+      "queue_position": 9,
       "plan_cluster": {
         "name": "abstraction-alignment",
         "description": "Align provider verifier abstractions",
@@ -149,12 +51,12 @@
     }
   ],
   "queue": {
-    "total": 3,
+    "total": 1,
     "mode": "execution"
   },
   "narrative": {
     "phase": "early_momentum",
-    "headline": "Score 84.2/100 with 64 issues open. Keep the momentum going. (20 review work items \u2014 run `desloppify show review --status open`)",
+    "headline": "Score 84.2/100 with 62 issues open. Keep the momentum going. (18 review work items \u2014 run `desloppify show review --status open`)",
     "dimensions": {
       "lowest_dimensions": [
         {
@@ -240,8 +142,8 @@
       {
         "type": "refactor",
         "detector": "review",
-        "count": 20,
-        "description": "20 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
+        "count": 18,
+        "description": "18 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
         "command": "desloppify show review --status open",
         "impact": 0.0,
         "dimension": "Unknown",
@@ -267,7 +169,7 @@
     "strategy": {
       "fixer_leverage": {
         "auto_fixable_count": 0,
-        "total_count": 104,
+        "total_count": 98,
         "coverage": 0.0,
         "impact_ratio": 0.0,
         "recommendation": "none"
@@ -320,7 +222,7 @@
         }
       },
       "can_parallelize": true,
-      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 20 issue(s) \u2014 `desloppify show review --status open`."
+      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 18 issue(s) \u2014 `desloppify show review --status open`."
     },
     "tools": {
       "fixers": [],
@@ -353,7 +255,7 @@
       "command": "desloppify show orphaned --status open",
       "description": "27 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
     },
-    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 20 issue(s) \u2014 `desloppify show review --status open`.",
+    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 18 issue(s) \u2014 `desloppify show review --status open`.",
     "verification_step": {
       "command": "desloppify scan",
       "reason": "revalidate after changes"
@@ -369,7 +271,7 @@
     "reminders": [
       {
         "type": "review_issues_pending",
-        "message": "20 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
+        "message": "18 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
         "command": "desloppify show review --status open",
         "priority": 1,
         "severity": "high"
@@ -461,7 +363,7 @@
         "item_count": 4
       }
     ],
-    "total_ordered": 24,
+    "total_ordered": 22,
     "total_skipped": 3,
     "plan_overrides_narrative": true
   },
@@ -496,7 +398,7 @@
       "score": 81.0,
       "strict": 81.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "subjective": true,
       "placeholder": false,
@@ -570,7 +472,7 @@
       "score": 91.0,
       "strict": 91.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "subjective": true,
       "placeholder": false,
@@ -731,7 +633,7 @@
       "score": 81.0,
       "strict": 81.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "subjective": true,
       "placeholder": false,
@@ -796,7 +698,7 @@
       "score": 91.0,
       "strict": 91.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "subjective": true,
       "placeholder": false,

@@ -1,7 +1,7 @@
 {
   "version": 8,
   "created": "2026-03-14T18:25:42+00:00",
-  "updated": "2026-03-14T20:48:17+00:00",
+  "updated": "2026-03-14T20:52:08+00:00",
   "queue_order": [
     "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
     "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
@@ -11,8 +11,6 @@
     "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
     "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
     "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level",
-    "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
-    "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
     "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
     "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
     "triage::organize",
@@ -324,14 +322,14 @@
     "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels": {
       "issue_id": "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
       "created_at": "2026-03-14T20:19:26+00:00",
-      "cluster": "abstraction-alignment",
-      "updated_at": "2026-03-14T20:19:26+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T20:51:41+00:00"
     },
     "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow": {
       "issue_id": "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
       "created_at": "2026-03-14T20:19:26+00:00",
-      "cluster": "abstraction-alignment",
-      "updated_at": "2026-03-14T20:19:26+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T20:52:08+00:00"
     },
     "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union": {
       "issue_id": "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
@@ -622,9 +620,9 @@
       "name": "abstraction-alignment",
       "description": "Align provider verifier abstractions",
       "issue_ids": [
+        "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
         "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
-        "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
-        "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union"
+        "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow"
       ],
       "created_at": "2026-03-14T20:19:22+00:00",
       "updated_at": "2026-03-14T20:24:17+00:00",
@@ -913,8 +911,6 @@
   },
   "promoted_ids": [
     "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
-    "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
-    "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
     "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
     "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
     "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
@@ -2753,6 +2749,56 @@
         "sha": "eec81453f7e5",
         "branch": "desloppify/code-health"
       }
+    },
+    {
+      "timestamp": "2026-03-14T20:51:41+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "GoogleTokenVerifier now returns VerifiedGoogleIdentity (a provider-neutral record) instead of GoogleIdToken.Payload. AuthController no longer imports or depends on the Google API library \u2014 all Google SDK types are encapsulated in GoogleTokenVerifier.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:51:41+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "GoogleTokenVerifier now returns VerifiedGoogleIdentity (a provider-neutral record) instead of GoogleIdToken.Payload. AuthController no longer imports or depends on the Google API library \u2014 all Google SDK types are encapsulated in GoogleTokenVerifier.",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually GoogleTokenVerifier now returns VerifiedGoogleIdentity (a provider-neutral record) instead of GoogleIdToken.Payload. AuthController no longer imports or depends on the Google API library \u2014 all Google SDK types are encapsulated in GoogleTokenVerifier. and I am not gaming the score."
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:52:08+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "AuthController no longer imports com.google.api.client.googleapis.auth.oauth2.GoogleIdToken. The Google SDK is fully encapsulated within GoogleTokenVerifier. Tests also updated to use VerifiedGoogleIdentity instead of GoogleIdToken.Payload.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:52:08+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "AuthController no longer imports com.google.api.client.googleapis.auth.oauth2.GoogleIdToken. The Google SDK is fully encapsulated within GoogleTokenVerifier. Tests also updated to use VerifiedGoogleIdentity instead of GoogleIdToken.Payload.",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually AuthController no longer imports com.google.api.client.googleapis.auth.oauth2.GoogleIdToken. The Google SDK is fully encapsulated within GoogleTokenVerifier. Tests also updated to use VerifiedGoogleIdentity instead of GoogleIdToken.Payload. and I am not gaming the score."
+      }
     }
   ],
   "epic_triage_meta": {
@@ -3426,7 +3472,10 @@
       "cluster_name": null
     }
   ],
-  "uncommitted_issues": [],
+  "uncommitted_issues": [
+    "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
+    "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow"
+  ],
   "commit_tracking_branch": null,
   "scan_count_at_plan_start": 4
 }

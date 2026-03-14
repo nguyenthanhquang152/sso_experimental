@@ -12,8 +12,8 @@
     "auto_resolved": 0,
     "deferred": 3,
     "false_positive": 0,
-    "fixed": 30,
-    "open": 64,
+    "fixed": 32,
+    "open": 62,
     "triaged_out": 0,
     "wontfix": 0,
     "by_tier": {
@@ -21,8 +21,8 @@
         "auto_resolved": 0,
         "deferred": 3,
         "false_positive": 0,
-        "fixed": 12,
-        "open": 12,
+        "fixed": 13,
+        "open": 11,
         "triaged_out": 0,
         "wontfix": 0
       },
@@ -30,8 +30,8 @@
         "auto_resolved": 0,
         "deferred": 0,
         "false_positive": 0,
-        "fixed": 7,
-        "open": 8,
+        "fixed": 8,
+        "open": 7,
         "triaged_out": 0,
         "wontfix": 0
       },
@@ -1999,11 +1999,11 @@
         "reasoning": "",
         "summary_hash": "608c44f3"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "AuthController no longer imports com.google.api.client.googleapis.auth.oauth2.GoogleIdToken. The Google SDK is fully encapsulated within GoogleTokenVerifier. Tests also updated to use VerifiedGoogleIdentity instead of GoogleIdToken.Payload.",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-14T20:52:08+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -2011,7 +2011,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "manual",
+        "text": "I have actually AuthController no longer imports com.google.api.client.googleapis.auth.oauth2.GoogleIdToken. The Google SDK is fully encapsulated within GoogleTokenVerifier. Tests also updated to use VerifiedGoogleIdentity instead of GoogleIdToken.Payload. and I am not gaming the score.",
+        "attested_at": "2026-03-14T20:52:08+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::low_level_elegance::implicit_redirect_null_contract": {
       "id": "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
@@ -2393,11 +2399,11 @@
         "reasoning": "",
         "summary_hash": "2f0f4296"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "GoogleTokenVerifier now returns VerifiedGoogleIdentity (a provider-neutral record) instead of GoogleIdToken.Payload. AuthController no longer imports or depends on the Google API library \u2014 all Google SDK types are encapsulated in GoogleTokenVerifier.",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-14T20:51:41+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -2405,7 +2411,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "manual",
+        "text": "I have actually GoogleTokenVerifier now returns VerifiedGoogleIdentity (a provider-neutral record) instead of GoogleIdToken.Payload. AuthController no longer imports or depends on the Google API library \u2014 all Google SDK types are encapsulated in GoogleTokenVerifier. and I am not gaming the score.",
+        "attested_at": "2026-03-14T20:51:41+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads": {
       "id": "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads",
@@ -3346,7 +3358,7 @@
       "assessed_at": "2026-03-14T19:10:42+00:00",
       "needs_review_refresh": true,
       "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:45:20+00:00"
+      "stale_since": "2026-03-14T20:51:41+00:00"
     },
     "authorization_consistency": {
       "score": 88.0,
@@ -3380,7 +3392,10 @@
     "dependency_health": {
       "score": 91.0,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00",
+      "needs_review_refresh": true,
+      "refresh_reason": "review_issue_fixed",
+      "stale_since": "2026-03-14T20:52:08+00:00"
     },
     "design_coherence": {
       "score": 91.4,
@@ -4171,13 +4186,13 @@
       "strict": 81.0,
       "verified_strict_score": 81.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.81,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 1.9,
           "assessment_score": 81.0,
           "placeholder": false,
@@ -4276,13 +4291,13 @@
       "strict": 91.0,
       "verified_strict_score": 91.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.91,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 0.9,
           "assessment_score": 91.0,
           "placeholder": false,
