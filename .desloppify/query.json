@@ -2,156 +2,287 @@
   "command": "next",
   "items": [
     {
-      "id": "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
-      "confidence": "high",
-      "detector": "review",
-      "file": ".",
-      "summary": "Google-specific names still label provider-neutral identity data across core auth APIs",
-      "detail": {
-        "holistic": true,
-        "dimension": "naming_quality",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/model/User.java",
-          "backend/src/main/java/com/demo/sso/repository/UserRepository.java",
-          "backend/src/main/java/com/demo/sso/service/UserService.java",
-          "backend/src/main/java/com/demo/sso/service/JwtTokenService.java",
-          "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java",
-          "backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java"
-        ],
-        "evidence": [
-          "`UserService.legacyGoogleCompatibilityId(...)` writes non-Google identities into `User.googleId`, so the field name no longer matches the value it carries.",
-          "`UserRepository.findByGoogleId(...)` and `JwtTokenService.generateToken(String email, String googleId)` extend that Google-only term into repository and JWT APIs that now participate in a multi-provider identity model.",
-          "`AuthenticatedUserIdentity` still exposes `legacyGoogleId`, even though that path represents the old contract shape rather than a reliably Google-only concept."
-        ],
-        "suggestion": "Rename the compatibility-facing identifiers to provider-neutral terms such as `legacyIdentityKey` or `legacyProviderUserId` across the entity/service/JWT/repository APIs, and keep any truly Google-specific naming only at explicit backward-compatibility boundaries like the persisted column or legacy token claim.",
-        "reasoning": "",
-        "summary_hash": "f8d45021"
-      },
-      "status": "open",
-      "kind": "issue",
-      "primary_command": "desloppify plan resolve \"review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity\" --note \"<what you did>\" --confirm",
-      "queue_position": 6,
-      "plan_cluster": {
-        "name": "naming-fixes",
-        "description": "Rename for clarity",
-        "total_items": 3,
-        "action_steps": [
-          {
-            "title": "Rename legacyGoogleId in AuthenticatedUserIdentity",
-            "effort": "trivial"
-          },
-          {
-            "title": "Rename loginMethod field to match its purpose",
-            "effort": "small"
-          },
-          {
-            "title": "Clarify Microsoft isConfigured naming",
-            "effort": "trivial"
-          }
-        ]
-      }
-    },
-    {
-      "id": "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
-      "confidence": "high",
-      "detector": "review",
-      "file": ".",
-      "summary": "`loginMethod` is named like an auth method but stores client/server flow values",
-      "detail": {
-        "holistic": true,
-        "dimension": "naming_quality",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/model/AuthFlow.java",
-          "backend/src/main/java/com/demo/sso/model/User.java",
-          "backend/src/main/java/com/demo/sso/service/UserService.java",
-          "backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java"
-        ],
-        "evidence": [
-          "`UserService.applyProviderIdentityFields(...)` stores `identity.loginFlow().name()` via `user.setLoginMethod(...)`, so values like `SERVER_SIDE` and `CLIENT_SIDE` are written into a field called method.",
-          "`AuthFlow.fromLoginMethod(...)` converts that same persisted value back into `AuthFlow`, confirming the data represents flow/channel semantics rather than an authentication method or provider.",
-          "`UserResponse` exposes both `loginMethod` and `lastLoginFlow`, which makes it easy for readers to assume they are separate concepts when they are really overlapping flow terminology."
-        ],
-        "suggestion": "Rename the internal field/accessors to `loginFlow` or `authFlow`, or if the external/persisted label must remain for compatibility, isolate the legacy `loginMethod` name at the serialization boundary and use flow-specific names in the core model and service APIs.",
-        "reasoning": "",
-        "summary_hash": "270e26cd"
-      },
-      "status": "open",
-      "kind": "issue",
-      "primary_command": "desloppify plan resolve \"review::.::holistic::naming_quality::login_method_label_actually_stores_flow\" --note \"<what you did>\" --confirm",
-      "queue_position": 7,
-      "plan_cluster": {
-        "name": "naming-fixes",
-        "description": "Rename for clarity",
-        "total_items": 3,
-        "action_steps": [
-          {
-            "title": "Rename legacyGoogleId in AuthenticatedUserIdentity",
-            "effort": "trivial"
-          },
-          {
-            "title": "Rename loginMethod field to match its purpose",
-            "effort": "small"
-          },
-          {
-            "title": "Clarify Microsoft isConfigured naming",
-            "effort": "trivial"
-          }
-        ]
-      }
-    },
-    {
-      "id": "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level",
+      "id": "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
       "confidence": "medium",
       "detector": "review",
       "file": ".",
-      "summary": "`isConfigured()` obscures whether Microsoft auth is client-side or server-side ready",
+      "summary": "Microsoft issuer and tenant checks are duplicated across verifier and normalizer",
       "detail": {
         "holistic": true,
-        "dimension": "naming_quality",
+        "dimension": "low_level_elegance",
         "related_files": [
-          "backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java",
-          "backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java"
+          "backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java",
+          "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
         ],
         "evidence": [
-          "`MicrosoftAuthProperties` defines both `isClientSideConfigured()` and `isServerSideConfigured()`, but the generic `isConfigured()` just aliases the client-side check.",
-          "`MicrosoftTokenVerifier.buildDecoder(...)` calls `properties.isConfigured()`, so readers have to open the implementation to learn which configuration level that generic name actually means."
+          "`MicrosoftTokenVerifier.validateIssuer` reconstructs `https://login.microsoftonline.com/{tid}/v2.0` from the token and throws when `iss` does not match it.",
+          "`ProviderIdentityNormalizer.normalizeMicrosoftClaims` repeats the same `iss`/`tid`/expected-issuer validation before it starts mapping the claims into a `NormalizedIdentity`.",
+          "A reader has to reconcile the same low-level invariant in two neighboring classes instead of finding one authoritative validation point for Microsoft claim shape."
         ],
-        "suggestion": "Replace `isConfigured()` with a name that states the exact readiness level it represents, such as `isTokenVerificationConfigured()`, or call the explicit client/server-specific predicate directly at each use site.",
+        "suggestion": "Move the shared issuer/tenant validation into one helper or keep it solely in `MicrosoftTokenVerifier`, leaving `ProviderIdentityNormalizer` focused on mapping already-validated claims into domain identity data.",
         "reasoning": "",
-        "summary_hash": "dd8dd968"
+        "summary_hash": "a0215024"
       },
       "status": "open",
       "kind": "issue",
-      "primary_command": "desloppify plan resolve \"review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level\" --note \"<what you did>\" --confirm",
-      "queue_position": 8,
+      "primary_command": "desloppify plan resolve \"review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation\" --note \"<what you did>\" --confirm",
+      "queue_position": 1,
       "plan_cluster": {
-        "name": "naming-fixes",
-        "description": "Rename for clarity",
-        "total_items": 3,
+        "name": "elegance-fixes",
+        "description": "Reduce duplication and improve elegance",
+        "total_items": 5,
         "action_steps": [
           {
-            "title": "Rename legacyGoogleId in AuthenticatedUserIdentity",
-            "effort": "trivial"
+            "title": "Remove duplicated Microsoft claim validation",
+            "effort": "medium"
           },
           {
-            "title": "Rename loginMethod field to match its purpose",
+            "title": "Make OAuth2SuccessHandler redirect explicit",
             "effort": "small"
           },
           {
-            "title": "Clarify Microsoft isConfigured naming",
+            "title": "Consolidate Microsoft enablement policy",
+            "effort": "small"
+          },
+          {
+            "title": "Add redirectUri to provider config",
             "effort": "trivial"
+          },
+          {
+            "title": "Add OAuth2 failure handler",
+            "effort": "small"
+          }
+        ]
+      }
+    },
+    {
+      "id": "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
+      "confidence": "medium",
+      "detector": "review",
+      "file": ".",
+      "summary": "OAuth2 identity normalization hides redirect side effects behind a null sentinel",
+      "detail": {
+        "holistic": true,
+        "dimension": "low_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java"
+        ],
+        "evidence": [
+          "`onAuthenticationSuccess` calls `normalizeIdentity(authentication, oAuth2User, response)` and immediately returns when the helper yields `null`.",
+          "`normalizeIdentity(...)` sends redirects on its failure paths (`?error=missing_attributes`, `?error=email_not_verified`) and then returns `null`, so the caller has to know that `null` means the HTTP response has already been committed."
+        ],
+        "suggestion": "Keep the redirect side effects in `onAuthenticationSuccess` and make `normalizeIdentity` either return a `NormalizedIdentity` or throw for invalid claims; that removes the implicit `null means response handled` protocol from the local control flow.",
+        "reasoning": "",
+        "summary_hash": "b36008e0"
+      },
+      "status": "open",
+      "kind": "issue",
+      "primary_command": "desloppify plan resolve \"review::.::holistic::low_level_elegance::implicit_redirect_null_contract\" --note \"<what you did>\" --confirm",
+      "queue_position": 2,
+      "plan_cluster": {
+        "name": "elegance-fixes",
+        "description": "Reduce duplication and improve elegance",
+        "total_items": 5,
+        "action_steps": [
+          {
+            "title": "Remove duplicated Microsoft claim validation",
+            "effort": "medium"
+          },
+          {
+            "title": "Make OAuth2SuccessHandler redirect explicit",
+            "effort": "small"
+          },
+          {
+            "title": "Consolidate Microsoft enablement policy",
+            "effort": "small"
+          },
+          {
+            "title": "Add redirectUri to provider config",
+            "effort": "trivial"
+          },
+          {
+            "title": "Add OAuth2 failure handler",
+            "effort": "small"
+          }
+        ]
+      }
+    },
+    {
+      "id": "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
+      "confidence": "medium",
+      "detector": "review",
+      "file": ".",
+      "summary": "Microsoft flow availability is recomputed separately at multiple boundaries",
+      "detail": {
+        "holistic": true,
+        "dimension": "mid_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java",
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+          "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
+          "backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java",
+          "backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java"
+        ],
+        "evidence": [
+          "`ProviderConfigController` decides Microsoft availability by combining rollout flags with `isClientSideConfigured()` and `isServerSideConfigured()`.",
+          "`AuthController` separately checks `rolloutProperties.getMicrosoft().isClientSideEnabled()` before challenge/verify and also treats `ObjectProvider<MicrosoftTokenVerifier>` absence as another disablement path.",
+          "`MicrosoftAuthorizationGateFilter` and `IdentityContractGuard` each repeat their own Microsoft enablement/configuration checks, so rollout semantics live in several boundary classes."
+        ],
+        "suggestion": "Move Microsoft availability decisions into one shared policy on the existing config layer (for example canonical `isClientSideAvailable()` / `isServerSideAvailable()` helpers) and have the controller, filter, guard, and provider-config endpoint consume that shared verdict instead of re-deriving it.",
+        "reasoning": "",
+        "summary_hash": "966c22d6"
+      },
+      "status": "open",
+      "kind": "issue",
+      "primary_command": "desloppify plan resolve \"review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split\" --note \"<what you did>\" --confirm",
+      "queue_position": 3,
+      "plan_cluster": {
+        "name": "elegance-fixes",
+        "description": "Reduce duplication and improve elegance",
+        "total_items": 5,
+        "action_steps": [
+          {
+            "title": "Remove duplicated Microsoft claim validation",
+            "effort": "medium"
+          },
+          {
+            "title": "Make OAuth2SuccessHandler redirect explicit",
+            "effort": "small"
+          },
+          {
+            "title": "Consolidate Microsoft enablement policy",
+            "effort": "small"
+          },
+          {
+            "title": "Add redirectUri to provider config",
+            "effort": "trivial"
+          },
+          {
+            "title": "Add OAuth2 failure handler",
+            "effort": "small"
+          }
+        ]
+      }
+    },
+    {
+      "id": "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri",
+      "confidence": "high",
+      "detector": "review",
+      "file": ".",
+      "summary": "Microsoft client-side auth config stops short of the actual redirect target",
+      "detail": {
+        "holistic": true,
+        "dimension": "mid_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java",
+          "backend/src/main/java/com/demo/sso/controller/dto/ProviderConfigResponse.java",
+          "frontend/src/types/auth.ts",
+          "frontend/src/components/MicrosoftClientSideLogin.tsx"
+        ],
+        "evidence": [
+          "`ProviderConfigController.getProviders()` exposes Microsoft `clientId`, `authority`, and `scopes`, but `ProviderConfigResponse.MicrosoftProviderConfig` has no redirect URI field.",
+          "`frontend/src/types/auth.ts` mirrors that contract exactly, so the frontend has no backend-owned redirect target to consume.",
+          "`MicrosoftClientSideLogin` creates MSAL with `redirectUri: window.location.origin`, making the callback URL depend on the serving origin instead of the published provider configuration."
+        ],
+        "suggestion": "Extend the `/auth/providers` Microsoft contract to publish the redirect URI (or an equivalent backend-owned callback descriptor) and have `MicrosoftClientSideLogin` consume that shared value so every environment derives the same MSAL configuration from one seam.",
+        "reasoning": "",
+        "summary_hash": "a31edb04"
+      },
+      "status": "open",
+      "kind": "issue",
+      "primary_command": "desloppify plan resolve \"review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri\" --note \"<what you did>\" --confirm",
+      "queue_position": 4,
+      "plan_cluster": {
+        "name": "elegance-fixes",
+        "description": "Reduce duplication and improve elegance",
+        "total_items": 5,
+        "action_steps": [
+          {
+            "title": "Remove duplicated Microsoft claim validation",
+            "effort": "medium"
+          },
+          {
+            "title": "Make OAuth2SuccessHandler redirect explicit",
+            "effort": "small"
+          },
+          {
+            "title": "Consolidate Microsoft enablement policy",
+            "effort": "small"
+          },
+          {
+            "title": "Add redirectUri to provider config",
+            "effort": "trivial"
+          },
+          {
+            "title": "Add OAuth2 failure handler",
+            "effort": "small"
+          }
+        ]
+      }
+    },
+    {
+      "id": "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped",
+      "confidence": "high",
+      "detector": "review",
+      "file": ".",
+      "summary": "Backend redirect errors for server-side auth are never consumed by the homepage",
+      "detail": {
+        "holistic": true,
+        "dimension": "mid_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java",
+          "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
+          "frontend/src/pages/HomePage.tsx"
+        ],
+        "evidence": [
+          "`OAuth2SuccessHandler` redirects failed OAuth logins to `/?error=email_not_verified` and `/?error=missing_attributes`.",
+          "`MicrosoftAuthorizationGateFilter` redirects disabled Microsoft callbacks to `/?error=provider_disabled&provider=microsoft&flow=server_side`.",
+          "`HomePage` only reads `searchParams.get('code')`; there is no frontend handling for `error`, `provider`, or `flow`, so those backend outcomes never become a user-visible auth result."
+        ],
+        "suggestion": "Define one shared server-side auth result contract: either parse and display the backend's error query parameters in `HomePage` or funnel both success and failure redirects through a single helper so the frontend handles auth callback outcomes in one place.",
+        "reasoning": "",
+        "summary_hash": "fca79a56"
+      },
+      "status": "open",
+      "kind": "issue",
+      "primary_command": "desloppify plan resolve \"review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped\" --note \"<what you did>\" --confirm",
+      "queue_position": 5,
+      "plan_cluster": {
+        "name": "elegance-fixes",
+        "description": "Reduce duplication and improve elegance",
+        "total_items": 5,
+        "action_steps": [
+          {
+            "title": "Remove duplicated Microsoft claim validation",
+            "effort": "medium"
+          },
+          {
+            "title": "Make OAuth2SuccessHandler redirect explicit",
+            "effort": "small"
+          },
+          {
+            "title": "Consolidate Microsoft enablement policy",
+            "effort": "small"
+          },
+          {
+            "title": "Add redirectUri to provider config",
+            "effort": "trivial"
+          },
+          {
+            "title": "Add OAuth2 failure handler",
+            "effort": "small"
           }
         ]
       }
     }
   ],
   "queue": {
-    "total": 3,
+    "total": 5,
     "mode": "execution"
   },
   "narrative": {
     "phase": "early_momentum",
-    "headline": "Score 84.2/100 with 61 issues open. Keep the momentum going. (17 review work items \u2014 run `desloppify show review --status open`)",
+    "headline": "Score 84.2/100 with 58 issues open. Keep the momentum going. (14 review work items \u2014 run `desloppify show review --status open`)",
     "dimensions": {
       "lowest_dimensions": [
         {
@@ -237,8 +368,8 @@
       {
         "type": "refactor",
         "detector": "review",
-        "count": 17,
-        "description": "17 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
+        "count": 14,
+        "description": "14 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
         "command": "desloppify show review --status open",
         "impact": 0.0,
         "dimension": "Unknown",
@@ -264,7 +395,7 @@
     "strategy": {
       "fixer_leverage": {
         "auto_fixable_count": 0,
-        "total_count": 95,
+        "total_count": 86,
         "coverage": 0.0,
         "impact_ratio": 0.0,
         "recommendation": "none"
@@ -317,7 +448,7 @@
         }
       },
       "can_parallelize": true,
-      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 17 issue(s) \u2014 `desloppify show review --status open`."
+      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 14 issue(s) \u2014 `desloppify show review --status open`."
     },
     "tools": {
       "fixers": [],
@@ -350,7 +481,7 @@
       "command": "desloppify show orphaned --status open",
       "description": "27 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
     },
-    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 17 issue(s) \u2014 `desloppify show review --status open`.",
+    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 14 issue(s) \u2014 `desloppify show review --status open`.",
     "verification_step": {
       "command": "desloppify scan",
       "reason": "revalidate after changes"
@@ -366,7 +497,7 @@
     "reminders": [
       {
         "type": "review_issues_pending",
-        "message": "17 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
+        "message": "14 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
         "command": "desloppify show review --status open",
         "priority": 1,
         "severity": "high"
@@ -458,7 +589,7 @@
         "item_count": 4
       }
     ],
-    "total_ordered": 21,
+    "total_ordered": 18,
     "total_skipped": 3,
     "plan_overrides_narrative": true
   },
@@ -643,7 +774,7 @@
       "score": 87.0,
       "strict": 87.0,
       "checks": 10,
-      "failing": 3,
+      "failing": 0,
       "tier": 4,
       "subjective": true,
       "placeholder": false,
@@ -860,7 +991,7 @@
       "score": 87.0,
       "strict": 87.0,
       "checks": 10,
-      "failing": 3,
+      "failing": 0,
       "tier": 4,
       "subjective": true,
       "placeholder": false,

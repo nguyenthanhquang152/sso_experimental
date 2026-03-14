@@ -1,16 +1,13 @@
 {
   "version": 8,
   "created": "2026-03-14T18:25:42+00:00",
-  "updated": "2026-03-14T20:55:15+00:00",
+  "updated": "2026-03-14T21:00:44+00:00",
   "queue_order": [
     "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
     "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
     "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
     "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri",
     "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped",
-    "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
-    "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
-    "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level",
     "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
     "triage::organize",
     "triage::enrich",
@@ -339,20 +336,20 @@
     "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity": {
       "issue_id": "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
       "created_at": "2026-03-14T20:19:36+00:00",
-      "cluster": "naming-fixes",
-      "updated_at": "2026-03-14T20:19:36+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T20:59:02+00:00"
     },
     "review::.::holistic::naming_quality::login_method_label_actually_stores_flow": {
       "issue_id": "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
       "created_at": "2026-03-14T20:19:36+00:00",
-      "cluster": "naming-fixes",
-      "updated_at": "2026-03-14T20:19:36+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T20:59:29+00:00"
     },
     "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level": {
       "issue_id": "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level",
       "created_at": "2026-03-14T20:19:36+00:00",
-      "cluster": "naming-fixes",
-      "updated_at": "2026-03-14T20:19:36+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T21:00:44+00:00"
     },
     "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation": {
       "issue_id": "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
@@ -910,9 +907,6 @@
   },
   "promoted_ids": [
     "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
-    "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
-    "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
-    "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level",
     "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
     "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
     "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
@@ -2848,6 +2842,134 @@
         "status": "fixed",
         "attestation": "I have actually Added comprehensive Javadoc documenting the dual-version contract pattern (legacy vs v2) on AuthenticatedUserIdentity. Added null/blank validation in both factory methods. The nullable union pattern is now well-documented and guarded. and I am not gaming the score."
       }
+    },
+    {
+      "timestamp": "2026-03-14T20:55:28+00:00",
+      "action": "commit_record",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
+        "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
+        "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Abstraction alignment: Google SDK encapsulation, AuthenticatedUserIdentity validation",
+      "detail": {
+        "sha": "6aeff157f613",
+        "branch": "desloppify/code-health"
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:59:02+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Renamed legacyGoogleId to legacyProviderKey in AuthenticatedUserIdentity. The googleId JWT claim string stays as a wire-format backward compatibility boundary (changing it would break existing tokens).",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:59:02+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Renamed legacyGoogleId to legacyProviderKey in AuthenticatedUserIdentity. The googleId JWT claim string stays as a wire-format backward compatibility boundary (changing it would break existing tokens).",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually Renamed legacyGoogleId to legacyProviderKey in AuthenticatedUserIdentity. The googleId JWT claim string stays as a wire-format backward compatibility boundary (changing it would break existing tokens). and I am not gaming the score."
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:59:29+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::login_method_label_actually_stores_flow"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "loginMethod field is now deprecated on User model with @Deprecated annotation and Javadoc pointing to lastLoginFlow. UserService no longer writes to it. UserResponse derives loginMethod from lastLoginFlow for API backward compat.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:59:29+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::login_method_label_actually_stores_flow"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "loginMethod field is now deprecated on User model with @Deprecated annotation and Javadoc pointing to lastLoginFlow. UserService no longer writes to it. UserResponse derives loginMethod from lastLoginFlow for API backward compat.",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually loginMethod field is now deprecated on User model with @Deprecated annotation and Javadoc pointing to lastLoginFlow. UserService no longer writes to it. UserResponse derives loginMethod from lastLoginFlow for API backward compat. and I am not gaming the score."
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:59:55+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Deprecated isConfigured() on MicrosoftAuthProperties with Javadoc pointing to isClientSideConfigured/isServerSideConfigured. Updated MicrosoftTokenVerifier to call isClientSideConfigured directly.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T21:00:15+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Deprecated isConfigured() on MicrosoftAuthProperties with Javadoc pointing to isClientSideConfigured/isServerSideConfigured. Updated MicrosoftTokenVerifier to call isClientSideConfigured directly.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T21:00:30+00:00",
+      "action": "reorder",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "position": "top",
+        "target": null,
+        "offset": null
+      }
+    },
+    {
+      "timestamp": "2026-03-14T21:00:44+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Deprecated isConfigured() on MicrosoftAuthProperties with Javadoc pointing to isClientSideConfigured/isServerSideConfigured. Updated MicrosoftTokenVerifier to call isClientSideConfigured directly.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T21:00:44+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Deprecated isConfigured() on MicrosoftAuthProperties with Javadoc pointing to isClientSideConfigured/isServerSideConfigured. Updated MicrosoftTokenVerifier to call isClientSideConfigured directly.",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually Deprecated isConfigured() on MicrosoftAuthProperties with Javadoc pointing to isClientSideConfigured/isServerSideConfigured. Updated MicrosoftTokenVerifier to call isClientSideConfigured directly. and I am not gaming the score."
+      }
     }
   ],
   "epic_triage_meta": {
@@ -3519,12 +3641,24 @@
       "recorded_at": "2026-03-14T20:48:17+00:00",
       "note": "Legacy migration: renamed legacy token method, removed 5-arg overload, deprecated loginMethod field",
       "cluster_name": null
+    },
+    {
+      "sha": "6aeff157f613",
+      "branch": "desloppify/code-health",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
+        "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
+        "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union"
+      ],
+      "recorded_at": "2026-03-14T20:55:28+00:00",
+      "note": "Abstraction alignment: Google SDK encapsulation, AuthenticatedUserIdentity validation",
+      "cluster_name": null
     }
   ],
   "uncommitted_issues": [
-    "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
-    "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
-    "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union"
+    "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
+    "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
+    "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level"
   ],
   "commit_tracking_branch": null,
   "scan_count_at_plan_start": 4

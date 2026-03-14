@@ -12,8 +12,8 @@
     "auto_resolved": 0,
     "deferred": 3,
     "false_positive": 0,
-    "fixed": 33,
-    "open": 61,
+    "fixed": 36,
+    "open": 58,
     "triaged_out": 0,
     "wontfix": 0,
     "by_tier": {
@@ -21,8 +21,8 @@
         "auto_resolved": 0,
         "deferred": 3,
         "false_positive": 0,
-        "fixed": 13,
-        "open": 11,
+        "fixed": 15,
+        "open": 9,
         "triaged_out": 0,
         "wontfix": 0
       },
@@ -30,8 +30,8 @@
         "auto_resolved": 0,
         "deferred": 0,
         "false_positive": 0,
-        "fixed": 9,
-        "open": 6,
+        "fixed": 10,
+        "open": 5,
         "triaged_out": 0,
         "wontfix": 0
       },
@@ -1845,11 +1845,11 @@
         "reasoning": "",
         "summary_hash": "f8d45021"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "Renamed legacyGoogleId to legacyProviderKey in AuthenticatedUserIdentity. The googleId JWT claim string stays as a wire-format backward compatibility boundary (changing it would break existing tokens).",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-14T20:59:02+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -1857,7 +1857,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "manual",
+        "text": "I have actually Renamed legacyGoogleId to legacyProviderKey in AuthenticatedUserIdentity. The googleId JWT claim string stays as a wire-format backward compatibility boundary (changing it would break existing tokens). and I am not gaming the score.",
+        "attested_at": "2026-03-14T20:59:02+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::naming_quality::login_method_label_actually_stores_flow": {
       "id": "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
@@ -1884,11 +1890,11 @@
         "reasoning": "",
         "summary_hash": "270e26cd"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "loginMethod field is now deprecated on User model with @Deprecated annotation and Javadoc pointing to lastLoginFlow. UserService no longer writes to it. UserResponse derives loginMethod from lastLoginFlow for API backward compat.",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-14T20:59:29+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -1896,7 +1902,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "manual",
+        "text": "I have actually loginMethod field is now deprecated on User model with @Deprecated annotation and Javadoc pointing to lastLoginFlow. UserService no longer writes to it. UserResponse derives loginMethod from lastLoginFlow for API backward compat. and I am not gaming the score.",
+        "attested_at": "2026-03-14T20:59:29+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level": {
       "id": "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level",
@@ -1920,11 +1932,11 @@
         "reasoning": "",
         "summary_hash": "dd8dd968"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "Deprecated isConfigured() on MicrosoftAuthProperties with Javadoc pointing to isClientSideConfigured/isServerSideConfigured. Updated MicrosoftTokenVerifier to call isClientSideConfigured directly.",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-14T21:00:44+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -1932,7 +1944,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "manual",
+        "text": "I have actually Deprecated isConfigured() on MicrosoftAuthProperties with Javadoc pointing to isClientSideConfigured/isServerSideConfigured. Updated MicrosoftTokenVerifier to call isClientSideConfigured directly. and I am not gaming the score.",
+        "attested_at": "2026-03-14T21:00:44+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union": {
       "id": "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
@@ -3461,7 +3479,10 @@
     "naming_quality": {
       "score": 87.0,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00",
+      "needs_review_refresh": true,
+      "refresh_reason": "review_issue_fixed",
+      "stale_since": "2026-03-14T21:00:44+00:00"
     },
     "package_organization": {
       "score": 83.0,
@@ -4489,13 +4510,13 @@
       "strict": 87.0,
       "verified_strict_score": 87.0,
       "checks": 10,
-      "failing": 3,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.87,
-          "failing": 3,
+          "failing": 0,
           "weighted_failures": 1.3,
           "assessment_score": 87.0,
           "placeholder": false,

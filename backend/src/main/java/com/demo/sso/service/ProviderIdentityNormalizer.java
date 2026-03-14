@@ -20,22 +20,24 @@ public class ProviderIdentityNormalizer {
         return NormalizedIdentity.google(googleId, normalizeEmail(email), name, pictureUrl, loginFlow);
     }
 
+    /**
+     * Normalizes Microsoft identity claims into a {@link NormalizedIdentity}.
+     *
+     * <p>Assumes the JWT has already been cryptographically verified and
+     * issuer/audience validated by {@code MicrosoftTokenVerifier}.
+     */
     public NormalizedIdentity normalizeMicrosoftClaims(Map<String, Object> claims, AuthFlow loginFlow) {
         String issuer = stringClaim(claims, "iss");
         String subject = stringClaim(claims, "sub");
-        String tenantId = stringClaim(claims, "tid");
 
-        if (isBlank(issuer) || isBlank(subject) || isBlank(tenantId)) {
-            throw new IllegalArgumentException("Microsoft identity is missing iss, sub, or tid");
-        }
-
-        String expectedIssuer = "https://login.microsoftonline.com/" + tenantId + "/v2.0";
-        if (!expectedIssuer.equals(issuer)) {
-            throw new IllegalArgumentException("Microsoft issuer does not match tenant id");
+        if (isBlank(issuer) || isBlank(subject)) {
+            throw new IllegalArgumentException("Microsoft identity is missing iss or sub");
         }
 
         String identityProvider = stringClaim(claims, "idp");
-        if (!isBlank(identityProvider) && !isSameTenantAuthority(identityProvider, issuer, tenantId)) {
+        String tenantId = stringClaim(claims, "tid");
+        if (!isBlank(identityProvider) && !isBlank(tenantId)
+                && !isSameTenantAuthority(identityProvider, issuer, tenantId)) {
             throw new IllegalArgumentException("External or guest Microsoft identities are not supported");
         }
 
