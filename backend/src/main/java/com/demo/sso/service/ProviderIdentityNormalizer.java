@@ -23,29 +23,34 @@ public class ProviderIdentityNormalizer {
     /**
      * Normalizes Microsoft identity claims into a {@link NormalizedIdentity}.
      *
+     * <p>Accepts a raw attribute map for backward compatibility (e.g. from
+     * {@code OAuth2User.getAttributes()}) and converts it to a typed
+     * {@link MicrosoftIdTokenClaims} record internally.
+     *
      * <p>Assumes the JWT has already been cryptographically verified and
      * issuer/audience validated by {@code MicrosoftTokenVerifier}.
      */
     public NormalizedIdentity normalizeMicrosoftClaims(Map<String, Object> claims, AuthFlow loginFlow) {
-        String issuer = stringClaim(claims, "iss");
-        String subject = stringClaim(claims, "sub");
+        return normalizeMicrosoftClaims(MicrosoftIdTokenClaims.fromMap(claims), loginFlow);
+    }
 
-        if (isBlank(issuer) || isBlank(subject)) {
+    /**
+     * Normalizes typed Microsoft identity claims into a {@link NormalizedIdentity}.
+     *
+     * <p>Preferred entry point when claims have already been extracted into a
+     * {@link MicrosoftIdTokenClaims} record (e.g. from {@code MicrosoftTokenVerifier}).
+     */
+    public NormalizedIdentity normalizeMicrosoftClaims(MicrosoftIdTokenClaims claims, AuthFlow loginFlow) {
+        if (isBlank(claims.iss()) || isBlank(claims.sub())) {
             throw new IllegalArgumentException("Microsoft identity is missing iss or sub");
         }
 
-        String identityProvider = stringClaim(claims, "idp");
-        String tenantId = stringClaim(claims, "tid");
-        if (!isBlank(identityProvider) && !isBlank(tenantId)
-                && !isSameTenantAuthority(identityProvider, issuer, tenantId)) {
+        if (!isBlank(claims.idp()) && !isBlank(claims.tid())
+                && !isSameTenantAuthority(claims.idp(), claims.iss(), claims.tid())) {
             throw new IllegalArgumentException("External or guest Microsoft identities are not supported");
         }
 
-        String email = firstNonBlank(
-            stringClaim(claims, "email"),
-            stringClaim(claims, "preferred_username"),
-            stringClaim(claims, "upn")
-        );
+        String email = firstNonBlank(claims.email(), claims.preferredUsername(), claims.upn());
 
         if (isBlank(email)) {
             throw new IllegalArgumentException("Microsoft identity is missing a usable email-like claim");
@@ -57,10 +62,10 @@ public class ProviderIdentityNormalizer {
         }
 
         return NormalizedIdentity.microsoft(
-            issuer + "|" + subject,
+            claims.iss() + "|" + claims.sub(),
             normalizedEmail,
-            stringClaim(claims, "name"),
-            stringClaim(claims, "picture"),
+            claims.name(),
+            claims.picture(),
             loginFlow
         );
     }
@@ -78,11 +83,6 @@ public class ProviderIdentityNormalizer {
         String normalized = identityProvider.trim().toLowerCase(Locale.ROOT);
         return normalized.equals(issuer.toLowerCase(Locale.ROOT))
             || normalized.contains(tenantId.toLowerCase(Locale.ROOT));
-    }
-
-    private static String stringClaim(Map<String, Object> claims, String key) {
-        Object value = claims.get(key);
-        return value == null ? null : String.valueOf(value);
     }
 
     private static String normalizeEmail(String email) {

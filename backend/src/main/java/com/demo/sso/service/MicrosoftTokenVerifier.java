@@ -2,7 +2,6 @@ package com.demo.sso.service;
 
 import com.demo.sso.config.MicrosoftAuthProperties;
 import com.demo.sso.model.AuthFlow;
-import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -32,48 +31,38 @@ public class MicrosoftTokenVerifier {
 
     public NormalizedIdentity verifyIdToken(String credential, String expectedNonce, AuthFlow authFlow) {
         Jwt jwt = jwtDecoder.decode(credential);
-        validateAudience(jwt);
-        validateIssuer(jwt);
-        validateVersion(jwt);
-        validateNonce(jwt, expectedNonce);
-        return identityNormalizer.normalizeMicrosoftClaims(jwt.getClaims(), authFlow);
+        MicrosoftIdTokenClaims claims = MicrosoftIdTokenClaims.fromMap(jwt.getClaims());
+        validateAudience(claims);
+        validateIssuer(claims);
+        validateVersion(claims);
+        validateNonce(claims, expectedNonce);
+        return identityNormalizer.normalizeMicrosoftClaims(claims, authFlow);
     }
 
-    private void validateAudience(Jwt jwt) {
-        Object audienceClaim = jwt.getClaims().get("aud");
-        if (audienceClaim instanceof Collection<?> audiences) {
-            if (audiences.stream().map(String::valueOf).noneMatch(properties.getClientId()::equals)) {
-                throw new IllegalArgumentException("Microsoft token audience does not match configured client id");
-            }
-            return;
-        }
-
-        if (!properties.getClientId().equals(String.valueOf(audienceClaim))) {
+    private void validateAudience(MicrosoftIdTokenClaims claims) {
+        if (!claims.hasAudience(properties.getClientId())) {
             throw new IllegalArgumentException("Microsoft token audience does not match configured client id");
         }
     }
 
-    private static void validateIssuer(Jwt jwt) {
-        String issuer = String.valueOf(jwt.getClaims().get("iss"));
-        String tenantId = String.valueOf(jwt.getClaims().get("tid"));
-        String expectedIssuer = "https://login.microsoftonline.com/" + tenantId + "/v2.0";
-        if (!expectedIssuer.equals(issuer)) {
+    private static void validateIssuer(MicrosoftIdTokenClaims claims) {
+        String expectedIssuer = "https://login.microsoftonline.com/" + claims.tid() + "/v2.0";
+        if (!expectedIssuer.equals(claims.iss())) {
             throw new IllegalArgumentException("Microsoft token issuer does not match tenant id");
         }
     }
 
-    private static void validateVersion(Jwt jwt) {
-        if (!"2.0".equals(String.valueOf(jwt.getClaims().get("ver")))) {
+    private static void validateVersion(MicrosoftIdTokenClaims claims) {
+        if (!"2.0".equals(claims.ver())) {
             throw new IllegalArgumentException("Only Microsoft v2.0 ID tokens are supported");
         }
     }
 
-    private static void validateNonce(Jwt jwt, String expectedNonce) {
+    private static void validateNonce(MicrosoftIdTokenClaims claims, String expectedNonce) {
         if (expectedNonce == null || expectedNonce.isBlank()) {
             throw new IllegalArgumentException("expectedNonce must not be null or blank — nonce validation cannot be skipped");
         }
-        String nonce = String.valueOf(jwt.getClaims().get("nonce"));
-        if (!expectedNonce.equals(nonce)) {
+        if (!expectedNonce.equals(claims.nonce())) {
             throw new IllegalArgumentException("Microsoft token nonce does not match issued challenge");
         }
     }
