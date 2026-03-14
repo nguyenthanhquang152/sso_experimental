@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ServerSideLogin } from '../components/ServerSideLogin';
 import { ClientSideLogin } from '../components/ClientSideLogin';
 import { MicrosoftClientSideLogin } from '../components/MicrosoftClientSideLogin';
 import { useAuth } from '../hooks/useAuth';
-import { apiFetch } from '../api/client';
+import { ApiError, apiFetch, getErrorMessage } from '../api/client';
 import type { ProviderConfig } from '../types/auth';
 
 interface HomePageProps {
@@ -15,6 +15,7 @@ export function HomePage({ providerConfig }: HomePageProps) {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [exchangeError, setExchangeError] = useState<string | null>(null);
 
   useEffect(() => {
     const code = searchParams.get('code');
@@ -31,8 +32,13 @@ export function HomePage({ providerConfig }: HomePageProps) {
           login(data.token);
           navigate('/dashboard', { replace: true });
         })
-        .catch(() => {
-          // Code was invalid or expired — stay on homepage
+        .catch((error: unknown) => {
+          if (error instanceof ApiError && error.status === 400) {
+            setExchangeError(error.message);
+            return;
+          }
+
+          setExchangeError(getErrorMessage(error, 'Sign-in could not be completed. Please try again.'));
         });
     }
   }, [searchParams, login, navigate]);
@@ -54,6 +60,14 @@ export function HomePage({ providerConfig }: HomePageProps) {
       <p style={{ color: '#666', marginBottom: '32px' }}>
         Choose a provider and flow to sign in.
       </p>
+      {exchangeError ? (
+        <p
+          style={{ color: '#b91c1c', marginBottom: '20px', fontWeight: 500 }}
+          role="alert"
+        >
+          {exchangeError}
+        </p>
+      ) : null}
       <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
         {providerConfig.google.serverSideEnabled ? (
           <ServerSideLogin

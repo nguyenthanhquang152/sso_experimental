@@ -2,9 +2,8 @@ package com.demo.sso.controller;
 
 import com.demo.sso.config.AuthRolloutProperties;
 import com.demo.sso.config.MicrosoftAuthProperties;
-import java.util.LinkedHashMap;
+import com.demo.sso.controller.dto.ProviderConfigResponse;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +29,8 @@ public class ProviderConfigController {
     }
 
     @GetMapping("/providers")
-    public ResponseEntity<Map<String, Object>> getProviders() {
-        boolean googleConfigured = googleClientId != null && !googleClientId.isBlank();
+    public ResponseEntity<ProviderConfigResponse> getProviders() {
+        boolean googleConfigured = !googleClientId.isBlank();
         boolean microsoftClientSideConfigured = microsoftAuthProperties.isClientSideConfigured();
         boolean microsoftServerSideConfigured = microsoftAuthProperties.isServerSideConfigured();
         boolean microsoftServerSideEnabled = rolloutProperties.getMicrosoft().isServerSideEnabled()
@@ -39,26 +38,20 @@ public class ProviderConfigController {
         boolean microsoftClientSideEnabled = rolloutProperties.getMicrosoft().isClientSideEnabled()
             && microsoftClientSideConfigured;
 
-        Map<String, Object> response = new LinkedHashMap<>();
-        Map<String, Object> google = new LinkedHashMap<>();
-        google.put("serverSideEnabled", googleConfigured);
-        google.put("clientSideEnabled", googleConfigured);
-        google.put("clientId", googleClientId);
-        response.put("google", google);
-
-        Map<String, Object> microsoft = new LinkedHashMap<>();
-        microsoft.put("serverSideEnabled", microsoftServerSideEnabled);
-        microsoft.put("clientSideEnabled", microsoftClientSideEnabled);
-        microsoft.put("scopes", microsoftClientSideEnabled
-            ? List.copyOf(microsoftAuthProperties.getScopes())
-            : List.of());
-
-        if (microsoftClientSideEnabled) {
-            microsoft.put("clientId", microsoftAuthProperties.getClientId());
-            microsoft.put("authority", microsoftAuthProperties.getAuthority());
-        }
-
-        response.put("microsoft", microsoft);
+        ProviderConfigResponse response = new ProviderConfigResponse(
+            new ProviderConfigResponse.GoogleProviderConfig(
+                googleConfigured,
+                googleConfigured,
+                googleClientId
+            ),
+            new ProviderConfigResponse.MicrosoftProviderConfig(
+                microsoftServerSideEnabled,
+                microsoftClientSideEnabled,
+                microsoftClientSideEnabled ? microsoftAuthProperties.getClientId() : null,
+                microsoftClientSideEnabled ? microsoftAuthProperties.getAuthority() : null,
+                microsoftClientSideEnabled ? List.copyOf(microsoftAuthProperties.getScopes()) : List.of()
+            )
+        );
 
         return ResponseEntity.ok()
             .cacheControl(CacheControl.noStore())

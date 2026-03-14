@@ -1,410 +1,1471 @@
 {
-  "command": "show",
-  "query": "test_coverage",
-  "status_filter": "open",
-  "total": 26,
-  "summary": {
-    "by_tier": {
-      "T3": 26
+  "command": "status",
+  "overall_score": 84.2,
+  "objective_score": 87.7,
+  "strict_score": 84.2,
+  "verified_strict_score": 87.7,
+  "dimension_scores": {
+    "Code quality": {
+      "score": 68.0,
+      "strict": 68.0,
+      "verified_strict_score": 68.0,
+      "checks": 59,
+      "failing": 27,
+      "tier": 3,
+      "detectors": {
+        "orphaned": {
+          "potential": 36,
+          "pass_rate": 0.47500000000000026,
+          "failing": 27,
+          "weighted_failures": 18.89999999999999
+        },
+        "flat_dirs": {
+          "potential": 23,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        }
+      }
     },
-    "by_detector": {
-      "test_coverage": 26
+    "Security": {
+      "score": 100.0,
+      "strict": 100.0,
+      "verified_strict_score": 100.0,
+      "checks": 72,
+      "failing": 0,
+      "tier": 4,
+      "detectors": {
+        "cycles": {
+          "potential": 36,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        },
+        "security": {
+          "potential": 36,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        }
+      }
     },
-    "files": 26
+    "File health": {
+      "score": 100.0,
+      "strict": 100.0,
+      "verified_strict_score": 100.0,
+      "checks": 36,
+      "failing": 0,
+      "tier": 3,
+      "detectors": {
+        "structural": {
+          "potential": 36,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        }
+      }
+    },
+    "Duplication": {
+      "score": 100.0,
+      "strict": 100.0,
+      "verified_strict_score": 100.0,
+      "checks": 106,
+      "failing": 0,
+      "tier": 3,
+      "detectors": {
+        "dupes": {
+          "potential": 106,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        }
+      }
+    },
+    "Test health": {
+      "score": 78.1,
+      "strict": 78.1,
+      "verified_strict_score": 78.1,
+      "checks": 205,
+      "failing": 5,
+      "tier": 4,
+      "detectors": {
+        "test_coverage": {
+          "potential": 205,
+          "pass_rate": 0.78051676863111,
+          "failing": 5,
+          "weighted_failures": 44.99406243062245
+        }
+      }
+    },
+    "Abstraction fit": {
+      "score": 90.8,
+      "strict": 90.8,
+      "verified_strict_score": 90.8,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.908,
+          "failing": 1,
+          "weighted_failures": 0.92,
+          "assessment_score": 90.8,
+          "placeholder": false,
+          "dimension_key": "abstraction_fitness",
+          "configured_weight": 8.0,
+          "components": [
+            "Abstraction Leverage",
+            "Indirection Cost",
+            "Interface Honesty",
+            "Delegation Density",
+            "Definition Directness",
+            "Type Discipline"
+          ],
+          "component_scores": {
+            "Abstraction Leverage": 92.0,
+            "Indirection Cost": 88.0,
+            "Interface Honesty": 86.0,
+            "Delegation Density": 97.0,
+            "Definition Directness": 95.0,
+            "Type Discipline": 84.0
+          }
+        }
+      }
+    },
+    "AI generated debt": {
+      "score": 90.8,
+      "strict": 90.8,
+      "verified_strict_score": 90.8,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.908,
+          "failing": 2,
+          "weighted_failures": 0.92,
+          "assessment_score": 90.8,
+          "placeholder": false,
+          "dimension_key": "ai_generated_debt",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "API coherence": {
+      "score": 81.0,
+      "strict": 81.0,
+      "verified_strict_score": 81.0,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.81,
+          "failing": 3,
+          "weighted_failures": 1.9,
+          "assessment_score": 81.0,
+          "placeholder": false,
+          "dimension_key": "api_surface_coherence",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Auth consistency": {
+      "score": 88.0,
+      "strict": 88.0,
+      "verified_strict_score": 88.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.88,
+          "failing": 1,
+          "weighted_failures": 1.2,
+          "assessment_score": 88.0,
+          "placeholder": false,
+          "dimension_key": "authorization_consistency",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Contracts": {
+      "score": 84.6,
+      "strict": 84.6,
+      "verified_strict_score": 84.6,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.846,
+          "failing": 3,
+          "weighted_failures": 1.54,
+          "assessment_score": 84.6,
+          "placeholder": false,
+          "dimension_key": "contract_coherence",
+          "configured_weight": 12.0,
+          "components": []
+        }
+      }
+    },
+    "Convention drift": {
+      "score": 84.0,
+      "strict": 84.0,
+      "verified_strict_score": 84.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.84,
+          "failing": 2,
+          "weighted_failures": 1.6,
+          "assessment_score": 84.0,
+          "placeholder": false,
+          "dimension_key": "convention_outlier",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Cross-module arch": {
+      "score": 83.0,
+      "strict": 83.0,
+      "verified_strict_score": 83.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.83,
+          "failing": 2,
+          "weighted_failures": 1.7,
+          "assessment_score": 83.0,
+          "placeholder": false,
+          "dimension_key": "cross_module_architecture",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Dep health": {
+      "score": 91.0,
+      "strict": 91.0,
+      "verified_strict_score": 91.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.91,
+          "failing": 1,
+          "weighted_failures": 0.9,
+          "assessment_score": 91.0,
+          "placeholder": false,
+          "dimension_key": "dependency_health",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Design coherence": {
+      "score": 91.4,
+      "strict": 91.4,
+      "verified_strict_score": 91.4,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.914,
+          "failing": 0,
+          "weighted_failures": 0.86,
+          "assessment_score": 91.4,
+          "placeholder": false,
+          "dimension_key": "design_coherence",
+          "configured_weight": 10.0,
+          "components": []
+        }
+      }
+    },
+    "Error consistency": {
+      "score": 77.4,
+      "strict": 77.4,
+      "verified_strict_score": 77.4,
+      "checks": 10,
+      "failing": 4,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.774,
+          "failing": 4,
+          "weighted_failures": 2.26,
+          "assessment_score": 77.4,
+          "placeholder": false,
+          "dimension_key": "error_consistency",
+          "configured_weight": 3.0,
+          "components": []
+        }
+      }
+    },
+    "High elegance": {
+      "score": 74.0,
+      "strict": 74.0,
+      "verified_strict_score": 74.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.74,
+          "failing": 2,
+          "weighted_failures": 2.6,
+          "assessment_score": 74.0,
+          "placeholder": false,
+          "dimension_key": "high_level_elegance",
+          "configured_weight": 22.0,
+          "components": []
+        }
+      }
+    },
+    "Stale migration": {
+      "score": 82.0,
+      "strict": 82.0,
+      "verified_strict_score": 82.0,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.82,
+          "failing": 3,
+          "weighted_failures": 1.8,
+          "assessment_score": 82.0,
+          "placeholder": false,
+          "dimension_key": "incomplete_migration",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Init coupling": {
+      "score": 88.6,
+      "strict": 88.6,
+      "verified_strict_score": 88.6,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.886,
+          "failing": 1,
+          "weighted_failures": 1.14,
+          "assessment_score": 88.6,
+          "placeholder": false,
+          "dimension_key": "initialization_coupling",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Logic clarity": {
+      "score": 91.0,
+      "strict": 91.0,
+      "verified_strict_score": 91.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.91,
+          "failing": 2,
+          "weighted_failures": 0.9,
+          "assessment_score": 91.0,
+          "placeholder": false,
+          "dimension_key": "logic_clarity",
+          "configured_weight": 6.0,
+          "components": []
+        }
+      }
+    },
+    "Low elegance": {
+      "score": 89.0,
+      "strict": 89.0,
+      "verified_strict_score": 89.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.89,
+          "failing": 2,
+          "weighted_failures": 1.1,
+          "assessment_score": 89.0,
+          "placeholder": false,
+          "dimension_key": "low_level_elegance",
+          "configured_weight": 12.0,
+          "components": []
+        }
+      }
+    },
+    "Mid elegance": {
+      "score": 81.0,
+      "strict": 81.0,
+      "verified_strict_score": 81.0,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.81,
+          "failing": 3,
+          "weighted_failures": 1.9,
+          "assessment_score": 81.0,
+          "placeholder": false,
+          "dimension_key": "mid_level_elegance",
+          "configured_weight": 22.0,
+          "components": []
+        }
+      }
+    },
+    "Naming quality": {
+      "score": 87.0,
+      "strict": 87.0,
+      "verified_strict_score": 87.0,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.87,
+          "failing": 3,
+          "weighted_failures": 1.3,
+          "assessment_score": 87.0,
+          "placeholder": false,
+          "dimension_key": "naming_quality",
+          "configured_weight": 2.0,
+          "components": []
+        }
+      }
+    },
+    "Structure nav": {
+      "score": 83.0,
+      "strict": 83.0,
+      "verified_strict_score": 83.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.83,
+          "failing": 1,
+          "weighted_failures": 1.7,
+          "assessment_score": 83.0,
+          "placeholder": false,
+          "dimension_key": "package_organization",
+          "configured_weight": 5.0,
+          "components": []
+        }
+      }
+    },
+    "Test strategy": {
+      "score": 83.0,
+      "strict": 83.0,
+      "verified_strict_score": 83.0,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.83,
+          "failing": 3,
+          "weighted_failures": 1.7,
+          "assessment_score": 83.0,
+          "placeholder": false,
+          "dimension_key": "test_strategy",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Type safety": {
+      "score": 78.4,
+      "strict": 78.4,
+      "verified_strict_score": 78.4,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.784,
+          "failing": 3,
+          "weighted_failures": 2.16,
+          "assessment_score": 78.4,
+          "placeholder": false,
+          "dimension_key": "type_safety",
+          "configured_weight": 12.0,
+          "components": []
+        }
+      }
+    }
   },
-  "by_file": {
-    "backend/src/main/java/com/demo/sso/SsoApplication.java": [
-      {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/SsoApplication.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (11 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 11,
-          "importer_count": 0,
-          "loc_weight": 3.3166247903554
-        }
+  "scorecard_dimensions": [
+    {
+      "name": "File health",
+      "score": 100.0,
+      "strict": 100.0,
+      "checks": 36,
+      "failing": 0,
+      "tier": 3,
+      "subjective": false
+    },
+    {
+      "name": "AI generated debt",
+      "score": 90.8,
+      "strict": 90.8,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "ai_generated_debt"
+      ]
+    },
+    {
+      "name": "API coherence",
+      "score": 81.0,
+      "strict": 81.0,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "api_surface_coherence"
+      ]
+    },
+    {
+      "name": "Abstraction fit",
+      "score": 90.8,
+      "strict": 90.8,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "abstraction_fitness"
+      ]
+    },
+    {
+      "name": "Auth consistency",
+      "score": 88.0,
+      "strict": 88.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "authorization_consistency"
+      ]
+    },
+    {
+      "name": "Code quality",
+      "score": 68.0,
+      "strict": 68.0,
+      "checks": 59,
+      "failing": 27,
+      "tier": 3,
+      "subjective": false
+    },
+    {
+      "name": "Convention drift",
+      "score": 84.0,
+      "strict": 84.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "convention_outlier"
+      ]
+    },
+    {
+      "name": "Cross-module arch",
+      "score": 83.0,
+      "strict": 83.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "cross_module_architecture"
+      ]
+    },
+    {
+      "name": "Dep health",
+      "score": 91.0,
+      "strict": 91.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "dependency_health"
+      ]
+    },
+    {
+      "name": "Design coherence",
+      "score": 91.4,
+      "strict": 91.4,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "design_coherence"
+      ]
+    },
+    {
+      "name": "Duplication",
+      "score": 100.0,
+      "strict": 100.0,
+      "checks": 106,
+      "failing": 0,
+      "tier": 3,
+      "subjective": false
+    },
+    {
+      "name": "Elegance",
+      "score": 81.3,
+      "strict": 81.3,
+      "checks": 30,
+      "failing": 7,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "high_level_elegance",
+        "low_level_elegance",
+        "mid_level_elegance"
+      ]
+    },
+    {
+      "name": "Error consistency",
+      "score": 77.4,
+      "strict": 77.4,
+      "checks": 10,
+      "failing": 4,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "error_consistency"
+      ]
+    },
+    {
+      "name": "Init coupling",
+      "score": 88.6,
+      "strict": 88.6,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "initialization_coupling"
+      ]
+    },
+    {
+      "name": "Naming quality",
+      "score": 87.0,
+      "strict": 87.0,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "naming_quality"
+      ]
+    },
+    {
+      "name": "Security",
+      "score": 100.0,
+      "strict": 100.0,
+      "checks": 72,
+      "failing": 0,
+      "tier": 4,
+      "subjective": false
+    },
+    {
+      "name": "Stale migration",
+      "score": 82.0,
+      "strict": 82.0,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "incomplete_migration"
+      ]
+    },
+    {
+      "name": "Structure nav",
+      "score": 83.0,
+      "strict": 83.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "package_organization"
+      ]
+    },
+    {
+      "name": "Test health",
+      "score": 78.1,
+      "strict": 78.1,
+      "checks": 205,
+      "failing": 5,
+      "tier": 4,
+      "subjective": false
+    },
+    {
+      "name": "Test strategy",
+      "score": 83.0,
+      "strict": 83.0,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "test_strategy"
+      ]
+    }
+  ],
+  "subjective_measures": [
+    {
+      "name": "AI generated debt",
+      "score": 90.8,
+      "strict": 90.8,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "ai_generated_debt"
+      ]
+    },
+    {
+      "name": "API coherence",
+      "score": 81.0,
+      "strict": 81.0,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "api_surface_coherence"
+      ]
+    },
+    {
+      "name": "Abstraction fit",
+      "score": 90.8,
+      "strict": 90.8,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "abstraction_fitness"
+      ]
+    },
+    {
+      "name": "Auth consistency",
+      "score": 88.0,
+      "strict": 88.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "authorization_consistency"
+      ]
+    },
+    {
+      "name": "Convention drift",
+      "score": 84.0,
+      "strict": 84.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "convention_outlier"
+      ]
+    },
+    {
+      "name": "Cross-module arch",
+      "score": 83.0,
+      "strict": 83.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "cross_module_architecture"
+      ]
+    },
+    {
+      "name": "Dep health",
+      "score": 91.0,
+      "strict": 91.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "dependency_health"
+      ]
+    },
+    {
+      "name": "Design coherence",
+      "score": 91.4,
+      "strict": 91.4,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "design_coherence"
+      ]
+    },
+    {
+      "name": "Elegance",
+      "score": 81.3,
+      "strict": 81.3,
+      "checks": 30,
+      "failing": 7,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "high_level_elegance",
+        "low_level_elegance",
+        "mid_level_elegance"
+      ]
+    },
+    {
+      "name": "Error consistency",
+      "score": 77.4,
+      "strict": 77.4,
+      "checks": 10,
+      "failing": 4,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "error_consistency"
+      ]
+    },
+    {
+      "name": "Init coupling",
+      "score": 88.6,
+      "strict": 88.6,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "initialization_coupling"
+      ]
+    },
+    {
+      "name": "Naming quality",
+      "score": 87.0,
+      "strict": 87.0,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "naming_quality"
+      ]
+    },
+    {
+      "name": "Stale migration",
+      "score": 82.0,
+      "strict": 82.0,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "incomplete_migration"
+      ]
+    },
+    {
+      "name": "Structure nav",
+      "score": 83.0,
+      "strict": 83.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "package_organization"
+      ]
+    },
+    {
+      "name": "Test strategy",
+      "score": 83.0,
+      "strict": 83.0,
+      "checks": 10,
+      "failing": 3,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "test_strategy"
+      ]
+    }
+  ],
+  "stats": {
+    "total": 97,
+    "auto_resolved": 0,
+    "deferred": 0,
+    "false_positive": 0,
+    "fixed": 11,
+    "open": 86,
+    "triaged_out": 0,
+    "wontfix": 0,
+    "by_tier": {
+      "1": {
+        "auto_resolved": 0,
+        "deferred": 0,
+        "false_positive": 0,
+        "fixed": 0,
+        "open": 27,
+        "triaged_out": 0,
+        "wontfix": 0
+      },
+      "2": {
+        "auto_resolved": 0,
+        "deferred": 0,
+        "false_positive": 0,
+        "fixed": 0,
+        "open": 15,
+        "triaged_out": 0,
+        "wontfix": 0
+      },
+      "3": {
+        "auto_resolved": 0,
+        "deferred": 0,
+        "false_positive": 0,
+        "fixed": 11,
+        "open": 34,
+        "triaged_out": 0,
+        "wontfix": 0
+      },
+      "4": {
+        "auto_resolved": 0,
+        "deferred": 0,
+        "false_positive": 0,
+        "fixed": 0,
+        "open": 10,
+        "triaged_out": 0,
+        "wontfix": 0
       }
-    ],
-    "backend/src/main/java/com/demo/sso/config/AuthRolloutProperties.java": [
+    }
+  },
+  "scan_count": 3,
+  "last_scan": "2026-03-14T19:23:06+00:00",
+  "scan_metadata": {
+    "source": "scan"
+  },
+  "by_tier": {
+    "1": {
+      "auto_resolved": 0,
+      "deferred": 0,
+      "false_positive": 0,
+      "fixed": 0,
+      "open": 27,
+      "triaged_out": 0,
+      "wontfix": 0
+    },
+    "2": {
+      "auto_resolved": 0,
+      "deferred": 0,
+      "false_positive": 0,
+      "fixed": 0,
+      "open": 15,
+      "triaged_out": 0,
+      "wontfix": 0
+    },
+    "3": {
+      "auto_resolved": 0,
+      "deferred": 0,
+      "false_positive": 0,
+      "fixed": 11,
+      "open": 34,
+      "triaged_out": 0,
+      "wontfix": 0
+    },
+    "4": {
+      "auto_resolved": 0,
+      "deferred": 0,
+      "false_positive": 0,
+      "fixed": 0,
+      "open": 10,
+      "triaged_out": 0,
+      "wontfix": 0
+    }
+  },
+  "ignores": [],
+  "suppression": {
+    "last_ignored": 0,
+    "last_raw_issues": 44,
+    "last_suppressed_pct": 0.0,
+    "last_ignore_patterns": 0,
+    "recent_scans": 3,
+    "recent_ignored": 0,
+    "recent_raw_issues": 137,
+    "recent_suppressed_pct": 0.0
+  },
+  "potentials": {
+    "java": {
+      "structural": 36,
+      "flat_dirs": 23,
+      "signature": 2,
+      "security": 36,
+      "single_use": 0,
+      "cycles": 36,
+      "orphaned": 36,
+      "test_coverage": 205,
+      "boilerplate_duplication": 0,
+      "dupes": 106,
+      "stale_wontfix": 0
+    }
+  },
+  "codebase_metrics": {
+    "java": {
+      "total_files": 57,
+      "total_loc": 5145,
+      "total_directories": 13
+    }
+  },
+  "open_scope": {
+    "in_scope": 86,
+    "out_of_scope": 0,
+    "global": 86
+  },
+  "score_breakdown": {
+    "overall_score": 84.2,
+    "mechanical_fraction": 0.25,
+    "subjective_fraction": 0.75,
+    "mechanical_avg": 87.68565815324165,
+    "subjective_avg": 83.03252032520325,
+    "entries": [
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/config/AuthRolloutProperties.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (73 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 73,
-          "importer_count": 0,
-          "loc_weight": 8.54400374531753
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java": [
+        "name": "Code quality",
+        "pool": "mechanical",
+        "score": 68.0,
+        "checks": 59.0,
+        "sample_factor": 0.295,
+        "configured_weight": 1.0,
+        "effective_weight": 0.295,
+        "pool_share": 0.11591355599214145,
+        "overall_per_point": 0.028978388998035363,
+        "overall_contribution": 1.9705304518664046,
+        "overall_drag": 0.9273084479371316
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (50 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 50,
-          "importer_count": 0,
-          "loc_weight": 7.0710678118654755
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java": [
+        "name": "Security",
+        "pool": "mechanical",
+        "score": 100.0,
+        "checks": 72.0,
+        "sample_factor": 0.36,
+        "configured_weight": 1.0,
+        "effective_weight": 0.36,
+        "pool_share": 0.14145383104125736,
+        "overall_per_point": 0.03536345776031434,
+        "overall_contribution": 3.536345776031434,
+        "overall_drag": 0.0
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (49 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 49,
-          "importer_count": 0,
-          "loc_weight": 7.0
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java": [
+        "name": "File health",
+        "pool": "mechanical",
+        "score": 100.0,
+        "checks": 36.0,
+        "sample_factor": 0.18,
+        "configured_weight": 2.0,
+        "effective_weight": 0.36,
+        "pool_share": 0.14145383104125736,
+        "overall_per_point": 0.03536345776031434,
+        "overall_contribution": 3.536345776031434,
+        "overall_drag": 0.0
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (63 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 63,
-          "importer_count": 0,
-          "loc_weight": 7.937253933193772
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java": [
+        "name": "Duplication",
+        "pool": "mechanical",
+        "score": 100.0,
+        "checks": 106.0,
+        "sample_factor": 0.53,
+        "configured_weight": 1.0,
+        "effective_weight": 0.53,
+        "pool_share": 0.2082514734774067,
+        "overall_per_point": 0.05206286836935167,
+        "overall_contribution": 5.206286836935167,
+        "overall_drag": 0.0
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (51 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 51,
-          "importer_count": 0,
-          "loc_weight": 7.14142842854285
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/config/SecurityConfig.java": [
+        "name": "Test health",
+        "pool": "mechanical",
+        "score": 78.1,
+        "checks": 205.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.39292730844793716,
+        "overall_per_point": 0.09823182711198429,
+        "overall_contribution": 7.671905697445973,
+        "overall_drag": 2.1512770137524564
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/config/SecurityConfig.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (62 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 62,
-          "importer_count": 0,
-          "loc_weight": 7.874007874011811
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/controller/AuthController.java": [
+        "name": "Abstraction fit",
+        "pool": "subjective",
+        "score": 90.8,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 8.0,
+        "effective_weight": 8.0,
+        "pool_share": 0.06504065040650407,
+        "overall_per_point": 0.04878048780487805,
+        "overall_contribution": 4.429268292682927,
+        "overall_drag": 0.4487804878048782
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/controller/AuthController.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (222 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 222,
-          "importer_count": 0,
-          "loc_weight": 14.89966442575134
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java": [
+        "name": "AI generated debt",
+        "pool": "subjective",
+        "score": 90.8,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.5536585365853659,
+        "overall_drag": 0.05609756097560978
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (67 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 67,
-          "importer_count": 0,
-          "loc_weight": 8.18535277187245
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/controller/UserController.java": [
+        "name": "API coherence",
+        "pool": "subjective",
+        "score": 81.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.49390243902439024,
+        "overall_drag": 0.11585365853658537
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/controller/UserController.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (32 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 32,
-          "importer_count": 0,
-          "loc_weight": 5.656854249492381
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java": [
+        "name": "Auth consistency",
+        "pool": "subjective",
+        "score": 88.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.5365853658536586,
+        "overall_drag": 0.07317073170731708
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (37 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 37,
-          "importer_count": 0,
-          "loc_weight": 6.082762530298219
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/model/AuthFlow.java": [
+        "name": "Contracts",
+        "pool": "subjective",
+        "score": 84.6,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 12.0,
+        "effective_weight": 12.0,
+        "pool_share": 0.0975609756097561,
+        "overall_per_point": 0.07317073170731708,
+        "overall_contribution": 6.190243902439025,
+        "overall_drag": 1.1268292682926835
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/model/AuthFlow.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (18 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 18,
-          "importer_count": 0,
-          "loc_weight": 4.242640687119285
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/model/User.java": [
+        "name": "Convention drift",
+        "pool": "subjective",
+        "score": 84.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.5121951219512195,
+        "overall_drag": 0.0975609756097561
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/model/User.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (98 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 98,
-          "importer_count": 0,
-          "loc_weight": 9.899494936611665
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/repository/UserRepository.java": [
+        "name": "Cross-module arch",
+        "pool": "subjective",
+        "score": 83.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.5060975609756098,
+        "overall_drag": 0.10365853658536586
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/repository/UserRepository.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (13 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 13,
-          "importer_count": 0,
-          "loc_weight": 3.605551275463989
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java": [
+        "name": "Dep health",
+        "pool": "subjective",
+        "score": 91.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.5548780487804879,
+        "overall_drag": 0.054878048780487805
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/AuthCodeStore.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (23 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 23,
-          "importer_count": 0,
-          "loc_weight": 4.795831523312719
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java": [
+        "name": "Design coherence",
+        "pool": "subjective",
+        "score": 91.4,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 10.0,
+        "effective_weight": 10.0,
+        "pool_share": 0.08130081300813008,
+        "overall_per_point": 0.06097560975609756,
+        "overall_contribution": 5.573170731707317,
+        "overall_drag": 0.5243902439024387
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (34 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 34,
-          "importer_count": 0,
-          "loc_weight": 5.830951894845301
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java": [
+        "name": "Error consistency",
+        "pool": "subjective",
+        "score": 77.4,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 3.0,
+        "effective_weight": 3.0,
+        "pool_share": 0.024390243902439025,
+        "overall_per_point": 0.01829268292682927,
+        "overall_contribution": 1.4158536585365857,
+        "overall_drag": 0.4134146341463414
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (34 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 34,
-          "importer_count": 0,
-          "loc_weight": 5.830951894845301
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/service/JwtTokenService.java": [
+        "name": "High elegance",
+        "pool": "subjective",
+        "score": 74.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 22.0,
+        "effective_weight": 22.0,
+        "pool_share": 0.17886178861788618,
+        "overall_per_point": 0.13414634146341464,
+        "overall_contribution": 9.926829268292684,
+        "overall_drag": 3.487804878048781
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/JwtTokenService.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (172 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 172,
-          "importer_count": 0,
-          "loc_weight": 13.114877048604
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java": [
+        "name": "Stale migration",
+        "pool": "subjective",
+        "score": 82.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.5,
+        "overall_drag": 0.10975609756097561
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (39 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 39,
-          "importer_count": 0,
-          "loc_weight": 6.244997998398398
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java": [
+        "name": "Init coupling",
+        "pool": "subjective",
+        "score": 88.6,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.5402439024390244,
+        "overall_drag": 0.06951219512195125
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (98 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 98,
-          "importer_count": 0,
-          "loc_weight": 9.899494936611665
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java": [
+        "name": "Logic clarity",
+        "pool": "subjective",
+        "score": 91.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 6.0,
+        "effective_weight": 6.0,
+        "pool_share": 0.04878048780487805,
+        "overall_per_point": 0.03658536585365854,
+        "overall_contribution": 3.329268292682927,
+        "overall_drag": 0.3292682926829269
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (31 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 31,
-          "importer_count": 0,
-          "loc_weight": 5.5677643628300215
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java": [
+        "name": "Low elegance",
+        "pool": "subjective",
+        "score": 89.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 12.0,
+        "effective_weight": 12.0,
+        "pool_share": 0.0975609756097561,
+        "overall_per_point": 0.07317073170731708,
+        "overall_contribution": 6.51219512195122,
+        "overall_drag": 0.8048780487804879
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (102 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 102,
-          "importer_count": 0,
-          "loc_weight": 10.099504938362077
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java": [
+        "name": "Mid elegance",
+        "pool": "subjective",
+        "score": 81.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 22.0,
+        "effective_weight": 22.0,
+        "pool_share": 0.17886178861788618,
+        "overall_per_point": 0.13414634146341464,
+        "overall_contribution": 10.865853658536587,
+        "overall_drag": 2.548780487804878
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (101 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 101,
-          "importer_count": 0,
-          "loc_weight": 10.04987562112089
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java": [
+        "name": "Naming quality",
+        "pool": "subjective",
+        "score": 87.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 2.0,
+        "effective_weight": 2.0,
+        "pool_share": 0.016260162601626018,
+        "overall_per_point": 0.012195121951219513,
+        "overall_contribution": 1.0609756097560976,
+        "overall_drag": 0.15853658536585366
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (76 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 76,
-          "importer_count": 0,
-          "loc_weight": 8.717797887081348
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/service/RedisMicrosoftChallengeStore.java": [
+        "name": "Structure nav",
+        "pool": "subjective",
+        "score": 83.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 5.0,
+        "effective_weight": 5.0,
+        "pool_share": 0.04065040650406504,
+        "overall_per_point": 0.03048780487804878,
+        "overall_contribution": 2.5304878048780486,
+        "overall_drag": 0.5182926829268293
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/RedisMicrosoftChallengeStore.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (46 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 46,
-          "importer_count": 0,
-          "loc_weight": 6.782329983125268
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/service/UserService.java": [
+        "name": "Test strategy",
+        "pool": "subjective",
+        "score": 83.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.5060975609756098,
+        "overall_drag": 0.10365853658536586
+      },
       {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/UserService.java::untested_module",
-        "tier": 3,
-        "confidence": "high",
-        "summary": "Untested module (111 LOC, 0 importers)",
-        "detail": {
-          "kind": "untested_module",
-          "loc": 111,
-          "importer_count": 0,
-          "loc_weight": 10.535653752852738
-        }
+        "name": "Type safety",
+        "pool": "subjective",
+        "score": 78.4,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 12.0,
+        "effective_weight": 12.0,
+        "pool_share": 0.0975609756097561,
+        "overall_per_point": 0.07317073170731708,
+        "overall_contribution": 5.73658536585366,
+        "overall_drag": 1.5804878048780486
       }
     ]
   },
-  "total_matching": 26,
-  "noise_budget": 0,
-  "noise_global_budget": 0,
+  "next_command": "desloppify show orphaned --status open",
   "narrative": {
-    "phase": "stagnation",
-    "headline": "Score plateaued at 69.3 for 5 scans. Test health (0.0%) is where the breakthrough is. (22 review work items \u2014 run `desloppify show review --status open`)",
+    "phase": "regression",
+    "headline": "Score shifted 1.2 pts \u2014 this is normal after structural changes. Rescan after your next fix to see the real trend. (42 review work items \u2014 run `desloppify show review --status open`)",
     "dimensions": {
       "lowest_dimensions": [
         {
-          "name": "Test health",
-          "strict": 0.0,
-          "failing": 26,
+          "name": "Code quality",
+          "strict": 68.0,
+          "failing": 27,
           "impact": 0.0
         },
         {
-          "name": "Test strategy",
-          "strict": 52.0,
+          "name": "High elegance",
+          "strict": 74.0,
           "failing": 2,
           "impact": 0.0,
           "subjective": true,
           "impact_description": "re-review to improve"
         },
         {
-          "name": "Code quality",
-          "strict": 65.0,
-          "failing": 26,
-          "impact": 0.0
+          "name": "Error consistency",
+          "strict": 77.4,
+          "failing": 4,
+          "impact": 0.0,
+          "subjective": true,
+          "impact_description": "re-review to improve"
         }
       ],
       "biggest_gap_dimensions": [],
@@ -412,87 +1473,17 @@
         {
           "name": "Security",
           "strict": 100.0,
-          "stuck_scans": 5
+          "stuck_scans": 3
         },
         {
           "name": "File health",
           "strict": 100.0,
-          "stuck_scans": 5
+          "stuck_scans": 3
         },
         {
           "name": "Duplication",
           "strict": 100.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Test health",
-          "strict": 0.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Abstraction fit",
-          "strict": 75.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "AI generated debt",
-          "strict": 76.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "API coherence",
-          "strict": 70.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Convention drift",
-          "strict": 80.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Cross-module arch",
-          "strict": 72.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Dep health",
-          "strict": 78.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "High elegance",
-          "strict": 68.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Stale migration",
-          "strict": 72.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Init coupling",
-          "strict": 82.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Mid elegance",
-          "strict": 70.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Structure nav",
-          "strict": 70.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Test strategy",
-          "strict": 52.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Type safety",
-          "strict": 72.0,
-          "stuck_scans": 5
+          "stuck_scans": 3
         }
       ]
     },
@@ -500,8 +1491,8 @@
       {
         "type": "reorganize",
         "detector": "orphaned",
-        "count": 26,
-        "description": "26 orphaned issues \u2014 delete dead files or relocate with `desloppify move`",
+        "count": 27,
+        "description": "27 orphaned issues \u2014 delete dead files or relocate with `desloppify move`",
         "command": "desloppify show orphaned --status open",
         "impact": 0.0,
         "dimension": "Code quality",
@@ -511,12 +1502,16 @@
       {
         "type": "refactor",
         "detector": "test_coverage",
-        "count": 26,
-        "description": "26 test_coverage work items \u2014 add tests for untested production modules \u2014 prioritize by import count",
-        "command": "desloppify show test_coverage --status open",
+        "count": 5,
+        "description": "5 test_coverage issues in 1 cluster(s) \u2014 run `desloppify next`",
+        "command": "desloppify next",
         "impact": 0.0,
         "dimension": "Test health",
         "priority": 2,
+        "clusters": [
+          "auto/test_coverage"
+        ],
+        "cluster_count": 1,
         "lane": "test_coverage"
       },
       {
@@ -533,8 +1528,8 @@
       {
         "type": "refactor",
         "detector": "review",
-        "count": 22,
-        "description": "22 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
+        "count": 42,
+        "description": "42 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
         "command": "desloppify show review --status open",
         "impact": 0.0,
         "dimension": "Unknown",
@@ -543,31 +1538,24 @@
       },
       {
         "type": "manual_fix",
-        "detector": "unused",
-        "count": 6,
-        "description": "6 unused issues \u2014 inspect with `desloppify next` and fix manually",
-        "command": "desloppify show unused --status open",
+        "detector": "stale_exclude",
+        "count": 10,
+        "description": "10 stale_exclude issues in 1 cluster(s) \u2014 run `desloppify next`",
+        "command": "desloppify next",
         "impact": 0.0,
         "dimension": "Code quality",
         "priority": 5,
+        "clusters": [
+          "auto/stale_exclude"
+        ],
+        "cluster_count": 1,
         "lane": "refactor_2"
-      },
-      {
-        "type": "manual_fix",
-        "detector": "stale_exclude",
-        "count": 11,
-        "description": "11 stale_exclude work items \u2014 remove stale exclusion or verify it's still needed",
-        "command": "desloppify show stale_exclude --status open",
-        "impact": 0.0,
-        "dimension": "Code quality",
-        "priority": 6,
-        "lane": "refactor_3"
       }
     ],
     "strategy": {
       "fixer_leverage": {
         "auto_fixable_count": 0,
-        "total_count": 137,
+        "total_count": 170,
         "coverage": 0.0,
         "impact_ratio": 0.0,
         "recommendation": "none"
@@ -577,7 +1565,7 @@
           "actions": [
             1
           ],
-          "file_count": 26,
+          "file_count": 27,
           "total_impact": 0.0,
           "automation": "manual",
           "run_first": false
@@ -604,16 +1592,7 @@
           "actions": [
             5
           ],
-          "file_count": 3,
-          "total_impact": 0.0,
-          "automation": "manual",
-          "run_first": false
-        },
-        "refactor_3": {
-          "actions": [
-            6
-          ],
-          "file_count": 11,
+          "file_count": 10,
           "total_impact": 0.0,
           "automation": "manual",
           "run_first": false
@@ -622,21 +1601,21 @@
           "actions": [
             2
           ],
-          "file_count": 26,
+          "file_count": 5,
           "total_impact": 0.0,
           "automation": "manual",
           "run_first": false
         }
       },
       "can_parallelize": true,
-      "hint": "6 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 22 issue(s) \u2014 `desloppify show review --status open`."
+      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 42 issue(s) \u2014 `desloppify show review --status open`."
     },
     "tools": {
       "fixers": [],
       "move": {
         "available": true,
         "relevant": true,
-        "reason": "26 orphaned files",
+        "reason": "27 orphaned files",
         "usage": "desloppify move <source> <dest> [--dry-run]"
       },
       "plan": {
@@ -660,9 +1639,9 @@
     "milestone": null,
     "primary_action": {
       "command": "desloppify show orphaned --status open",
-      "description": "26 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
+      "description": "27 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
     },
-    "why_now": "6 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 22 issue(s) \u2014 `desloppify show review --status open`.",
+    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 42 issue(s) \u2014 `desloppify show review --status open`.",
     "verification_step": {
       "command": "desloppify scan",
       "reason": "revalidate after changes"
@@ -670,19 +1649,49 @@
     "risk_flags": [],
     "strict_target": {
       "target": 95.0,
-      "current": 69.3,
-      "gap": 25.7,
+      "current": 84.2,
+      "gap": 10.8,
       "state": "below",
       "warning": null
     },
-    "reminders": [],
+    "reminders": [
+      {
+        "type": "review_issues_pending",
+        "message": "42 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
+        "command": "desloppify show review --status open",
+        "priority": 1,
+        "severity": "high"
+      },
+      {
+        "type": "zone_classification",
+        "message": "21 of 57 files classified as non-production (21 test). Override with `desloppify zone set <file> production` if any are misclassified.",
+        "command": "desloppify zone show",
+        "priority": 2,
+        "severity": "medium"
+      },
+      {
+        "type": "review_not_run",
+        "message": "Mechanical checks look good! Run a subjective design review to catch issues linters miss: desloppify review --prepare",
+        "command": "desloppify review --prepare",
+        "priority": 3,
+        "severity": "low"
+      }
+    ],
     "reminder_history": {
       "zone_classification": 3,
-      "report_scores": 4,
-      "review_issues_pending": 3,
-      "stagnant_nudge": 5,
-      "feedback_nudge": 3
+      "report_scores": 2,
+      "review_issues_pending": 2,
+      "stagnant_nudge": 3,
+      "feedback_nudge": 1,
+      "review_not_run": 2
     }
+  },
+  "plan": {
+    "active": true,
+    "focus": null,
+    "total_ordered": 42,
+    "total_skipped": 0,
+    "plan_overrides_narrative": true
   },
   "config": {
     "target_strict_score": 95,
@@ -692,17 +1701,17 @@
     "generate_scorecard": true,
     "badge_path": "scorecard.png",
     "exclude": [
+      ".git",
+      ".vscode",
+      ".m2",
+      ".playwright-mcp",
+      "backend/.m2",
       "backend/target",
+      "backend/~",
       "frontend/node_modules",
       "frontend/dist",
       "frontend/playwright-report",
-      "frontend/test-results",
-      ".m2",
-      "backend/.m2",
-      "backend/~",
-      ".playwright-mcp",
-      ".agents",
-      ".agent"
+      "frontend/test-results"
     ],
     "ignore": [],
     "ignore_metadata": {},

@@ -1,3 +1,3 @@
 package com.demo.sso.controller.dto;
 
-public record MicrosoftChallengeResponse(String challengeId, String nonce) {}
+public record MicrosoftChallengeResponse(String challengeId, String nonce) implements AuthApiResponse {}

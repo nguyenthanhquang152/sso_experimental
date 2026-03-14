@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { PublicClientApplication } from '@azure/msal-browser';
-import { apiFetch } from '../api/client';
+import { apiFetch, getErrorMessage } from '../api/client';
 import { LoginCard } from './LoginCard';
 import type { MicrosoftProviderConfig } from '../types/auth';
 
@@ -84,8 +84,7 @@ export function MicrosoftClientSideLogin({ config, onSuccess }: MicrosoftClientS
 
       onSuccess(verification.token);
     } catch (loginError) {
-      console.error('Microsoft login failed:', loginError);
-      setError('Microsoft sign-in failed. Please try again.');
+      setError(getErrorMessage(loginError, 'Microsoft sign-in failed. Please try again.'));
     } finally {
       setSubmitting(false);
     }

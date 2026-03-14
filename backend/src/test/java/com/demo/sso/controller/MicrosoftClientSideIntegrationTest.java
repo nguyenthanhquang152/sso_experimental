@@ -6,6 +6,8 @@ import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -15,10 +17,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.demo.sso.config.TestAuthCodeStoreConfig;
-import com.demo.sso.controller.AuthController;
-import com.demo.sso.service.MicrosoftChallengeStore;
-import com.demo.sso.service.MicrosoftTokenVerifier;
-import com.demo.sso.config.AuthRolloutProperties;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.repository.UserRepository;
@@ -145,5 +143,33 @@ class MicrosoftClientSideIntegrationTest {
         assertEquals("employee@example.com", savedUser.getEmail());
         assertEquals(AuthFlow.CLIENT_SIDE, savedUser.getLastLoginFlow());
         assertEquals(sessionCookie, challengeResult.getResponse().getCookie("ms_challenge_session").getValue());
+    }
+
+    @Test
+    void microsoftVerifyRejectsSupersededChallengeId() throws Exception {
+        MvcResult firstChallenge = mockMvc.perform(post("/auth/microsoft/challenge"))
+            .andExpect(status().isOk())
+            .andReturn();
+
+        MvcResult secondChallenge = mockMvc.perform(post("/auth/microsoft/challenge")
+                .cookie(firstChallenge.getResponse().getCookie("ms_challenge_session")))
+            .andExpect(status().isOk())
+            .andReturn();
+
+        Map<String, String> firstPayload = objectMapper.readValue(
+            firstChallenge.getResponse().getContentAsByteArray(),
+            new TypeReference<>() {}
+        );
+
+        when(microsoftTokenVerifier.verifyIdToken(anyString(), anyString(), any(AuthFlow.class)))
+            .thenThrow(new IllegalArgumentException("Verifier should not be called for superseded challenges"));
+
+        mockMvc.perform(post("/auth/microsoft/verify")
+            .cookie(firstChallenge.getResponse().getCookie("ms_challenge_session"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"credential\":\"valid-microsoft-id-token\",\"challengeId\":\""
+                    + firstPayload.get("challengeId") + "\"}"))
+            .andExpect(status().isBadRequest())
+            .andExpect(jsonPath("$.error").value("Invalid or expired Microsoft challenge"));
     }
 }

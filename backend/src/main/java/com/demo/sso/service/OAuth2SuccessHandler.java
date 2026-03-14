@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,12 +46,12 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                                          HttpServletResponse response,
                                          Authentication authentication) throws IOException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        NormalizedIdentity identity = normalizeIdentity(authentication, oAuth2User, response);
-        if (identity == null) {
+        Optional<NormalizedIdentity> identity = normalizeIdentity(authentication, oAuth2User, response);
+        if (identity.isEmpty()) {
             return;
         }
 
-        User user = userService.findOrCreateUser(identity);
+        User user = userService.findOrCreateUser(identity.get());
 
         String jwt = jwtTokenService.generateToken(user);
         String code = authCodeStore.storeJwt(jwt);
@@ -59,7 +60,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         response.sendRedirect(frontendUrl + "/?code=" + encodedCode);
     }
 
-    private NormalizedIdentity normalizeIdentity(
+    private Optional<NormalizedIdentity> normalizeIdentity(
             Authentication authentication,
             OAuth2User oAuth2User,
             HttpServletResponse response) throws IOException {
@@ -69,13 +70,13 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         if ("microsoft".equalsIgnoreCase(registrationId)) {
             try {
-                return providerIdentityNormalizer.normalizeMicrosoftClaims(
+                return Optional.of(providerIdentityNormalizer.normalizeMicrosoftClaims(
                     oAuth2User.getAttributes(),
-                    AuthFlow.SERVER_SIDE);
+                    AuthFlow.SERVER_SIDE));
             } catch (IllegalArgumentException e) {
-                logger.warn("Microsoft OAuth2 login rejected: invalid identity claims", e);
+                logger.warn("Microsoft OAuth2 login rejected: invalid identity claims");
                 response.sendRedirect(frontendUrl + "/?error=missing_attributes");
-                return null;
+                return Optional.empty();
             }
         }
 
@@ -83,20 +84,20 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         if (!Boolean.TRUE.equals(emailVerified)) {
             logger.warn("OAuth2 login rejected: email not verified");
             response.sendRedirect(frontendUrl + "/?error=email_not_verified");
-            return null;
+            return Optional.empty();
         }
 
         try {
-            return providerIdentityNormalizer.normalizeGoogleClaims(
+            return Optional.of(providerIdentityNormalizer.normalizeGoogleClaims(
                 oAuth2User.getAttribute("sub"),
                 oAuth2User.getAttribute("email"),
                 oAuth2User.getAttribute("name"),
                 oAuth2User.getAttribute("picture"),
-                AuthFlow.SERVER_SIDE);
+                AuthFlow.SERVER_SIDE));
         } catch (IllegalArgumentException e) {
-            logger.warn("OAuth2 login rejected: missing sub or email attribute", e);
+            logger.warn("OAuth2 login rejected: missing sub or email attribute");
             response.sendRedirect(frontendUrl + "/?error=missing_attributes");
-            return null;
+            return Optional.empty();
         }
     }
 }

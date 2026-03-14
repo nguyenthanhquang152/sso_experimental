@@ -2,7 +2,12 @@
 
 ## Overview
 
-This application demonstrates Google Single Sign-On using two OAuth2 flows side-by-side: a **server-side authorization code flow** (Spring Security handles the full OAuth2 dance) and a **client-side flow** (React obtains a Google ID token directly, backend verifies it). Both flows result in the backend issuing a JWT that the React frontend stores in `localStorage` for subsequent API calls.
+This repository supports Google sign-in through two flows:
+
+- **Server-side OAuth2 flow** — Spring Security handles the Google authorization-code exchange and redirects the browser back with a one-time auth code.
+- **Client-side credential flow** — the browser receives a Google credential directly, the backend verifies it, and then issues the application JWT.
+
+In both flows, the frontend ultimately receives the same application JWT and stores it in `localStorage` for authenticated API calls.
 
 ## Architecture
 
@@ -33,7 +38,7 @@ This application demonstrates Google Single Sign-On using two OAuth2 flows side-
                  └────────┘ └───────────┘
 ```
 
-Traefik routes all requests on port 8000. Requests with path prefix `/api` go to the Spring Boot backend (priority 2); everything else serves the React SPA (priority 1). The backend uses PostgreSQL for user persistence and Redis for short-lived authorization codes.
+Traefik routes all requests on port `8000`. Requests with path prefix `/api` go to the Spring Boot backend; everything else serves the React SPA. The backend uses PostgreSQL for user persistence and Redis for short-lived authorization codes.
 
 ## OAuth2 Flows
 
@@ -232,17 +237,11 @@ Custom React hook managing auth state:
 - Sets `Content-Type: application/json`
 - Throws on non-OK responses
 
-### Frontend Routes
+### Frontend bootstrap
 
 **File:** `frontend/src/App.tsx`
 
-| Path | Component | Description |
-|---|---|---|
-| `/` | `HomePage` | Login page with both SSO flow cards |
-| `/dashboard` | `DashboardPage` | Protected; shows user profile, logout button |
-| `*` | Redirect to `/` | Catch-all |
-
-The app is wrapped in `GoogleOAuthProvider` from `@react-oauth/google`, configured with `VITE_GOOGLE_CLIENT_ID`.
+The app fetches runtime provider metadata from `GET /api/auth/providers` before deciding whether to wrap routes with `GoogleOAuthProvider`. The Google client ID now comes from the backend-published provider contract first, with `VITE_GOOGLE_CLIENT_ID` used only as a fallback in local development.
 
 ## API Endpoints
 
@@ -295,7 +294,7 @@ All backend endpoints are prefixed with `/api` via `server.servlet.context-path`
 
 ## Database Schema
 
-A single `users` table managed by JPA/Hibernate with `ddl-auto: update`:
+A single `users` table managed by Flyway migrations and validated by Hibernate at startup (`spring.jpa.hibernate.ddl-auto: validate`):
 
 | Column | Type | Constraints | Description |
 |---|---|---|---|
@@ -325,7 +324,7 @@ A single `users` table managed by JPA/Hibernate with `ddl-auto: update`:
 | `POSTGRES_PASSWORD` | No | `sso_pass` | PostgreSQL password |
 | `FRONTEND_URL` | No | `http://localhost:8000` | Redirect target after OAuth2 success |
 | `DOCKER_SOCK` | No | `/run/user/1000/docker.sock` | Docker socket path for Traefik |
-| `VITE_GOOGLE_CLIENT_ID` | Yes (build-time) | — | Google client ID for React (in `frontend/.env`) |
+| `VITE_GOOGLE_CLIENT_ID` | Optional fallback | — | Development fallback when backend provider metadata is unavailable |
 
 ### Application Config
 
@@ -334,7 +333,7 @@ A single `users` table managed by JPA/Hibernate with `ddl-auto: update`:
 Key settings:
 - Backend listens on port `8080` with context path `/api`
 - `server.forward-headers-strategy: framework` — trusts Traefik's `X-Forwarded-*` headers for correct redirect URIs
-- `spring.jpa.hibernate.ddl-auto: update` — auto-creates/updates schema
+- `spring.jpa.hibernate.ddl-auto: validate` — validates the Flyway-managed schema
 - `app.jwt.expiration-ms: 86400000` — JWT expires after 24 hours
 - OAuth2 client registered under `spring.security.oauth2.client.registration.google` with scopes `openid, profile, email`
 
@@ -355,11 +354,11 @@ Key settings:
    # Edit .env with your Google client ID, secret, and a strong JWT secret
    ```
 
-2. **Configure frontend Google Client ID:**
-   ```bash
-   cp frontend/.env.example frontend/.env
-   # Set VITE_GOOGLE_CLIENT_ID to your Google client ID
-   ```
+2. **Optional fallback client ID for isolated frontend work:**
+  ```bash
+  cp frontend/.env.example frontend/.env
+  # Set VITE_GOOGLE_CLIENT_ID only if you need the browser Google provider without backend-published config
+  ```
 
 3. **Start all services:**
    ```bash

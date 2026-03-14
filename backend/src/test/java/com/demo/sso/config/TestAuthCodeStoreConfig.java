@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @TestConfiguration
@@ -63,31 +64,54 @@ public class TestAuthCodeStoreConfig {
         private static final long CHALLENGE_TTL_MS = 5 * 60_000;
         private static final SecureRandom SECURE_RANDOM = new SecureRandom();
         private final ConcurrentHashMap<String, ChallengeEntry> store = new ConcurrentHashMap<>();
+        private final ConcurrentHashMap<String, String> activeChallenges = new ConcurrentHashMap<>();
 
         @Override
         public MicrosoftChallenge issueChallenge(String sessionId) {
             evictExpired();
+            String previousChallengeId = activeChallenges.remove(sessionId);
+            if (previousChallengeId != null) {
+                store.remove(sessionId + ":" + previousChallengeId);
+            }
+
             String challengeId = randomValue();
             String nonce = randomValue();
             store.put(sessionId + ":" + challengeId, new ChallengeEntry(nonce, System.currentTimeMillis()));
+            activeChallenges.put(sessionId, challengeId);
             return new MicrosoftChallenge(challengeId, nonce);
         }
 
         @Override
-        public String consumeNonce(String sessionId, String challengeId) {
+        public Optional<String> consumeNonce(String sessionId, String challengeId) {
+            String activeChallengeId = activeChallenges.get(sessionId);
+            if (!challengeId.equals(activeChallengeId)) {
+                return Optional.empty();
+            }
+
+            activeChallenges.remove(sessionId);
             ChallengeEntry entry = store.remove(sessionId + ":" + challengeId);
             if (entry == null) {
-                return null;
+                return Optional.empty();
             }
             if (System.currentTimeMillis() - entry.createdAt > CHALLENGE_TTL_MS) {
-                return null;
+                return Optional.empty();
             }
-            return entry.nonce;
+            return Optional.of(entry.nonce);
         }
 
         private void evictExpired() {
             long now = System.currentTimeMillis();
-            store.entrySet().removeIf(e -> now - e.getValue().createdAt > CHALLENGE_TTL_MS);
+            store.entrySet().removeIf(e -> {
+                boolean expired = now - e.getValue().createdAt > CHALLENGE_TTL_MS;
+                if (expired) {
+                    int separator = e.getKey().indexOf(':');
+                    if (separator > 0) {
+                        String sessionId = e.getKey().substring(0, separator);
+                        activeChallenges.remove(sessionId, e.getKey().substring(separator + 1));
+                    }
+                }
+                return expired;
+            });
         }
 
         private static String randomValue() {

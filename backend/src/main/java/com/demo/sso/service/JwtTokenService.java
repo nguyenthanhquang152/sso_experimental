@@ -165,7 +165,7 @@ public class JwtTokenService {
             parseAuthenticatedUser(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            logger.debug("JWT validation failed: {}", e.getMessage());
+            logger.debug("JWT validation failed");
             return false;
         }
     }

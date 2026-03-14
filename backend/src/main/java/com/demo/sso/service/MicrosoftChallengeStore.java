@@ -1,5 +1,7 @@
 package com.demo.sso.service;
 
+import java.util.Optional;
+
 /**
  * Manages Microsoft OIDC challenge sessions for the client-side auth flow.
  *
@@ -24,15 +26,15 @@ public interface MicrosoftChallengeStore {
     /**
      * Consumes and returns the nonce associated with a challenge, then invalidates it (single-use).
      *
-     * <p>Returns {@code null} if the session does not exist, has expired, or the
-     * {@code challengeId} does not match the expected active challenge. The caller must treat
-     * a {@code null} return as an invalid or replayed challenge.
+    * <p>Returns {@link Optional#empty()} if the session does not exist, has expired, or the
+    * {@code challengeId} does not match the expected active challenge. The caller must treat
+    * an empty result as an invalid or replayed challenge.
      *
      * @param sessionId   the opaque browser session identifier
      * @param challengeId the challenge ID returned by {@link #issueChallenge(String)}
-     * @return the nonce to verify against the Microsoft ID token, or {@code null} if invalid/expired
+    * @return the nonce to verify against the Microsoft ID token, or {@link Optional#empty()} if invalid/expired
      */
-    String consumeNonce(String sessionId, String challengeId);
+    Optional<String> consumeNonce(String sessionId, String challengeId);
 
     /** Immutable value object representing a newly issued challenge. */
     record MicrosoftChallenge(String challengeId, String nonce) {}

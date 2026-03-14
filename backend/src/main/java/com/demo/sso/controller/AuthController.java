@@ -1,8 +1,14 @@
 package com.demo.sso.controller;
 
 import com.demo.sso.config.AuthRolloutProperties;
+import com.demo.sso.controller.dto.AuthApiResponse;
+import com.demo.sso.controller.dto.AuthCodeExchangeRequest;
+import com.demo.sso.controller.dto.ErrorResponse;
+import com.demo.sso.controller.dto.GoogleVerifyRequest;
+import com.demo.sso.controller.dto.LogoutResponse;
 import com.demo.sso.controller.dto.MicrosoftChallengeResponse;
 import com.demo.sso.controller.dto.MicrosoftVerifyRequest;
+import com.demo.sso.controller.dto.TokenResponse;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.User;
 import com.demo.sso.service.AuthCodeStore;
@@ -22,16 +28,17 @@ import java.security.GeneralSecurityException;
 import java.time.Duration;
 import java.util.Optional;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Value;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseCookie;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
@@ -72,10 +79,10 @@ public class AuthController {
     }
 
     @PostMapping("/google/verify")
-    public ResponseEntity<?> verifyGoogleToken(@RequestBody Map<String, String> body) {
-        String credential = body.get("credential");
+    public ResponseEntity<AuthApiResponse> verifyGoogleToken(@RequestBody GoogleVerifyRequest request) {
+        String credential = request == null ? null : request.credential();
         if (credential == null || credential.isBlank()) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Missing credential"));
+            return badRequest("Missing credential");
         }
 
         try {
@@ -83,7 +90,7 @@ public class AuthController {
 
             if (!Boolean.TRUE.equals(payload.getEmailVerified())) {
                 return ResponseEntity.badRequest()
-                    .body(Map.of("error", "Email not verified by Google"));
+                    .body(new ErrorResponse("Email not verified by Google"));
             }
 
             NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(
@@ -97,15 +104,15 @@ public class AuthController {
 
             String jwt = jwtTokenService.generateToken(user);
 
-            return ResponseEntity.ok(Map.of("token", jwt));
+            return ResponseEntity.ok(new TokenResponse(jwt));
         } catch (GeneralSecurityException | IOException | IllegalArgumentException e) {
-            logger.warn("Google token verification failed", e);
-            return ResponseEntity.badRequest().body(Map.of("error", "Invalid Google credential"));
+            logger.warn("Google token verification failed: invalid credential");
+            return badRequest("Invalid Google credential");
         }
     }
 
     @PostMapping("/microsoft/challenge")
-    public ResponseEntity<?> issueMicrosoftChallenge(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<AuthApiResponse> issueMicrosoftChallenge(HttpServletRequest request, HttpServletResponse response) {
         if (!rolloutProperties.getMicrosoft().isClientSideEnabled()) {
             return microsoftClientSideDisabledResponse();
         }
@@ -119,7 +126,7 @@ public class AuthController {
     }
 
     @PostMapping("/microsoft/verify")
-    public ResponseEntity<?> verifyMicrosoftToken(
+    public ResponseEntity<AuthApiResponse> verifyMicrosoftToken(
             @RequestBody MicrosoftVerifyRequest request,
             HttpServletRequest httpRequest) {
         if (!rolloutProperties.getMicrosoft().isClientSideEnabled()) {
@@ -127,58 +134,57 @@ public class AuthController {
         }
 
         if (request == null || (request.credential() == null || request.credential().isBlank()) || (request.challengeId() == null || request.challengeId().isBlank())) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Missing credential or challengeId"));
+            return badRequest("Missing credential or challengeId");
         }
 
         String sessionId = currentChallengeSessionId(httpRequest).orElse(null);
         if (sessionId == null) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Invalid or expired Microsoft challenge"));
+            return badRequest("Invalid or expired Microsoft challenge");
         }
 
-        String expectedNonce = microsoftChallengeStore.consumeNonce(sessionId, request.challengeId());
-        if (expectedNonce == null) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Invalid or expired Microsoft challenge"));
+        Optional<String> expectedNonce = microsoftChallengeStore.consumeNonce(sessionId, request.challengeId());
+        if (expectedNonce.isEmpty()) {
+            return badRequest("Invalid or expired Microsoft challenge");
         }
 
         MicrosoftTokenVerifier microsoftTokenVerifier = microsoftTokenVerifierProvider.getIfAvailable();
         if (microsoftTokenVerifier == null) {
             return ResponseEntity.status(503)
-                .body(Map.of("error", "Microsoft client-side login is disabled"));
+                .body(new ErrorResponse("Microsoft client-side login is disabled"));
         }
 
         try {
             NormalizedIdentity identity = microsoftTokenVerifier.verifyIdToken(
                 request.credential(),
-                expectedNonce,
+                expectedNonce.get(),
                 AuthFlow.CLIENT_SIDE);
             User user = userService.findOrCreateUser(identity);
-            return ResponseEntity.ok(Map.of("token", jwtTokenService.generateToken(user)));
+            return ResponseEntity.ok(new TokenResponse(jwtTokenService.generateToken(user)));
         } catch (IllegalArgumentException e) {
-            logger.warn("Microsoft token verification failed", e);
-            return ResponseEntity.badRequest().body(Map.of("error", "Invalid Microsoft credential"));
+            logger.warn("Microsoft token verification failed: invalid credential");
+            return badRequest("Invalid Microsoft credential");
         }
     }
 
     @PostMapping("/exchange")
-    public ResponseEntity<?> exchangeCode(@RequestBody Map<String, String> body) {
-        String code = body.get("code");
+    public ResponseEntity<AuthApiResponse> exchangeCode(@RequestBody AuthCodeExchangeRequest request) {
+        String code = request == null ? null : request.code();
         if (code == null || code.isBlank()) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Missing code"));
+            return badRequest("Missing code");
         }
 
         try {
             String jwt = authCodeStore.exchangeCode(code);
-            return ResponseEntity.ok(Map.of("token", jwt));
+            return ResponseEntity.ok(new TokenResponse(jwt));
         } catch (IllegalArgumentException e) {
-            logger.debug("Auth code exchange failed for code: {}...",
-                    code.length() > 8 ? code.substring(0, 8) : code);
-            return ResponseEntity.badRequest().body(Map.of("error", "Invalid or expired code"));
+            logger.debug("Auth code exchange failed: invalid or expired code");
+            return badRequest("Invalid or expired code");
         }
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout() {
-        return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
+    public ResponseEntity<AuthApiResponse> logout() {
+        return ResponseEntity.ok(new LogoutResponse("Logged out successfully"));
     }
 
     private Optional<String> currentChallengeSessionId(HttpServletRequest request) {
@@ -215,8 +221,12 @@ public class AuthController {
         return servletContextPath + "/auth/microsoft";
     }
 
-    private ResponseEntity<?> microsoftClientSideDisabledResponse() {
+    private ResponseEntity<AuthApiResponse> microsoftClientSideDisabledResponse() {
         return ResponseEntity.status(503)
-            .body(Map.of("error", "Microsoft client-side login is disabled"));
+            .body(new ErrorResponse("Microsoft client-side login is disabled"));
+    }
+
+    private ResponseEntity<AuthApiResponse> badRequest(String message) {
+        return ResponseEntity.badRequest().body(new ErrorResponse(message));
     }
 }

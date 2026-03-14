@@ -38,6 +38,8 @@ Thumbs.db
 # Coding Agents Configurations
 .agent/
 .agents/
+.github/
+.desloppify/
 .skills-lock.json
 CLAUDE.md
 .rtk/

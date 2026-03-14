@@ -12,7 +12,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.demo.sso.config.TestAuthCodeStoreConfig;
-import com.demo.sso.controller.AuthController;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;

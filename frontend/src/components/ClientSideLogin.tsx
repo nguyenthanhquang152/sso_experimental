@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import type { CredentialResponse } from '@react-oauth/google';
-import { apiFetch } from '../api/client';
+import { apiFetch, getErrorMessage } from '../api/client';
 import { LoginCard } from './LoginCard';
 
 interface ClientSideLoginProps {
@@ -20,17 +21,23 @@ const fallbackButtonStyle = {
 } as const;
 
 export function ClientSideLogin({ onSuccess, clientReady }: ClientSideLoginProps) {
+  const [error, setError] = useState<string | null>(null);
+
   const handleSuccess = async (credentialResponse: CredentialResponse) => {
-    if (!credentialResponse.credential) return;
+    if (!credentialResponse.credential) {
+      setError('Google did not return a credential. Please try again.');
+      return;
+    }
 
     try {
+      setError(null);
       const data = await apiFetch<{ token: string }>('/auth/google/verify', {
         method: 'POST',
         body: JSON.stringify({ credential: credentialResponse.credential }),
       });
       onSuccess(data.token);
-    } catch (error) {
-      console.error('Login failed:', error);
+    } catch (error: unknown) {
+      setError(getErrorMessage(error, 'Google sign-in failed. Please try again.'));
     }
   };
 
@@ -39,11 +46,18 @@ export function ClientSideLogin({ onSuccess, clientReady }: ClientSideLoginProps
       title="Google · Client-Side Flow"
       description="Google Sign-In happens directly in the browser via a popup. The ID token is sent to the backend for verification."
       accentColor="#4285f4"
+      footer={
+        error ? (
+          <p style={{ color: '#b91c1c', fontSize: '13px', margin: 0 }} role="alert">
+            {error}
+          </p>
+        ) : null
+      }
     >
       {clientReady ? (
         <GoogleLogin
           onSuccess={handleSuccess}
-          onError={() => console.error('Google Login Failed')}
+          onError={() => setError('Google sign-in failed. Please try again.')}
         />
       ) : (
         <button type="button" disabled style={fallbackButtonStyle}>

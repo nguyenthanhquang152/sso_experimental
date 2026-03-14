@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.demo.sso.config.AuthRolloutProperties;
 import com.demo.sso.config.MicrosoftAuthProperties;
+import com.demo.sso.controller.dto.ProviderConfigResponse;
 import java.util.List;
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 
@@ -24,18 +24,16 @@ class ProviderConfigControllerTest {
             new MicrosoftAuthProperties(),
             "google-client-id.apps.googleusercontent.com");
 
-        ResponseEntity<Map<String, Object>> response = controller.getProviders();
-        @SuppressWarnings("unchecked")
-        Map<String, Object> google = (Map<String, Object>) response.getBody().get("google");
-        @SuppressWarnings("unchecked")
-        Map<String, Object> microsoft = (Map<String, Object>) response.getBody().get("microsoft");
+        ResponseEntity<ProviderConfigResponse> response = controller.getProviders();
+        ProviderConfigResponse.GoogleProviderConfig google = response.getBody().google();
+        ProviderConfigResponse.MicrosoftProviderConfig microsoft = response.getBody().microsoft();
 
-        assertEquals("google-client-id.apps.googleusercontent.com", google.get("clientId"));
-        assertTrue((Boolean) google.get("serverSideEnabled"));
-        assertTrue((Boolean) google.get("clientSideEnabled"));
-        assertFalse((Boolean) microsoft.get("clientSideEnabled"));
-        assertFalse((Boolean) microsoft.get("serverSideEnabled"));
-        assertEquals(List.of(), microsoft.get("scopes"));
+        assertEquals("google-client-id.apps.googleusercontent.com", google.clientId());
+        assertTrue(google.serverSideEnabled());
+        assertTrue(google.clientSideEnabled());
+        assertFalse(microsoft.clientSideEnabled());
+        assertFalse(microsoft.serverSideEnabled());
+        assertEquals(List.of(), microsoft.scopes());
     }
 
     @Test
@@ -53,18 +51,16 @@ class ProviderConfigControllerTest {
             microsoft,
             "google-client-id.apps.googleusercontent.com");
 
-        ResponseEntity<Map<String, Object>> response = controller.getProviders();
-        @SuppressWarnings("unchecked")
-        Map<String, Object> google = (Map<String, Object>) response.getBody().get("google");
-        @SuppressWarnings("unchecked")
-        Map<String, Object> payload = (Map<String, Object>) response.getBody().get("microsoft");
+        ResponseEntity<ProviderConfigResponse> response = controller.getProviders();
+        ProviderConfigResponse.GoogleProviderConfig google = response.getBody().google();
+        ProviderConfigResponse.MicrosoftProviderConfig payload = response.getBody().microsoft();
 
-        assertEquals("google-client-id.apps.googleusercontent.com", google.get("clientId"));
-        assertTrue((Boolean) google.get("serverSideEnabled"));
-        assertTrue((Boolean) google.get("clientSideEnabled"));
-        assertTrue((Boolean) payload.get("clientSideEnabled"));
-        assertEquals("microsoft-client-id", payload.get("clientId"));
-        assertEquals("https://login.microsoftonline.com/common/v2.0", payload.get("authority"));
+        assertEquals("google-client-id.apps.googleusercontent.com", google.clientId());
+        assertTrue(google.serverSideEnabled());
+        assertTrue(google.clientSideEnabled());
+        assertTrue(payload.clientSideEnabled());
+        assertEquals("microsoft-client-id", payload.clientId());
+        assertEquals("https://login.microsoftonline.com/common/v2.0", payload.authority());
     }
 
     @Test
@@ -83,12 +79,11 @@ class ProviderConfigControllerTest {
             microsoft,
             "google-client-id.apps.googleusercontent.com");
 
-        ResponseEntity<Map<String, Object>> response = controller.getProviders();
-        @SuppressWarnings("unchecked")
-        Map<String, Object> payload = (Map<String, Object>) response.getBody().get("microsoft");
+        ResponseEntity<ProviderConfigResponse> response = controller.getProviders();
+        ProviderConfigResponse.MicrosoftProviderConfig payload = response.getBody().microsoft();
 
-        assertFalse((Boolean) payload.get("serverSideEnabled"));
-        assertTrue((Boolean) payload.get("clientSideEnabled"));
+        assertFalse(payload.serverSideEnabled());
+        assertTrue(payload.clientSideEnabled());
     }
 
     @Test
@@ -98,12 +93,11 @@ class ProviderConfigControllerTest {
             new MicrosoftAuthProperties(),
             "");
 
-        ResponseEntity<Map<String, Object>> response = controller.getProviders();
-        @SuppressWarnings("unchecked")
-        Map<String, Object> google = (Map<String, Object>) response.getBody().get("google");
+        ResponseEntity<ProviderConfigResponse> response = controller.getProviders();
+        ProviderConfigResponse.GoogleProviderConfig google = response.getBody().google();
 
-        assertEquals("", google.get("clientId"));
-        assertFalse((Boolean) google.get("serverSideEnabled"));
-        assertFalse((Boolean) google.get("clientSideEnabled"));
+        assertEquals("", google.clientId());
+        assertFalse(google.serverSideEnabled());
+        assertFalse(google.clientSideEnabled());
     }
 }
