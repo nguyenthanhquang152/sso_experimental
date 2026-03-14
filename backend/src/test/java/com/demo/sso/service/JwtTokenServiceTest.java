@@ -28,28 +28,28 @@ class JwtTokenServiceTest {
 
     @Test
     void generateToken_returnsNonEmptyString() {
-        String token = jwtTokenService.generateToken("user@example.com", "google-123");
+        String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
         assertNotNull(token);
         assertFalse(token.isBlank());
     }
 
     @Test
     void getEmailFromToken_returnsCorrectEmail() {
-        String token = jwtTokenService.generateToken("user@example.com", "google-123");
+        String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
         String email = jwtTokenService.getEmailFromToken(token);
         assertEquals("user@example.com", email);
     }
 
     @Test
     void parseToken_containsGoogleIdClaim() {
-        String token = jwtTokenService.generateToken("user@example.com", "google-123");
+        String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
         var claims = jwtTokenService.parseToken(token);
         assertEquals("google-123", claims.get("googleId", String.class));
     }
 
     @Test
     void parseToken_containsIssuerAudienceAndJti() {
-        String token = jwtTokenService.generateToken("user@example.com", "google-123");
+        String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
         var claims = jwtTokenService.parseToken(token);
         assertEquals("sso-demo-backend", claims.getIssuer());
         assertTrue(claims.getAudience().contains("sso-demo-api"));
@@ -59,7 +59,7 @@ class JwtTokenServiceTest {
 
     @Test
     void isTokenValid_returnsTrueForValidToken() {
-        String token = jwtTokenService.generateToken("user@example.com", "google-123");
+        String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
         assertTrue(jwtTokenService.isTokenValid(token));
     }
 
@@ -70,7 +70,7 @@ class JwtTokenServiceTest {
 
     @Test
     void isTokenValid_returnsFalseForTamperedToken() {
-        String token = jwtTokenService.generateToken("user@example.com", "google-123");
+        String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
         String tampered = token.substring(0, token.length() - 1) + "X";
         assertFalse(jwtTokenService.isTokenValid(tampered));
     }
@@ -79,7 +79,7 @@ class JwtTokenServiceTest {
     void isTokenValid_returnsFalseForExpiredToken() {
         JwtTokenService expiredService = new JwtTokenService(
             "test-secret-key-that-is-at-least-32-characters-long-for-hmac", 0);
-        String token = expiredService.generateToken("user@example.com", "google-123");
+        String token = expiredService.generateLegacyToken("user@example.com", "google-123");
         assertFalse(expiredService.isTokenValid(token));
     }
 
@@ -87,7 +87,7 @@ class JwtTokenServiceTest {
     void isTokenValid_returnsFalseForTokenSignedWithDifferentKey() {
         JwtTokenService otherService = new JwtTokenService(
             "another-secret-key-that-is-at-least-32-characters-long!!", 86400000);
-        String tokenFromOther = otherService.generateToken("user@example.com", "google-123");
+        String tokenFromOther = otherService.generateLegacyToken("user@example.com", "google-123");
         assertFalse(jwtTokenService.isTokenValid(tokenFromOther));
     }
 
@@ -147,7 +147,7 @@ class JwtTokenServiceTest {
             rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.LEGACY)
         );
 
-        String token = compatibilityService.generateToken("user@example.com", "google-123");
+        String token = compatibilityService.generateLegacyToken("user@example.com", "google-123");
         AuthenticatedUserIdentity identity = compatibilityService.parseAuthenticatedUser(token);
 
         assertTrue(identity.isLegacy());
@@ -168,7 +168,7 @@ class JwtTokenServiceTest {
             rolloutProperties(AuthRolloutProperties.IdentityContractMode.V2_ONLY, AuthRolloutProperties.JwtMintMode.V2)
         );
 
-        String legacyToken = legacyService.generateToken("user@example.com", "google-123");
+        String legacyToken = legacyService.generateLegacyToken("user@example.com", "google-123");
 
         assertFalse(v2OnlyService.isTokenValid(legacyToken));
         assertThrows(IllegalArgumentException.class, () -> v2OnlyService.parseAuthenticatedUser(legacyToken));

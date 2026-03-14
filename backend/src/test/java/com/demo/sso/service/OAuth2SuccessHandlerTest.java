@@ -194,7 +194,7 @@ class OAuth2SuccessHandlerTest {
         handler.onAuthenticationSuccess(request, response, authentication);
 
         verify(jwtTokenService).generateToken(user);
-        verify(jwtTokenService, never()).generateToken(anyString(), anyString());
+        verify(jwtTokenService, never()).generateLegacyToken(anyString(), anyString());
     }
 
     @Test

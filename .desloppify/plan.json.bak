@@ -1,8 +1,9 @@
 {
   "version": 8,
   "created": "2026-03-14T18:25:42+00:00",
-  "updated": "2026-03-14T20:36:47+00:00",
+  "updated": "2026-03-14T20:38:45+00:00",
   "queue_order": [
+    "review::.::holistic::type_safety::challenge_store_hidden_nullable_return",
     "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
     "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
     "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
@@ -20,7 +21,6 @@
     "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap",
     "review::.::holistic::type_safety::auth_flow_legacy_string_contract",
     "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel",
-    "review::.::holistic::type_safety::challenge_store_hidden_nullable_return",
     "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
     "triage::organize",
     "triage::enrich",
@@ -2473,6 +2473,90 @@
         "status": "fixed",
         "attestation": "I have actually modified MicrosoftTokenVerifier.java validateNonce method and am not gaming the score"
       }
+    },
+    {
+      "timestamp": "2026-03-14T20:37:09+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::type_safety::challenge_store_hidden_nullable_return"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "MicrosoftChallengeStore.consumeNonce already returns Optional<String> not plain String \u2014 the interface has comprehensive Javadoc documenting that empty = invalid/expired challenge. Finding was inaccurate about the return type",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:37:57+00:00",
+      "action": "commit_record",
+      "issue_ids": [
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerCompatibilityIntegrationTest.java::unused_import::15",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::4",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::5",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::6",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::7",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::13",
+        "unused::backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java::unused_import::18",
+        "unused::backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java::unused_import::19",
+        "unused::backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java::unused_import::21",
+        "unused::backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java::unused_import::5",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::4",
+        "review::.::holistic::logic_clarity::provider_config_google_null_check_is_redundant",
+        "review::.::holistic::api_surface_coherence::auth_controller_wildcard_responses",
+        "review::.::holistic::convention_outlier::auth_controller_ad_hoc_payloads",
+        "review::.::holistic::contract_coherence::microsoft_challenge_reissue_does_not_replace_prior_challenge",
+        "review::.::holistic::contract_coherence::oauth2_success_handler_uses_null_as_hidden_failure_contract",
+        "review::.::holistic::error_consistency::frontend_status_only_api_errors",
+        "review::.::holistic::error_consistency::silent_auth_code_exchange_failure",
+        "review::.::holistic::convention_outlier::provider_config_anonymous_contract",
+        "review::.::holistic::error_consistency::client_side_provider_errors_diverge",
+        "review::.::holistic::contract_coherence::authflow_factory_silently_discards_invalid_login_method",
+        "review::.::holistic::authorization_consistency::google_disable_policy_not_enforced_on_public_auth_routes",
+        "review::.::holistic::logic_clarity::microsoft_nonce_check_can_be_silently_skipped"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Contract guards: AuthFlow throws on invalid input, nonce validation enforced, Google rollout guard added",
+      "detail": {
+        "sha": "e80c3fb5bef2",
+        "branch": "desloppify/code-health"
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:38:14+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::type_safety::challenge_store_hidden_nullable_return"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "MicrosoftChallengeStore.consumeNonce already returns Optional<String> with comprehensive Javadoc \u2014 the interface documents empty = invalid/expired",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:38:29+00:00",
+      "action": "reorder",
+      "issue_ids": [
+        "review::.::holistic::type_safety::challenge_store_hidden_nullable_return"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "position": "top",
+        "target": null,
+        "offset": null
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:38:45+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::type_safety::challenge_store_hidden_nullable_return"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "MicrosoftChallengeStore.consumeNonce already returns Optional<String> not a plain String \u2014 interface is correctly typed with comprehensive Javadoc documenting failure semantics",
+      "detail": {}
     }
   ],
   "epic_triage_meta": {
@@ -3096,32 +3180,41 @@
       }
     }
   },
-  "commit_log": [],
-  "uncommitted_issues": [
-    "unused::backend/src/test/java/com/demo/sso/controller/ControllerCompatibilityIntegrationTest.java::unused_import::15",
-    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::4",
-    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::5",
-    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::6",
-    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::7",
-    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::13",
-    "unused::backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java::unused_import::18",
-    "unused::backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java::unused_import::19",
-    "unused::backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java::unused_import::21",
-    "unused::backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java::unused_import::5",
-    "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::4",
-    "review::.::holistic::logic_clarity::provider_config_google_null_check_is_redundant",
-    "review::.::holistic::api_surface_coherence::auth_controller_wildcard_responses",
-    "review::.::holistic::convention_outlier::auth_controller_ad_hoc_payloads",
-    "review::.::holistic::contract_coherence::microsoft_challenge_reissue_does_not_replace_prior_challenge",
-    "review::.::holistic::contract_coherence::oauth2_success_handler_uses_null_as_hidden_failure_contract",
-    "review::.::holistic::error_consistency::frontend_status_only_api_errors",
-    "review::.::holistic::error_consistency::silent_auth_code_exchange_failure",
-    "review::.::holistic::convention_outlier::provider_config_anonymous_contract",
-    "review::.::holistic::error_consistency::client_side_provider_errors_diverge",
-    "review::.::holistic::contract_coherence::authflow_factory_silently_discards_invalid_login_method",
-    "review::.::holistic::authorization_consistency::google_disable_policy_not_enforced_on_public_auth_routes",
-    "review::.::holistic::logic_clarity::microsoft_nonce_check_can_be_silently_skipped"
+  "commit_log": [
+    {
+      "sha": "e80c3fb5bef2",
+      "branch": "desloppify/code-health",
+      "issue_ids": [
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerCompatibilityIntegrationTest.java::unused_import::15",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::4",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::5",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::6",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::7",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::13",
+        "unused::backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java::unused_import::18",
+        "unused::backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java::unused_import::19",
+        "unused::backend/src/test/java/com/demo/sso/controller/MicrosoftClientSideIntegrationTest.java::unused_import::21",
+        "unused::backend/src/test/java/com/demo/sso/service/ProviderIdentityNormalizerTest.java::unused_import::5",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::4",
+        "review::.::holistic::logic_clarity::provider_config_google_null_check_is_redundant",
+        "review::.::holistic::api_surface_coherence::auth_controller_wildcard_responses",
+        "review::.::holistic::convention_outlier::auth_controller_ad_hoc_payloads",
+        "review::.::holistic::contract_coherence::microsoft_challenge_reissue_does_not_replace_prior_challenge",
+        "review::.::holistic::contract_coherence::oauth2_success_handler_uses_null_as_hidden_failure_contract",
+        "review::.::holistic::error_consistency::frontend_status_only_api_errors",
+        "review::.::holistic::error_consistency::silent_auth_code_exchange_failure",
+        "review::.::holistic::convention_outlier::provider_config_anonymous_contract",
+        "review::.::holistic::error_consistency::client_side_provider_errors_diverge",
+        "review::.::holistic::contract_coherence::authflow_factory_silently_discards_invalid_login_method",
+        "review::.::holistic::authorization_consistency::google_disable_policy_not_enforced_on_public_auth_routes",
+        "review::.::holistic::logic_clarity::microsoft_nonce_check_can_be_silently_skipped"
+      ],
+      "recorded_at": "2026-03-14T20:37:57+00:00",
+      "note": "Contract guards: AuthFlow throws on invalid input, nonce validation enforced, Google rollout guard added",
+      "cluster_name": null
+    }
   ],
+  "uncommitted_issues": [],
   "commit_tracking_branch": null,
   "scan_count_at_plan_start": 4
 }

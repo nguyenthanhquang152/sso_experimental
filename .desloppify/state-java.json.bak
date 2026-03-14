@@ -12,8 +12,8 @@
     "auto_resolved": 0,
     "deferred": 3,
     "false_positive": 0,
-    "fixed": 22,
-    "open": 72,
+    "fixed": 23,
+    "open": 71,
     "triaged_out": 0,
     "wontfix": 0,
     "by_tier": {
@@ -30,8 +30,8 @@
         "auto_resolved": 0,
         "deferred": 0,
         "false_positive": 0,
-        "fixed": 3,
-        "open": 12,
+        "fixed": 4,
+        "open": 11,
         "triaged_out": 0,
         "wontfix": 0
       },
@@ -2960,11 +2960,11 @@
         "reasoning": "",
         "summary_hash": "0fd1406f"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "Made MicrosoftTokenVerifier.validateNonce throw IllegalArgumentException when expectedNonce is null or blank \u2014 nonce validation can no longer be silently bypassed",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-14T20:36:47+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -2972,7 +2972,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "manual",
+        "text": "I have actually modified MicrosoftTokenVerifier.java validateNonce method and am not gaming the score",
+        "attested_at": "2026-03-14T20:36:47+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::type_safety::challenge_store_hidden_nullable_return": {
       "id": "review::.::holistic::type_safety::challenge_store_hidden_nullable_return",
@@ -3371,7 +3377,7 @@
       "assessed_at": "2026-03-14T19:10:42+00:00",
       "needs_review_refresh": true,
       "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:30:06+00:00"
+      "stale_since": "2026-03-14T20:36:47+00:00"
     },
     "low_level_elegance": {
       "score": 89.0,
@@ -4348,13 +4354,13 @@
       "strict": 91.0,
       "verified_strict_score": 91.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.91,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 0.9,
           "assessment_score": 91.0,
           "placeholder": false,

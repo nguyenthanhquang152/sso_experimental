@@ -68,7 +68,6 @@ class ControllerCompatibilityIntegrationTest {
         user.setEmail("test@example.com");
         user.setName("Compatibility User");
         user.setPictureUrl("http://example.com/pic.jpg");
-        user.setLoginMethod("SERVER_SIDE");
         user.setProvider(AuthProvider.GOOGLE);
         user.setProviderUserId("google-test-123");
         user.setLastLoginFlow(AuthFlow.SERVER_SIDE);

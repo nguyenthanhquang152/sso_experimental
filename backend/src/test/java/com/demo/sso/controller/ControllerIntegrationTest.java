@@ -77,7 +77,6 @@ class ControllerIntegrationTest {
         user.setEmail("test@example.com");
         user.setName("Test User");
         user.setPictureUrl("http://example.com/pic.jpg");
-        user.setLoginMethod("SERVER_SIDE");
         user.setProvider(AuthProvider.GOOGLE);
         user.setProviderUserId("google-test-123");
         user.setLastLoginFlow(AuthFlow.SERVER_SIDE);
@@ -105,7 +104,7 @@ class ControllerIntegrationTest {
         @Test
         void returnsUserProfileWithValidToken() throws Exception {
             User user = createTestUser();
-            String token = jwtTokenService.generateToken(user.getEmail(), user.getGoogleId());
+            String token = jwtTokenService.generateToken(user);
 
             mockMvc.perform(get("/user/me")
                     .header("Authorization", "Bearer " + token))
@@ -118,7 +117,12 @@ class ControllerIntegrationTest {
 
         @Test
         void returns404WhenUserNotInDatabase() throws Exception {
-            String token = jwtTokenService.generateToken("nonexistent@example.com", "google-999");
+            User phantom = new User();
+            phantom.setId(99999L);
+            phantom.setEmail("nonexistent@example.com");
+            phantom.setProvider(AuthProvider.GOOGLE);
+            phantom.setProviderUserId("google-999");
+            String token = jwtTokenService.generateToken(phantom);
 
             mockMvc.perform(get("/user/me")
                     .header("Authorization", "Bearer " + token))
@@ -192,7 +196,6 @@ class ControllerIntegrationTest {
             assertEquals(AuthProvider.GOOGLE, savedUser.getProvider());
             assertEquals("google-123", savedUser.getProviderUserId());
             assertEquals(AuthFlow.CLIENT_SIDE, savedUser.getLastLoginFlow());
-            assertEquals("CLIENT_SIDE", savedUser.getLoginMethod());
             assertEquals("Google User", savedUser.getName());
             assertEquals("user@example.com", savedUser.getEmail());
         }
@@ -221,7 +224,8 @@ class ControllerIntegrationTest {
 
         @Test
         void returnsTokenForValidCode() throws Exception {
-            String jwt = jwtTokenService.generateToken("test@example.com", "google-123");
+            User user = createTestUser();
+            String jwt = jwtTokenService.generateToken(user);
             String code = authCodeStore.storeJwt(jwt);
 
             mockMvc.perform(post("/auth/exchange")

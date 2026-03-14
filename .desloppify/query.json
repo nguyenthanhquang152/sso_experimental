@@ -2,104 +2,325 @@
   "command": "next",
   "items": [
     {
-      "id": "legacy-migration",
-      "action_type": "manual_fix",
-      "summary": "Legacy migration debt cleanup",
-      "member_count": 6,
-      "members": [
-        {
-          "id": "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads",
-          "confidence": "high",
-          "detector": "review",
-          "file": ".",
-          "summary": "`JwtTokenService.generateToken` overloads hide which token schema a caller receives",
-          "status": "open",
-          "kind": "issue",
-          "primary_command": "desloppify plan resolve \"review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads\" --note \"<what you did>\" --confirm"
-        },
-        {
-          "id": "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives",
-          "confidence": "high",
-          "detector": "review",
-          "file": ".",
-          "summary": "A Google-shaped `findOrCreateUser` overload remains after production callers moved to `NormalizedIdentity`.",
-          "status": "open",
-          "kind": "issue",
-          "primary_command": "desloppify plan resolve \"review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives\" --note \"<what you did>\" --confirm"
-        },
-        {
-          "id": "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers",
-          "confidence": "medium",
-          "detector": "review",
-          "file": ".",
-          "summary": "The legacy `google_id` compatibility column is still populated for non-Google identities.",
-          "status": "open",
-          "kind": "issue",
-          "primary_command": "desloppify plan resolve \"review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers\" --note \"<what you did>\" --confirm"
-        },
-        {
-          "id": "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap",
-          "confidence": "high",
-          "detector": "review",
-          "file": ".",
-          "summary": "Old `loginMethod` and new `lastLoginFlow` contracts still coexist for the same concept.",
-          "status": "open",
-          "kind": "issue",
-          "primary_command": "desloppify plan resolve \"review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap\" --note \"<what you did>\" --confirm"
-        },
-        {
-          "id": "review::.::holistic::type_safety::auth_flow_legacy_string_contract",
-          "confidence": "medium",
-          "detector": "review",
-          "file": ".",
-          "summary": "Auth flow parsing still uses raw strings and `null` even though `AuthFlow` is the codebase enum",
-          "status": "open",
-          "kind": "issue",
-          "primary_command": "desloppify plan resolve \"review::.::holistic::type_safety::auth_flow_legacy_string_contract\" --note \"<what you did>\" --confirm"
-        },
-        {
-          "id": "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel",
-          "confidence": "medium",
-          "detector": "review",
-          "file": ".",
-          "summary": "Invalid legacy login-method values are silently converted to null instead of treated as errors.",
-          "status": "open",
-          "kind": "issue",
-          "primary_command": "desloppify plan resolve \"review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel\" --note \"<what you did>\" --confirm"
-        }
-      ],
-      "cluster_name": "legacy-migration",
-      "cluster_auto": false,
+      "id": "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads",
+      "confidence": "high",
       "detector": "review",
-      "kind": "cluster",
-      "primary_command": "desloppify next --cluster legacy-migration --count 10",
-      "action_steps": [
-        {
-          "title": "Rename generateToken legacy overload",
-          "effort": "small"
-        },
-        {
-          "title": "Remove legacy UserService findOrCreateUser overload",
-          "effort": "small"
-        },
-        {
-          "title": "Clean up loginMethod/lastLoginFlow overlap",
-          "effort": "medium"
-        },
-        {
-          "title": "Update AuthFlow callers to use enum directly",
-          "effort": "small"
-        }
-      ]
+      "file": ".",
+      "summary": "`JwtTokenService.generateToken` overloads hide which token schema a caller receives",
+      "detail": {
+        "holistic": true,
+        "dimension": "api_surface_coherence",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/JwtTokenService.java",
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+          "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java",
+          "backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java"
+        ],
+        "evidence": [
+          "`JwtTokenService.generateToken(String email, String googleId)` always builds the legacy subject/`googleId` token, while `generateToken(User user)` conditionally emits V2 claims or delegates back to the legacy overload depending on rollout settings.",
+          "The shared method name `generateToken` does not tell callers whether the result will contain legacy `googleId` claims or V2 `ver`/`provider`/`providerUserId`/`email` claims, and production callers use a different overload than several integration tests."
+        ],
+        "suggestion": "Split legacy and current minting into explicitly named entrypoints (for example `generateLegacyToken(...)` and `generateUserToken(...)`) and keep only one default public path for production callers so the token contract is obvious from the call site.",
+        "reasoning": "",
+        "summary_hash": "f0fd48cb"
+      },
+      "status": "open",
+      "kind": "issue",
+      "primary_command": "desloppify plan resolve \"review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads\" --note \"<what you did>\" --confirm",
+      "queue_position": 12,
+      "plan_cluster": {
+        "name": "legacy-migration",
+        "description": "Legacy migration debt cleanup",
+        "total_items": 6,
+        "action_steps": [
+          {
+            "title": "Rename generateToken legacy overload",
+            "effort": "small"
+          },
+          {
+            "title": "Remove legacy UserService findOrCreateUser overload",
+            "effort": "small"
+          },
+          {
+            "title": "Clean up loginMethod/lastLoginFlow overlap",
+            "effort": "medium"
+          },
+          {
+            "title": "Update AuthFlow callers to use enum directly",
+            "effort": "small"
+          }
+        ]
+      }
+    },
+    {
+      "id": "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives",
+      "confidence": "high",
+      "detector": "review",
+      "file": ".",
+      "summary": "A Google-shaped `findOrCreateUser` overload remains after production callers moved to `NormalizedIdentity`.",
+      "detail": {
+        "holistic": true,
+        "dimension": "incomplete_migration",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/UserService.java",
+          "backend/src/main/java/com/demo/sso/model/AuthFlow.java",
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+          "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java"
+        ],
+        "evidence": [
+          "`AuthController` and `OAuth2SuccessHandler` both call `userService.findOrCreateUser(identity)` with a `NormalizedIdentity`, which is the provider-neutral production path.",
+          "`UserService` still keeps `findOrCreateUser(String googleId, String email, String name, String pictureUrl, String loginMethod)`, and that method does nothing except adapt into `NormalizedIdentity.google(...)`.",
+          "`AuthFlow.fromLoginMethod(...)` is only used by that legacy overload, which means the old string-based path survives mainly to support the older API shape rather than an active production need."
+        ],
+        "suggestion": "Remove the Google-specific string overload and route any remaining callers directly through `NormalizedIdentity` plus explicit `AuthFlow`, then delete `AuthFlow.fromLoginMethod(...)` if no real production boundary still needs to parse the old field.",
+        "reasoning": "",
+        "summary_hash": "059da489"
+      },
+      "status": "open",
+      "kind": "issue",
+      "primary_command": "desloppify plan resolve \"review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives\" --note \"<what you did>\" --confirm",
+      "queue_position": 13,
+      "plan_cluster": {
+        "name": "legacy-migration",
+        "description": "Legacy migration debt cleanup",
+        "total_items": 6,
+        "action_steps": [
+          {
+            "title": "Rename generateToken legacy overload",
+            "effort": "small"
+          },
+          {
+            "title": "Remove legacy UserService findOrCreateUser overload",
+            "effort": "small"
+          },
+          {
+            "title": "Clean up loginMethod/lastLoginFlow overlap",
+            "effort": "medium"
+          },
+          {
+            "title": "Update AuthFlow callers to use enum directly",
+            "effort": "small"
+          }
+        ]
+      }
+    },
+    {
+      "id": "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers",
+      "confidence": "medium",
+      "detector": "review",
+      "file": ".",
+      "summary": "The legacy `google_id` compatibility column is still populated for non-Google identities.",
+      "detail": {
+        "holistic": true,
+        "dimension": "incomplete_migration",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/UserService.java",
+          "backend/src/main/java/com/demo/sso/model/User.java",
+          "backend/src/main/java/com/demo/sso/repository/UserRepository.java",
+          "docs/specs/2026-03-13-microsoft-sso-design.md"
+        ],
+        "evidence": [
+          "`UserService.createNewUser(...)` and `applyProviderIdentityFields(...)` always write `user.setGoogleId(legacyGoogleCompatibilityId(identity))`.",
+          "For non-Google identities, `legacyGoogleCompatibilityId(...)` synthesizes values like `microsoft:<providerUserId>`, so the legacy column is being used as a generic compatibility bucket instead of a Google-only bridge.",
+          "Reads are already provider-aware first via `findByProviderAndProviderUserId(...)`, and the fallback `findByGoogleId(...)` is only consulted when `identity.provider() == AuthProvider.GOOGLE`, so non-Google synthetic `google_id` values are not part of the active lookup path.",
+          "The migration spec tracks dual-writing `google_id` for Google compatibility and later retirement of the column, but it does not describe storing non-Google synthetic identities in that legacy field."
+        ],
+        "suggestion": "Confine `google_id` writes to the actual Google-compatibility path only, stop populating synthetic non-Google values into that column, and leave the legacy field as a narrow Google bridge until the planned cleanup release removes it.",
+        "reasoning": "",
+        "summary_hash": "0091cada"
+      },
+      "status": "open",
+      "kind": "issue",
+      "primary_command": "desloppify plan resolve \"review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers\" --note \"<what you did>\" --confirm",
+      "queue_position": 14,
+      "plan_cluster": {
+        "name": "legacy-migration",
+        "description": "Legacy migration debt cleanup",
+        "total_items": 6,
+        "action_steps": [
+          {
+            "title": "Rename generateToken legacy overload",
+            "effort": "small"
+          },
+          {
+            "title": "Remove legacy UserService findOrCreateUser overload",
+            "effort": "small"
+          },
+          {
+            "title": "Clean up loginMethod/lastLoginFlow overlap",
+            "effort": "medium"
+          },
+          {
+            "title": "Update AuthFlow callers to use enum directly",
+            "effort": "small"
+          }
+        ]
+      }
+    },
+    {
+      "id": "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap",
+      "confidence": "high",
+      "detector": "review",
+      "file": ".",
+      "summary": "Old `loginMethod` and new `lastLoginFlow` contracts still coexist for the same concept.",
+      "detail": {
+        "holistic": true,
+        "dimension": "incomplete_migration",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/UserService.java",
+          "backend/src/main/java/com/demo/sso/model/User.java",
+          "backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java",
+          "frontend/src/hooks/useAuth.ts",
+          "frontend/src/pages/DashboardPage.tsx",
+          "docs/plans/2026-03-13-microsoft-sso-implementation.md"
+        ],
+        "evidence": [
+          "`UserService.applyProviderIdentityFields(...)` sets both `user.setLastLoginFlow(identity.loginFlow())` and `user.setLoginMethod(identity.loginFlow().name())`, so the old and new fields are populated from the same source.",
+          "`UserResponse.from(...)` exposes both `loginMethod` and `lastLoginFlow` even though they describe the same flow/channel value.",
+          "`useAuth` types only `loginMethod`, and `DashboardPage` renders only that field, so the frontend still follows the older contract while the backend also publishes the newer `lastLoginFlow` field.",
+          "The Microsoft implementation plan explicitly calls out returning `provider`, `providerUserId`, and `lastLoginFlow` from `/api/user/me`, but it does not establish `loginMethod` as part of the new provider-aware surface."
+        ],
+        "suggestion": "Collapse the public/current-user flow contract onto `lastLoginFlow` (or one clearly named successor), update the frontend to consume that field, and keep `loginMethod` only at a temporary serialization boundary if an external consumer still needs it; otherwise remove the duplicate field and its parser entirely.",
+        "reasoning": "",
+        "summary_hash": "5da14a09"
+      },
+      "status": "open",
+      "kind": "issue",
+      "primary_command": "desloppify plan resolve \"review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap\" --note \"<what you did>\" --confirm",
+      "queue_position": 15,
+      "plan_cluster": {
+        "name": "legacy-migration",
+        "description": "Legacy migration debt cleanup",
+        "total_items": 6,
+        "action_steps": [
+          {
+            "title": "Rename generateToken legacy overload",
+            "effort": "small"
+          },
+          {
+            "title": "Remove legacy UserService findOrCreateUser overload",
+            "effort": "small"
+          },
+          {
+            "title": "Clean up loginMethod/lastLoginFlow overlap",
+            "effort": "medium"
+          },
+          {
+            "title": "Update AuthFlow callers to use enum directly",
+            "effort": "small"
+          }
+        ]
+      }
+    },
+    {
+      "id": "review::.::holistic::type_safety::auth_flow_legacy_string_contract",
+      "confidence": "medium",
+      "detector": "review",
+      "file": ".",
+      "summary": "Auth flow parsing still uses raw strings and `null` even though `AuthFlow` is the codebase enum",
+      "detail": {
+        "holistic": true,
+        "dimension": "type_safety",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/model/AuthFlow.java",
+          "backend/src/main/java/com/demo/sso/service/UserService.java",
+          "backend/src/main/java/com/demo/sso/model/User.java"
+        ],
+        "evidence": [
+          "`AuthFlow.fromLoginMethod(String)` returns `null` for blank or invalid input even though its signature advertises a concrete `AuthFlow` result.",
+          "`UserService.findOrCreateUser(String googleId, String email, String name, String pictureUrl, String loginMethod)` accepts a raw string and then converts it with `AuthFlow.fromLoginMethod(...)` instead of taking the enum directly.",
+          "`User` stores both `loginMethod` as `String` and `lastLoginFlow` as `AuthFlow`, so the same concept exists in parallel typed and stringly forms."
+        ],
+        "suggestion": "Make public service APIs consume `AuthFlow` (or `Optional<AuthFlow>` for parse results), keep raw login-method strings only at persistence/serialization boundaries, and remove `null` as the implicit parse-failure signal.",
+        "reasoning": "",
+        "summary_hash": "3fe49f96"
+      },
+      "status": "open",
+      "kind": "issue",
+      "primary_command": "desloppify plan resolve \"review::.::holistic::type_safety::auth_flow_legacy_string_contract\" --note \"<what you did>\" --confirm",
+      "queue_position": 16,
+      "plan_cluster": {
+        "name": "legacy-migration",
+        "description": "Legacy migration debt cleanup",
+        "total_items": 6,
+        "action_steps": [
+          {
+            "title": "Rename generateToken legacy overload",
+            "effort": "small"
+          },
+          {
+            "title": "Remove legacy UserService findOrCreateUser overload",
+            "effort": "small"
+          },
+          {
+            "title": "Clean up loginMethod/lastLoginFlow overlap",
+            "effort": "medium"
+          },
+          {
+            "title": "Update AuthFlow callers to use enum directly",
+            "effort": "small"
+          }
+        ]
+      }
+    },
+    {
+      "id": "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel",
+      "confidence": "medium",
+      "detector": "review",
+      "file": ".",
+      "summary": "Invalid legacy login-method values are silently converted to null instead of treated as errors.",
+      "detail": {
+        "holistic": true,
+        "dimension": "error_consistency",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/model/AuthFlow.java",
+          "backend/src/main/java/com/demo/sso/service/UserService.java",
+          "backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java"
+        ],
+        "evidence": [
+          "`AuthFlow.fromLoginMethod` returns null for blank input and also catches `IllegalArgumentException` for invalid values, returning null again.",
+          "`UserService.findOrCreateUser(String...)` passes that result into `NormalizedIdentity.google(...)`, and `applyProviderIdentityFields` simply skips `lastLoginFlow` / `loginMethod` when the flow is null, so malformed legacy input is accepted without any signal while the rest of the auth pipeline uses exceptions for invalid identity data."
+        ],
+        "suggestion": "Make `AuthFlow.fromLoginMethod` reject unrecognized nonblank values with `IllegalArgumentException` (or return `Optional<AuthFlow>` and force `UserService` to handle invalidity explicitly) so bad legacy login-method values do not disappear silently.",
+        "reasoning": "",
+        "summary_hash": "2504743b"
+      },
+      "status": "open",
+      "kind": "issue",
+      "primary_command": "desloppify plan resolve \"review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel\" --note \"<what you did>\" --confirm",
+      "queue_position": 17,
+      "plan_cluster": {
+        "name": "legacy-migration",
+        "description": "Legacy migration debt cleanup",
+        "total_items": 6,
+        "action_steps": [
+          {
+            "title": "Rename generateToken legacy overload",
+            "effort": "small"
+          },
+          {
+            "title": "Remove legacy UserService findOrCreateUser overload",
+            "effort": "small"
+          },
+          {
+            "title": "Clean up loginMethod/lastLoginFlow overlap",
+            "effort": "medium"
+          },
+          {
+            "title": "Update AuthFlow callers to use enum directly",
+            "effort": "small"
+          }
+        ]
+      }
     }
   ],
   "queue": {
-    "total": 1,
+    "total": 6,
     "mode": "execution"
   },
   "narrative": {
     "phase": "early_momentum",
-    "headline": "Score 84.2/100 with 71 issues open. Keep the momentum going. (27 review work items \u2014 run `desloppify show review --status open`)",
+    "headline": "Score 84.2/100 with 70 issues open. Keep the momentum going. (26 review work items \u2014 run `desloppify show review --status open`)",
     "dimensions": {
       "lowest_dimensions": [
         {
@@ -185,8 +406,8 @@
       {
         "type": "refactor",
         "detector": "review",
-        "count": 27,
-        "description": "27 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
+        "count": 26,
+        "description": "26 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
         "command": "desloppify show review --status open",
         "impact": 0.0,
         "dimension": "Unknown",
@@ -212,7 +433,7 @@
     "strategy": {
       "fixer_leverage": {
         "auto_fixable_count": 0,
-        "total_count": 125,
+        "total_count": 122,
         "coverage": 0.0,
         "impact_ratio": 0.0,
         "recommendation": "none"
@@ -265,7 +486,7 @@
         }
       },
       "can_parallelize": true,
-      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 27 issue(s) \u2014 `desloppify show review --status open`."
+      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 26 issue(s) \u2014 `desloppify show review --status open`."
     },
     "tools": {
       "fixers": [],
@@ -298,7 +519,7 @@
       "command": "desloppify show orphaned --status open",
       "description": "27 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
     },
-    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 27 issue(s) \u2014 `desloppify show review --status open`.",
+    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 26 issue(s) \u2014 `desloppify show review --status open`.",
     "verification_step": {
       "command": "desloppify scan",
       "reason": "revalidate after changes"
@@ -314,7 +535,7 @@
     "reminders": [
       {
         "type": "review_issues_pending",
-        "message": "27 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
+        "message": "26 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
         "command": "desloppify show review --status open",
         "priority": 1,
         "severity": "high"
@@ -406,7 +627,7 @@
         "item_count": 4
       }
     ],
-    "total_ordered": 31,
+    "total_ordered": 30,
     "total_skipped": 3,
     "plan_overrides_narrative": true
   },

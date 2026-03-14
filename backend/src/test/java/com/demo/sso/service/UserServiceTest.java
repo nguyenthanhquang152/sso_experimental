@@ -49,7 +49,7 @@ class UserServiceTest {
         });
 
         User result = userService.findOrCreateUser(
-            "google-123", "user@example.com", "John", "http://pic.url", "CLIENT_SIDE");
+            NormalizedIdentity.google("google-123", "user@example.com", "John", "http://pic.url", AuthFlow.CLIENT_SIDE));
 
         assertEquals("google-123", result.getGoogleId());
         assertEquals("user@example.com", result.getEmail());
@@ -58,7 +58,6 @@ class UserServiceTest {
         assertEquals(AuthProvider.GOOGLE, result.getProvider());
         assertEquals("google-123", result.getProviderUserId());
         assertEquals(AuthFlow.CLIENT_SIDE, result.getLastLoginFlow());
-        assertEquals("CLIENT_SIDE", result.getLoginMethod());
 
         ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
         verify(userRepository).save(captor.capture());
@@ -76,7 +75,7 @@ class UserServiceTest {
         existing.setEmail("user@example.com");
         existing.setName("Old Name");
         existing.setPictureUrl("http://old-pic.url");
-        existing.setLoginMethod("SERVER_SIDE");
+        existing.setLastLoginFlow(AuthFlow.SERVER_SIDE);
 
         when(userRepository.findByProviderAndProviderUserId(AuthProvider.GOOGLE, "google-123"))
             .thenReturn(Optional.empty());
@@ -84,14 +83,13 @@ class UserServiceTest {
         when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
 
         User result = userService.findOrCreateUser(
-            "google-123", "user@example.com", "New Name", "http://new-pic.url", "CLIENT_SIDE");
+            NormalizedIdentity.google("google-123", "user@example.com", "New Name", "http://new-pic.url", AuthFlow.CLIENT_SIDE));
 
         assertEquals("New Name", result.getName());
         assertEquals("http://new-pic.url", result.getPictureUrl());
         assertEquals(AuthProvider.GOOGLE, result.getProvider());
         assertEquals("google-123", result.getProviderUserId());
         assertEquals(AuthFlow.CLIENT_SIDE, result.getLastLoginFlow());
-        assertEquals("CLIENT_SIDE", result.getLoginMethod());
         assertNotNull(result.getLastLoginAt());
     }
 
@@ -108,7 +106,7 @@ class UserServiceTest {
         when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
 
         User result = userService.findOrCreateUser(
-            "google-123", "user@example.com", "Name", "http://pic.url", "SERVER_SIDE");
+            NormalizedIdentity.google("google-123", "user@example.com", "Name", "http://pic.url", AuthFlow.SERVER_SIDE));
 
         assertNotNull(result.getLastLoginAt());
     }
@@ -148,7 +146,7 @@ class UserServiceTest {
         when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
 
         User result = userService.findOrCreateUser(
-            "google-123", "user@example.com", "Updated Name", "http://new-pic.url", "SERVER_SIDE");
+            NormalizedIdentity.google("google-123", "user@example.com", "Updated Name", "http://new-pic.url", AuthFlow.SERVER_SIDE));
 
         assertEquals(7L, result.getId());
         verify(userRepository, never()).findByGoogleId("google-123");

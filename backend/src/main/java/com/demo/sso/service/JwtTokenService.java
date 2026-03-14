@@ -57,7 +57,12 @@ public class JwtTokenService {
         }
     }
 
-    public String generateToken(String email, String googleId) {
+    /**
+     * @deprecated Legacy token format — use {@link #generateToken(User)} instead.
+     *             Retained only for backward-compatible JWT minting in LEGACY mode.
+     */
+    @Deprecated
+    String generateLegacyToken(String email, String googleId) {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + expirationMs);
 
@@ -77,7 +82,7 @@ public class JwtTokenService {
         if (rolloutProperties.getJwtMintMode() == AuthRolloutProperties.JwtMintMode.V2) {
             return generateV2Token(user);
         }
-        return generateToken(user.getEmail(), user.getGoogleId());
+        return generateLegacyToken(user.getEmail(), user.getGoogleId());
     }
 
     private String generateV2Token(User user) {

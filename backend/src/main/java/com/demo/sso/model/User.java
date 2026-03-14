@@ -78,7 +78,11 @@ public class User {
     public String getPictureUrl() { return pictureUrl; }
     public void setPictureUrl(String pictureUrl) { this.pictureUrl = pictureUrl; }
 
+    /** @deprecated Use {@link #getLastLoginFlow()} instead. Kept for DB column backward compatibility. */
+    @Deprecated
     public String getLoginMethod() { return loginMethod; }
+    /** @deprecated Use {@link #setLastLoginFlow(AuthFlow)} instead. */
+    @Deprecated
     public void setLoginMethod(String loginMethod) { this.loginMethod = loginMethod; }
 
     public AuthProvider getProvider() { return provider; }

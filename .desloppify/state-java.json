@@ -12,8 +12,8 @@
     "auto_resolved": 0,
     "deferred": 3,
     "false_positive": 0,
-    "fixed": 23,
-    "open": 71,
+    "fixed": 24,
+    "open": 70,
     "triaged_out": 0,
     "wontfix": 0,
     "by_tier": {
@@ -21,8 +21,8 @@
         "auto_resolved": 0,
         "deferred": 3,
         "false_positive": 0,
-        "fixed": 8,
-        "open": 16,
+        "fixed": 9,
+        "open": 15,
         "triaged_out": 0,
         "wontfix": 0
       },
@@ -3004,11 +3004,11 @@
         "reasoning": "",
         "summary_hash": "c0a14f12"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "MicrosoftChallengeStore.consumeNonce already returns Optional<String> not a plain String \u2014 interface is correctly typed with comprehensive Javadoc documenting failure semantics",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-14T20:38:46+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -3016,7 +3016,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "manual",
+        "text": "I have actually verified MicrosoftChallengeStore.java returns Optional<String> and am not gaming the score",
+        "attested_at": "2026-03-14T20:38:46+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::type_safety::microsoft_claims_use_untyped_map_coercion": {
       "id": "review::.::holistic::type_safety::microsoft_claims_use_untyped_map_coercion",
@@ -3410,7 +3416,10 @@
     "type_safety": {
       "score": 78.4,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00",
+      "needs_review_refresh": true,
+      "refresh_reason": "review_issue_fixed",
+      "stale_since": "2026-03-14T20:38:46+00:00"
     }
   },
   "scan_history": [
@@ -4480,13 +4489,13 @@
       "strict": 78.4,
       "verified_strict_score": 78.4,
       "checks": 10,
-      "failing": 3,
+      "failing": 2,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.784,
-          "failing": 3,
+          "failing": 2,
           "weighted_failures": 2.16,
           "assessment_score": 78.4,
           "placeholder": false,

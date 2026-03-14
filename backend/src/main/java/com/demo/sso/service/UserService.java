@@ -1,6 +1,5 @@
 package com.demo.sso.service;
 
-import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
 import com.demo.sso.repository.UserRepository;
@@ -19,18 +18,6 @@ public class UserService {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-    }
-
-    @Transactional
-    public User findOrCreateUser(String googleId, String email, String name,
-                                  String pictureUrl, String loginMethod) {
-        return findOrCreateUser(NormalizedIdentity.google(
-            googleId,
-            email,
-            name,
-            pictureUrl,
-            AuthFlow.fromLoginMethod(loginMethod))
-        );
     }
 
     @Transactional
@@ -81,9 +68,6 @@ public class UserService {
         user.setProvider(identity.provider());
         user.setProviderUserId(identity.providerUserId());
         user.setLastLoginFlow(identity.loginFlow());
-        if (identity.loginFlow() != null) {
-            user.setLoginMethod(identity.loginFlow().name());
-        }
         user.setGoogleId(legacyGoogleCompatibilityId(identity));
     }
 
