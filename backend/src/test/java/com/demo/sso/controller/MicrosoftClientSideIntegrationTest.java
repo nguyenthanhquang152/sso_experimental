@@ -16,6 +16,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.demo.sso.config.TestAuthCodeStoreConfig;
 import com.demo.sso.controller.AuthController;
+import com.demo.sso.service.MicrosoftChallengeStore;
+import com.demo.sso.service.MicrosoftTokenVerifier;
+import com.demo.sso.config.AuthRolloutProperties;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.repository.UserRepository;

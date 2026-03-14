@@ -1,7 +1,7 @@
 {
   "version": 8,
   "created": "2026-03-14T16:43:28+00:00",
-  "updated": "2026-03-14T17:13:08+00:00",
+  "updated": "2026-03-14T17:18:10+00:00",
   "queue_order": [
     "review::.::holistic::api_surface_coherence::untyped_response_maps",
     "review::.::holistic::convention_outlier::duplicated_is_blank_helper",
@@ -698,12 +698,7 @@
     }
   },
   "promoted_ids": [],
-  "plan_start_scores": {
-    "strict": 69.3,
-    "overall": 69.3,
-    "objective": 53.9,
-    "verified": 53.9
-  },
+  "plan_start_scores": {},
   "refresh_state": {
     "lifecycle_phase": "review_initial",
     "subjective_review_completed_at_scan_count": 5,
@@ -1413,6 +1408,5 @@
     }
   ],
   "uncommitted_issues": [],
-  "commit_tracking_branch": null,
-  "scan_count_at_plan_start": 6
+  "commit_tracking_branch": null
 }

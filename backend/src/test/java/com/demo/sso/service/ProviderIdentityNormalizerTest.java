@@ -1,5 +1,8 @@
 package com.demo.sso.service;
 
+import com.demo.sso.service.ProviderIdentityNormalizer;
+import com.demo.sso.service.NormalizedIdentity;
+import com.demo.sso.service.AuthenticatedUserIdentity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

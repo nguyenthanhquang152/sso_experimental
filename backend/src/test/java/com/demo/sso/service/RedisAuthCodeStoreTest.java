@@ -1,5 +1,7 @@
 package com.demo.sso.service;
 
+import com.demo.sso.service.RedisAuthCodeStore;
+import com.demo.sso.service.AuthCodeStore;
 import com.demo.sso.config.AuthRolloutProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

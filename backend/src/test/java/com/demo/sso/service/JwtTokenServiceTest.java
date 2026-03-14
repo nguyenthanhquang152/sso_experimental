@@ -1,5 +1,6 @@
 package com.demo.sso.service;
 
+import com.demo.sso.service.JwtTokenService;
 import com.demo.sso.config.AuthRolloutProperties;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;

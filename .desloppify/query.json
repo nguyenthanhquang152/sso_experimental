@@ -2,15 +2,15 @@
   "command": "show",
   "query": "test_coverage",
   "status_filter": "open",
-  "total": 10,
+  "total": 26,
   "summary": {
     "by_tier": {
-      "T3": 10
+      "T3": 26
     },
     "by_detector": {
-      "test_coverage": 10
+      "test_coverage": 26
     },
-    "files": 10
+    "files": 26
   },
   "by_file": {
     "backend/src/main/java/com/demo/sso/SsoApplication.java": [
@@ -152,20 +152,238 @@
           "loc_weight": 5.656854249492381
         }
       }
+    ],
+    "backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (37 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 37,
+          "importer_count": 0,
+          "loc_weight": 6.082762530298219
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/model/AuthFlow.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/model/AuthFlow.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (18 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 18,
+          "importer_count": 0,
+          "loc_weight": 4.242640687119285
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/model/User.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/model/User.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (98 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 98,
+          "importer_count": 0,
+          "loc_weight": 9.899494936611665
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/repository/UserRepository.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/repository/UserRepository.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (13 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 13,
+          "importer_count": 0,
+          "loc_weight": 3.605551275463989
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/AuthCodeStore.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (23 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 23,
+          "importer_count": 0,
+          "loc_weight": 4.795831523312719
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (34 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 34,
+          "importer_count": 0,
+          "loc_weight": 5.830951894845301
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (34 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 34,
+          "importer_count": 0,
+          "loc_weight": 5.830951894845301
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/service/JwtTokenService.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/JwtTokenService.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (172 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 172,
+          "importer_count": 0,
+          "loc_weight": 13.114877048604
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (39 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 39,
+          "importer_count": 0,
+          "loc_weight": 6.244997998398398
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (98 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 98,
+          "importer_count": 0,
+          "loc_weight": 9.899494936611665
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (31 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 31,
+          "importer_count": 0,
+          "loc_weight": 5.5677643628300215
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (102 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 102,
+          "importer_count": 0,
+          "loc_weight": 10.099504938362077
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (101 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 101,
+          "importer_count": 0,
+          "loc_weight": 10.04987562112089
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (76 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 76,
+          "importer_count": 0,
+          "loc_weight": 8.717797887081348
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/service/RedisMicrosoftChallengeStore.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/RedisMicrosoftChallengeStore.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (46 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 46,
+          "importer_count": 0,
+          "loc_weight": 6.782329983125268
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/service/UserService.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/UserService.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (111 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 111,
+          "importer_count": 0,
+          "loc_weight": 10.535653752852738
+        }
+      }
     ]
   },
   "total_matching": 26,
-  "hidden": {
-    "by_detector": {
-      "test_coverage": 16
-    },
-    "total": 16
-  },
-  "noise_budget": 10,
+  "noise_budget": 0,
   "noise_global_budget": 0,
   "narrative": {
-    "phase": "middle_grind",
-    "headline": "87 issues open. Test health (0.0%) needs attention \u2014 run `desloppify next` to start. (22 review work items \u2014 run `desloppify show review --status open`)",
+    "phase": "stagnation",
+    "headline": "Score plateaued at 69.3 for 5 scans. Test health (0.0%) is where the breakthrough is. (22 review work items \u2014 run `desloppify show review --status open`)",
     "dimensions": {
       "lowest_dimensions": [
         {
@@ -212,6 +430,16 @@
           "stuck_scans": 5
         },
         {
+          "name": "Abstraction fit",
+          "strict": 75.0,
+          "stuck_scans": 5
+        },
+        {
+          "name": "AI generated debt",
+          "strict": 76.0,
+          "stuck_scans": 5
+        },
+        {
           "name": "API coherence",
           "strict": 70.0,
           "stuck_scans": 5
@@ -227,6 +455,11 @@
           "stuck_scans": 5
         },
         {
+          "name": "Dep health",
+          "strict": 78.0,
+          "stuck_scans": 5
+        },
+        {
           "name": "High elegance",
           "strict": 68.0,
           "stuck_scans": 5
@@ -234,6 +467,11 @@
         {
           "name": "Stale migration",
           "strict": 72.0,
+          "stuck_scans": 5
+        },
+        {
+          "name": "Init coupling",
+          "strict": 82.0,
           "stuck_scans": 5
         },
         {
@@ -305,20 +543,31 @@
       },
       {
         "type": "manual_fix",
+        "detector": "unused",
+        "count": 6,
+        "description": "6 unused issues \u2014 inspect with `desloppify next` and fix manually",
+        "command": "desloppify show unused --status open",
+        "impact": 0.0,
+        "dimension": "Code quality",
+        "priority": 5,
+        "lane": "refactor_2"
+      },
+      {
+        "type": "manual_fix",
         "detector": "stale_exclude",
         "count": 11,
         "description": "11 stale_exclude work items \u2014 remove stale exclusion or verify it's still needed",
         "command": "desloppify show stale_exclude --status open",
         "impact": 0.0,
         "dimension": "Code quality",
-        "priority": 5,
-        "lane": "refactor_2"
+        "priority": 6,
+        "lane": "refactor_3"
       }
     ],
     "strategy": {
       "fixer_leverage": {
         "auto_fixable_count": 0,
-        "total_count": 131,
+        "total_count": 137,
         "coverage": 0.0,
         "impact_ratio": 0.0,
         "recommendation": "none"
@@ -355,6 +604,15 @@
           "actions": [
             5
           ],
+          "file_count": 3,
+          "total_impact": 0.0,
+          "automation": "manual",
+          "run_first": false
+        },
+        "refactor_3": {
+          "actions": [
+            6
+          ],
           "file_count": 11,
           "total_impact": 0.0,
           "automation": "manual",
@@ -371,7 +629,7 @@
         }
       },
       "can_parallelize": true,
-      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 22 issue(s) \u2014 `desloppify show review --status open`."
+      "hint": "6 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 22 issue(s) \u2014 `desloppify show review --status open`."
     },
     "tools": {
       "fixers": [],
@@ -404,7 +662,7 @@
       "command": "desloppify show orphaned --status open",
       "description": "26 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
     },
-    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 22 issue(s) \u2014 `desloppify show review --status open`.",
+    "why_now": "6 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 22 issue(s) \u2014 `desloppify show review --status open`.",
     "verification_step": {
       "command": "desloppify scan",
       "reason": "revalidate after changes"
@@ -417,21 +675,13 @@
       "state": "below",
       "warning": null
     },
-    "reminders": [
-      {
-        "type": "review_issues_pending",
-        "message": "22 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
-        "command": "desloppify show review --status open",
-        "priority": 1,
-        "severity": "high"
-      }
-    ],
+    "reminders": [],
     "reminder_history": {
       "zone_classification": 3,
-      "report_scores": 3,
+      "report_scores": 4,
       "review_issues_pending": 3,
       "stagnant_nudge": 5,
-      "feedback_nudge": 2
+      "feedback_nudge": 3
     }
   },
   "config": {
