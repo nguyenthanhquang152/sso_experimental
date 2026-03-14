@@ -1,6 +1,10 @@
 package com.demo.sso.controller;
 
 import com.demo.sso.config.TestAuthCodeStoreConfig;
+import com.demo.sso.controller.AuthController;
+import com.demo.sso.controller.UserController;
+import com.demo.sso.controller.ProviderConfigController;
+import com.demo.sso.controller.dto.UserResponse;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;

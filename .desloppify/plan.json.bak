@@ -1,7 +1,7 @@
 {
   "version": 8,
   "created": "2026-03-14T16:43:28+00:00",
-  "updated": "2026-03-14T17:12:42+00:00",
+  "updated": "2026-03-14T17:12:46+00:00",
   "queue_order": [
     "review::.::holistic::api_surface_coherence::untyped_response_maps",
     "review::.::holistic::convention_outlier::duplicated_is_blank_helper",
@@ -698,11 +698,16 @@
     }
   },
   "promoted_ids": [],
-  "plan_start_scores": {},
+  "plan_start_scores": {
+    "strict": 69.3,
+    "overall": 69.3,
+    "objective": 53.9,
+    "verified": 53.9
+  },
   "refresh_state": {
     "lifecycle_phase": "review_initial",
     "subjective_review_completed_at_scan_count": 5,
-    "postflight_scan_completed_at_scan_count": 4
+    "postflight_scan_completed_at_scan_count": 6
   },
   "execution_log": [
     {
@@ -1327,6 +1332,26 @@
         "sync_status": "synced",
         "sync_message": null
       }
+    },
+    {
+      "timestamp": "2026-03-14T17:12:46+00:00",
+      "action": "seed_start_scores",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T17:12:46+00:00",
+      "action": "complete_postflight_scan",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "scan_count": 6
+      }
     }
   ],
   "epic_triage_meta": {},
@@ -1367,5 +1392,5 @@
     "review::.::holistic::naming_quality::merge_provider_config_misnomer"
   ],
   "commit_tracking_branch": null,
-  "scan_count_at_plan_start": 1
+  "scan_count_at_plan_start": 6
 }

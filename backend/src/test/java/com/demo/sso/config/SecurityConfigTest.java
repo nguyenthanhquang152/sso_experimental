@@ -1,6 +1,7 @@
 package com.demo.sso.config;
 
 import com.demo.sso.service.OAuth2SuccessHandler;
+import com.demo.sso.config.SecurityConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

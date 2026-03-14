@@ -1,7 +1,7 @@
 {
   "version": 8,
   "created": "2026-03-14T16:43:28+00:00",
-  "updated": "2026-03-14T17:12:46+00:00",
+  "updated": "2026-03-14T17:13:08+00:00",
   "queue_order": [
     "review::.::holistic::api_surface_coherence::untyped_response_maps",
     "review::.::holistic::convention_outlier::duplicated_is_blank_helper",
@@ -1352,6 +1352,20 @@
       "detail": {
         "scan_count": 6
       }
+    },
+    {
+      "timestamp": "2026-03-14T17:13:08+00:00",
+      "action": "commit_record",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::merge_provider_config_misnomer"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "sha": "9da7178b9456",
+        "branch": "desloppify/code-health"
+      }
     }
   ],
   "epic_triage_meta": {},
@@ -1386,11 +1400,19 @@
       "recorded_at": "2026-03-14T17:00:38+00:00",
       "note": null,
       "cluster_name": null
+    },
+    {
+      "sha": "9da7178b9456",
+      "branch": "desloppify/code-health",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::merge_provider_config_misnomer"
+      ],
+      "recorded_at": "2026-03-14T17:13:08+00:00",
+      "note": null,
+      "cluster_name": null
     }
   ],
-  "uncommitted_issues": [
-    "review::.::holistic::naming_quality::merge_provider_config_misnomer"
-  ],
+  "uncommitted_issues": [],
   "commit_tracking_branch": null,
   "scan_count_at_plan_start": 6
 }
