@@ -1,6 +1,5 @@
 package com.demo.sso.service.token;
 
-import com.demo.sso.model.AuthFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
