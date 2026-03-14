@@ -1,30 +1,8 @@
 {
   "version": 8,
   "created": "2026-03-14T16:43:28+00:00",
-  "updated": "2026-03-14T17:00:18+00:00",
+  "updated": "2026-03-14T17:00:38+00:00",
   "queue_order": [
-    "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3",
-    "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3",
-    "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18",
-    "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19",
-    "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16",
-    "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17",
-    "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7",
-    "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10",
-    "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11",
-    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30",
-    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34",
-    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35",
-    "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8",
-    "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3",
-    "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10",
-    "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9",
-    "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25",
-    "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15",
-    "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16",
-    "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17",
-    "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16",
-    "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18",
     "review::.::holistic::api_surface_coherence::untyped_response_maps",
     "review::.::holistic::authorization_consistency::microsoft_feature_flag_duplicated_gate",
     "review::.::holistic::contract_coherence::microsoft_challenge_store_no_javadoc",
@@ -57,134 +35,134 @@
     "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3": {
       "issue_id": "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3": {
       "issue_id": "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18": {
       "issue_id": "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18",
       "created_at": "2026-03-14T16:43:28+00:00",
-      "cluster": "auto/unused",
-      "updated_at": "2026-03-14T16:43:28+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T17:00:18+00:00"
     },
     "test_coverage::backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java::untested_module": {
       "issue_id": "test_coverage::backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java::untested_module",
@@ -407,30 +385,7 @@
     "auto/unused": {
       "name": "auto/unused",
       "description": "Remove 22 unused issues",
-      "issue_ids": [
-        "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3",
-        "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3",
-        "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18",
-        "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19",
-        "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16",
-        "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17",
-        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7",
-        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10",
-        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11",
-        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30",
-        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34",
-        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35",
-        "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8",
-        "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3",
-        "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10",
-        "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9",
-        "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25",
-        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15",
-        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16",
-        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17",
-        "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16",
-        "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18"
-      ],
+      "issue_ids": [],
       "created_at": "2026-03-14T16:43:28+00:00",
       "updated_at": "2026-03-14T16:43:28+00:00",
       "auto": true,
@@ -779,10 +734,144 @@
       "actor": "user",
       "note": "Replaced all wildcard imports with explicit imports across 9 test files and 2 main source files. Removed GoogleIdToken unused import from GoogleTokenVerifierTest and AbstractHttpConfigurer from SecurityConfigTest. Replaced jakarta.persistence.* wildcard with explicit JPA imports in User.java.",
       "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T17:00:18+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3",
+        "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3",
+        "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18",
+        "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19",
+        "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35",
+        "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8",
+        "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3",
+        "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10",
+        "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9",
+        "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17",
+        "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Replaced all wildcard imports with explicit imports across 9 test files and 2 main source files. Removed GoogleIdToken unused import from GoogleTokenVerifierTest and AbstractHttpConfigurer from SecurityConfigTest. Replaced jakarta.persistence.* wildcard with explicit JPA imports in User.java.",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually Replaced all wildcard imports with explicit imports across 9 test files and 2 main source files. Removed GoogleIdToken unused import from GoogleTokenVerifierTest and AbstractHttpConfigurer from SecurityConfigTest. Replaced jakarta.persistence.* wildcard with explicit JPA imports in User.java. and I am not gaming the score."
+      }
+    },
+    {
+      "timestamp": "2026-03-14T17:00:18+00:00",
+      "action": "cluster_done",
+      "issue_ids": [
+        "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3",
+        "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3",
+        "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18",
+        "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19",
+        "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35",
+        "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8",
+        "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3",
+        "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10",
+        "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9",
+        "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17",
+        "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18"
+      ],
+      "cluster_name": "auto/unused",
+      "actor": "user",
+      "note": null,
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T17:00:38+00:00",
+      "action": "commit_record",
+      "issue_ids": [
+        "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3",
+        "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3",
+        "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18",
+        "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19",
+        "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35",
+        "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8",
+        "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3",
+        "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10",
+        "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9",
+        "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17",
+        "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "sha": "a54ea973b8d8",
+        "branch": "desloppify/code-health"
+      }
     }
   ],
   "epic_triage_meta": {},
-  "commit_log": [],
+  "commit_log": [
+    {
+      "sha": "a54ea973b8d8",
+      "branch": "desloppify/code-health",
+      "issue_ids": [
+        "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3",
+        "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3",
+        "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18",
+        "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19",
+        "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35",
+        "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8",
+        "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3",
+        "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10",
+        "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9",
+        "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17",
+        "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18"
+      ],
+      "recorded_at": "2026-03-14T17:00:38+00:00",
+      "note": null,
+      "cluster_name": null
+    }
+  ],
   "uncommitted_issues": [],
   "commit_tracking_branch": null,
   "scan_count_at_plan_start": 1

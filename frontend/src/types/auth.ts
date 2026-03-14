@@ -32,7 +32,7 @@ export const DEFAULT_PROVIDER_CONFIG: ProviderConfig = {
   },
 };
 
-export function mergeProviderConfig(config?: Partial<ProviderConfig> | null): ProviderConfig {
+export function normalizeProviderConfig(config?: Partial<ProviderConfig> | null): ProviderConfig {
   const google = config?.google;
   const microsoft = config?.microsoft;
 

@@ -44,11 +44,8 @@ public class TestAuthCodeStoreConfig {
         @Override
         public String exchangeCode(String code) {
             CodeEntry entry = store.remove(code);
-            if (entry == null) {
-                return null;
-            }
-            if (System.currentTimeMillis() - entry.createdAt > CODE_TTL_MS) {
-                return null;
+            if (entry == null || System.currentTimeMillis() - entry.createdAt > CODE_TTL_MS) {
+                throw new IllegalArgumentException("Invalid or expired authorization code");
             }
             return entry.jwt;
         }

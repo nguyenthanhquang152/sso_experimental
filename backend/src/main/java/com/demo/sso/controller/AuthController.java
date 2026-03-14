@@ -107,8 +107,7 @@ public class AuthController {
     @PostMapping("/microsoft/challenge")
     public ResponseEntity<?> issueMicrosoftChallenge(HttpServletRequest request, HttpServletResponse response) {
         if (!rolloutProperties.getMicrosoft().isClientSideEnabled()) {
-            return ResponseEntity.status(503)
-                .body(Map.of("error", "Microsoft client-side login is disabled"));
+            return microsoftClientSideDisabledResponse();
         }
 
         String sessionId = currentChallengeSessionId(request).orElseGet(() -> createChallengeSessionCookie(response));
@@ -124,11 +123,10 @@ public class AuthController {
             @RequestBody MicrosoftVerifyRequest request,
             HttpServletRequest httpRequest) {
         if (!rolloutProperties.getMicrosoft().isClientSideEnabled()) {
-            return ResponseEntity.status(503)
-                .body(Map.of("error", "Microsoft client-side login is disabled"));
+            return microsoftClientSideDisabledResponse();
         }
 
-        if (request == null || isBlank(request.credential()) || isBlank(request.challengeId())) {
+        if (request == null || (request.credential() == null || request.credential().isBlank()) || (request.challengeId() == null || request.challengeId().isBlank())) {
             return ResponseEntity.badRequest().body(Map.of("error", "Missing credential or challengeId"));
         }
 
@@ -168,14 +166,14 @@ public class AuthController {
             return ResponseEntity.badRequest().body(Map.of("error", "Missing code"));
         }
 
-        String jwt = authCodeStore.exchangeCode(code);
-        if (jwt == null) {
+        try {
+            String jwt = authCodeStore.exchangeCode(code);
+            return ResponseEntity.ok(Map.of("token", jwt));
+        } catch (IllegalArgumentException e) {
             logger.debug("Auth code exchange failed for code: {}...",
                     code.length() > 8 ? code.substring(0, 8) : code);
             return ResponseEntity.badRequest().body(Map.of("error", "Invalid or expired code"));
         }
-
-        return ResponseEntity.ok(Map.of("token", jwt));
     }
 
     @PostMapping("/logout")
@@ -189,7 +187,8 @@ public class AuthController {
         }
 
         for (Cookie cookie : request.getCookies()) {
-            if (MICROSOFT_CHALLENGE_SESSION_COOKIE.equals(cookie.getName()) && !isBlank(cookie.getValue())) {
+            if (MICROSOFT_CHALLENGE_SESSION_COOKIE.equals(cookie.getName())
+                    && cookie.getValue() != null && !cookie.getValue().isBlank()) {
                 return Optional.of(cookie.getValue());
             }
         }
@@ -210,13 +209,14 @@ public class AuthController {
     }
 
     private String cookiePath() {
-        if (servletContextPath == null || servletContextPath.isBlank() || "/".equals(servletContextPath)) {
+        if (servletContextPath.isBlank() || "/".equals(servletContextPath)) {
             return "/auth/microsoft";
         }
         return servletContextPath + "/auth/microsoft";
     }
 
-    private static boolean isBlank(String value) {
-        return value == null || value.isBlank();
+    private ResponseEntity<?> microsoftClientSideDisabledResponse() {
+        return ResponseEntity.status(503)
+            .body(Map.of("error", "Microsoft client-side login is disabled"));
     }
 }

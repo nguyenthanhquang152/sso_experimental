@@ -46,7 +46,11 @@ public class RedisAuthCodeStore implements AuthCodeStore {
     public String exchangeCode(String code) {
         // GETDEL: atomically get and delete — guarantees single-use
         if (rolloutProperties.getIdentityContractMode() == AuthRolloutProperties.IdentityContractMode.V2_ONLY) {
-            return redisTemplate.opsForValue().getAndDelete(V2_KEY_PREFIX + code);
+            String jwt = redisTemplate.opsForValue().getAndDelete(V2_KEY_PREFIX + code);
+            if (jwt == null) {
+                throw new IllegalArgumentException("Invalid or expired authorization code");
+            }
+            return jwt;
         }
 
         String legacyJwt = redisTemplate.opsForValue().getAndDelete(LEGACY_KEY_PREFIX + code);
@@ -55,10 +59,13 @@ public class RedisAuthCodeStore implements AuthCodeStore {
         }
 
         if (rolloutProperties.getIdentityContractMode().acceptsV2()) {
-            return redisTemplate.opsForValue().getAndDelete(V2_KEY_PREFIX + code);
+            String v2Jwt = redisTemplate.opsForValue().getAndDelete(V2_KEY_PREFIX + code);
+            if (v2Jwt != null) {
+                return v2Jwt;
+            }
         }
 
-        return null;
+        throw new IllegalArgumentException("Invalid or expired authorization code");
     }
 
     private String currentWritePrefix() {

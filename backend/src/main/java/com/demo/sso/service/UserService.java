@@ -44,16 +44,21 @@ public class UserService {
             existing = userRepository.findByGoogleId(identity.providerUserId());
         }
 
-        if (existing.isPresent()) {
-            User user = existing.get();
-            user.setEmail(identity.email());
-            user.setName(identity.name());
-            user.setPictureUrl(identity.pictureUrl());
-            applyProviderIdentityFields(user, identity);
-            user.setLastLoginAt(Instant.now());
-            return userRepository.save(user);
-        }
+        return existing.isPresent()
+            ? updateExistingUser(existing.get(), identity)
+            : createNewUser(identity);
+    }
 
+    private User updateExistingUser(User user, NormalizedIdentity identity) {
+        user.setEmail(identity.email());
+        user.setName(identity.name());
+        user.setPictureUrl(identity.pictureUrl());
+        applyProviderIdentityFields(user, identity);
+        user.setLastLoginAt(Instant.now());
+        return userRepository.save(user);
+    }
+
+    private User createNewUser(NormalizedIdentity identity) {
         User user = new User();
         user.setGoogleId(legacyGoogleCompatibilityId(identity));
         user.setEmail(identity.email());

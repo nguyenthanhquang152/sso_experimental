@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { apiFetch } from '../api/client';
 import {
   DEFAULT_PROVIDER_CONFIG,
-  mergeProviderConfig,
+  normalizeProviderConfig,
   type ProviderConfig,
 } from '../types/auth';
 
@@ -16,7 +16,7 @@ export function useProviderConfig() {
     apiFetch<ProviderConfig>('/auth/providers')
       .then((response) => {
         if (!cancelled) {
-          setProviderConfig(mergeProviderConfig(response));
+          setProviderConfig(normalizeProviderConfig(response));
         }
       })
       .catch(() => {

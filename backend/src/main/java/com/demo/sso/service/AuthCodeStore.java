@@ -12,8 +12,12 @@ public interface AuthCodeStore {
     String storeJwt(String jwt);
 
     /**
-     * Exchange a code for the stored JWT. Returns null if invalid/expired.
-     * The code is consumed and cannot be reused.
+     * Exchange a code for the stored JWT.
+     * The code is consumed and cannot be reused (single-use guarantee).
+     *
+     * @param code the single-use authorization code
+     * @return the JWT associated with the code
+     * @throws IllegalArgumentException if the code is invalid, expired, or has already been consumed
      */
     String exchangeCode(String code);
 }

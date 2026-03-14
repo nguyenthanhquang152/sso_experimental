@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -73,10 +73,10 @@ class RedisAuthCodeStoreTest {
     }
 
     @Test
-    void exchangeCode_returnsNullForUnknownCode() {
+    void exchangeCode_throwsForUnknownCode() {
         when(valueOps.getAndDelete("authcode:nonexistent")).thenReturn(null);
 
-        assertNull(store.exchangeCode("nonexistent"));
+        assertThrows(IllegalArgumentException.class, () -> store.exchangeCode("nonexistent"));
     }
 
     @Test

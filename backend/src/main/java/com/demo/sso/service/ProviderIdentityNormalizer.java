@@ -86,11 +86,10 @@ public class ProviderIdentityNormalizer {
     private static String normalizeEmail(String email) {
         String normalized = email.trim().toLowerCase(Locale.ROOT);
         int atIndex = normalized.indexOf('@');
-        if (normalized.isBlank()
-                || normalized.chars().filter(ch -> ch == '@').count() != 1
-                || normalized.contains(" ")
-                || atIndex <= 0
-                || atIndex == normalized.length() - 1) {
+        boolean hasExactlyOneAt = normalized.chars().filter(ch -> ch == '@').count() == 1;
+        boolean hasNoSpaces = !normalized.contains(" ");
+        boolean hasNonEmptyLocalAndDomain = atIndex > 0 && atIndex < normalized.length() - 1;
+        if (normalized.isBlank() || !hasExactlyOneAt || !hasNoSpaces || !hasNonEmptyLocalAndDomain) {
             throw new IllegalArgumentException("Email claim is not a usable email-like identifier");
         }
         return normalized;

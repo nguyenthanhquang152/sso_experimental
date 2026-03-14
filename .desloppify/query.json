@@ -1,44 +1,250 @@
 {
-  "command": "resolve",
-  "patterns": [
-    "auto/unused"
-  ],
-  "status": "fixed",
-  "resolved": [
-    "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3",
-    "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3",
-    "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18",
-    "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19",
-    "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16",
-    "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17",
-    "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7",
-    "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10",
-    "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11",
-    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30",
-    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34",
-    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35",
-    "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8",
-    "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3",
-    "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10",
-    "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9",
-    "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25",
-    "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15",
-    "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16",
-    "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17",
-    "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16",
-    "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18"
-  ],
-  "count": 22,
-  "next_command": "desloppify next",
-  "overall_score": 67.1,
-  "objective_score": 54.4,
-  "strict_score": 67.1,
-  "verified_strict_score": 54.4,
-  "prev_overall_score": 67.1,
-  "prev_objective_score": 54.4,
-  "prev_strict_score": 67.1,
-  "prev_verified_strict_score": 54.4,
-  "attestation": "I have actually Replaced all wildcard imports with explicit imports across 9 test files and 2 main source files. Removed GoogleIdToken unused import from GoogleTokenVerifierTest and AbstractHttpConfigurer from SecurityConfigTest. Replaced jakarta.persistence.* wildcard with explicit JPA imports in User.java. and I am not gaming the score.",
+  "command": "show",
+  "query": "review",
+  "status_filter": "open",
+  "total": 10,
+  "summary": {
+    "by_tier": {
+      "T1": 10
+    },
+    "by_detector": {
+      "review": 10
+    },
+    "files": 1
+  },
+  "by_file": {
+    ".": [
+      {
+        "id": "review::.::holistic::api_surface_coherence::untyped_response_maps",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "Controllers return Map<String,Object> and ResponseEntity<?> instead of typed response DTOs",
+        "detail": {
+          "holistic": true,
+          "dimension": "api_surface_coherence",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+            "backend/src/main/java/com/demo/sso/controller/UserController.java",
+            "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+          ],
+          "evidence": [
+            "AuthController methods: public ResponseEntity<?> verifyGoogleToken(...), public ResponseEntity<?> verifyMicrosoftToken(...), public ResponseEntity<?> exchangeCode(...)",
+            "All success bodies: Map.of(\"token\", jwt) \u2014 repeated inline literal key.",
+            "UserController: ResponseEntity<Map<String,Object>> with 10 inline Map.of() entries.",
+            "ProviderConfigController: ResponseEntity<Map<String,Object>> with nested LinkedHashMap construction."
+          ],
+          "suggestion": "Create response DTOs: TokenResponse(String token), UserResponse record with all user fields, ProviderConfigResponse with typed Google/Microsoft sub-records. Change return types to ResponseEntity<TokenResponse> etc.",
+          "reasoning": "",
+          "summary_hash": "f578953f"
+        }
+      },
+      {
+        "id": "review::.::holistic::convention_outlier::duplicated_is_blank_helper",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "private static isBlank() helper duplicated in AuthController and ProviderIdentityNormalizer",
+        "detail": {
+          "holistic": true,
+          "dimension": "convention_outlier",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+            "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
+          ],
+          "evidence": [
+            "AuthController.isBlank: return value == null || value.isBlank()",
+            "ProviderIdentityNormalizer.isBlank: return value == null || value.isBlank()",
+            "Both are private static and identical in behavior."
+          ],
+          "suggestion": "Replace both with String.isBlank() preceded by a null check using Objects.isNull, or use the standard library directly (value == null || value.isBlank()) inline. Alternatively, create a shared StringUtils class in a util/ package if more utilities accumulate.",
+          "reasoning": "",
+          "summary_hash": "5945636a"
+        }
+      },
+      {
+        "id": "review::.::holistic::cross_module_architecture::service_pkg_mixed_concerns",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "service package mixes interfaces, Redis implementations, and identity value objects without subpackaging",
+        "detail": {
+          "holistic": true,
+          "dimension": "cross_module_architecture",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
+            "backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java",
+            "backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java",
+            "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java"
+          ],
+          "evidence": [
+            "service/ contains 12 files spanning: 2 interfaces (AuthCodeStore, MicrosoftChallengeStore), 2 Redis implementations, 2 identity value records (NormalizedIdentity, AuthenticatedUserIdentity), 2 token verifiers, and 2 identity-handling services.",
+            "NormalizedIdentity and AuthenticatedUserIdentity are domain value objects that don't belong co-located with service implementations."
+          ],
+          "suggestion": "Split service/ into subpackages: service/store/ for AuthCodeStore+MicrosoftChallengeStore interfaces and their Redis impls, service/identity/ for NormalizedIdentity+AuthenticatedUserIdentity+ProviderIdentityNormalizer, and keep the remaining services in service/.",
+          "reasoning": "",
+          "summary_hash": "ae9d1f16"
+        }
+      },
+      {
+        "id": "review::.::holistic::design_coherence::find_or_create_user_too_wide",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "UserService.findOrCreateUser() combines lookup, legacy fallback, update, create, and race-condition handling in one method",
+        "detail": {
+          "holistic": true,
+          "dimension": "design_coherence",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/service/UserService.java"
+          ],
+          "evidence": [
+            "Method does: (1) findByProviderAndProviderUserId, (2) Google legacy fallback findByGoogleId, (3) update existing user fields, (4) create new user, (5) catch DataIntegrityViolationException for concurrent creation.",
+            "The update-existing block: 5 setters + lastLoginAt \u2014 could be extracted to updateUserFromIdentity(user, identity).",
+            "The create-new block: 6 setters + Redis save + race-condition catch \u2014 could be extracted to createUserFromIdentity(identity)."
+          ],
+          "suggestion": "Extract private methods: updateExistingUser(User user, NormalizedIdentity identity) and createNewUser(NormalizedIdentity identity). Keep findOrCreateUser as orchestrator calling these private methods.",
+          "reasoning": "",
+          "summary_hash": "b421a461"
+        }
+      },
+      {
+        "id": "review::.::holistic::error_consistency::auth_code_store_null_return",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "AuthCodeStore.exchangeCode() returns null for not-found codes while sibling services throw IllegalArgumentException",
+        "detail": {
+          "holistic": true,
+          "dimension": "error_consistency",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
+            "backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java",
+            "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+          ],
+          "evidence": [
+            "AuthCodeStore Javadoc: 'Returns null if invalid/expired.'",
+            "GoogleTokenVerifier.verify(): throws IllegalArgumentException for invalid token.",
+            "MicrosoftTokenVerifier.verifyIdToken(): throws IllegalArgumentException for all validation failures.",
+            "AuthController.exchangeCode() must null-check the result \u2014 if (jwt == null) \u2014 while Google/Microsoft flows use try-catch."
+          ],
+          "suggestion": "Change AuthCodeStore.exchangeCode() to throw IllegalArgumentException (or a custom CodeExpiredException extends IllegalArgumentException) on invalid/expired codes, consistent with the throw convention in sibling services. Update AuthController to use try-catch instead of null check.",
+          "reasoning": "",
+          "summary_hash": "4fb2b551"
+        }
+      },
+      {
+        "id": "review::.::holistic::high_level_elegance::auth_controller_too_wide",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "AuthController conflates Google, Microsoft client-side, challenge issuance, code exchange, and logout into one class",
+        "detail": {
+          "holistic": true,
+          "dimension": "high_level_elegance",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+          ],
+          "evidence": [
+            "AuthController has 5 endpoints: /google/verify, /microsoft/challenge, /microsoft/verify, /exchange, /logout \u2014 each representing a distinct flow.",
+            "Class injects 8 dependencies, which is a structural signal that ownership is too wide.",
+            "Microsoft challenge session cookie logic (currentChallengeSessionId, createChallengeSessionCookie, cookiePath) adds ~40 LOC of session management that could be a separate component."
+          ],
+          "suggestion": "Split into MicrosoftAuthController (challenge + verify) and a leaner AuthController (exchange, logout, Google verify). The cookie session logic can become a ChallengeSessionManager helper.",
+          "reasoning": "",
+          "summary_hash": "abb542cf"
+        }
+      },
+      {
+        "id": "review::.::holistic::incomplete_migration::user_entity_dual_login_concept",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "User entity has both loginMethod (String) and lastLoginFlow (AuthFlow enum) representing the same login concept",
+        "detail": {
+          "holistic": true,
+          "dimension": "incomplete_migration",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/model/User.java",
+            "backend/src/main/java/com/demo/sso/service/UserService.java"
+          ],
+          "evidence": [
+            "User.loginMethod: @Column(name = \"login_method\", length = 20) private String loginMethod;",
+            "User.lastLoginFlow: @Enumerated(EnumType.STRING) @Column(name = \"last_login_flow\", length = 20) private AuthFlow lastLoginFlow;",
+            "UserService.applyProviderIdentityFields() sets both: user.setLastLoginFlow(identity.loginFlow()); user.setLoginMethod(identity.loginFlow().name());",
+            "The two fields store the same value in different types \u2014 the String field is the legacy representation."
+          ],
+          "suggestion": "Once downstream consumers read lastLoginFlow, drop loginMethod from the entity and the database schema via a Flyway migration. Add a DB migration to backfill last_login_flow from login_method for existing rows.",
+          "reasoning": "",
+          "summary_hash": "f1a9e452"
+        }
+      },
+      {
+        "id": "review::.::holistic::low_level_elegance::cookie_path_redundant_null_check",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "AuthController.cookiePath() null-checks servletContextPath which is already guaranteed non-null by constructor normalization",
+        "detail": {
+          "holistic": true,
+          "dimension": "low_level_elegance",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+          ],
+          "evidence": [
+            "Constructor: this.servletContextPath = servletContextPath == null ? \"\" : servletContextPath;",
+            "cookiePath(): if (servletContextPath == null || servletContextPath.isBlank() || ...) \u2014 the null check is unreachable."
+          ],
+          "suggestion": "Remove the null check from cookiePath() since the constructor guarantees a non-null value. Simplify to: if (servletContextPath.isBlank() || \"/\".equals(servletContextPath))",
+          "reasoning": "",
+          "summary_hash": "9ea2bc3b"
+        }
+      },
+      {
+        "id": "review::.::holistic::low_level_elegance::user_controller_inline_map_response",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "UserController.getCurrentUser() returns a 10-entry inline Map instead of a typed response record",
+        "detail": {
+          "holistic": true,
+          "dimension": "low_level_elegance",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/controller/UserController.java"
+          ],
+          "evidence": [
+            "return userService.findCurrentUser(identity).map(user -> ResponseEntity.ok(Map.of(\"id\", user.getId(), \"email\", ... 10 entries total)))",
+            "The Map keys are untyped strings; a typo in a key name produces runtime failure, not compile-time error.",
+            "The null-coalescing for each field (user.getName() != null ? user.getName() : \"\") repeated 6 times adds noise."
+          ],
+          "suggestion": "Create a UserResponse record in controller/dto/ with all fields, and a static UserResponse.from(User user) factory. Return ResponseEntity<UserResponse> instead.",
+          "reasoning": "",
+          "summary_hash": "65b9f027"
+        }
+      },
+      {
+        "id": "review::.::holistic::naming_quality::merge_provider_config_misnomer",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "mergeProviderConfig name suggests merging two configs but the function applies defaults to a partial/null input",
+        "detail": {
+          "holistic": true,
+          "dimension": "naming_quality",
+          "related_files": [
+            "frontend/src/types/auth.ts"
+          ],
+          "evidence": [
+            "Function signature: mergeProviderConfig(config?: Partial<ProviderConfig> | null): ProviderConfig",
+            "Function body spreads DEFAULT_PROVIDER_CONFIG against the input \u2014 it normalizes defaults, not merges two peer configs.",
+            "Callers: useProviderConfig.ts uses it as mergeProviderConfig(response) \u2014 one argument, not two peers."
+          ],
+          "suggestion": "Rename to normalizeProviderConfig or withDefaults to accurately describe applying defaults to a partial server response.",
+          "reasoning": "",
+          "summary_hash": "6f156003"
+        }
+      }
+    ]
+  },
+  "total_matching": 24,
+  "hidden": {
+    "by_detector": {
+      "review": 14
+    },
+    "total": 14
+  },
+  "noise_budget": 10,
+  "noise_global_budget": 0,
   "narrative": {
     "phase": "early_momentum",
     "headline": "Score 67.1/100 with 87 issues open. Keep the momentum going. (24 review work items \u2014 run `desloppify show review --status open`)",
@@ -46,7 +252,7 @@
       "lowest_dimensions": [
         {
           "name": "Test health",
-          "strict": 0.0,
+          "strict": 0.2,
           "failing": 25,
           "impact": 0.0
         },
@@ -72,27 +278,27 @@
         {
           "name": "Code quality",
           "strict": 65.7,
-          "stuck_scans": 3
+          "stuck_scans": 4
         },
         {
           "name": "Security",
           "strict": 100.0,
-          "stuck_scans": 3
+          "stuck_scans": 4
         },
         {
           "name": "File health",
           "strict": 100.0,
-          "stuck_scans": 3
+          "stuck_scans": 4
         },
         {
           "name": "Duplication",
           "strict": 100.0,
-          "stuck_scans": 3
+          "stuck_scans": 4
         },
         {
           "name": "Test health",
-          "strict": 0.0,
-          "stuck_scans": 3
+          "strict": 0.2,
+          "stuck_scans": 4
         }
       ]
     },
@@ -257,60 +463,11 @@
     },
     "reminders": [
       {
-        "type": "rereview_needed",
-        "message": "Subjective results may be stale after resolve. Re-run `desloppify review --prepare` to refresh, or reset with `desloppify scan --reset-subjective` before a clean rerun.",
-        "command": "desloppify review --prepare",
-        "priority": 1,
-        "severity": "high"
-      },
-      {
-        "type": "rescan_needed",
-        "message": "Rescan to verify \u2014 cascading effects may create new issues.",
-        "command": "desloppify scan",
-        "priority": 1,
-        "severity": "high"
-      },
-      {
         "type": "review_issues_pending",
         "message": "24 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
         "command": "desloppify show review --status open",
         "priority": 1,
         "severity": "high"
-      },
-      {
-        "type": "stagnant_nudge",
-        "message": "Code quality has been stuck at 65.7% for 3 scans. Try tackling it from a different angle \u2014 run `desloppify next` to find the right entry point.",
-        "command": null,
-        "priority": 2,
-        "severity": "medium"
-      },
-      {
-        "type": "stagnant_nudge",
-        "message": "Security has been at 100.0% for 3 scans. The remaining items may be worth marking as wontfix if they're intentional.",
-        "command": null,
-        "priority": 2,
-        "severity": "medium"
-      },
-      {
-        "type": "stagnant_nudge",
-        "message": "File health has been at 100.0% for 3 scans. The remaining items may be worth marking as wontfix if they're intentional.",
-        "command": null,
-        "priority": 2,
-        "severity": "medium"
-      },
-      {
-        "type": "stagnant_nudge",
-        "message": "Duplication has been at 100.0% for 3 scans. The remaining items may be worth marking as wontfix if they're intentional.",
-        "command": null,
-        "priority": 2,
-        "severity": "medium"
-      },
-      {
-        "type": "stagnant_nudge",
-        "message": "Test health has been stuck at 0.0% for 3 scans. Try tackling it from a different angle \u2014 run `desloppify next` to find the right entry point.",
-        "command": null,
-        "priority": 2,
-        "severity": "medium"
       },
       {
         "type": "zone_classification",
@@ -321,12 +478,11 @@
       }
     ],
     "reminder_history": {
-      "zone_classification": 2,
-      "report_scores": 1,
-      "rereview_needed": 1,
-      "rescan_needed": 1,
-      "review_issues_pending": 1,
-      "stagnant_nudge": 5
+      "zone_classification": 3,
+      "report_scores": 2,
+      "review_issues_pending": 2,
+      "stagnant_nudge": 5,
+      "feedback_nudge": 1
     }
   },
   "config": {
