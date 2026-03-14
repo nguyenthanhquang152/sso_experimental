@@ -38,13 +38,13 @@ export function MicrosoftClientSideLogin({ config, onSuccess }: MicrosoftClientS
       auth: {
         clientId: config.clientId,
         authority: config.authority,
-        redirectUri: window.location.origin,
+        redirectUri: config.redirectUri ?? window.location.origin,
       },
       cache: {
         cacheLocation: 'sessionStorage',
       },
     });
-  }, [config.authority, config.clientId]);
+  }, [config.authority, config.clientId, config.redirectUri]);
 
   const ready = Boolean(msalClient && config.scopes.length > 0);
 

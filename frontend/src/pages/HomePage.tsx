@@ -15,7 +15,14 @@ export function HomePage({ providerConfig }: HomePageProps) {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [exchangeError, setExchangeError] = useState<string | null>(null);
+  const [exchangeError, setExchangeError] = useState<string | null>(() => {
+    const errorParam = new URLSearchParams(window.location.search).get('error');
+    if (errorParam) {
+      window.history.replaceState({}, '', '/');
+      return `Sign-in failed: ${errorParam.replace(/_/g, ' ')}`;
+    }
+    return null;
+  });
 
   useEffect(() => {
     const code = searchParams.get('code');

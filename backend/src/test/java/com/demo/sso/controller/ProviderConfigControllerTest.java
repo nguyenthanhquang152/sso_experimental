@@ -22,7 +22,8 @@ class ProviderConfigControllerTest {
         ProviderConfigController controller = new ProviderConfigController(
             rollout,
             new MicrosoftAuthProperties(),
-            "google-client-id.apps.googleusercontent.com");
+            "google-client-id.apps.googleusercontent.com",
+            "http://localhost:8000");
 
         ResponseEntity<ProviderConfigResponse> response = controller.getProviders();
         ProviderConfigResponse.GoogleProviderConfig google = response.getBody().google();
@@ -49,7 +50,8 @@ class ProviderConfigControllerTest {
         ProviderConfigController controller = new ProviderConfigController(
             rollout,
             microsoft,
-            "google-client-id.apps.googleusercontent.com");
+            "google-client-id.apps.googleusercontent.com",
+            "http://localhost:8000");
 
         ResponseEntity<ProviderConfigResponse> response = controller.getProviders();
         ProviderConfigResponse.GoogleProviderConfig google = response.getBody().google();
@@ -61,6 +63,7 @@ class ProviderConfigControllerTest {
         assertTrue(payload.clientSideEnabled());
         assertEquals("microsoft-client-id", payload.clientId());
         assertEquals("https://login.microsoftonline.com/common/v2.0", payload.authority());
+        assertEquals("http://localhost:8000", payload.redirectUri());
     }
 
     @Test
@@ -77,7 +80,8 @@ class ProviderConfigControllerTest {
         ProviderConfigController controller = new ProviderConfigController(
             rollout,
             microsoft,
-            "google-client-id.apps.googleusercontent.com");
+            "google-client-id.apps.googleusercontent.com",
+            "http://localhost:8000");
 
         ResponseEntity<ProviderConfigResponse> response = controller.getProviders();
         ProviderConfigResponse.MicrosoftProviderConfig payload = response.getBody().microsoft();
@@ -91,7 +95,8 @@ class ProviderConfigControllerTest {
         ProviderConfigController controller = new ProviderConfigController(
             new AuthRolloutProperties(),
             new MicrosoftAuthProperties(),
-            "");
+            "",
+            "http://localhost:8000");
 
         ResponseEntity<ProviderConfigResponse> response = controller.getProviders();
         ProviderConfigResponse.GoogleProviderConfig google = response.getBody().google();

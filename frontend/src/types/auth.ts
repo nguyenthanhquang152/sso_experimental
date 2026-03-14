@@ -12,6 +12,7 @@ export interface MicrosoftProviderConfig {
   clientId?: string;
   authority?: string;
   scopes: string[];
+  redirectUri?: string;
 }
 
 export interface ProviderConfig {

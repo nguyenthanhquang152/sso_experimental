@@ -19,6 +19,7 @@ public record ProviderConfigResponse(
             boolean clientSideEnabled,
             String clientId,
             String authority,
-            List<String> scopes) {
+            List<String> scopes,
+            String redirectUri) {
     }
 }

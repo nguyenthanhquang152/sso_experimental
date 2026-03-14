@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,12 +45,16 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                                          HttpServletResponse response,
                                          Authentication authentication) throws IOException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        Optional<NormalizedIdentity> identity = normalizeIdentity(authentication, oAuth2User, response);
-        if (identity.isEmpty()) {
+        NormalizedIdentity identity;
+        try {
+            identity = normalizeIdentity(authentication, oAuth2User);
+        } catch (OAuth2IdentityException e) {
+            logger.warn("OAuth2 login rejected: {}", e.getMessage());
+            response.sendRedirect(frontendUrl + "/?error=" + e.errorCode());
             return;
         }
 
-        User user = userService.findOrCreateUser(identity.get());
+        User user = userService.findOrCreateUser(identity);
 
         String jwt = jwtTokenService.generateToken(user);
         String code = authCodeStore.storeJwt(jwt);
@@ -60,44 +63,51 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         response.sendRedirect(frontendUrl + "/?code=" + encodedCode);
     }
 
-    private Optional<NormalizedIdentity> normalizeIdentity(
+    private NormalizedIdentity normalizeIdentity(
             Authentication authentication,
-            OAuth2User oAuth2User,
-            HttpServletResponse response) throws IOException {
+            OAuth2User oAuth2User) {
         String registrationId = authentication instanceof OAuth2AuthenticationToken oauth2AuthenticationToken
             ? oauth2AuthenticationToken.getAuthorizedClientRegistrationId()
             : "google";
 
         if ("microsoft".equalsIgnoreCase(registrationId)) {
             try {
-                return Optional.of(providerIdentityNormalizer.normalizeMicrosoftClaims(
+                return providerIdentityNormalizer.normalizeMicrosoftClaims(
                     oAuth2User.getAttributes(),
-                    AuthFlow.SERVER_SIDE));
+                    AuthFlow.SERVER_SIDE);
             } catch (IllegalArgumentException e) {
-                logger.warn("Microsoft OAuth2 login rejected: invalid identity claims");
-                response.sendRedirect(frontendUrl + "/?error=missing_attributes");
-                return Optional.empty();
+                throw new OAuth2IdentityException("missing_attributes", "invalid identity claims");
             }
         }
 
         Boolean emailVerified = oAuth2User.getAttribute("email_verified");
         if (!Boolean.TRUE.equals(emailVerified)) {
-            logger.warn("OAuth2 login rejected: email not verified");
-            response.sendRedirect(frontendUrl + "/?error=email_not_verified");
-            return Optional.empty();
+            throw new OAuth2IdentityException("email_not_verified", "email not verified");
         }
 
         try {
-            return Optional.of(providerIdentityNormalizer.normalizeGoogleClaims(
+            return providerIdentityNormalizer.normalizeGoogleClaims(
                 oAuth2User.getAttribute("sub"),
                 oAuth2User.getAttribute("email"),
                 oAuth2User.getAttribute("name"),
                 oAuth2User.getAttribute("picture"),
-                AuthFlow.SERVER_SIDE));
+                AuthFlow.SERVER_SIDE);
         } catch (IllegalArgumentException e) {
-            logger.warn("OAuth2 login rejected: missing sub or email attribute");
-            response.sendRedirect(frontendUrl + "/?error=missing_attributes");
-            return Optional.empty();
+            throw new OAuth2IdentityException("missing_attributes", "missing sub or email attribute");
+        }
+    }
+
+    /** Thrown when OAuth2 identity claims fail validation. */
+    static final class OAuth2IdentityException extends RuntimeException {
+        private final String errorCode;
+
+        OAuth2IdentityException(String errorCode, String message) {
+            super(message);
+            this.errorCode = errorCode;
+        }
+
+        String errorCode() {
+            return errorCode;
         }
     }
 }

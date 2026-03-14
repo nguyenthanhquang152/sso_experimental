@@ -18,14 +18,17 @@ public class ProviderConfigController {
     private final AuthRolloutProperties rolloutProperties;
     private final MicrosoftAuthProperties microsoftAuthProperties;
     private final String googleClientId;
+    private final String frontendUrl;
 
     public ProviderConfigController(
             AuthRolloutProperties rolloutProperties,
             MicrosoftAuthProperties microsoftAuthProperties,
-            @Value("${app.google-client-id:}") String googleClientId) {
+            @Value("${app.google-client-id:}") String googleClientId,
+            @Value("${app.frontend-url}") String frontendUrl) {
         this.rolloutProperties = rolloutProperties;
         this.microsoftAuthProperties = microsoftAuthProperties;
         this.googleClientId = googleClientId == null ? "" : googleClientId;
+        this.frontendUrl = frontendUrl;
     }
 
     @GetMapping("/providers")
@@ -49,7 +52,8 @@ public class ProviderConfigController {
                 microsoftClientSideEnabled,
                 microsoftClientSideEnabled ? microsoftAuthProperties.getClientId() : null,
                 microsoftClientSideEnabled ? microsoftAuthProperties.getAuthority() : null,
-                microsoftClientSideEnabled ? List.copyOf(microsoftAuthProperties.getScopes()) : List.of()
+                microsoftClientSideEnabled ? List.copyOf(microsoftAuthProperties.getScopes()) : List.of(),
+                microsoftClientSideEnabled ? frontendUrl : null
             )
         );
 

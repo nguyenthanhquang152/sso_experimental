@@ -138,6 +138,11 @@ public class AuthController {
             return microsoftClientSideDisabledResponse();
         }
 
+        MicrosoftTokenVerifier microsoftTokenVerifier = microsoftTokenVerifierProvider.getIfAvailable();
+        if (microsoftTokenVerifier == null) {
+            return microsoftClientSideDisabledResponse();
+        }
+
         if (request == null || (request.credential() == null || request.credential().isBlank()) || (request.challengeId() == null || request.challengeId().isBlank())) {
             return badRequest("Missing credential or challengeId");
         }
@@ -150,12 +155,6 @@ public class AuthController {
         Optional<String> expectedNonce = microsoftChallengeStore.consumeNonce(sessionId, request.challengeId());
         if (expectedNonce.isEmpty()) {
             return badRequest("Invalid or expired Microsoft challenge");
-        }
-
-        MicrosoftTokenVerifier microsoftTokenVerifier = microsoftTokenVerifierProvider.getIfAvailable();
-        if (microsoftTokenVerifier == null) {
-            return ResponseEntity.status(503)
-                .body(new ErrorResponse("Microsoft client-side login is disabled"));
         }
 
         try {
