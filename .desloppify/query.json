@@ -1,259 +1,1036 @@
 {
-  "command": "show",
-  "query": "review",
-  "status_filter": "open",
-  "total": 10,
-  "summary": {
-    "by_tier": {
-      "T1": 10
-    },
-    "by_detector": {
-      "review": 10
-    },
-    "files": 1
+  "command": "scan",
+  "overall_score": 69.3,
+  "objective_score": 53.9,
+  "strict_score": 69.3,
+  "verified_strict_score": 53.9,
+  "prev_overall_score": 69.4,
+  "prev_objective_score": 54.4,
+  "prev_strict_score": 69.4,
+  "prev_verified_strict_score": 54.4,
+  "profile": "objective",
+  "noise_budget": 10,
+  "noise_global_budget": 0,
+  "hidden_by_detector": {
+    "orphaned": 16,
+    "test_coverage": 16,
+    "review": 12,
+    "stale_exclude": 1
   },
-  "by_file": {
-    ".": [
-      {
-        "id": "review::.::holistic::api_surface_coherence::untyped_response_maps",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "Controllers return Map<String,Object> and ResponseEntity<?> instead of typed response DTOs",
-        "detail": {
-          "holistic": true,
-          "dimension": "api_surface_coherence",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/controller/AuthController.java",
-            "backend/src/main/java/com/demo/sso/controller/UserController.java",
-            "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
-          ],
-          "evidence": [
-            "AuthController methods: public ResponseEntity<?> verifyGoogleToken(...), public ResponseEntity<?> verifyMicrosoftToken(...), public ResponseEntity<?> exchangeCode(...)",
-            "All success bodies: Map.of(\"token\", jwt) \u2014 repeated inline literal key.",
-            "UserController: ResponseEntity<Map<String,Object>> with 10 inline Map.of() entries.",
-            "ProviderConfigController: ResponseEntity<Map<String,Object>> with nested LinkedHashMap construction."
-          ],
-          "suggestion": "Create response DTOs: TokenResponse(String token), UserResponse record with all user fields, ProviderConfigResponse with typed Google/Microsoft sub-records. Change return types to ResponseEntity<TokenResponse> etc.",
-          "reasoning": "",
-          "summary_hash": "f578953f"
+  "hidden_total": 45,
+  "diff": {
+    "new": 2,
+    "auto_resolved": 22,
+    "reopened": 0,
+    "total_current": 65,
+    "suspect_detectors": [
+      "review"
+    ],
+    "chronic_reopeners": [],
+    "skipped_other_lang": 0,
+    "resolved_out_of_scope": 0,
+    "ignored": 0,
+    "ignore_patterns": 0,
+    "raw_issues": 65,
+    "suppressed_pct": 0.0
+  },
+  "stats": {
+    "total": 118,
+    "auto_resolved": 0,
+    "deferred": 0,
+    "false_positive": 0,
+    "fixed": 31,
+    "open": 87,
+    "triaged_out": 0,
+    "wontfix": 0,
+    "by_tier": {
+      "1": {
+        "auto_resolved": 0,
+        "deferred": 0,
+        "false_positive": 0,
+        "fixed": 5,
+        "open": 10,
+        "triaged_out": 0,
+        "wontfix": 0
+      },
+      "2": {
+        "auto_resolved": 0,
+        "deferred": 0,
+        "false_positive": 0,
+        "fixed": 4,
+        "open": 5,
+        "triaged_out": 0,
+        "wontfix": 0
+      },
+      "3": {
+        "auto_resolved": 0,
+        "deferred": 0,
+        "false_positive": 0,
+        "fixed": 22,
+        "open": 61,
+        "triaged_out": 0,
+        "wontfix": 0
+      },
+      "4": {
+        "auto_resolved": 0,
+        "deferred": 0,
+        "false_positive": 0,
+        "fixed": 0,
+        "open": 11,
+        "triaged_out": 0,
+        "wontfix": 0
+      }
+    }
+  },
+  "open_scope": {
+    "in_scope": 87,
+    "out_of_scope": 0,
+    "global": 87
+  },
+  "warnings": [
+    "Coverage reduced (pmd_violation): pmd tooling unavailable (tool_failed_unparsed_output) Repercussion: Detector results may be under-reported for this scan. Fix: Install/fix the tool command and rerun scan."
+  ],
+  "dimension_scores": {
+    "Code quality": {
+      "score": 65.0,
+      "strict": 65.0,
+      "verified_strict_score": 65.0,
+      "checks": 52,
+      "failing": 26,
+      "tier": 3,
+      "detectors": {
+        "orphaned": {
+          "potential": 29,
+          "pass_rate": 0.3724137931034485,
+          "failing": 26,
+          "weighted_failures": 18.199999999999992
+        },
+        "flat_dirs": {
+          "potential": 23,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
         }
+      }
+    },
+    "Security": {
+      "score": 100.0,
+      "strict": 100.0,
+      "verified_strict_score": 100.0,
+      "checks": 58,
+      "failing": 0,
+      "tier": 4,
+      "detectors": {
+        "cycles": {
+          "potential": 29,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        },
+        "security": {
+          "potential": 29,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        }
+      }
+    },
+    "File health": {
+      "score": 100.0,
+      "strict": 100.0,
+      "verified_strict_score": 100.0,
+      "checks": 29,
+      "failing": 0,
+      "tier": 3,
+      "detectors": {
+        "structural": {
+          "potential": 29,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        }
+      }
+    },
+    "Duplication": {
+      "score": 100.0,
+      "strict": 100.0,
+      "verified_strict_score": 100.0,
+      "checks": 104,
+      "failing": 0,
+      "tier": 3,
+      "detectors": {
+        "dupes": {
+          "potential": 104,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        }
+      }
+    },
+    "Test health": {
+      "score": 0.0,
+      "strict": 0.0,
+      "verified_strict_score": 0.0,
+      "checks": 199,
+      "failing": 26,
+      "tier": 4,
+      "detectors": {
+        "test_coverage": {
+          "potential": 199,
+          "pass_rate": 0.0003681442116286308,
+          "failing": 26,
+          "weighted_failures": 198.9267393018859
+        }
+      }
+    },
+    "Abstraction fit": {
+      "score": 75.0,
+      "strict": 75.0,
+      "verified_strict_score": 75.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.75,
+          "failing": 1,
+          "weighted_failures": 2.5,
+          "assessment_score": 75.0,
+          "placeholder": false,
+          "dimension_key": "abstraction_fitness",
+          "configured_weight": 8.0,
+          "components": []
+        }
+      }
+    },
+    "AI generated debt": {
+      "score": 76.0,
+      "strict": 76.0,
+      "verified_strict_score": 76.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.76,
+          "failing": 1,
+          "weighted_failures": 2.4,
+          "assessment_score": 76.0,
+          "placeholder": false,
+          "dimension_key": "ai_generated_debt",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "API coherence": {
+      "score": 70.0,
+      "strict": 70.0,
+      "verified_strict_score": 70.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.7,
+          "failing": 1,
+          "weighted_failures": 3.0,
+          "assessment_score": 70.0,
+          "placeholder": false,
+          "dimension_key": "api_surface_coherence",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Auth consistency": {
+      "score": 86.0,
+      "strict": 86.0,
+      "verified_strict_score": 86.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.86,
+          "failing": 1,
+          "weighted_failures": 1.4,
+          "assessment_score": 86.0,
+          "placeholder": false,
+          "dimension_key": "authorization_consistency",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Contracts": {
+      "score": 82.0,
+      "strict": 82.0,
+      "verified_strict_score": 82.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.82,
+          "failing": 1,
+          "weighted_failures": 1.8,
+          "assessment_score": 82.0,
+          "placeholder": false,
+          "dimension_key": "contract_coherence",
+          "configured_weight": 12.0,
+          "components": []
+        }
+      }
+    },
+    "Convention drift": {
+      "score": 80.0,
+      "strict": 80.0,
+      "verified_strict_score": 80.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.8,
+          "failing": 1,
+          "weighted_failures": 2.0,
+          "assessment_score": 80.0,
+          "placeholder": false,
+          "dimension_key": "convention_outlier",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Cross-module arch": {
+      "score": 72.0,
+      "strict": 72.0,
+      "verified_strict_score": 72.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.72,
+          "failing": 1,
+          "weighted_failures": 2.8,
+          "assessment_score": 72.0,
+          "placeholder": false,
+          "dimension_key": "cross_module_architecture",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Dep health": {
+      "score": 78.0,
+      "strict": 78.0,
+      "verified_strict_score": 78.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.78,
+          "failing": 1,
+          "weighted_failures": 2.2,
+          "assessment_score": 78.0,
+          "placeholder": false,
+          "dimension_key": "dependency_health",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Design coherence": {
+      "score": 74.0,
+      "strict": 74.0,
+      "verified_strict_score": 74.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.74,
+          "failing": 1,
+          "weighted_failures": 2.6,
+          "assessment_score": 74.0,
+          "placeholder": false,
+          "dimension_key": "design_coherence",
+          "configured_weight": 10.0,
+          "components": []
+        }
+      }
+    },
+    "Error consistency": {
+      "score": 82.0,
+      "strict": 82.0,
+      "verified_strict_score": 82.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.82,
+          "failing": 1,
+          "weighted_failures": 1.8,
+          "assessment_score": 82.0,
+          "placeholder": false,
+          "dimension_key": "error_consistency",
+          "configured_weight": 3.0,
+          "components": []
+        }
+      }
+    },
+    "High elegance": {
+      "score": 68.0,
+      "strict": 68.0,
+      "verified_strict_score": 68.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.68,
+          "failing": 2,
+          "weighted_failures": 3.2,
+          "assessment_score": 68.0,
+          "placeholder": false,
+          "dimension_key": "high_level_elegance",
+          "configured_weight": 22.0,
+          "components": []
+        }
+      }
+    },
+    "Stale migration": {
+      "score": 72.0,
+      "strict": 72.0,
+      "verified_strict_score": 72.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.72,
+          "failing": 1,
+          "weighted_failures": 2.8,
+          "assessment_score": 72.0,
+          "placeholder": false,
+          "dimension_key": "incomplete_migration",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Init coupling": {
+      "score": 82.0,
+      "strict": 82.0,
+      "verified_strict_score": 82.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.82,
+          "failing": 1,
+          "weighted_failures": 1.8,
+          "assessment_score": 82.0,
+          "placeholder": false,
+          "dimension_key": "initialization_coupling",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Logic clarity": {
+      "score": 84.0,
+      "strict": 84.0,
+      "verified_strict_score": 84.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.84,
+          "failing": 1,
+          "weighted_failures": 1.6,
+          "assessment_score": 84.0,
+          "placeholder": false,
+          "dimension_key": "logic_clarity",
+          "configured_weight": 6.0,
+          "components": []
+        }
+      }
+    },
+    "Low elegance": {
+      "score": 82.0,
+      "strict": 82.0,
+      "verified_strict_score": 82.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.82,
+          "failing": 1,
+          "weighted_failures": 1.8,
+          "assessment_score": 82.0,
+          "placeholder": false,
+          "dimension_key": "low_level_elegance",
+          "configured_weight": 12.0,
+          "components": []
+        }
+      }
+    },
+    "Mid elegance": {
+      "score": 70.0,
+      "strict": 70.0,
+      "verified_strict_score": 70.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.7,
+          "failing": 1,
+          "weighted_failures": 3.0,
+          "assessment_score": 70.0,
+          "placeholder": false,
+          "dimension_key": "mid_level_elegance",
+          "configured_weight": 22.0,
+          "components": []
+        }
+      }
+    },
+    "Naming quality": {
+      "score": 88.0,
+      "strict": 88.0,
+      "verified_strict_score": 88.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.88,
+          "failing": 1,
+          "weighted_failures": 1.2,
+          "assessment_score": 88.0,
+          "placeholder": false,
+          "dimension_key": "naming_quality",
+          "configured_weight": 2.0,
+          "components": []
+        }
+      }
+    },
+    "Structure nav": {
+      "score": 70.0,
+      "strict": 70.0,
+      "verified_strict_score": 70.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.7,
+          "failing": 1,
+          "weighted_failures": 3.0,
+          "assessment_score": 70.0,
+          "placeholder": false,
+          "dimension_key": "package_organization",
+          "configured_weight": 5.0,
+          "components": []
+        }
+      }
+    },
+    "Test strategy": {
+      "score": 52.0,
+      "strict": 52.0,
+      "verified_strict_score": 52.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.52,
+          "failing": 2,
+          "weighted_failures": 4.8,
+          "assessment_score": 52.0,
+          "placeholder": false,
+          "dimension_key": "test_strategy",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Type safety": {
+      "score": 72.0,
+      "strict": 72.0,
+      "verified_strict_score": 72.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.72,
+          "failing": 1,
+          "weighted_failures": 2.8,
+          "assessment_score": 72.0,
+          "placeholder": false,
+          "dimension_key": "type_safety",
+          "configured_weight": 12.0,
+          "components": []
+        }
+      }
+    }
+  },
+  "score_breakdown": {
+    "overall_score": 69.3,
+    "mechanical_fraction": 0.25,
+    "subjective_fraction": 0.75,
+    "mechanical_avg": 53.88535031847133,
+    "subjective_avg": 74.40650406504065,
+    "entries": [
+      {
+        "name": "Code quality",
+        "pool": "mechanical",
+        "score": 65.0,
+        "checks": 52.0,
+        "sample_factor": 0.26,
+        "configured_weight": 1.0,
+        "effective_weight": 0.26,
+        "pool_share": 0.11040339702760085,
+        "overall_per_point": 0.027600849256900213,
+        "overall_contribution": 1.7940552016985138,
+        "overall_drag": 0.9660297239915074
       },
       {
-        "id": "review::.::holistic::convention_outlier::duplicated_is_blank_helper",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "private static isBlank() helper duplicated in AuthController and ProviderIdentityNormalizer",
-        "detail": {
-          "holistic": true,
-          "dimension": "convention_outlier",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/controller/AuthController.java",
-            "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
-          ],
-          "evidence": [
-            "AuthController.isBlank: return value == null || value.isBlank()",
-            "ProviderIdentityNormalizer.isBlank: return value == null || value.isBlank()",
-            "Both are private static and identical in behavior."
-          ],
-          "suggestion": "Replace both with String.isBlank() preceded by a null check using Objects.isNull, or use the standard library directly (value == null || value.isBlank()) inline. Alternatively, create a shared StringUtils class in a util/ package if more utilities accumulate.",
-          "reasoning": "",
-          "summary_hash": "5945636a"
-        }
+        "name": "Security",
+        "pool": "mechanical",
+        "score": 100.0,
+        "checks": 58.0,
+        "sample_factor": 0.29,
+        "configured_weight": 1.0,
+        "effective_weight": 0.29,
+        "pool_share": 0.12314225053078555,
+        "overall_per_point": 0.030785562632696387,
+        "overall_contribution": 3.078556263269639,
+        "overall_drag": 0.0
       },
       {
-        "id": "review::.::holistic::cross_module_architecture::service_pkg_mixed_concerns",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "service package mixes interfaces, Redis implementations, and identity value objects without subpackaging",
-        "detail": {
-          "holistic": true,
-          "dimension": "cross_module_architecture",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
-            "backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java",
-            "backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java",
-            "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java"
-          ],
-          "evidence": [
-            "service/ contains 12 files spanning: 2 interfaces (AuthCodeStore, MicrosoftChallengeStore), 2 Redis implementations, 2 identity value records (NormalizedIdentity, AuthenticatedUserIdentity), 2 token verifiers, and 2 identity-handling services.",
-            "NormalizedIdentity and AuthenticatedUserIdentity are domain value objects that don't belong co-located with service implementations."
-          ],
-          "suggestion": "Split service/ into subpackages: service/store/ for AuthCodeStore+MicrosoftChallengeStore interfaces and their Redis impls, service/identity/ for NormalizedIdentity+AuthenticatedUserIdentity+ProviderIdentityNormalizer, and keep the remaining services in service/.",
-          "reasoning": "",
-          "summary_hash": "ae9d1f16"
-        }
+        "name": "File health",
+        "pool": "mechanical",
+        "score": 100.0,
+        "checks": 29.0,
+        "sample_factor": 0.145,
+        "configured_weight": 2.0,
+        "effective_weight": 0.29,
+        "pool_share": 0.12314225053078555,
+        "overall_per_point": 0.030785562632696387,
+        "overall_contribution": 3.078556263269639,
+        "overall_drag": 0.0
       },
       {
-        "id": "review::.::holistic::design_coherence::find_or_create_user_too_wide",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "UserService.findOrCreateUser() combines lookup, legacy fallback, update, create, and race-condition handling in one method",
-        "detail": {
-          "holistic": true,
-          "dimension": "design_coherence",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/service/UserService.java"
-          ],
-          "evidence": [
-            "Method does: (1) findByProviderAndProviderUserId, (2) Google legacy fallback findByGoogleId, (3) update existing user fields, (4) create new user, (5) catch DataIntegrityViolationException for concurrent creation.",
-            "The update-existing block: 5 setters + lastLoginAt \u2014 could be extracted to updateUserFromIdentity(user, identity).",
-            "The create-new block: 6 setters + Redis save + race-condition catch \u2014 could be extracted to createUserFromIdentity(identity)."
-          ],
-          "suggestion": "Extract private methods: updateExistingUser(User user, NormalizedIdentity identity) and createNewUser(NormalizedIdentity identity). Keep findOrCreateUser as orchestrator calling these private methods.",
-          "reasoning": "",
-          "summary_hash": "b421a461"
-        }
+        "name": "Duplication",
+        "pool": "mechanical",
+        "score": 100.0,
+        "checks": 104.0,
+        "sample_factor": 0.52,
+        "configured_weight": 1.0,
+        "effective_weight": 0.52,
+        "pool_share": 0.2208067940552017,
+        "overall_per_point": 0.055201698513800426,
+        "overall_contribution": 5.520169851380043,
+        "overall_drag": 0.0
       },
       {
-        "id": "review::.::holistic::error_consistency::auth_code_store_null_return",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "AuthCodeStore.exchangeCode() returns null for not-found codes while sibling services throw IllegalArgumentException",
-        "detail": {
-          "holistic": true,
-          "dimension": "error_consistency",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
-            "backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java",
-            "backend/src/main/java/com/demo/sso/controller/AuthController.java"
-          ],
-          "evidence": [
-            "AuthCodeStore Javadoc: 'Returns null if invalid/expired.'",
-            "GoogleTokenVerifier.verify(): throws IllegalArgumentException for invalid token.",
-            "MicrosoftTokenVerifier.verifyIdToken(): throws IllegalArgumentException for all validation failures.",
-            "AuthController.exchangeCode() must null-check the result \u2014 if (jwt == null) \u2014 while Google/Microsoft flows use try-catch."
-          ],
-          "suggestion": "Change AuthCodeStore.exchangeCode() to throw IllegalArgumentException (or a custom CodeExpiredException extends IllegalArgumentException) on invalid/expired codes, consistent with the throw convention in sibling services. Update AuthController to use try-catch instead of null check.",
-          "reasoning": "",
-          "summary_hash": "4fb2b551"
-        }
+        "name": "Test health",
+        "pool": "mechanical",
+        "score": 0.0,
+        "checks": 199.0,
+        "sample_factor": 0.995,
+        "configured_weight": 1.0,
+        "effective_weight": 0.995,
+        "pool_share": 0.42250530785562634,
+        "overall_per_point": 0.10562632696390659,
+        "overall_contribution": 0.0,
+        "overall_drag": 10.562632696390658
       },
       {
-        "id": "review::.::holistic::high_level_elegance::auth_controller_too_wide",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "AuthController conflates Google, Microsoft client-side, challenge issuance, code exchange, and logout into one class",
-        "detail": {
-          "holistic": true,
-          "dimension": "high_level_elegance",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/controller/AuthController.java"
-          ],
-          "evidence": [
-            "AuthController has 5 endpoints: /google/verify, /microsoft/challenge, /microsoft/verify, /exchange, /logout \u2014 each representing a distinct flow.",
-            "Class injects 8 dependencies, which is a structural signal that ownership is too wide.",
-            "Microsoft challenge session cookie logic (currentChallengeSessionId, createChallengeSessionCookie, cookiePath) adds ~40 LOC of session management that could be a separate component."
-          ],
-          "suggestion": "Split into MicrosoftAuthController (challenge + verify) and a leaner AuthController (exchange, logout, Google verify). The cookie session logic can become a ChallengeSessionManager helper.",
-          "reasoning": "",
-          "summary_hash": "abb542cf"
-        }
+        "name": "Abstraction fit",
+        "pool": "subjective",
+        "score": 75.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 8.0,
+        "effective_weight": 8.0,
+        "pool_share": 0.06504065040650407,
+        "overall_per_point": 0.04878048780487805,
+        "overall_contribution": 3.658536585365854,
+        "overall_drag": 1.2195121951219512
       },
       {
-        "id": "review::.::holistic::incomplete_migration::user_entity_dual_login_concept",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "User entity has both loginMethod (String) and lastLoginFlow (AuthFlow enum) representing the same login concept",
-        "detail": {
-          "holistic": true,
-          "dimension": "incomplete_migration",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/model/User.java",
-            "backend/src/main/java/com/demo/sso/service/UserService.java"
-          ],
-          "evidence": [
-            "User.loginMethod: @Column(name = \"login_method\", length = 20) private String loginMethod;",
-            "User.lastLoginFlow: @Enumerated(EnumType.STRING) @Column(name = \"last_login_flow\", length = 20) private AuthFlow lastLoginFlow;",
-            "UserService.applyProviderIdentityFields() sets both: user.setLastLoginFlow(identity.loginFlow()); user.setLoginMethod(identity.loginFlow().name());",
-            "The two fields store the same value in different types \u2014 the String field is the legacy representation."
-          ],
-          "suggestion": "Once downstream consumers read lastLoginFlow, drop loginMethod from the entity and the database schema via a Flyway migration. Add a DB migration to backfill last_login_flow from login_method for existing rows.",
-          "reasoning": "",
-          "summary_hash": "f1a9e452"
-        }
+        "name": "AI generated debt",
+        "pool": "subjective",
+        "score": 76.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.4634146341463415,
+        "overall_drag": 0.14634146341463417
       },
       {
-        "id": "review::.::holistic::low_level_elegance::cookie_path_redundant_null_check",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "AuthController.cookiePath() null-checks servletContextPath which is already guaranteed non-null by constructor normalization",
-        "detail": {
-          "holistic": true,
-          "dimension": "low_level_elegance",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/controller/AuthController.java"
-          ],
-          "evidence": [
-            "Constructor: this.servletContextPath = servletContextPath == null ? \"\" : servletContextPath;",
-            "cookiePath(): if (servletContextPath == null || servletContextPath.isBlank() || ...) \u2014 the null check is unreachable."
-          ],
-          "suggestion": "Remove the null check from cookiePath() since the constructor guarantees a non-null value. Simplify to: if (servletContextPath.isBlank() || \"/\".equals(servletContextPath))",
-          "reasoning": "",
-          "summary_hash": "9ea2bc3b"
-        }
+        "name": "API coherence",
+        "pool": "subjective",
+        "score": 70.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.4268292682926829,
+        "overall_drag": 0.18292682926829268
       },
       {
-        "id": "review::.::holistic::low_level_elegance::user_controller_inline_map_response",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "UserController.getCurrentUser() returns a 10-entry inline Map instead of a typed response record",
-        "detail": {
-          "holistic": true,
-          "dimension": "low_level_elegance",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/controller/UserController.java"
-          ],
-          "evidence": [
-            "return userService.findCurrentUser(identity).map(user -> ResponseEntity.ok(Map.of(\"id\", user.getId(), \"email\", ... 10 entries total)))",
-            "The Map keys are untyped strings; a typo in a key name produces runtime failure, not compile-time error.",
-            "The null-coalescing for each field (user.getName() != null ? user.getName() : \"\") repeated 6 times adds noise."
-          ],
-          "suggestion": "Create a UserResponse record in controller/dto/ with all fields, and a static UserResponse.from(User user) factory. Return ResponseEntity<UserResponse> instead.",
-          "reasoning": "",
-          "summary_hash": "65b9f027"
-        }
+        "name": "Auth consistency",
+        "pool": "subjective",
+        "score": 86.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.524390243902439,
+        "overall_drag": 0.08536585365853659
       },
       {
-        "id": "review::.::holistic::naming_quality::merge_provider_config_misnomer",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "mergeProviderConfig name suggests merging two configs but the function applies defaults to a partial/null input",
-        "detail": {
-          "holistic": true,
-          "dimension": "naming_quality",
-          "related_files": [
-            "frontend/src/types/auth.ts"
-          ],
-          "evidence": [
-            "Function signature: mergeProviderConfig(config?: Partial<ProviderConfig> | null): ProviderConfig",
-            "Function body spreads DEFAULT_PROVIDER_CONFIG against the input \u2014 it normalizes defaults, not merges two peer configs.",
-            "Callers: useProviderConfig.ts uses it as mergeProviderConfig(response) \u2014 one argument, not two peers."
-          ],
-          "suggestion": "Rename to normalizeProviderConfig or withDefaults to accurately describe applying defaults to a partial server response.",
-          "reasoning": "",
-          "summary_hash": "6f156003"
-        }
+        "name": "Contracts",
+        "pool": "subjective",
+        "score": 82.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 12.0,
+        "effective_weight": 12.0,
+        "pool_share": 0.0975609756097561,
+        "overall_per_point": 0.07317073170731708,
+        "overall_contribution": 6.000000000000001,
+        "overall_drag": 1.3170731707317076
+      },
+      {
+        "name": "Convention drift",
+        "pool": "subjective",
+        "score": 80.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.4878048780487805,
+        "overall_drag": 0.12195121951219512
+      },
+      {
+        "name": "Cross-module arch",
+        "pool": "subjective",
+        "score": 72.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.43902439024390244,
+        "overall_drag": 0.17073170731707318
+      },
+      {
+        "name": "Dep health",
+        "pool": "subjective",
+        "score": 78.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.475609756097561,
+        "overall_drag": 0.13414634146341464
+      },
+      {
+        "name": "Design coherence",
+        "pool": "subjective",
+        "score": 74.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 10.0,
+        "effective_weight": 10.0,
+        "pool_share": 0.08130081300813008,
+        "overall_per_point": 0.06097560975609756,
+        "overall_contribution": 4.512195121951219,
+        "overall_drag": 1.5853658536585367
+      },
+      {
+        "name": "Error consistency",
+        "pool": "subjective",
+        "score": 82.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 3.0,
+        "effective_weight": 3.0,
+        "pool_share": 0.024390243902439025,
+        "overall_per_point": 0.01829268292682927,
+        "overall_contribution": 1.5000000000000002,
+        "overall_drag": 0.3292682926829269
+      },
+      {
+        "name": "High elegance",
+        "pool": "subjective",
+        "score": 68.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 22.0,
+        "effective_weight": 22.0,
+        "pool_share": 0.17886178861788618,
+        "overall_per_point": 0.13414634146341464,
+        "overall_contribution": 9.121951219512196,
+        "overall_drag": 4.2926829268292686
+      },
+      {
+        "name": "Stale migration",
+        "pool": "subjective",
+        "score": 72.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.43902439024390244,
+        "overall_drag": 0.17073170731707318
+      },
+      {
+        "name": "Init coupling",
+        "pool": "subjective",
+        "score": 82.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.5,
+        "overall_drag": 0.10975609756097561
+      },
+      {
+        "name": "Logic clarity",
+        "pool": "subjective",
+        "score": 84.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 6.0,
+        "effective_weight": 6.0,
+        "pool_share": 0.04878048780487805,
+        "overall_per_point": 0.03658536585365854,
+        "overall_contribution": 3.0731707317073176,
+        "overall_drag": 0.5853658536585367
+      },
+      {
+        "name": "Low elegance",
+        "pool": "subjective",
+        "score": 82.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 12.0,
+        "effective_weight": 12.0,
+        "pool_share": 0.0975609756097561,
+        "overall_per_point": 0.07317073170731708,
+        "overall_contribution": 6.000000000000001,
+        "overall_drag": 1.3170731707317076
+      },
+      {
+        "name": "Mid elegance",
+        "pool": "subjective",
+        "score": 70.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 22.0,
+        "effective_weight": 22.0,
+        "pool_share": 0.17886178861788618,
+        "overall_per_point": 0.13414634146341464,
+        "overall_contribution": 9.390243902439025,
+        "overall_drag": 4.024390243902439
+      },
+      {
+        "name": "Naming quality",
+        "pool": "subjective",
+        "score": 88.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 2.0,
+        "effective_weight": 2.0,
+        "pool_share": 0.016260162601626018,
+        "overall_per_point": 0.012195121951219513,
+        "overall_contribution": 1.0731707317073171,
+        "overall_drag": 0.14634146341463417
+      },
+      {
+        "name": "Structure nav",
+        "pool": "subjective",
+        "score": 70.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 5.0,
+        "effective_weight": 5.0,
+        "pool_share": 0.04065040650406504,
+        "overall_per_point": 0.03048780487804878,
+        "overall_contribution": 2.1341463414634148,
+        "overall_drag": 0.9146341463414633
+      },
+      {
+        "name": "Test strategy",
+        "pool": "subjective",
+        "score": 52.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 1.0,
+        "effective_weight": 1.0,
+        "pool_share": 0.008130081300813009,
+        "overall_per_point": 0.006097560975609756,
+        "overall_contribution": 0.3170731707317073,
+        "overall_drag": 0.29268292682926833
+      },
+      {
+        "name": "Type safety",
+        "pool": "subjective",
+        "score": 72.0,
+        "checks": 0.0,
+        "sample_factor": 1.0,
+        "configured_weight": 12.0,
+        "effective_weight": 12.0,
+        "pool_share": 0.0975609756097561,
+        "overall_per_point": 0.07317073170731708,
+        "overall_contribution": 5.26829268292683,
+        "overall_drag": 2.048780487804878
       }
     ]
   },
-  "total_matching": 24,
-  "hidden": {
-    "by_detector": {
-      "review": 14
-    },
-    "total": 14
+  "subjective_integrity": {
+    "status": "pass",
+    "target_score": 95.0,
+    "matched_count": 0,
+    "matched_dimensions": [],
+    "reset_dimensions": []
   },
-  "noise_budget": 10,
-  "noise_global_budget": 0,
+  "score_confidence": {
+    "status": "reduced",
+    "confidence": 0.0,
+    "detectors": [
+      {
+        "detector": "pmd_violation",
+        "status": "reduced",
+        "confidence": 0.0,
+        "summary": "pmd tooling unavailable (tool_failed_unparsed_output)",
+        "impact": "Detector results may be under-reported for this scan.",
+        "remediation": "Install/fix the tool command and rerun scan.",
+        "tool": "pmd",
+        "reason": "tool_failed_unparsed_output"
+      }
+    ],
+    "dimensions": []
+  },
+  "potentials": {
+    "java": {
+      "structural": 29,
+      "flat_dirs": 23,
+      "signature": 2,
+      "security": 29,
+      "single_use": 0,
+      "cycles": 29,
+      "orphaned": 29,
+      "test_coverage": 199,
+      "boilerplate_duplication": 0,
+      "dupes": 104,
+      "stale_wontfix": 0
+    }
+  },
+  "scan_coverage": {
+    "java": {
+      "status": "reduced",
+      "confidence": 0.0,
+      "detectors": {
+        "pmd_violation": {
+          "detector": "pmd_violation",
+          "status": "reduced",
+          "confidence": 0.0,
+          "summary": "pmd tooling unavailable (tool_failed_unparsed_output)",
+          "impact": "Detector results may be under-reported for this scan.",
+          "remediation": "Install/fix the tool command and rerun scan.",
+          "tool": "pmd",
+          "reason": "tool_failed_unparsed_output"
+        },
+        "security": {
+          "detector": "security",
+          "status": "full",
+          "confidence": 1.0,
+          "summary": "Security coverage complete for enabled detectors.",
+          "impact": "",
+          "remediation": "",
+          "tool": "",
+          "reason": ""
+        }
+      },
+      "warnings": [
+        {
+          "detector": "pmd_violation",
+          "status": "reduced",
+          "confidence": 0.0,
+          "summary": "pmd tooling unavailable (tool_failed_unparsed_output)",
+          "impact": "Detector results may be under-reported for this scan.",
+          "remediation": "Install/fix the tool command and rerun scan.",
+          "tool": "pmd",
+          "reason": "tool_failed_unparsed_output"
+        }
+      ],
+      "updated_at": "2026-03-14T17:12:46+00:00"
+    }
+  },
+  "zone_distribution": {
+    "production": 29,
+    "test": 20
+  },
   "narrative": {
-    "phase": "early_momentum",
-    "headline": "Score 67.1/100 with 87 issues open. Keep the momentum going. (24 review work items \u2014 run `desloppify show review --status open`)",
+    "phase": "middle_grind",
+    "headline": "87 issues open. Test health (0.0%) needs attention \u2014 run `desloppify next` to start. (22 review work items \u2014 run `desloppify show review --status open`)",
     "dimensions": {
       "lowest_dimensions": [
         {
           "name": "Test health",
-          "strict": 0.2,
-          "failing": 25,
+          "strict": 0.0,
+          "failing": 26,
           "impact": 0.0
         },
         {
@@ -265,40 +1042,78 @@
           "impact_description": "re-review to improve"
         },
         {
-          "name": "Error consistency",
+          "name": "Code quality",
           "strict": 65.0,
-          "failing": 2,
-          "impact": 0.0,
-          "subjective": true,
-          "impact_description": "re-review to improve"
+          "failing": 26,
+          "impact": 0.0
         }
       ],
       "biggest_gap_dimensions": [],
       "stagnant_dimensions": [
         {
-          "name": "Code quality",
-          "strict": 65.7,
-          "stuck_scans": 4
-        },
-        {
           "name": "Security",
           "strict": 100.0,
-          "stuck_scans": 4
+          "stuck_scans": 5
         },
         {
           "name": "File health",
           "strict": 100.0,
-          "stuck_scans": 4
+          "stuck_scans": 5
         },
         {
           "name": "Duplication",
           "strict": 100.0,
-          "stuck_scans": 4
+          "stuck_scans": 5
         },
         {
           "name": "Test health",
-          "strict": 0.2,
-          "stuck_scans": 4
+          "strict": 0.0,
+          "stuck_scans": 5
+        },
+        {
+          "name": "API coherence",
+          "strict": 70.0,
+          "stuck_scans": 5
+        },
+        {
+          "name": "Convention drift",
+          "strict": 80.0,
+          "stuck_scans": 5
+        },
+        {
+          "name": "Cross-module arch",
+          "strict": 72.0,
+          "stuck_scans": 5
+        },
+        {
+          "name": "High elegance",
+          "strict": 68.0,
+          "stuck_scans": 5
+        },
+        {
+          "name": "Stale migration",
+          "strict": 72.0,
+          "stuck_scans": 5
+        },
+        {
+          "name": "Mid elegance",
+          "strict": 70.0,
+          "stuck_scans": 5
+        },
+        {
+          "name": "Structure nav",
+          "strict": 70.0,
+          "stuck_scans": 5
+        },
+        {
+          "name": "Test strategy",
+          "strict": 52.0,
+          "stuck_scans": 5
+        },
+        {
+          "name": "Type safety",
+          "strict": 72.0,
+          "stuck_scans": 5
         }
       ]
     },
@@ -306,8 +1121,8 @@
       {
         "type": "reorganize",
         "detector": "orphaned",
-        "count": 25,
-        "description": "25 orphaned issues \u2014 delete dead files or relocate with `desloppify move`",
+        "count": 26,
+        "description": "26 orphaned issues \u2014 delete dead files or relocate with `desloppify move`",
         "command": "desloppify show orphaned --status open",
         "impact": 0.0,
         "dimension": "Code quality",
@@ -317,12 +1132,16 @@
       {
         "type": "refactor",
         "detector": "test_coverage",
-        "count": 25,
-        "description": "25 test_coverage work items \u2014 add tests for untested production modules \u2014 prioritize by import count",
-        "command": "desloppify show test_coverage --status open",
+        "count": 26,
+        "description": "26 test_coverage issues in 1 cluster(s) \u2014 run `desloppify next`",
+        "command": "desloppify next",
         "impact": 0.0,
         "dimension": "Test health",
         "priority": 2,
+        "clusters": [
+          "auto/test_coverage"
+        ],
+        "cluster_count": 1,
         "lane": "test_coverage"
       },
       {
@@ -339,8 +1158,8 @@
       {
         "type": "refactor",
         "detector": "review",
-        "count": 24,
-        "description": "24 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
+        "count": 22,
+        "description": "22 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
         "command": "desloppify show review --status open",
         "impact": 0.0,
         "dimension": "Unknown",
@@ -351,18 +1170,22 @@
         "type": "manual_fix",
         "detector": "stale_exclude",
         "count": 11,
-        "description": "11 stale_exclude work items \u2014 remove stale exclusion or verify it's still needed",
-        "command": "desloppify show stale_exclude --status open",
+        "description": "11 stale_exclude issues in 1 cluster(s) \u2014 run `desloppify next`",
+        "command": "desloppify next",
         "impact": 0.0,
         "dimension": "Code quality",
         "priority": 5,
+        "clusters": [
+          "auto/stale_exclude"
+        ],
+        "cluster_count": 1,
         "lane": "refactor_2"
       }
     ],
     "strategy": {
       "fixer_leverage": {
         "auto_fixable_count": 0,
-        "total_count": 135,
+        "total_count": 131,
         "coverage": 0.0,
         "impact_ratio": 0.0,
         "recommendation": "none"
@@ -372,7 +1195,7 @@
           "actions": [
             1
           ],
-          "file_count": 25,
+          "file_count": 26,
           "total_impact": 0.0,
           "automation": "manual",
           "run_first": false
@@ -408,21 +1231,21 @@
           "actions": [
             2
           ],
-          "file_count": 25,
+          "file_count": 26,
           "total_impact": 0.0,
           "automation": "manual",
           "run_first": false
         }
       },
       "can_parallelize": true,
-      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 24 issue(s) \u2014 `desloppify show review --status open`."
+      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 22 issue(s) \u2014 `desloppify show review --status open`."
     },
     "tools": {
       "fixers": [],
       "move": {
         "available": true,
         "relevant": true,
-        "reason": "25 orphaned files",
+        "reason": "26 orphaned files",
         "usage": "desloppify move <source> <dest> [--dry-run]"
       },
       "plan": {
@@ -446,9 +1269,9 @@
     "milestone": null,
     "primary_action": {
       "command": "desloppify show orphaned --status open",
-      "description": "25 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
+      "description": "26 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
     },
-    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 24 issue(s) \u2014 `desloppify show review --status open`.",
+    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 22 issue(s) \u2014 `desloppify show review --status open`.",
     "verification_step": {
       "command": "desloppify scan",
       "reason": "revalidate after changes"
@@ -456,33 +1279,48 @@
     "risk_flags": [],
     "strict_target": {
       "target": 95.0,
-      "current": 67.1,
-      "gap": 27.9,
+      "current": 69.3,
+      "gap": 25.7,
       "state": "below",
       "warning": null
     },
     "reminders": [
       {
         "type": "review_issues_pending",
-        "message": "24 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
+        "message": "22 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
         "command": "desloppify show review --status open",
         "priority": 1,
         "severity": "high"
       },
       {
         "type": "zone_classification",
-        "message": "20 of 48 files classified as non-production (20 test). Override with `desloppify zone set <file> production` if any are misclassified.",
+        "message": "20 of 49 files classified as non-production (20 test). Override with `desloppify zone set <file> production` if any are misclassified.",
         "command": "desloppify zone show",
         "priority": 2,
         "severity": "medium"
+      },
+      {
+        "type": "feedback_nudge",
+        "message": "If you notice patterns desloppify doesn't detect, false positives, or issues that seem off, file an issue at https://github.com/peteromalley/desloppify/issues \u2014 include the file and what you expected. It helps improve the tool.",
+        "command": null,
+        "priority": 3,
+        "severity": "low"
+      },
+      {
+        "type": "report_scores",
+        "message": "ALWAYS share ALL scores with the user: overall, objective, and strict, plus every dimension score (lenient + strict), including subjective dimensions. The goal is to maximize strict scores.",
+        "command": null,
+        "no_decay": true,
+        "priority": 3,
+        "severity": "low"
       }
     ],
     "reminder_history": {
       "zone_classification": 3,
-      "report_scores": 2,
+      "report_scores": 3,
       "review_issues_pending": 2,
       "stagnant_nudge": 5,
-      "feedback_nudge": 1
+      "feedback_nudge": 2
     }
   },
   "config": {
@@ -521,5 +1359,12 @@
     "commit_default_branch": "",
     "commit_message_template": "desloppify: {status} {count} issue(s) \u2014 {summary}",
     "trust_plugins": false
+  },
+  "plan": {
+    "active": true,
+    "focus": null,
+    "total_ordered": 22,
+    "total_skipped": 0,
+    "plan_overrides_narrative": true
   }
 }

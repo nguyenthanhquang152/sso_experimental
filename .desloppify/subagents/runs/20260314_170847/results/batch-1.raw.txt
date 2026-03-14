@@ -1,0 +1,56 @@
+{
+  "batch": "error_consistency",
+  "batch_index": 1,
+  "assessments": {
+    "error_consistency": 82.0
+  },
+  "dimension_judgment": {
+    "error_consistency": {
+      "dimension_character": "The error handling consistency was significantly improved. AuthCodeStore.exchangeCode() now throws IllegalArgumentException instead of returning null, aligning it with GoogleTokenVerifier.verify() and MicrosoftTokenVerifier.verifyIdToken(). AuthController.exchangeCode() now uses try-catch consistent with the Google/Microsoft flows. The filter still returns raw JSON strings but these are not public API endpoints.",
+      "score_rationale": "Score 82: Core error contract inconsistency (null vs exception) has been resolved. AuthCodeStore now throws consistently with sibling token services. The remaining gap is the MicrosoftChallengeStore.consumeNonce() null-return contract which mirrors the resolved AuthCodeStore issue but was not changed in this batch."
+    }
+  },
+  "issues": [
+    {
+      "dimension": "error_consistency",
+      "identifier": "microsoft_challenge_store_null_return",
+      "summary": "MicrosoftChallengeStore.consumeNonce() still returns null for invalid sessions, while AuthCodeStore now throws",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java",
+        "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+      ],
+      "evidence": [
+        "MicrosoftChallengeStore.consumeNonce() Javadoc: 'Returns null if the session does not exist, has expired, or does not match'",
+        "AuthController.verifyMicrosoftToken() checks: if (expectedNonce == null) { return ResponseEntity.badRequest()... }",
+        "AuthCodeStore.exchangeCode() now throws IllegalArgumentException \u2014 consumeNonce() is still null-returning"
+      ],
+      "suggestion": "Consider updating consumeNonce() to throw IllegalArgumentException on invalid/expired challenges, consistent with the updated AuthCodeStore pattern. Update AuthController to use try-catch.",
+      "confidence": "medium",
+      "impact_scope": "local",
+      "fix_scope": "multi_edit"
+    }
+  ],
+  "context_updates": {
+    "error_consistency": {
+      "add": [
+        {
+          "header": "AuthCodeStore.exchangeCode() now throws IllegalArgumentException",
+          "description": "The AuthCodeStore.exchangeCode() null-return inconsistency was fixed. Both RedisAuthCodeStore and InMemoryAuthCodeStore now throw, and AuthController uses try-catch.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    }
+  },
+  "dimension_notes": {
+    "error_consistency": {
+      "evidence": [
+        "Code examined for dimension-specific patterns"
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_edit",
+      "confidence": "high",
+      "issues_preventing_higher_score": "Some error_consistency issues remain to address"
+    }
+  }
+}

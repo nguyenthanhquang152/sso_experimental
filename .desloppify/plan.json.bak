@@ -1,24 +1,15 @@
 {
   "version": 8,
   "created": "2026-03-14T16:43:28+00:00",
-  "updated": "2026-03-14T17:00:38+00:00",
+  "updated": "2026-03-14T17:12:42+00:00",
   "queue_order": [
     "review::.::holistic::api_surface_coherence::untyped_response_maps",
-    "review::.::holistic::authorization_consistency::microsoft_feature_flag_duplicated_gate",
-    "review::.::holistic::contract_coherence::microsoft_challenge_store_no_javadoc",
     "review::.::holistic::convention_outlier::duplicated_is_blank_helper",
     "review::.::holistic::cross_module_architecture::service_pkg_mixed_concerns",
-    "review::.::holistic::design_coherence::find_or_create_user_too_wide",
-    "review::.::holistic::error_consistency::auth_code_store_null_return",
-    "review::.::holistic::error_consistency::raw_json_in_filters",
     "review::.::holistic::high_level_elegance::auth_controller_too_wide",
     "review::.::holistic::high_level_elegance::config_package_mixed_concerns",
     "review::.::holistic::incomplete_migration::user_entity_dual_login_concept",
-    "review::.::holistic::logic_clarity::normalize_email_complex_condition",
-    "review::.::holistic::low_level_elegance::cookie_path_redundant_null_check",
-    "review::.::holistic::low_level_elegance::user_controller_inline_map_response",
     "review::.::holistic::mid_level_elegance::microsoft_challenge_state_inline",
-    "review::.::holistic::naming_quality::merge_provider_config_misnomer",
     "review::.::holistic::package_organization::service_package_too_wide",
     "review::.::holistic::test_strategy::no_test_microsoft_token_verifier",
     "review::.::holistic::test_strategy::no_test_provider_identity_normalizer",
@@ -26,7 +17,14 @@
     "review::.::holistic::abstraction_fitness::no_abstraction_defects_found",
     "review::.::holistic::ai_generated_debt::auth_code_store_partial_javadoc_restatement",
     "review::.::holistic::dependency_health::google_api_client_heavy_for_scope",
-    "review::.::holistic::initialization_coupling::google_verifier_heavy_constructor"
+    "review::.::holistic::initialization_coupling::google_verifier_heavy_constructor",
+    "review::.::holistic::authorization_consistency::server_vs_client_gate_documentation",
+    "review::.::holistic::contract_coherence::authenticated_user_identity_nullable_user_id",
+    "review::.::holistic::design_coherence::auth_controller_still_too_wide",
+    "review::.::holistic::error_consistency::microsoft_challenge_store_null_return",
+    "review::.::holistic::logic_clarity::microsoft_nonce_null_sentinel",
+    "review::.::holistic::low_level_elegance::microsoft_token_verifier_null_guard",
+    "review::.::holistic::naming_quality::apply_provider_identity_fields_verb_choice"
   ],
   "deferred": [],
   "skipped": {},
@@ -477,17 +475,234 @@
       "execution_policy": "planned_only"
     }
   },
-  "superseded": {},
-  "promoted_ids": [],
-  "plan_start_scores": {
-    "strict": 13.6,
-    "overall": 13.6,
-    "objective": 54.4,
-    "verified": 54.4
+  "superseded": {
+    "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3": {
+      "original_id": "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3",
+      "original_detector": "unused",
+      "original_file": "backend/src/main/java/com/demo/sso/controller/UserController.java",
+      "original_summary": "Unused import: User",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3": {
+      "original_id": "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3",
+      "original_detector": "unused",
+      "original_file": "backend/src/main/java/com/demo/sso/model/User.java",
+      "original_summary": "Unused import: persistence",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java",
+      "original_summary": "Unused import: Assertions",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java",
+      "original_summary": "Unused import: Mockito",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java",
+      "original_summary": "Unused import: Assertions",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java",
+      "original_summary": "Unused import: Mockito",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java",
+      "original_summary": "Unused import: Assertions",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java",
+      "original_summary": "Unused import: Mockito",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java",
+      "original_summary": "Unused import: AbstractHttpConfigurer",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java",
+      "original_summary": "Unused import: Matchers",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java",
+      "original_summary": "Unused import: MockMvcRequestBuilders",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java",
+      "original_summary": "Unused import: MockMvcResultMatchers",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/model/AuthFlowTest.java",
+      "original_summary": "Unused import: Assertions",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java",
+      "original_summary": "Unused import: Assertions",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java",
+      "original_summary": "Unused import: GoogleIdToken",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java",
+      "original_summary": "Unused import: Assertions",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java",
+      "original_summary": "Unused import: ArgumentMatchers",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java",
+      "original_summary": "Unused import: Assertions",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java",
+      "original_summary": "Unused import: ArgumentMatchers",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java",
+      "original_summary": "Unused import: Mockito",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/service/UserServiceTest.java",
+      "original_summary": "Unused import: Assertions",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18": {
+      "original_id": "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18",
+      "original_detector": "unused",
+      "original_file": "backend/src/test/java/com/demo/sso/service/UserServiceTest.java",
+      "original_summary": "Unused import: Mockito",
+      "status": "superseded",
+      "superseded_at": "2026-03-14T17:01:03+00:00",
+      "remapped_to": null,
+      "candidates": []
+    }
   },
+  "promoted_ids": [],
+  "plan_start_scores": {},
   "refresh_state": {
     "lifecycle_phase": "review_initial",
-    "subjective_review_completed_at_scan_count": 3
+    "subjective_review_completed_at_scan_count": 5,
+    "postflight_scan_completed_at_scan_count": 4
   },
   "execution_log": [
     {
@@ -836,6 +1051,282 @@
         "sha": "a54ea973b8d8",
         "branch": "desloppify/code-health"
       }
+    },
+    {
+      "timestamp": "2026-03-14T17:01:03+00:00",
+      "action": "reconcile",
+      "issue_ids": [
+        "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3",
+        "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3",
+        "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18",
+        "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19",
+        "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11",
+        "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34",
+        "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35",
+        "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8",
+        "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10",
+        "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3",
+        "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9",
+        "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17",
+        "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16",
+        "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18"
+      ],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "superseded_count": 22,
+        "pruned_count": 0,
+        "resurfaced_count": 0,
+        "clusters_completed_count": 0
+      }
+    },
+    {
+      "timestamp": "2026-03-14T17:01:03+00:00",
+      "action": "clear_start_scores",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T17:01:03+00:00",
+      "action": "complete_postflight_scan",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "scan_count": 4
+      }
+    },
+    {
+      "timestamp": "2026-03-14T17:07:03+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::merge_provider_config_misnomer"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Renamed to normalizeProviderConfig; updated caller in useProviderConfig.ts",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T17:07:03+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::merge_provider_config_misnomer"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Renamed to normalizeProviderConfig; updated caller in useProviderConfig.ts",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually renamed the function from mergeProviderConfig to normalizeProviderConfig in auth.ts and updated the import and usage in useProviderConfig.ts and I am not gaming the score by resolving without fixing."
+      }
+    },
+    {
+      "timestamp": "2026-03-14T17:07:32+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::low_level_elegance::cookie_path_redundant_null_check"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Removed redundant null check in AuthController.cookiePath(); constructor normalizes servletContextPath to empty string, so null check was dead code.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T17:07:56+00:00",
+      "action": "reorder",
+      "issue_ids": [
+        "review::.::holistic::low_level_elegance::cookie_path_redundant_null_check"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "position": "top",
+        "target": null,
+        "offset": null
+      }
+    },
+    {
+      "timestamp": "2026-03-14T17:08:01+00:00",
+      "action": "reorder",
+      "issue_ids": [
+        "review::.::holistic::authorization_consistency::microsoft_feature_flag_duplicated_gate"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "position": "top",
+        "target": null,
+        "offset": null
+      }
+    },
+    {
+      "timestamp": "2026-03-14T17:08:05+00:00",
+      "action": "reorder",
+      "issue_ids": [
+        "review::.::holistic::low_level_elegance::user_controller_inline_map_response"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "position": "top",
+        "target": null,
+        "offset": null
+      }
+    },
+    {
+      "timestamp": "2026-03-14T17:08:10+00:00",
+      "action": "reorder",
+      "issue_ids": [
+        "review::.::holistic::design_coherence::find_or_create_user_too_wide"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "position": "top",
+        "target": null,
+        "offset": null
+      }
+    },
+    {
+      "timestamp": "2026-03-14T17:08:15+00:00",
+      "action": "reorder",
+      "issue_ids": [
+        "review::.::holistic::error_consistency::auth_code_store_null_return"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "position": "top",
+        "target": null,
+        "offset": null
+      }
+    },
+    {
+      "timestamp": "2026-03-14T17:08:20+00:00",
+      "action": "reorder",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::microsoft_challenge_store_no_javadoc"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "position": "top",
+        "target": null,
+        "offset": null
+      }
+    },
+    {
+      "timestamp": "2026-03-14T17:08:24+00:00",
+      "action": "reorder",
+      "issue_ids": [
+        "review::.::holistic::logic_clarity::normalize_email_complex_condition"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "position": "top",
+        "target": null,
+        "offset": null
+      }
+    },
+    {
+      "timestamp": "2026-03-14T17:12:42+00:00",
+      "action": "review_import_sync",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "trigger": "review_import",
+        "new_ids": [
+          "review::.::holistic::abstraction_fitness::no_abstraction_defects_found",
+          "review::.::holistic::ai_generated_debt::auth_code_store_partial_javadoc_restatement",
+          "review::.::holistic::api_surface_coherence::untyped_response_maps",
+          "review::.::holistic::authorization_consistency::server_vs_client_gate_documentation",
+          "review::.::holistic::contract_coherence::authenticated_user_identity_nullable_user_id",
+          "review::.::holistic::convention_outlier::duplicated_is_blank_helper",
+          "review::.::holistic::cross_module_architecture::service_pkg_mixed_concerns",
+          "review::.::holistic::dependency_health::google_api_client_heavy_for_scope",
+          "review::.::holistic::design_coherence::auth_controller_still_too_wide",
+          "review::.::holistic::error_consistency::microsoft_challenge_store_null_return",
+          "review::.::holistic::high_level_elegance::auth_controller_too_wide",
+          "review::.::holistic::high_level_elegance::config_package_mixed_concerns",
+          "review::.::holistic::incomplete_migration::user_entity_dual_login_concept",
+          "review::.::holistic::initialization_coupling::google_verifier_heavy_constructor",
+          "review::.::holistic::logic_clarity::microsoft_nonce_null_sentinel",
+          "review::.::holistic::low_level_elegance::microsoft_token_verifier_null_guard",
+          "review::.::holistic::mid_level_elegance::microsoft_challenge_state_inline",
+          "review::.::holistic::naming_quality::apply_provider_identity_fields_verb_choice",
+          "review::.::holistic::package_organization::service_package_too_wide",
+          "review::.::holistic::test_strategy::no_test_microsoft_token_verifier",
+          "review::.::holistic::test_strategy::no_test_provider_identity_normalizer",
+          "review::.::holistic::type_safety::frontend_user_profile_stale"
+        ],
+        "added_to_queue": [
+          "review::.::holistic::authorization_consistency::server_vs_client_gate_documentation",
+          "review::.::holistic::contract_coherence::authenticated_user_identity_nullable_user_id",
+          "review::.::holistic::design_coherence::auth_controller_still_too_wide",
+          "review::.::holistic::error_consistency::microsoft_challenge_store_null_return",
+          "review::.::holistic::logic_clarity::microsoft_nonce_null_sentinel",
+          "review::.::holistic::low_level_elegance::microsoft_token_verifier_null_guard",
+          "review::.::holistic::naming_quality::apply_provider_identity_fields_verb_choice"
+        ],
+        "workflow_injected_ids": [],
+        "triage_injected": false,
+        "triage_injected_ids": [],
+        "triage_deferred": false,
+        "diff_new": 7,
+        "diff_reopened": 0,
+        "diff_auto_resolved": 30,
+        "stale_pruned_from_queue": [
+          "review::.::holistic::authorization_consistency::microsoft_feature_flag_duplicated_gate",
+          "review::.::holistic::contract_coherence::microsoft_challenge_store_no_javadoc",
+          "review::.::holistic::design_coherence::find_or_create_user_too_wide",
+          "review::.::holistic::error_consistency::auth_code_store_null_return",
+          "review::.::holistic::error_consistency::raw_json_in_filters",
+          "review::.::holistic::logic_clarity::normalize_email_complex_condition",
+          "review::.::holistic::low_level_elegance::cookie_path_redundant_null_check",
+          "review::.::holistic::low_level_elegance::user_controller_inline_map_response"
+        ],
+        "covered_subjective_pruned_from_queue": [],
+        "covered_subjective": [
+          "subjective::authorization_consistency",
+          "subjective::contract_coherence",
+          "subjective::design_coherence",
+          "subjective::error_consistency",
+          "subjective::logic_clarity",
+          "subjective::low_level_elegance",
+          "subjective::naming_quality"
+        ],
+        "stale_sync_injected": [],
+        "stale_sync_pruned": [],
+        "auto_cluster_changes": 0,
+        "import_scores_injected": [],
+        "import_scores_pruned": [],
+        "sync_status": "synced",
+        "sync_message": null
+      }
     }
   ],
   "epic_triage_meta": {},
@@ -872,7 +1363,9 @@
       "cluster_name": null
     }
   ],
-  "uncommitted_issues": [],
+  "uncommitted_issues": [
+    "review::.::holistic::naming_quality::merge_provider_config_misnomer"
+  ],
   "commit_tracking_branch": null,
   "scan_count_at_plan_start": 1
 }

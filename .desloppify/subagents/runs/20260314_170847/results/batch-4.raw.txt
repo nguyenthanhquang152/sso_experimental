@@ -1,0 +1,55 @@
+{
+  "batch": "authorization_consistency",
+  "batch_index": 4,
+  "assessments": {
+    "authorization_consistency": 86.0
+  },
+  "dimension_judgment": {
+    "authorization_consistency": {
+      "dimension_character": "The duplicated Microsoft client-side enabled check was consolidated into a microsoftClientSideDisabledResponse() private method. Both /microsoft/challenge and /microsoft/verify now call this single method. The security contract is enforced consistently: all Microsoft client-side endpoints check the feature flag at the top of the handler.",
+      "score_rationale": "Score 86: Duplication removed cleanly. Both endpoints now use the private helper. The remaining gap is that the server-side Microsoft gate is handled by a separate filter (MicrosoftAuthorizationGateFilter) while the client-side gate is handled in the controller \u2014 this two-layer approach is appropriate for the different flows but could be documented more clearly."
+    }
+  },
+  "issues": [
+    {
+      "dimension": "authorization_consistency",
+      "identifier": "server_vs_client_gate_documentation",
+      "summary": "The distinction between server-side Microsoft gate (filter) vs client-side gate (controller) is not documented",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+        "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java"
+      ],
+      "evidence": [
+        "MicrosoftAuthorizationGateFilter blocks /oauth2/authorization/microsoft and /login/oauth2/code/microsoft (server-side)",
+        "AuthController checks rolloutProperties.getMicrosoft().isClientSideEnabled() for /microsoft/challenge and /microsoft/verify"
+      ],
+      "suggestion": "Add a class-level comment to AuthController explaining that client-side Microsoft gates are enforced in-controller while server-side gates are enforced by MicrosoftAuthorizationGateFilter.",
+      "confidence": "low",
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    }
+  ],
+  "context_updates": {
+    "authorization_consistency": {
+      "add": [
+        {
+          "header": "Microsoft client-side feature flag check deduplicated via private method",
+          "description": "microsoftClientSideDisabledResponse() private method replaces the two identical inline ResponseEntity.status(503) blocks in /challenge and /verify endpoints.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    }
+  },
+  "dimension_notes": {
+    "authorization_consistency": {
+      "evidence": [
+        "Code examined for dimension-specific patterns"
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_edit",
+      "confidence": "high",
+      "issues_preventing_higher_score": "Some authorization_consistency issues remain to address"
+    }
+  }
+}

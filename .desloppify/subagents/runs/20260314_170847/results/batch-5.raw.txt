@@ -1,0 +1,54 @@
+{
+  "batch": "design_coherence",
+  "batch_index": 5,
+  "assessments": {
+    "design_coherence": 74.0
+  },
+  "dimension_judgment": {
+    "design_coherence": {
+      "dimension_character": "UserService.findOrCreateUser() was refactored to extract updateExistingUser() and createNewUser() private methods, making the public method a clear orchestrator. The create-new path is now isolated from the update-existing path. AuthController remains broad (5 endpoints, 8 dependencies) but the core auth/exchange flow is now cleaner.",
+      "score_rationale": "Score 74: UserService improvement is positive. AuthController is still too wide (unchanged) \u2014 it handles Google verify, Microsoft challenge, Microsoft verify, code exchange, and logout. The UserResponse DTO extraction shows good design. Remaining: AuthController needs splitting into MicrosoftAuthController + AuthController."
+    }
+  },
+  "issues": [
+    {
+      "dimension": "design_coherence",
+      "identifier": "auth_controller_still_too_wide",
+      "summary": "AuthController still handles 5 distinct flows and injects 8 dependencies",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+      ],
+      "evidence": [
+        "5 endpoints: /google/verify, /microsoft/challenge, /microsoft/verify, /exchange, /logout",
+        "8 constructor parameters: googleTokenVerifier, userService, jwtTokenService, authCodeStore, providerIdentityNormalizer, microsoftChallengeStore, microsoftTokenVerifierProvider, rolloutProperties, servletContextPath"
+      ],
+      "suggestion": "Extract MicrosoftAuthController with /microsoft/challenge and /microsoft/verify endpoints and the session management helpers (currentChallengeSessionId, createChallengeSessionCookie, cookiePath). Keep AuthController for /google/verify, /exchange, /logout.",
+      "confidence": "high",
+      "impact_scope": "module",
+      "fix_scope": "multi_edit"
+    }
+  ],
+  "context_updates": {
+    "design_coherence": {
+      "add": [
+        {
+          "header": "UserService.findOrCreateUser() extracted into updateExistingUser() and createNewUser()",
+          "description": "findOrCreateUser() is now a clean 5-line orchestrator delegating to private methods for each code path.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    }
+  },
+  "dimension_notes": {
+    "design_coherence": {
+      "evidence": [
+        "Code examined for dimension-specific patterns"
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_edit",
+      "confidence": "high",
+      "issues_preventing_higher_score": "Some design_coherence issues remain to address"
+    }
+  }
+}

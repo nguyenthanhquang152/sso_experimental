@@ -1,0 +1,60 @@
+{
+  "batch": "contract_coherence",
+  "batch_index": 6,
+  "assessments": {
+    "contract_coherence": 82.0
+  },
+  "dimension_judgment": {
+    "contract_coherence": {
+      "dimension_character": "MicrosoftChallengeStore now has comprehensive Javadoc explaining session lifecycle, single-use guarantee, TTL, and the null-return contract for consumeNonce(). AuthCodeStore.exchangeCode() Javadoc was updated to document the new throw contract. AuthenticatedUserIdentity.legacy() nullable userId is still implicit.",
+      "score_rationale": "Score 82: MicrosoftChallengeStore and AuthCodeStore contract documentation significantly improved. AuthCodeStore now explicitly documents the IllegalArgumentException throw. The remaining gap is AuthenticatedUserIdentity.legacy() where the nullable userId is not surfaced via a @Nullable annotation or Optional type."
+    }
+  },
+  "issues": [
+    {
+      "dimension": "contract_coherence",
+      "identifier": "authenticated_user_identity_nullable_user_id",
+      "summary": "AuthenticatedUserIdentity.legacy() has implicit nullable userId not annotated or wrapped in Optional",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java"
+      ],
+      "evidence": [
+        "public static AuthenticatedUserIdentity legacy(String email, Long userId) \u2014 userId can be null",
+        "identity.userId() is called without null check in legacy mode consumers"
+      ],
+      "suggestion": "Add a Javadoc @param note that userId is nullable in legacy mode, or use Optional<Long> for the userId component.",
+      "confidence": "medium",
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    }
+  ],
+  "context_updates": {
+    "contract_coherence": {
+      "add": [
+        {
+          "header": "MicrosoftChallengeStore has comprehensive Javadoc",
+          "description": "Session lifecycle, single-use guarantee, TTL, and null-return semantics are now documented.",
+          "settled": true,
+          "positive": true
+        },
+        {
+          "header": "AuthCodeStore.exchangeCode() Javadoc documents throw contract",
+          "description": "Updated to document IllegalArgumentException throw for invalid/expired codes.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    }
+  },
+  "dimension_notes": {
+    "contract_coherence": {
+      "evidence": [
+        "Code examined for dimension-specific patterns"
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_edit",
+      "confidence": "high",
+      "issues_preventing_higher_score": "Some contract_coherence issues remain to address"
+    }
+  }
+}
