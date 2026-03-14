@@ -58,7 +58,8 @@ Example response:
     "clientSideEnabled": true,
     "clientId": "microsoft-client-id",
     "authority": "https://login.microsoftonline.com/common/v2.0",
-    "scopes": ["openid", "profile", "email"]
+    "scopes": ["openid", "profile", "email"],
+    "redirectUri": "http://localhost:8000"
   }
 }
 ```

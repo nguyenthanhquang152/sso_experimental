@@ -497,7 +497,7 @@ Required contract:
 
 - `GET /api/auth/providers` is an unauthenticated JSON endpoint that returns provider availability and public browser-auth config
 - the home page renders Microsoft options only from this backend payload
-- the payload includes Microsoft `serverSideEnabled`, `clientSideEnabled`, and public MSAL config needed by the browser, such as `clientId`, `authority`, and scopes
+- the payload includes Microsoft `serverSideEnabled`, `clientSideEnabled`, and public MSAL config needed by the browser, such as `clientId`, `authority`, `redirectUri`, and scopes
 - when Microsoft is disabled or not configured, the payload must still be valid and must represent Microsoft as hard-disabled
 - when Microsoft is disabled in backend flags, the frontend must not render enabled Microsoft cards even if stale frontend config exists
 - rollout must be **backend-first**: deploy `/api/auth/providers` support before shipping the frontend that depends on it
@@ -509,14 +509,16 @@ Required response schema:
 {
   "google": {
     "serverSideEnabled": true,
-    "clientSideEnabled": true
+    "clientSideEnabled": true,
+    "clientId": "google-client-id.apps.googleusercontent.com"
   },
   "microsoft": {
     "serverSideEnabled": false,
     "clientSideEnabled": false,
     "clientId": null,
     "authority": null,
-    "scopes": []
+    "scopes": [],
+    "redirectUri": null
   }
 }
 ```
