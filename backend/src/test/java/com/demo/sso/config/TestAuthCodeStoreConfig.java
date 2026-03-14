@@ -1,7 +1,7 @@
 package com.demo.sso.config;
 
-import com.demo.sso.service.AuthCodeStore;
-import com.demo.sso.service.MicrosoftChallengeStore;
+import com.demo.sso.service.challenge.AuthCodeStore;
+import com.demo.sso.service.challenge.MicrosoftChallengeStore;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;

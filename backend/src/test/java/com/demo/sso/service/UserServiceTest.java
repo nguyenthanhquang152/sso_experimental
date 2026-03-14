@@ -1,6 +1,8 @@
 package com.demo.sso.service;
 
 import com.demo.sso.service.UserService;
+import com.demo.sso.service.auth.AuthenticatedUserIdentity;
+import com.demo.sso.service.auth.NormalizedIdentity;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;

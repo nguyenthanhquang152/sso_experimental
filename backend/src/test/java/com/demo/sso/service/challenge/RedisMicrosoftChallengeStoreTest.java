@@ -1,6 +1,6 @@
-package com.demo.sso.service;
+package com.demo.sso.service.challenge;
 
-import com.demo.sso.service.MicrosoftChallengeStore;
+import com.demo.sso.service.challenge.MicrosoftChallengeStore;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;

@@ -2,8 +2,8 @@ package com.demo.sso.config;
 
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.config.JwtAuthenticationFilter;
-import com.demo.sso.service.AuthenticatedUserIdentity;
-import com.demo.sso.service.JwtTokenService;
+import com.demo.sso.service.auth.AuthenticatedUserIdentity;
+import com.demo.sso.service.token.JwtTokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

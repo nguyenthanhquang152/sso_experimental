@@ -1,5 +1,6 @@
-package com.demo.sso.service;
+package com.demo.sso.service.auth;
 
+import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import com.demo.sso.model.AuthFlow;
 import java.util.Locale;
 import java.util.Map;

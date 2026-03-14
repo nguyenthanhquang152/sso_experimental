@@ -1,4 +1,4 @@
-package com.demo.sso.service;
+package com.demo.sso.service.challenge;
 
 /**
  * Stores short-lived, single-use authorization codes that map to JWTs.

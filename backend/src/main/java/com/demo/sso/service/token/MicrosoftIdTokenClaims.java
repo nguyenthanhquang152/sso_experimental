@@ -1,4 +1,4 @@
-package com.demo.sso.service;
+package com.demo.sso.service.token;
 
 import java.util.Collection;
 import java.util.List;

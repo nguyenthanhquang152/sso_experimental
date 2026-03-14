@@ -7,8 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.demo.sso.config.TestAuthCodeStoreConfig;
-import com.demo.sso.service.GoogleTokenVerifier;
-import com.demo.sso.service.MicrosoftTokenVerifier;
+import com.demo.sso.service.token.GoogleTokenVerifier;
+import com.demo.sso.service.token.MicrosoftTokenVerifier;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

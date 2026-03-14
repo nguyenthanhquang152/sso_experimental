@@ -1,4 +1,4 @@
-package com.demo.sso.service;
+package com.demo.sso.service.auth;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

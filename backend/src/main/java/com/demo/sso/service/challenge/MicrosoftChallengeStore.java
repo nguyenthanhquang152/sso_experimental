@@ -1,4 +1,4 @@
-package com.demo.sso.service;
+package com.demo.sso.service.challenge;
 
 import java.util.Optional;
 

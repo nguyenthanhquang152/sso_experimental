@@ -1,9 +1,11 @@
 package com.demo.sso.service;
 
 import com.demo.sso.service.OAuth2SuccessHandler;
+import com.demo.sso.service.auth.AuthCompletionService;
+import com.demo.sso.service.auth.NormalizedIdentity;
+import com.demo.sso.service.auth.ProviderIdentityNormalizer;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
-import com.demo.sso.model.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -23,19 +25,15 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyString;
 
 @ExtendWith(MockitoExtension.class)
 class OAuth2SuccessHandlerTest {
 
-    @Mock private UserService userService;
-    @Mock private JwtTokenService jwtTokenService;
-    @Mock private AuthCodeStore authCodeStore;
+    @Mock private AuthCompletionService authCompletionService;
     @Mock private HttpServletRequest request;
     @Mock private HttpServletResponse response;
     @Mock private Authentication authentication;
@@ -46,7 +44,7 @@ class OAuth2SuccessHandlerTest {
     @BeforeEach
     void setUp() {
         handler = new OAuth2SuccessHandler(
-            userService, jwtTokenService, authCodeStore, new ProviderIdentityNormalizer(), "http://localhost:8000");
+            authCompletionService, new ProviderIdentityNormalizer(), "http://localhost:8000");
     }
 
     private void setupVerifiedOAuth2User(String sub, String email, String name, String picture) {
@@ -66,18 +64,13 @@ class OAuth2SuccessHandlerTest {
     void onAuthenticationSuccess_extractsAttributesDualWritesGoogleIdentityAndRedirects() throws IOException {
         setupVerifiedOAuth2User("google-123", "user@example.com", "Test User", "http://pic.url");
 
-        User user = new User();
-        user.setEmail("user@example.com");
-        user.setGoogleId("google-123");
         ArgumentCaptor<NormalizedIdentity> identityCaptor = ArgumentCaptor.forClass(NormalizedIdentity.class);
-        when(userService.findOrCreateUser(any(NormalizedIdentity.class))).thenReturn(user);
-
-        when(jwtTokenService.generateToken(user)).thenReturn("test.jwt.token");
-        when(authCodeStore.storeJwt("test.jwt.token")).thenReturn("auth-code-123");
+        when(authCompletionService.completeAuthenticationWithCode(any(NormalizedIdentity.class)))
+            .thenReturn("auth-code-123");
 
         handler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(userService).findOrCreateUser(identityCaptor.capture());
+        verify(authCompletionService).completeAuthenticationWithCode(identityCaptor.capture());
         NormalizedIdentity identity = identityCaptor.getValue();
         assertEquals(AuthProvider.GOOGLE, identity.provider());
         assertEquals(AuthFlow.SERVER_SIDE, identity.loginFlow());
@@ -92,17 +85,12 @@ class OAuth2SuccessHandlerTest {
     void onAuthenticationSuccess_savesUserAsServerSide() throws IOException {
         setupVerifiedOAuth2User("g-id", "test@test.com", "Name", null);
 
-        User user = new User();
-        user.setEmail("test@test.com");
-        user.setGoogleId("g-id");
-        when(userService.findOrCreateUser(any(NormalizedIdentity.class)))
-            .thenReturn(user);
-        when(jwtTokenService.generateToken(user)).thenReturn("jwt");
-        when(authCodeStore.storeJwt(anyString())).thenReturn("code");
+        when(authCompletionService.completeAuthenticationWithCode(any(NormalizedIdentity.class)))
+            .thenReturn("code");
 
         handler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(userService).findOrCreateUser(
+        verify(authCompletionService).completeAuthenticationWithCode(
             NormalizedIdentity.google("g-id", "test@test.com", "Name", null, AuthFlow.SERVER_SIDE)
         );
     }
@@ -110,19 +98,15 @@ class OAuth2SuccessHandlerTest {
     @Test
     void onAuthenticationSuccess_redirectsToConfiguredFrontendUrl() throws IOException {
         OAuth2SuccessHandler customHandler = new OAuth2SuccessHandler(
-            userService, jwtTokenService, authCodeStore, new ProviderIdentityNormalizer(), "https://myapp.com");
+            authCompletionService, new ProviderIdentityNormalizer(), "https://myapp.com");
 
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
         when(oAuth2User.getAttribute("email_verified")).thenReturn(true);
         when(oAuth2User.getAttribute("sub")).thenReturn("g");
         when(oAuth2User.getAttribute("email")).thenReturn("e@e.com");
 
-        User user = new User();
-        user.setEmail("e@e.com");
-        user.setGoogleId("g");
-        when(userService.findOrCreateUser(any(NormalizedIdentity.class))).thenReturn(user);
-        when(jwtTokenService.generateToken(user)).thenReturn("jwt");
-        when(authCodeStore.storeJwt("jwt")).thenReturn("code-xyz");
+        when(authCompletionService.completeAuthenticationWithCode(any(NormalizedIdentity.class)))
+            .thenReturn("code-xyz");
 
         customHandler.onAuthenticationSuccess(request, response, authentication);
 
@@ -137,7 +121,7 @@ class OAuth2SuccessHandlerTest {
         handler.onAuthenticationSuccess(request, response, authentication);
 
         verify(response).sendRedirect("http://localhost:8000/?error=email_not_verified");
-        verifyNoInteractions(userService);
+        verifyNoInteractions(authCompletionService);
     }
 
     @Test
@@ -148,7 +132,7 @@ class OAuth2SuccessHandlerTest {
         handler.onAuthenticationSuccess(request, response, authentication);
 
         verify(response).sendRedirect("http://localhost:8000/?error=email_not_verified");
-        verifyNoInteractions(userService);
+        verifyNoInteractions(authCompletionService);
     }
 
     @Test
@@ -161,7 +145,7 @@ class OAuth2SuccessHandlerTest {
         handler.onAuthenticationSuccess(request, response, authentication);
 
         verify(response).sendRedirect("http://localhost:8000/?error=missing_attributes");
-        verifyNoInteractions(userService);
+        verifyNoInteractions(authCompletionService);
     }
 
     @Test
@@ -174,27 +158,19 @@ class OAuth2SuccessHandlerTest {
         handler.onAuthenticationSuccess(request, response, authentication);
 
         verify(response).sendRedirect("http://localhost:8000/?error=missing_attributes");
-        verifyNoInteractions(userService);
+        verifyNoInteractions(authCompletionService);
     }
 
     @Test
-    void onAuthenticationSuccess_delegatesJwtMintingToRolloutAwareUserMethod() throws IOException {
+    void onAuthenticationSuccess_delegatesAuthCompletionToService() throws IOException {
         setupVerifiedOAuth2User("google-123", "user@example.com", "Test User", "http://pic.url");
 
-        User user = new User();
-        user.setId(42L);
-        user.setEmail("user@example.com");
-        user.setGoogleId("google-123");
-        user.setProvider(AuthProvider.GOOGLE);
-        user.setProviderUserId("google-123");
-        when(userService.findOrCreateUser(any(NormalizedIdentity.class))).thenReturn(user);
-        when(jwtTokenService.generateToken(user)).thenReturn("test.jwt.token");
-        when(authCodeStore.storeJwt("test.jwt.token")).thenReturn("auth-code-123");
+        when(authCompletionService.completeAuthenticationWithCode(any(NormalizedIdentity.class)))
+            .thenReturn("auth-code-123");
 
         handler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(jwtTokenService).generateToken(user);
-        verify(jwtTokenService, never()).generateLegacyToken(anyString(), anyString());
+        verify(authCompletionService).completeAuthenticationWithCode(any(NormalizedIdentity.class));
     }
 
     @Test
@@ -215,21 +191,13 @@ class OAuth2SuccessHandlerTest {
             "microsoft"
         );
 
-        User user = new User();
-        user.setId(7L);
-        user.setProvider(AuthProvider.MICROSOFT);
-        user.setProviderUserId(
-            "https://login.microsoftonline.com/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/v2.0|microsoft-subject");
-        user.setEmail("employee@example.com");
-
         ArgumentCaptor<NormalizedIdentity> identityCaptor = ArgumentCaptor.forClass(NormalizedIdentity.class);
-        when(userService.findOrCreateUser(any(NormalizedIdentity.class))).thenReturn(user);
-        when(jwtTokenService.generateToken(user)).thenReturn("microsoft.jwt.token");
-        when(authCodeStore.storeJwt("microsoft.jwt.token")).thenReturn("ms-auth-code");
+        when(authCompletionService.completeAuthenticationWithCode(any(NormalizedIdentity.class)))
+            .thenReturn("ms-auth-code");
 
         handler.onAuthenticationSuccess(request, response, microsoftAuthentication);
 
-        verify(userService).findOrCreateUser(identityCaptor.capture());
+        verify(authCompletionService).completeAuthenticationWithCode(identityCaptor.capture());
         NormalizedIdentity identity = identityCaptor.getValue();
         assertEquals(AuthProvider.MICROSOFT, identity.provider());
         assertEquals(AuthFlow.SERVER_SIDE, identity.loginFlow());

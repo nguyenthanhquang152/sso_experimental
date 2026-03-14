@@ -1,6 +1,6 @@
-package com.demo.sso.service;
+package com.demo.sso.service.token;
 
-import com.demo.sso.service.GoogleTokenVerifier;
+import com.demo.sso.service.token.GoogleTokenVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

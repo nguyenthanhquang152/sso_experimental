@@ -1,5 +1,7 @@
-package com.demo.sso.service;
+package com.demo.sso.service.token;
 
+import com.demo.sso.service.auth.NormalizedIdentity;
+import com.demo.sso.service.auth.ProviderIdentityNormalizer;
 import com.demo.sso.config.MicrosoftAuthProperties;
 import com.demo.sso.model.AuthFlow;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.demo.sso.config;
 
-import com.demo.sso.service.GoogleTokenVerifier;
-import com.demo.sso.service.MicrosoftTokenVerifier;
+import com.demo.sso.service.token.GoogleTokenVerifier;
+import com.demo.sso.service.token.MicrosoftTokenVerifier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

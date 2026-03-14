@@ -10,16 +10,14 @@ import com.demo.sso.controller.dto.MicrosoftChallengeResponse;
 import com.demo.sso.controller.dto.MicrosoftVerifyRequest;
 import com.demo.sso.controller.dto.TokenResponse;
 import com.demo.sso.model.AuthFlow;
-import com.demo.sso.model.User;
-import com.demo.sso.service.AuthCodeStore;
-import com.demo.sso.service.GoogleTokenVerifier;
-import com.demo.sso.service.GoogleTokenVerifier.VerifiedGoogleIdentity;
-import com.demo.sso.service.JwtTokenService;
-import com.demo.sso.service.MicrosoftChallengeStore;
-import com.demo.sso.service.MicrosoftTokenVerifier;
-import com.demo.sso.service.NormalizedIdentity;
-import com.demo.sso.service.ProviderIdentityNormalizer;
-import com.demo.sso.service.UserService;
+import com.demo.sso.service.auth.AuthCompletionService;
+import com.demo.sso.service.auth.NormalizedIdentity;
+import com.demo.sso.service.auth.ProviderIdentityNormalizer;
+import com.demo.sso.service.challenge.AuthCodeStore;
+import com.demo.sso.service.challenge.MicrosoftChallengeStore;
+import com.demo.sso.service.token.GoogleTokenVerifier;
+import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
+import com.demo.sso.service.token.MicrosoftTokenVerifier;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -47,8 +45,7 @@ public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     private final GoogleTokenVerifier googleTokenVerifier;
-    private final UserService userService;
-    private final JwtTokenService jwtTokenService;
+    private final AuthCompletionService authCompletionService;
     private final AuthCodeStore authCodeStore;
     private final ProviderIdentityNormalizer providerIdentityNormalizer;
     private final MicrosoftChallengeStore microsoftChallengeStore;
@@ -60,7 +57,7 @@ public class AuthController {
     private static final Duration MICROSOFT_CHALLENGE_SESSION_TTL = Duration.ofMinutes(5);
 
     public AuthController(GoogleTokenVerifier googleTokenVerifier,
-                           UserService userService, JwtTokenService jwtTokenService,
+                           AuthCompletionService authCompletionService,
                            AuthCodeStore authCodeStore,
                            ProviderIdentityNormalizer providerIdentityNormalizer,
                            MicrosoftChallengeStore microsoftChallengeStore,
@@ -68,8 +65,7 @@ public class AuthController {
                            AuthRolloutProperties rolloutProperties,
                            @Value("${server.servlet.context-path:}") String servletContextPath) {
         this.googleTokenVerifier = googleTokenVerifier;
-        this.userService = userService;
-        this.jwtTokenService = jwtTokenService;
+        this.authCompletionService = authCompletionService;
         this.authCodeStore = authCodeStore;
         this.providerIdentityNormalizer = providerIdentityNormalizer;
         this.microsoftChallengeStore = microsoftChallengeStore;
@@ -105,9 +101,7 @@ public class AuthController {
                 google.pictureUrl(),
                 AuthFlow.CLIENT_SIDE);
 
-            User user = userService.findOrCreateUser(identity);
-
-            String jwt = jwtTokenService.generateToken(user);
+            String jwt = authCompletionService.completeAuthentication(identity);
 
             return ResponseEntity.ok(new TokenResponse(jwt));
         } catch (GeneralSecurityException | IOException | IllegalArgumentException e) {
@@ -162,8 +156,8 @@ public class AuthController {
                 request.credential(),
                 expectedNonce.get(),
                 AuthFlow.CLIENT_SIDE);
-            User user = userService.findOrCreateUser(identity);
-            return ResponseEntity.ok(new TokenResponse(jwtTokenService.generateToken(user)));
+            String jwt = authCompletionService.completeAuthentication(identity);
+            return ResponseEntity.ok(new TokenResponse(jwt));
         } catch (IllegalArgumentException e) {
             logger.warn("Microsoft token verification failed: invalid credential");
             return badRequest("Invalid Microsoft credential");
