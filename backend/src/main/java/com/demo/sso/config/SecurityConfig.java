@@ -1,6 +1,6 @@
 package com.demo.sso.config;
 
-import com.demo.sso.service.OAuth2SuccessHandler;
+import com.demo.sso.service.auth.OAuth2SuccessHandler;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +31,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf
-                .ignoringRequestMatchers("/auth/**", "/user/**")
+                .ignoringRequestMatchers(
+                    "/auth/google/verify",
+                    "/auth/microsoft/*",
+                    "/auth/exchange",
+                    "/auth/logout"
+                )
             )
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

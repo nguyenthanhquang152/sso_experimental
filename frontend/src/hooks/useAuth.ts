@@ -6,7 +6,9 @@ interface UserProfile {
   email: string;
   name: string;
   pictureUrl: string;
-  loginMethod: string;
+  provider: string;
+  providerUserId: string;
+  lastLoginFlow: string;
   createdAt: string;
   lastLoginAt: string;
 }
@@ -38,7 +40,8 @@ export function useAuth() {
 
     apiFetch<UserProfile>('/user/me')
       .then(setUser)
-      .catch(() => {
+      .catch((err) => {
+        console.warn('Failed to fetch user profile:', err instanceof Error ? err.message : err);
         logout();
       });
   }, [token, logout]);
