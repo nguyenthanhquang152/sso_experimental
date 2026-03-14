@@ -1,16 +1,18 @@
 package com.demo.sso.service.token;
 
 import com.demo.sso.service.token.GoogleTokenVerifier;
+import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.security.GeneralSecurityException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for GoogleTokenVerifier service.
@@ -134,5 +136,84 @@ class GoogleTokenVerifierTest {
         assertDoesNotThrow(() -> {
             new GoogleTokenVerifier("");
         }, "Constructor should handle empty client ID without throwing immediately");
+    }
+
+    @Test
+    void testVerifyValidToken_returnsVerifiedIdentity() throws Exception {
+        // Arrange: mock the internal GoogleIdTokenVerifier to return a valid token
+        GoogleIdToken.Payload payload = new GoogleIdToken.Payload();
+        payload.setSubject("123456789");
+        payload.setEmail("user@gmail.com");
+        payload.setEmailVerified(true);
+        payload.set("name", "Test User");
+        payload.set("picture", "https://lh3.googleusercontent.com/photo.jpg");
+
+        GoogleIdToken mockIdToken = mock(GoogleIdToken.class);
+        when(mockIdToken.getPayload()).thenReturn(payload);
+
+        GoogleIdTokenVerifier mockInternalVerifier = mock(GoogleIdTokenVerifier.class);
+        when(mockInternalVerifier.verify("valid-token-string")).thenReturn(mockIdToken);
+
+        // Inject the mock verifier via reflection
+        Field verifierField = GoogleTokenVerifier.class.getDeclaredField("verifier");
+        verifierField.setAccessible(true);
+        verifierField.set(verifier, mockInternalVerifier);
+
+        // Act
+        VerifiedGoogleIdentity identity = verifier.verify("valid-token-string");
+
+        // Assert
+        assertNotNull(identity, "Identity should not be null for a valid token");
+        assertEquals("123456789", identity.subject());
+        assertEquals("user@gmail.com", identity.email());
+        assertTrue(identity.emailVerified());
+        assertEquals("Test User", identity.name());
+        assertEquals("https://lh3.googleusercontent.com/photo.jpg", identity.pictureUrl());
+    }
+
+    @Test
+    void testVerifyValidToken_withNullOptionalFields() throws Exception {
+        // Arrange: verify that null optional fields (name, picture) are handled
+        GoogleIdToken.Payload payload = new GoogleIdToken.Payload();
+        payload.setSubject("987654321");
+        payload.setEmail("minimal@gmail.com");
+        payload.setEmailVerified(false);
+        // name and picture are NOT set (null)
+
+        GoogleIdToken mockIdToken = mock(GoogleIdToken.class);
+        when(mockIdToken.getPayload()).thenReturn(payload);
+
+        GoogleIdTokenVerifier mockInternalVerifier = mock(GoogleIdTokenVerifier.class);
+        when(mockInternalVerifier.verify("minimal-token")).thenReturn(mockIdToken);
+
+        Field verifierField = GoogleTokenVerifier.class.getDeclaredField("verifier");
+        verifierField.setAccessible(true);
+        verifierField.set(verifier, mockInternalVerifier);
+
+        // Act
+        VerifiedGoogleIdentity identity = verifier.verify("minimal-token");
+
+        // Assert
+        assertEquals("987654321", identity.subject());
+        assertEquals("minimal@gmail.com", identity.email());
+        assertFalse(identity.emailVerified());
+        assertNull(identity.name());
+        assertNull(identity.pictureUrl());
+    }
+
+    @Test
+    void testVerifyReturnsNullToken_throwsIllegalArgumentException() throws Exception {
+        // Arrange: when Google verifier returns null, our wrapper should throw
+        GoogleIdTokenVerifier mockInternalVerifier = mock(GoogleIdTokenVerifier.class);
+        when(mockInternalVerifier.verify("unverifiable-token")).thenReturn(null);
+
+        Field verifierField = GoogleTokenVerifier.class.getDeclaredField("verifier");
+        verifierField.setAccessible(true);
+        verifierField.set(verifier, mockInternalVerifier);
+
+        // Act & Assert
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                () -> verifier.verify("unverifiable-token"));
+        assertEquals("Invalid Google ID token", ex.getMessage());
     }
 }

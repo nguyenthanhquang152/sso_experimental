@@ -83,7 +83,14 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Google API Client (for verifying ID tokens) -->
+        <!--
+            Google API Client (for verifying ID tokens).
+            TODO: Consider replacing with com.google.auth:google-auth-library-oauth2-http
+            for a lighter footprint. Currently only GoogleIdTokenVerifier, GoogleIdToken,
+            NetHttpTransport, and GsonFactory are used (in GoogleTokenVerifier.java).
+            However, google-auth-library-oauth2-http does NOT provide GoogleIdTokenVerifier;
+            it would require rewriting token verification against a lower-level API.
+        -->
         <dependency>
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client</artifactId>

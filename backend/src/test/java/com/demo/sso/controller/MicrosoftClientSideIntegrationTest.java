@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,8 +21,8 @@ import com.demo.sso.model.AuthProvider;
 import com.demo.sso.repository.UserRepository;
 import com.demo.sso.service.token.GoogleTokenVerifier;
 import com.demo.sso.service.token.JwtTokenService;
+import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import com.demo.sso.service.token.MicrosoftTokenVerifier;
-import com.demo.sso.service.auth.NormalizedIdentity;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Map;
@@ -103,14 +102,17 @@ class MicrosoftClientSideIntegrationTest {
 
         when(microsoftTokenVerifier.verifyIdToken(
             eq("valid-microsoft-id-token"),
-            eq(challenge.get("nonce")),
-            eq(AuthFlow.CLIENT_SIDE)))
-            .thenReturn(NormalizedIdentity.microsoft(
-                "https://login.microsoftonline.com/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/v2.0|microsoft-subject",
+            eq(challenge.get("nonce"))))
+            .thenReturn(new MicrosoftIdTokenClaims(
+                "https://login.microsoftonline.com/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/v2.0",
+                "microsoft-subject",
+                "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
                 "employee@example.com",
+                null, null,
                 "Microsoft Employee",
-                null,
-                AuthFlow.CLIENT_SIDE));
+                null, null, "2.0",
+                challenge.get("nonce"),
+                java.util.List.of("test-microsoft-client-id")));
 
         MvcResult verifyResult = mockMvc.perform(post("/auth/microsoft/verify")
                 .cookie(challengeResult.getResponse().getCookie("ms_challenge_session"))
@@ -161,7 +163,7 @@ class MicrosoftClientSideIntegrationTest {
             new TypeReference<>() {}
         );
 
-        when(microsoftTokenVerifier.verifyIdToken(anyString(), anyString(), any(AuthFlow.class)))
+        when(microsoftTokenVerifier.verifyIdToken(anyString(), anyString()))
             .thenThrow(new IllegalArgumentException("Verifier should not be called for superseded challenges"));
 
         mockMvc.perform(post("/auth/microsoft/verify")

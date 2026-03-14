@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
+import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,13 +21,13 @@ class ProviderIdentityNormalizerTest {
 
     @Test
     void normalizeMicrosoftClaims_usesIssuerScopedSubjectAndPrimaryEmail() {
-        NormalizedIdentity identity = normalizer.normalizeMicrosoftClaims(Map.of(
+        NormalizedIdentity identity = normalizer.normalizeMicrosoftClaims(MicrosoftIdTokenClaims.fromMap(Map.of(
             "iss", "https://login.microsoftonline.com/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/v2.0",
             "sub", "microsoft-subject",
             "tid", "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             "email", "User@Example.com",
             "name", "Microsoft User"
-        ), AuthFlow.CLIENT_SIDE);
+        )), AuthFlow.CLIENT_SIDE);
 
         assertEquals(AuthProvider.MICROSOFT, identity.provider());
         assertEquals(
@@ -39,12 +40,12 @@ class ProviderIdentityNormalizerTest {
 
     @Test
     void normalizeMicrosoftClaims_fallsBackToPreferredUsernameThenUpn() {
-        NormalizedIdentity identity = normalizer.normalizeMicrosoftClaims(Map.of(
+        NormalizedIdentity identity = normalizer.normalizeMicrosoftClaims(MicrosoftIdTokenClaims.fromMap(Map.of(
             "iss", "https://login.microsoftonline.com/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/v2.0",
             "sub", "microsoft-subject",
             "tid", "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             "preferred_username", "Preferred.User@example.com"
-        ), AuthFlow.SERVER_SIDE);
+        )), AuthFlow.SERVER_SIDE);
 
         assertEquals("preferred.user@example.com", identity.email());
         assertEquals(AuthFlow.SERVER_SIDE, identity.loginFlow());
@@ -52,22 +53,22 @@ class ProviderIdentityNormalizerTest {
 
     @Test
     void normalizeMicrosoftClaims_rejectsGuestStyleIdentifiers() {
-        assertThrows(IllegalArgumentException.class, () -> normalizer.normalizeMicrosoftClaims(Map.of(
+        assertThrows(IllegalArgumentException.class, () -> normalizer.normalizeMicrosoftClaims(MicrosoftIdTokenClaims.fromMap(Map.of(
             "iss", "https://login.microsoftonline.com/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/v2.0",
             "sub", "microsoft-subject",
             "tid", "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             "preferred_username", "guest_user#EXT#@example.onmicrosoft.com"
-        ), AuthFlow.CLIENT_SIDE));
+        )), AuthFlow.CLIENT_SIDE));
     }
 
     @Test
     void normalizeMicrosoftClaims_rejectsExternalIdentityProviders() {
-        assertThrows(IllegalArgumentException.class, () -> normalizer.normalizeMicrosoftClaims(Map.of(
+        assertThrows(IllegalArgumentException.class, () -> normalizer.normalizeMicrosoftClaims(MicrosoftIdTokenClaims.fromMap(Map.of(
             "iss", "https://login.microsoftonline.com/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/v2.0",
             "sub", "microsoft-subject",
             "tid", "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             "email", "user@example.com",
             "idp", "live.com"
-        ), AuthFlow.CLIENT_SIDE));
+        )), AuthFlow.CLIENT_SIDE));
     }
 }

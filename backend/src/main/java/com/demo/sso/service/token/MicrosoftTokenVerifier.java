@@ -1,9 +1,6 @@
 package com.demo.sso.service.token;
 
-import com.demo.sso.service.auth.NormalizedIdentity;
-import com.demo.sso.service.auth.ProviderIdentityNormalizer;
 import com.demo.sso.config.MicrosoftAuthProperties;
-import com.demo.sso.model.AuthFlow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -13,32 +10,30 @@ import org.springframework.stereotype.Service;
 @Service
 public class MicrosoftTokenVerifier {
 
+    private static final String JWKS_DISCOVERY_PATH = "/discovery/v2.0/keys";
+    private static final String V2_SUFFIX = "/v2.0";
+
     private final JwtDecoder jwtDecoder;
     private final MicrosoftAuthProperties properties;
-    private final ProviderIdentityNormalizer identityNormalizer;
 
     @Autowired
-    public MicrosoftTokenVerifier(MicrosoftAuthProperties properties, ProviderIdentityNormalizer identityNormalizer) {
-        this(buildDecoder(properties), properties, identityNormalizer);
+    public MicrosoftTokenVerifier(MicrosoftAuthProperties properties) {
+        this(buildDecoder(properties), properties);
     }
 
-    MicrosoftTokenVerifier(
-            JwtDecoder jwtDecoder,
-            MicrosoftAuthProperties properties,
-            ProviderIdentityNormalizer identityNormalizer) {
+    MicrosoftTokenVerifier(JwtDecoder jwtDecoder, MicrosoftAuthProperties properties) {
         this.jwtDecoder = jwtDecoder;
         this.properties = properties;
-        this.identityNormalizer = identityNormalizer;
     }
 
-    public NormalizedIdentity verifyIdToken(String credential, String expectedNonce, AuthFlow authFlow) {
+    public MicrosoftIdTokenClaims verifyIdToken(String credential, String expectedNonce) {
         Jwt jwt = jwtDecoder.decode(credential);
         MicrosoftIdTokenClaims claims = MicrosoftIdTokenClaims.fromMap(jwt.getClaims());
         validateAudience(claims);
         validateIssuer(claims);
         validateVersion(claims);
         validateNonce(claims, expectedNonce);
-        return identityNormalizer.normalizeMicrosoftClaims(claims, authFlow);
+        return claims;
     }
 
     private void validateAudience(MicrosoftIdTokenClaims claims) {
@@ -81,12 +76,12 @@ public class MicrosoftTokenVerifier {
     }
 
     private static String jwksUri(String authority) {
-        String normalizedAuthority = authority.endsWith("/")
+        String base = authority.endsWith("/")
             ? authority.substring(0, authority.length() - 1)
             : authority;
-        if (normalizedAuthority.endsWith("/v2.0")) {
-            return normalizedAuthority.substring(0, normalizedAuthority.length() - 5) + "/discovery/v2.0/keys";
+        if (base.endsWith(V2_SUFFIX)) {
+            base = base.substring(0, base.length() - V2_SUFFIX.length());
         }
-        return normalizedAuthority + "/discovery/v2.0/keys";
+        return base + JWKS_DISCOVERY_PATH;
     }
 }

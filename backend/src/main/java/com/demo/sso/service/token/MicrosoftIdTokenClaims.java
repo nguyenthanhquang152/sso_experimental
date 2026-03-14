@@ -32,7 +32,7 @@ public record MicrosoftIdTokenClaims(
      * attribute map in one pass.
      */
     public static MicrosoftIdTokenClaims fromMap(Map<String, Object> claims) {
-        return new MicrosoftIdTokenClaims(
+        MicrosoftIdTokenClaims result = new MicrosoftIdTokenClaims(
             stringClaim(claims, "iss"),
             stringClaim(claims, "sub"),
             stringClaim(claims, "tid"),
@@ -46,6 +46,10 @@ public record MicrosoftIdTokenClaims(
             stringClaim(claims, "nonce"),
             extractAudiences(claims.get("aud"))
         );
+        if (result.sub() == null || result.sub().isBlank()) {
+            throw new IllegalArgumentException("Microsoft ID token must contain a 'sub' claim");
+        }
+        return result;
     }
 
     public boolean hasAudience(String clientId) {

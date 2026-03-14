@@ -57,13 +57,17 @@ public class UserService {
         try {
             return userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
-            if (identity.provider() != AuthProvider.GOOGLE) {
-                return userRepository.findByProviderAndProviderUserId(identity.provider(), identity.providerUserId())
-                    .orElseThrow(() -> new IllegalStateException("Concurrent user creation failed", e));
-            }
-            return userRepository.findByGoogleId(identity.providerUserId())
-                .orElseThrow(() -> new IllegalStateException("Concurrent user creation failed", e));
+            return recoverFromConcurrentCreation(identity, e);
         }
+    }
+
+    private User recoverFromConcurrentCreation(NormalizedIdentity identity, DataIntegrityViolationException cause) {
+        if (identity.provider() != AuthProvider.GOOGLE) {
+            return userRepository.findByProviderAndProviderUserId(identity.provider(), identity.providerUserId())
+                .orElseThrow(() -> new IllegalStateException("Concurrent user creation failed", cause));
+        }
+        return userRepository.findByGoogleId(identity.providerUserId())
+            .orElseThrow(() -> new IllegalStateException("Concurrent user creation failed", cause));
     }
 
     private static void applyProviderIdentityFields(User user, NormalizedIdentity identity) {
@@ -80,6 +84,13 @@ public class UserService {
         return identity.provider().name().toLowerCase() + ":" + identity.providerUserId();
     }
 
+    /**
+     * Finds a user by email address.
+     *
+     * @param email the email to search for
+     * @return the matching user, or empty if none found
+     * @throws IllegalStateException if multiple users share the same email (ambiguous legacy data)
+     */
     public Optional<User> findByEmail(String email) {
         List<User> matches = userRepository.findAllByEmail(email);
         if (matches.size() > 1) {

@@ -6,15 +6,20 @@ import java.security.Principal;
 /**
  * Represents the identity claims extracted from an authenticated JWT.
  *
- * <p>Two contract versions exist:
+ * <p>This record uses nullable fields to model two mutually exclusive identity
+ * contract versions. Exactly one of the following invariants holds:
  * <ul>
- *   <li><b>Legacy (v1)</b>: subject=email, contains a {@code googleId} claim.
- *       Created via {@link #legacy(String, String)}. Fields {@code userId},
- *       {@code provider}, {@code providerUserId}, and {@code contractVersion} are null.
- *   <li><b>V2</b>: subject=userId, contains provider-neutral identity claims.
- *       Created via {@link #v2(Long, String, AuthProvider, String)}.
- *       The {@code legacyProviderKey} field is null.
+ *   <li><b>Legacy (v1)</b>: {@code contractVersion == null}, subject=email,
+ *       contains a {@code legacyProviderKey} claim (typically the Google ID).
+ *       Fields {@code userId}, {@code provider}, {@code providerUserId} are null.
+ *       Created exclusively via {@link #legacy(String, String)}.
+ *   <li><b>V2</b>: {@code contractVersion == 2}, subject=userId, contains
+ *       provider-neutral identity claims. The {@code legacyProviderKey} field is null.
+ *       Created exclusively via {@link #v2(Long, String, AuthProvider, String)}.
  * </ul>
+ *
+ * <p>Use {@link #isLegacy()} to determine which variant an instance represents.
+ * Do not construct directly — always use the factory methods above.
  */
 public record AuthenticatedUserIdentity(
         Long userId,

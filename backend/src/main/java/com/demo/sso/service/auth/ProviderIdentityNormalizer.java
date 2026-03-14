@@ -3,7 +3,6 @@ package com.demo.sso.service.auth;
 import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import com.demo.sso.model.AuthFlow;
 import java.util.Locale;
-import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,24 +21,7 @@ public class ProviderIdentityNormalizer {
     }
 
     /**
-     * Normalizes Microsoft identity claims into a {@link NormalizedIdentity}.
-     *
-     * <p>Accepts a raw attribute map for backward compatibility (e.g. from
-     * {@code OAuth2User.getAttributes()}) and converts it to a typed
-     * {@link MicrosoftIdTokenClaims} record internally.
-     *
-     * <p>Assumes the JWT has already been cryptographically verified and
-     * issuer/audience validated by {@code MicrosoftTokenVerifier}.
-     */
-    public NormalizedIdentity normalizeMicrosoftClaims(Map<String, Object> claims, AuthFlow loginFlow) {
-        return normalizeMicrosoftClaims(MicrosoftIdTokenClaims.fromMap(claims), loginFlow);
-    }
-
-    /**
      * Normalizes typed Microsoft identity claims into a {@link NormalizedIdentity}.
-     *
-     * <p>Preferred entry point when claims have already been extracted into a
-     * {@link MicrosoftIdTokenClaims} record (e.g. from {@code MicrosoftTokenVerifier}).
      */
     public NormalizedIdentity normalizeMicrosoftClaims(MicrosoftIdTokenClaims claims, AuthFlow loginFlow) {
         if (isBlank(claims.iss()) || isBlank(claims.sub())) {

@@ -1,9 +1,5 @@
-package com.demo.sso.service;
+package com.demo.sso.service.auth;
 
-import com.demo.sso.service.OAuth2SuccessHandler;
-import com.demo.sso.service.auth.AuthCompletionService;
-import com.demo.sso.service.auth.NormalizedIdentity;
-import com.demo.sso.service.auth.ProviderIdentityNormalizer;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
 import jakarta.servlet.http.HttpServletRequest;

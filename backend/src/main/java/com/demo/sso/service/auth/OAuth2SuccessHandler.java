@@ -1,9 +1,7 @@
-package com.demo.sso.service;
+package com.demo.sso.service.auth;
 
 import com.demo.sso.model.AuthFlow;
-import com.demo.sso.service.auth.AuthCompletionService;
-import com.demo.sso.service.auth.NormalizedIdentity;
-import com.demo.sso.service.auth.ProviderIdentityNormalizer;
+import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -66,9 +64,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         if ("microsoft".equalsIgnoreCase(registrationId)) {
             try {
-                return providerIdentityNormalizer.normalizeMicrosoftClaims(
-                    oAuth2User.getAttributes(),
-                    AuthFlow.SERVER_SIDE);
+                MicrosoftIdTokenClaims claims = MicrosoftIdTokenClaims.fromMap(oAuth2User.getAttributes());
+                return providerIdentityNormalizer.normalizeMicrosoftClaims(claims, AuthFlow.SERVER_SIDE);
             } catch (IllegalArgumentException e) {
                 throw new OAuth2IdentityException("missing_attributes", "invalid identity claims");
             }

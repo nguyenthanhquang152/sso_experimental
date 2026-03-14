@@ -1,9 +1,13 @@
 package com.demo.sso.service.auth;
 
+import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.User;
 import com.demo.sso.service.UserService;
 import com.demo.sso.service.challenge.AuthCodeStore;
 import com.demo.sso.service.token.JwtTokenService;
+import com.demo.sso.service.token.MicrosoftIdTokenClaims;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,27 +17,47 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthCompletionService {
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthCompletionService.class);
+
     private final UserService userService;
     private final JwtTokenService jwtTokenService;
     private final AuthCodeStore authCodeStore;
+    private final ProviderIdentityNormalizer providerIdentityNormalizer;
 
     public AuthCompletionService(UserService userService,
                                   JwtTokenService jwtTokenService,
-                                  AuthCodeStore authCodeStore) {
+                                  AuthCodeStore authCodeStore,
+                                  ProviderIdentityNormalizer providerIdentityNormalizer) {
         this.userService = userService;
         this.jwtTokenService = jwtTokenService;
         this.authCodeStore = authCodeStore;
+        this.providerIdentityNormalizer = providerIdentityNormalizer;
     }
 
     /** For client-side flows: finds/creates user and returns a JWT directly. */
     public String completeAuthentication(NormalizedIdentity identity) {
         User user = userService.findOrCreateUser(identity);
-        return jwtTokenService.generateToken(user);
+        String jwt = jwtTokenService.generateToken(user);
+        logger.info("Authentication completed: provider={}, email={}, flow={}",
+            identity.provider(), identity.email(), identity.loginFlow());
+        return jwt;
     }
 
     /** For server-side flows: finds/creates user, mints a JWT, and returns an auth code for exchange. */
     public String completeAuthenticationWithCode(NormalizedIdentity identity) {
         String jwt = completeAuthentication(identity);
         return authCodeStore.storeJwt(jwt);
+    }
+
+    /** Normalizes Google claims, finds/creates user, and returns a JWT. */
+    public String completeGoogleAuthentication(String googleId, String email, String name, String pictureUrl, AuthFlow flow) {
+        NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(googleId, email, name, pictureUrl, flow);
+        return completeAuthentication(identity);
+    }
+
+    /** Normalizes Microsoft claims, finds/creates user, and returns a JWT. */
+    public String completeMicrosoftAuthentication(MicrosoftIdTokenClaims claims, AuthFlow flow) {
+        NormalizedIdentity identity = providerIdentityNormalizer.normalizeMicrosoftClaims(claims, flow);
+        return completeAuthentication(identity);
     }
 }

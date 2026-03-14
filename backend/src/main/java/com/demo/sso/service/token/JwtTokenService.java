@@ -132,6 +132,7 @@ public class JwtTokenService {
                 throw new IllegalArgumentException("Legacy JWTs are not accepted in "
                     + rolloutProperties.getIdentityContractMode());
             }
+            logger.info("Legacy JWT identity fallback: subject={}", claims.getSubject());
             return AuthenticatedUserIdentity.legacy(
                 claims.getSubject(),
                 claims.get("googleId", String.class));

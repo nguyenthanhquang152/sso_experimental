@@ -7,7 +7,11 @@ package com.demo.sso.service.challenge;
 public interface AuthCodeStore {
 
     /**
-     * Store a JWT and return a single-use authorization code.
+     * Generates a cryptographically random, single-use authorization code
+     * bound to the given JWT, valid for a short TTL.
+     *
+     * @param jwt the token to store
+     * @return a single-use code that can be exchanged for the JWT via {@link #exchangeCode(String)}
      */
     String storeJwt(String jwt);
 

@@ -11,12 +11,11 @@ import com.demo.sso.controller.dto.MicrosoftVerifyRequest;
 import com.demo.sso.controller.dto.TokenResponse;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.auth.AuthCompletionService;
-import com.demo.sso.service.auth.NormalizedIdentity;
-import com.demo.sso.service.auth.ProviderIdentityNormalizer;
 import com.demo.sso.service.challenge.AuthCodeStore;
 import com.demo.sso.service.challenge.MicrosoftChallengeStore;
 import com.demo.sso.service.token.GoogleTokenVerifier;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
+import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import com.demo.sso.service.token.MicrosoftTokenVerifier;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,7 +46,6 @@ public class AuthController {
     private final GoogleTokenVerifier googleTokenVerifier;
     private final AuthCompletionService authCompletionService;
     private final AuthCodeStore authCodeStore;
-    private final ProviderIdentityNormalizer providerIdentityNormalizer;
     private final MicrosoftChallengeStore microsoftChallengeStore;
     private final ObjectProvider<MicrosoftTokenVerifier> microsoftTokenVerifierProvider;
     private final AuthRolloutProperties rolloutProperties;
@@ -59,7 +57,6 @@ public class AuthController {
     public AuthController(GoogleTokenVerifier googleTokenVerifier,
                            AuthCompletionService authCompletionService,
                            AuthCodeStore authCodeStore,
-                           ProviderIdentityNormalizer providerIdentityNormalizer,
                            MicrosoftChallengeStore microsoftChallengeStore,
                            ObjectProvider<MicrosoftTokenVerifier> microsoftTokenVerifierProvider,
                            AuthRolloutProperties rolloutProperties,
@@ -67,7 +64,6 @@ public class AuthController {
         this.googleTokenVerifier = googleTokenVerifier;
         this.authCompletionService = authCompletionService;
         this.authCodeStore = authCodeStore;
-        this.providerIdentityNormalizer = providerIdentityNormalizer;
         this.microsoftChallengeStore = microsoftChallengeStore;
         this.microsoftTokenVerifierProvider = microsoftTokenVerifierProvider;
         this.rolloutProperties = rolloutProperties;
@@ -94,14 +90,12 @@ public class AuthController {
                     .body(new ErrorResponse("Email not verified by Google"));
             }
 
-            NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(
+            String jwt = authCompletionService.completeGoogleAuthentication(
                 google.subject(),
                 google.email(),
                 google.name(),
                 google.pictureUrl(),
                 AuthFlow.CLIENT_SIDE);
-
-            String jwt = authCompletionService.completeAuthentication(identity);
 
             return ResponseEntity.ok(new TokenResponse(jwt));
         } catch (GeneralSecurityException | IOException | IllegalArgumentException e) {
@@ -137,7 +131,7 @@ public class AuthController {
             return microsoftClientSideDisabledResponse();
         }
 
-        if (request == null || (request.credential() == null || request.credential().isBlank()) || (request.challengeId() == null || request.challengeId().isBlank())) {
+        if (isInvalidMicrosoftVerifyRequest(request)) {
             return badRequest("Missing credential or challengeId");
         }
 
@@ -152,11 +146,11 @@ public class AuthController {
         }
 
         try {
-            NormalizedIdentity identity = microsoftTokenVerifier.verifyIdToken(
+            MicrosoftIdTokenClaims claims = microsoftTokenVerifier.verifyIdToken(
                 request.credential(),
-                expectedNonce.get(),
-                AuthFlow.CLIENT_SIDE);
-            String jwt = authCompletionService.completeAuthentication(identity);
+                expectedNonce.get());
+            String jwt = authCompletionService.completeMicrosoftAuthentication(
+                claims, AuthFlow.CLIENT_SIDE);
             return ResponseEntity.ok(new TokenResponse(jwt));
         } catch (IllegalArgumentException e) {
             logger.warn("Microsoft token verification failed: invalid credential");
@@ -183,6 +177,16 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<AuthApiResponse> logout() {
         return ResponseEntity.ok(new LogoutResponse("Logged out successfully"));
+    }
+
+    private static boolean isInvalidMicrosoftVerifyRequest(MicrosoftVerifyRequest request) {
+        if (request == null) {
+            return true;
+        }
+        if (request.credential() == null || request.credential().isBlank()) {
+            return true;
+        }
+        return request.challengeId() == null || request.challengeId().isBlank();
     }
 
     private Optional<String> currentChallengeSessionId(HttpServletRequest request) {
