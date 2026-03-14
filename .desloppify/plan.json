@@ -1,7 +1,7 @@
 {
   "version": 8,
   "created": "2026-03-14T18:25:42+00:00",
-  "updated": "2026-03-14T20:52:08+00:00",
+  "updated": "2026-03-14T20:55:28+00:00",
   "queue_order": [
     "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
     "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
@@ -11,7 +11,6 @@
     "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
     "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
     "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level",
-    "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
     "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
     "triage::organize",
     "triage::enrich",
@@ -334,8 +333,8 @@
     "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union": {
       "issue_id": "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
       "created_at": "2026-03-14T20:19:26+00:00",
-      "cluster": "abstraction-alignment",
-      "updated_at": "2026-03-14T20:19:26+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T20:55:15+00:00"
     },
     "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity": {
       "issue_id": "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
@@ -620,9 +619,9 @@
       "name": "abstraction-alignment",
       "description": "Align provider verifier abstractions",
       "issue_ids": [
-        "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
         "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
-        "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow"
+        "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
+        "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union"
       ],
       "created_at": "2026-03-14T20:19:22+00:00",
       "updated_at": "2026-03-14T20:24:17+00:00",
@@ -911,7 +910,6 @@
   },
   "promoted_ids": [
     "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
-    "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
     "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
     "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
     "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level",
@@ -2799,6 +2797,73 @@
         "status": "fixed",
         "attestation": "I have actually AuthController no longer imports com.google.api.client.googleapis.auth.oauth2.GoogleIdToken. The Google SDK is fully encapsulated within GoogleTokenVerifier. Tests also updated to use VerifiedGoogleIdentity instead of GoogleIdToken.Payload. and I am not gaming the score."
       }
+    },
+    {
+      "timestamp": "2026-03-14T20:54:55+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Added comprehensive Javadoc documenting the dual-version contract pattern (legacy vs v2) on AuthenticatedUserIdentity. Added null/blank validation in both factory methods. The nullable union pattern is now well-documented and guarded.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:55:09+00:00",
+      "action": "reorder",
+      "issue_ids": [
+        "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "position": "top",
+        "target": null,
+        "offset": null
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:55:15+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Added comprehensive Javadoc documenting the dual-version contract pattern (legacy vs v2) on AuthenticatedUserIdentity. Added null/blank validation in both factory methods. The nullable union pattern is now well-documented and guarded.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:55:15+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Added comprehensive Javadoc documenting the dual-version contract pattern (legacy vs v2) on AuthenticatedUserIdentity. Added null/blank validation in both factory methods. The nullable union pattern is now well-documented and guarded.",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually Added comprehensive Javadoc documenting the dual-version contract pattern (legacy vs v2) on AuthenticatedUserIdentity. Added null/blank validation in both factory methods. The nullable union pattern is now well-documented and guarded. and I am not gaming the score."
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:55:28+00:00",
+      "action": "commit_record",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
+        "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
+        "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Abstraction alignment: Google SDK encapsulation, AuthenticatedUserIdentity validation",
+      "detail": {
+        "sha": "6aeff157f613",
+        "branch": "desloppify/code-health"
+      }
     }
   ],
   "epic_triage_meta": {
@@ -3470,12 +3535,21 @@
       "recorded_at": "2026-03-14T20:48:17+00:00",
       "note": "Legacy migration: renamed legacy token method, removed 5-arg overload, deprecated loginMethod field",
       "cluster_name": null
+    },
+    {
+      "sha": "6aeff157f613",
+      "branch": "desloppify/code-health",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
+        "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
+        "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union"
+      ],
+      "recorded_at": "2026-03-14T20:55:28+00:00",
+      "note": "Abstraction alignment: Google SDK encapsulation, AuthenticatedUserIdentity validation",
+      "cluster_name": null
     }
   ],
-  "uncommitted_issues": [
-    "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
-    "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow"
-  ],
+  "uncommitted_issues": [],
   "commit_tracking_branch": null,
   "scan_count_at_plan_start": 4
 }

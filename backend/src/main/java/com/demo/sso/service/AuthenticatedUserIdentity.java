@@ -13,7 +13,7 @@ import java.security.Principal;
  *       {@code provider}, {@code providerUserId}, and {@code contractVersion} are null.
  *   <li><b>V2</b>: subject=userId, contains provider-neutral identity claims.
  *       Created via {@link #v2(Long, String, AuthProvider, String)}.
- *       The {@code legacyGoogleId} field is null.
+ *       The {@code legacyProviderKey} field is null.
  * </ul>
  */
 public record AuthenticatedUserIdentity(
@@ -22,7 +22,7 @@ public record AuthenticatedUserIdentity(
         AuthProvider provider,
         String providerUserId,
         Integer contractVersion,
-        String legacyGoogleId) implements Principal {
+        String legacyProviderKey) implements Principal {
 
     public static AuthenticatedUserIdentity legacy(String email, String googleId) {
         if (email == null || email.isBlank()) {

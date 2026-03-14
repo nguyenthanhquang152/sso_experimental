@@ -2,61 +2,156 @@
   "command": "next",
   "items": [
     {
-      "id": "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
-      "confidence": "medium",
+      "id": "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
+      "confidence": "high",
       "detector": "review",
       "file": ".",
-      "summary": "AuthenticatedUserIdentity mixes legacy and v2 identities in one nullable record",
+      "summary": "Google-specific names still label provider-neutral identity data across core auth APIs",
       "detail": {
         "holistic": true,
-        "dimension": "abstraction_fitness",
+        "dimension": "naming_quality",
         "related_files": [
-          "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java",
-          "backend/src/main/java/com/demo/sso/service/JwtTokenService.java",
+          "backend/src/main/java/com/demo/sso/model/User.java",
+          "backend/src/main/java/com/demo/sso/repository/UserRepository.java",
           "backend/src/main/java/com/demo/sso/service/UserService.java",
-          "backend/src/main/java/com/demo/sso/controller/UserController.java"
+          "backend/src/main/java/com/demo/sso/service/JwtTokenService.java",
+          "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java",
+          "backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java"
         ],
         "evidence": [
-          "`AuthenticatedUserIdentity.legacy(...)` creates a record with null `userId`, `provider`, `providerUserId`, and `contractVersion`, while `v2(...)` nulls `legacyGoogleId`, so valid state depends on knowing which factory built the instance rather than on the type itself.",
-          "`JwtTokenService.parseAuthenticatedUser(...)` returns both legacy and v2 identities through that same record, and `UserService.findCurrentUser(...)` has to branch on `identity.isLegacy()` to decide whether email or user ID is authoritative.",
-          "`UserController.getCurrentUser(...)` fabricates a legacy `AuthenticatedUserIdentity` from `authentication.getName()` when the principal is untyped, which shows the abstraction leaking across the controller/service boundary instead of presenting one stable principal contract."
+          "`UserService.legacyGoogleCompatibilityId(...)` writes non-Google identities into `User.googleId`, so the field name no longer matches the value it carries.",
+          "`UserRepository.findByGoogleId(...)` and `JwtTokenService.generateToken(String email, String googleId)` extend that Google-only term into repository and JWT APIs that now participate in a multi-provider identity model.",
+          "`AuthenticatedUserIdentity` still exposes `legacyGoogleId`, even though that path represents the old contract shape rather than a reliably Google-only concept."
         ],
-        "suggestion": "Split the principal model into two explicit identity types behind a tiny common interface, or at minimum split the downstream lookup APIs so callers do not pass around a record whose meaningful fields depend on `contractVersion` and null sentinels.",
+        "suggestion": "Rename the compatibility-facing identifiers to provider-neutral terms such as `legacyIdentityKey` or `legacyProviderUserId` across the entity/service/JWT/repository APIs, and keep any truly Google-specific naming only at explicit backward-compatibility boundaries like the persisted column or legacy token claim.",
         "reasoning": "",
-        "summary_hash": "f049e417"
+        "summary_hash": "f8d45021"
       },
       "status": "open",
       "kind": "issue",
-      "primary_command": "desloppify plan resolve \"review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union\" --note \"<what you did>\" --confirm",
-      "queue_position": 9,
+      "primary_command": "desloppify plan resolve \"review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity\" --note \"<what you did>\" --confirm",
+      "queue_position": 6,
       "plan_cluster": {
-        "name": "abstraction-alignment",
-        "description": "Align provider verifier abstractions",
+        "name": "naming-fixes",
+        "description": "Rename for clarity",
         "total_items": 3,
         "action_steps": [
           {
-            "title": "Make GoogleTokenVerifier return NormalizedIdentity",
-            "effort": "medium"
+            "title": "Rename legacyGoogleId in AuthenticatedUserIdentity",
+            "effort": "trivial"
           },
           {
-            "title": "Remove Google SDK import from AuthController",
+            "title": "Rename loginMethod field to match its purpose",
             "effort": "small"
           },
           {
-            "title": "Improve AuthenticatedUserIdentity typing",
-            "effort": "medium"
+            "title": "Clarify Microsoft isConfigured naming",
+            "effort": "trivial"
+          }
+        ]
+      }
+    },
+    {
+      "id": "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
+      "confidence": "high",
+      "detector": "review",
+      "file": ".",
+      "summary": "`loginMethod` is named like an auth method but stores client/server flow values",
+      "detail": {
+        "holistic": true,
+        "dimension": "naming_quality",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/model/AuthFlow.java",
+          "backend/src/main/java/com/demo/sso/model/User.java",
+          "backend/src/main/java/com/demo/sso/service/UserService.java",
+          "backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java"
+        ],
+        "evidence": [
+          "`UserService.applyProviderIdentityFields(...)` stores `identity.loginFlow().name()` via `user.setLoginMethod(...)`, so values like `SERVER_SIDE` and `CLIENT_SIDE` are written into a field called method.",
+          "`AuthFlow.fromLoginMethod(...)` converts that same persisted value back into `AuthFlow`, confirming the data represents flow/channel semantics rather than an authentication method or provider.",
+          "`UserResponse` exposes both `loginMethod` and `lastLoginFlow`, which makes it easy for readers to assume they are separate concepts when they are really overlapping flow terminology."
+        ],
+        "suggestion": "Rename the internal field/accessors to `loginFlow` or `authFlow`, or if the external/persisted label must remain for compatibility, isolate the legacy `loginMethod` name at the serialization boundary and use flow-specific names in the core model and service APIs.",
+        "reasoning": "",
+        "summary_hash": "270e26cd"
+      },
+      "status": "open",
+      "kind": "issue",
+      "primary_command": "desloppify plan resolve \"review::.::holistic::naming_quality::login_method_label_actually_stores_flow\" --note \"<what you did>\" --confirm",
+      "queue_position": 7,
+      "plan_cluster": {
+        "name": "naming-fixes",
+        "description": "Rename for clarity",
+        "total_items": 3,
+        "action_steps": [
+          {
+            "title": "Rename legacyGoogleId in AuthenticatedUserIdentity",
+            "effort": "trivial"
+          },
+          {
+            "title": "Rename loginMethod field to match its purpose",
+            "effort": "small"
+          },
+          {
+            "title": "Clarify Microsoft isConfigured naming",
+            "effort": "trivial"
+          }
+        ]
+      }
+    },
+    {
+      "id": "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level",
+      "confidence": "medium",
+      "detector": "review",
+      "file": ".",
+      "summary": "`isConfigured()` obscures whether Microsoft auth is client-side or server-side ready",
+      "detail": {
+        "holistic": true,
+        "dimension": "naming_quality",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java",
+          "backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java"
+        ],
+        "evidence": [
+          "`MicrosoftAuthProperties` defines both `isClientSideConfigured()` and `isServerSideConfigured()`, but the generic `isConfigured()` just aliases the client-side check.",
+          "`MicrosoftTokenVerifier.buildDecoder(...)` calls `properties.isConfigured()`, so readers have to open the implementation to learn which configuration level that generic name actually means."
+        ],
+        "suggestion": "Replace `isConfigured()` with a name that states the exact readiness level it represents, such as `isTokenVerificationConfigured()`, or call the explicit client/server-specific predicate directly at each use site.",
+        "reasoning": "",
+        "summary_hash": "dd8dd968"
+      },
+      "status": "open",
+      "kind": "issue",
+      "primary_command": "desloppify plan resolve \"review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level\" --note \"<what you did>\" --confirm",
+      "queue_position": 8,
+      "plan_cluster": {
+        "name": "naming-fixes",
+        "description": "Rename for clarity",
+        "total_items": 3,
+        "action_steps": [
+          {
+            "title": "Rename legacyGoogleId in AuthenticatedUserIdentity",
+            "effort": "trivial"
+          },
+          {
+            "title": "Rename loginMethod field to match its purpose",
+            "effort": "small"
+          },
+          {
+            "title": "Clarify Microsoft isConfigured naming",
+            "effort": "trivial"
           }
         ]
       }
     }
   ],
   "queue": {
-    "total": 1,
+    "total": 3,
     "mode": "execution"
   },
   "narrative": {
     "phase": "early_momentum",
-    "headline": "Score 84.2/100 with 62 issues open. Keep the momentum going. (18 review work items \u2014 run `desloppify show review --status open`)",
+    "headline": "Score 84.2/100 with 61 issues open. Keep the momentum going. (17 review work items \u2014 run `desloppify show review --status open`)",
     "dimensions": {
       "lowest_dimensions": [
         {
@@ -142,8 +237,8 @@
       {
         "type": "refactor",
         "detector": "review",
-        "count": 18,
-        "description": "18 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
+        "count": 17,
+        "description": "17 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
         "command": "desloppify show review --status open",
         "impact": 0.0,
         "dimension": "Unknown",
@@ -169,7 +264,7 @@
     "strategy": {
       "fixer_leverage": {
         "auto_fixable_count": 0,
-        "total_count": 98,
+        "total_count": 95,
         "coverage": 0.0,
         "impact_ratio": 0.0,
         "recommendation": "none"
@@ -222,7 +317,7 @@
         }
       },
       "can_parallelize": true,
-      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 18 issue(s) \u2014 `desloppify show review --status open`."
+      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 17 issue(s) \u2014 `desloppify show review --status open`."
     },
     "tools": {
       "fixers": [],
@@ -255,7 +350,7 @@
       "command": "desloppify show orphaned --status open",
       "description": "27 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
     },
-    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 18 issue(s) \u2014 `desloppify show review --status open`.",
+    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 17 issue(s) \u2014 `desloppify show review --status open`.",
     "verification_step": {
       "command": "desloppify scan",
       "reason": "revalidate after changes"
@@ -271,7 +366,7 @@
     "reminders": [
       {
         "type": "review_issues_pending",
-        "message": "18 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
+        "message": "17 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
         "command": "desloppify show review --status open",
         "priority": 1,
         "severity": "high"
@@ -363,7 +458,7 @@
         "item_count": 4
       }
     ],
-    "total_ordered": 22,
+    "total_ordered": 21,
     "total_skipped": 3,
     "plan_overrides_narrative": true
   },
@@ -411,7 +506,7 @@
       "score": 90.8,
       "strict": 90.8,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "subjective": true,
       "placeholder": false,
@@ -646,7 +741,7 @@
       "score": 90.8,
       "strict": 90.8,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "subjective": true,
       "placeholder": false,

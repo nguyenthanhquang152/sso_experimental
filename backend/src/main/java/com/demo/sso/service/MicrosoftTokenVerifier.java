@@ -79,7 +79,7 @@ public class MicrosoftTokenVerifier {
     }
 
     private static JwtDecoder buildDecoder(MicrosoftAuthProperties properties) {
-        if (!properties.isConfigured()) {
+        if (!properties.isClientSideConfigured()) {
             return token -> {
                 throw new IllegalStateException(
                     "Microsoft token verifier requires app.microsoft.client-id and app.microsoft.authority");

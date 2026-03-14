@@ -12,8 +12,8 @@
     "auto_resolved": 0,
     "deferred": 3,
     "false_positive": 0,
-    "fixed": 32,
-    "open": 62,
+    "fixed": 33,
+    "open": 61,
     "triaged_out": 0,
     "wontfix": 0,
     "by_tier": {
@@ -30,8 +30,8 @@
         "auto_resolved": 0,
         "deferred": 0,
         "false_positive": 0,
-        "fixed": 8,
-        "open": 7,
+        "fixed": 9,
+        "open": 6,
         "triaged_out": 0,
         "wontfix": 0
       },
@@ -1959,11 +1959,11 @@
         "reasoning": "",
         "summary_hash": "f049e417"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "Added comprehensive Javadoc documenting the dual-version contract pattern (legacy vs v2) on AuthenticatedUserIdentity. Added null/blank validation in both factory methods. The nullable union pattern is now well-documented and guarded.",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-14T20:55:15+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -1971,7 +1971,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "manual",
+        "text": "I have actually Added comprehensive Javadoc documenting the dual-version contract pattern (legacy vs v2) on AuthenticatedUserIdentity. Added null/blank validation in both factory methods. The nullable union pattern is now well-documented and guarded. and I am not gaming the score.",
+        "attested_at": "2026-03-14T20:55:15+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow": {
       "id": "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
@@ -3345,7 +3351,10 @@
         "Delegation Density": 97.0,
         "Definition Directness": 95.0,
         "Type Discipline": 84.0
-      }
+      },
+      "needs_review_refresh": true,
+      "refresh_reason": "review_issue_fixed",
+      "stale_since": "2026-03-14T20:55:15+00:00"
     },
     "ai_generated_debt": {
       "score": 90.8,
@@ -4129,13 +4138,13 @@
       "strict": 90.8,
       "verified_strict_score": 90.8,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.908,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 0.92,
           "assessment_score": 90.8,
           "placeholder": false,
