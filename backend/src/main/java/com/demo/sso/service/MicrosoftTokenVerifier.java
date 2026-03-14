@@ -69,8 +69,11 @@ public class MicrosoftTokenVerifier {
     }
 
     private static void validateNonce(Jwt jwt, String expectedNonce) {
+        if (expectedNonce == null || expectedNonce.isBlank()) {
+            throw new IllegalArgumentException("expectedNonce must not be null or blank — nonce validation cannot be skipped");
+        }
         String nonce = String.valueOf(jwt.getClaims().get("nonce"));
-        if (expectedNonce != null && !expectedNonce.equals(nonce)) {
+        if (!expectedNonce.equals(nonce)) {
             throw new IllegalArgumentException("Microsoft token nonce does not match issued challenge");
         }
     }

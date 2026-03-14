@@ -7,8 +7,8 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit tests for AuthFlow enum.
@@ -89,34 +89,24 @@ class AuthFlowTest {
     @NullAndEmptySource
     @ValueSource(strings = {" ", "  ", "\t", "\n", "\r\n"})
     void testFromLoginMethodWithNullEmptyOrBlank(String input) {
-        // Act
-        AuthFlow result = AuthFlow.fromLoginMethod(input);
-
-        // Assert
-        assertNull(result, "Null, empty, or blank input should return null");
+        assertThrows(IllegalArgumentException.class,
+            () -> AuthFlow.fromLoginMethod(input),
+            "Null, empty, or blank input should throw IllegalArgumentException");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"invalid", "UNKNOWN", "google", "microsoft", "123", "server", "client"})
     void testFromLoginMethodWithInvalidValues(String input) {
-        // Act
-        AuthFlow result = AuthFlow.fromLoginMethod(input);
-
-        // Assert
-        assertNull(result, "Invalid auth flow value should return null: " + input);
+        assertThrows(IllegalArgumentException.class,
+            () -> AuthFlow.fromLoginMethod(input),
+            "Invalid auth flow value should throw IllegalArgumentException: " + input);
     }
 
     @Test
     void testFromLoginMethodWithSpecialCharacters() {
-        // Arrange & Act
-        AuthFlow result1 = AuthFlow.fromLoginMethod("SERVER-SIDE");
-        AuthFlow result2 = AuthFlow.fromLoginMethod("CLIENT.SIDE");
-        AuthFlow result3 = AuthFlow.fromLoginMethod("SERVER/SIDE");
-
-        // Assert - these don't match the exact enum format
-        assertNull(result1, "Special characters should not match enum values");
-        assertNull(result2, "Special characters should not match enum values");
-        assertNull(result3, "Special characters should not match enum values");
+        assertThrows(IllegalArgumentException.class, () -> AuthFlow.fromLoginMethod("SERVER-SIDE"));
+        assertThrows(IllegalArgumentException.class, () -> AuthFlow.fromLoginMethod("CLIENT.SIDE"));
+        assertThrows(IllegalArgumentException.class, () -> AuthFlow.fromLoginMethod("SERVER/SIDE"));
     }
 
     @Test

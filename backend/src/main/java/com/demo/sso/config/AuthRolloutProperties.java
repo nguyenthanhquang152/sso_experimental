@@ -9,6 +9,7 @@ public class AuthRolloutProperties {
 
     private IdentityContractMode identityContractMode = IdentityContractMode.LEGACY_ONLY;
     private JwtMintMode jwtMintMode = JwtMintMode.LEGACY;
+    private final Google google = new Google();
     private final Microsoft microsoft = new Microsoft();
 
     public IdentityContractMode getIdentityContractMode() {
@@ -25,6 +26,10 @@ public class AuthRolloutProperties {
 
     public void setJwtMintMode(JwtMintMode jwtMintMode) {
         this.jwtMintMode = jwtMintMode;
+    }
+
+    public Google getGoogle() {
+        return google;
     }
 
     public Microsoft getMicrosoft() {
@@ -48,6 +53,18 @@ public class AuthRolloutProperties {
     public enum JwtMintMode {
         LEGACY,
         V2
+    }
+
+    public static class Google {
+        private boolean clientSideEnabled = true;
+
+        public boolean isClientSideEnabled() {
+            return clientSideEnabled;
+        }
+
+        public void setClientSideEnabled(boolean clientSideEnabled) {
+            this.clientSideEnabled = clientSideEnabled;
+        }
     }
 
     public static class Microsoft {

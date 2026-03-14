@@ -80,6 +80,11 @@ public class AuthController {
 
     @PostMapping("/google/verify")
     public ResponseEntity<AuthApiResponse> verifyGoogleToken(@RequestBody GoogleVerifyRequest request) {
+        if (!rolloutProperties.getGoogle().isClientSideEnabled()) {
+            return ResponseEntity.status(503)
+                .body(new ErrorResponse("Google client-side login is disabled"));
+        }
+
         String credential = request == null ? null : request.credential();
         if (credential == null || credential.isBlank()) {
             return badRequest("Missing credential");
