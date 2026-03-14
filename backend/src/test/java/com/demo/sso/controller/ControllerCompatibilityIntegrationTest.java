@@ -18,9 +18,9 @@ import com.demo.sso.model.User;
 import com.demo.sso.repository.UserRepository;
 import com.demo.sso.service.GoogleTokenVerifier;
 import com.demo.sso.service.JwtTokenService;
+import com.demo.sso.service.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import java.time.Instant;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
@@ -89,13 +89,9 @@ class ControllerCompatibilityIntegrationTest {
 
     @Test
     void googleVerifyReturnsV2TokenDuringCompatibilityMode() throws Exception {
-        GoogleIdToken.Payload payload = new GoogleIdToken.Payload();
-        payload.setSubject("google-123");
-        payload.setEmail("user@example.com");
-        payload.setEmailVerified(true);
-        payload.put("name", "Google User");
-        payload.put("picture", "http://example.com/google.png");
-        when(googleTokenVerifier.verify("valid-google-id-token")).thenReturn(payload);
+        VerifiedGoogleIdentity identity = new VerifiedGoogleIdentity(
+            "google-123", "user@example.com", true, "Google User", "http://example.com/google.png");
+        when(googleTokenVerifier.verify("valid-google-id-token")).thenReturn(identity);
 
         MvcResult result = mockMvc.perform(post("/auth/google/verify")
                 .contentType(MediaType.APPLICATION_JSON)

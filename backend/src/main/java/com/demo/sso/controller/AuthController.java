@@ -13,13 +13,13 @@ import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.User;
 import com.demo.sso.service.AuthCodeStore;
 import com.demo.sso.service.GoogleTokenVerifier;
+import com.demo.sso.service.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.JwtTokenService;
 import com.demo.sso.service.MicrosoftChallengeStore;
 import com.demo.sso.service.MicrosoftTokenVerifier;
 import com.demo.sso.service.NormalizedIdentity;
 import com.demo.sso.service.ProviderIdentityNormalizer;
 import com.demo.sso.service.UserService;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -91,18 +91,18 @@ public class AuthController {
         }
 
         try {
-            GoogleIdToken.Payload payload = googleTokenVerifier.verify(credential);
+            VerifiedGoogleIdentity google = googleTokenVerifier.verify(credential);
 
-            if (!Boolean.TRUE.equals(payload.getEmailVerified())) {
+            if (!google.emailVerified()) {
                 return ResponseEntity.badRequest()
                     .body(new ErrorResponse("Email not verified by Google"));
             }
 
             NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(
-                payload.getSubject(),
-                payload.getEmail(),
-                (String) payload.get("name"),
-                (String) payload.get("picture"),
+                google.subject(),
+                google.email(),
+                google.name(),
+                google.pictureUrl(),
                 AuthFlow.CLIENT_SIDE);
 
             User user = userService.findOrCreateUser(identity);

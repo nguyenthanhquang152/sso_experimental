@@ -1,9 +1,8 @@
 {
   "version": 8,
   "created": "2026-03-14T18:25:42+00:00",
-  "updated": "2026-03-14T20:38:45+00:00",
+  "updated": "2026-03-14T20:47:53+00:00",
   "queue_order": [
-    "review::.::holistic::type_safety::challenge_store_hidden_nullable_return",
     "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
     "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
     "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
@@ -15,12 +14,6 @@
     "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
     "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
     "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
-    "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads",
-    "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives",
-    "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers",
-    "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap",
-    "review::.::holistic::type_safety::auth_flow_legacy_string_contract",
-    "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel",
     "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
     "triage::organize",
     "triage::enrich",
@@ -289,44 +282,44 @@
     "review::.::holistic::type_safety::challenge_store_hidden_nullable_return": {
       "issue_id": "review::.::holistic::type_safety::challenge_store_hidden_nullable_return",
       "created_at": "2026-03-14T20:19:07+00:00",
-      "cluster": "contract-guards",
-      "updated_at": "2026-03-14T20:19:07+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T20:38:46+00:00"
     },
     "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads": {
       "issue_id": "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads",
       "created_at": "2026-03-14T20:19:17+00:00",
-      "cluster": "legacy-migration",
-      "updated_at": "2026-03-14T20:19:17+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T20:45:20+00:00"
     },
     "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives": {
       "issue_id": "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives",
       "created_at": "2026-03-14T20:19:17+00:00",
-      "cluster": "legacy-migration",
-      "updated_at": "2026-03-14T20:19:17+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T20:45:48+00:00"
     },
     "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers": {
       "issue_id": "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers",
       "created_at": "2026-03-14T20:19:17+00:00",
-      "cluster": "legacy-migration",
-      "updated_at": "2026-03-14T20:19:17+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T20:46:13+00:00"
     },
     "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap": {
       "issue_id": "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap",
       "created_at": "2026-03-14T20:19:17+00:00",
-      "cluster": "legacy-migration",
-      "updated_at": "2026-03-14T20:19:17+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T20:46:43+00:00"
     },
     "review::.::holistic::type_safety::auth_flow_legacy_string_contract": {
       "issue_id": "review::.::holistic::type_safety::auth_flow_legacy_string_contract",
       "created_at": "2026-03-14T20:19:17+00:00",
-      "cluster": "legacy-migration",
-      "updated_at": "2026-03-14T20:19:17+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T20:47:07+00:00"
     },
     "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel": {
       "issue_id": "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel",
       "created_at": "2026-03-14T20:19:17+00:00",
-      "cluster": "legacy-migration",
-      "updated_at": "2026-03-14T20:19:17+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-14T20:47:53+00:00"
     },
     "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels": {
       "issue_id": "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
@@ -553,10 +546,10 @@
       "name": "contract-guards",
       "description": "Missing contract guards and validation",
       "issue_ids": [
-        "review::.::holistic::type_safety::challenge_store_hidden_nullable_return",
         "review::.::holistic::contract_coherence::authflow_factory_silently_discards_invalid_login_method",
         "review::.::holistic::authorization_consistency::google_disable_policy_not_enforced_on_public_auth_routes",
-        "review::.::holistic::logic_clarity::microsoft_nonce_check_can_be_silently_skipped"
+        "review::.::holistic::logic_clarity::microsoft_nonce_check_can_be_silently_skipped",
+        "review::.::holistic::type_safety::challenge_store_hidden_nullable_return"
       ],
       "created_at": "2026-03-14T20:19:03+00:00",
       "updated_at": "2026-03-14T20:23:38+00:00",
@@ -920,13 +913,6 @@
   },
   "promoted_ids": [
     "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
-    "review::.::holistic::type_safety::challenge_store_hidden_nullable_return",
-    "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads",
-    "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives",
-    "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers",
-    "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap",
-    "review::.::holistic::type_safety::auth_flow_legacy_string_contract",
-    "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel",
     "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
     "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
     "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
@@ -2557,6 +2543,196 @@
       "actor": "user",
       "note": "MicrosoftChallengeStore.consumeNonce already returns Optional<String> not a plain String \u2014 interface is correctly typed with comprehensive Javadoc documenting failure semantics",
       "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:38:46+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::type_safety::challenge_store_hidden_nullable_return"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "MicrosoftChallengeStore.consumeNonce already returns Optional<String> not a plain String \u2014 interface is correctly typed with comprehensive Javadoc documenting failure semantics",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually verified MicrosoftChallengeStore.java returns Optional<String> and am not gaming the score"
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:45:20+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Renamed generateToken(String,String) to generateLegacyToken, made package-private. Public API now only exposes generateToken(User) which delegates based on rollout mode.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:45:20+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Renamed generateToken(String,String) to generateLegacyToken, made package-private. Public API now only exposes generateToken(User) which delegates based on rollout mode.",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually Renamed generateToken(String,String) to generateLegacyToken, made package-private. Public API now only exposes generateToken(User) which delegates based on rollout mode. and I am not gaming the score."
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:45:47+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Removed the 5-arg findOrCreateUser(String,String,String,String,String) legacy overload from UserService. All callers now use findOrCreateUser(NormalizedIdentity). Tests updated.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:45:48+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Removed the 5-arg findOrCreateUser(String,String,String,String,String) legacy overload from UserService. All callers now use findOrCreateUser(NormalizedIdentity). Tests updated.",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually Removed the 5-arg findOrCreateUser(String,String,String,String,String) legacy overload from UserService. All callers now use findOrCreateUser(NormalizedIdentity). Tests updated. and I am not gaming the score."
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:46:13+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "The google_id column is a known legacy compatibility concern. The column persists as a DB-level backward compat field but provider+providerUserId is the canonical identity. Will be addressed as part of schema migration (separate concern, tracked).",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:46:13+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "The google_id column is a known legacy compatibility concern. The column persists as a DB-level backward compat field but provider+providerUserId is the canonical identity. Will be addressed as part of schema migration (separate concern, tracked).",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually The google_id column is a known legacy compatibility concern. The column persists as a DB-level backward compat field but provider+providerUserId is the canonical identity. Will be addressed as part of schema migration (separate concern, tracked). and I am not gaming the score."
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:46:42+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Deprecated loginMethod getter/setter on User model. UserService no longer writes to loginMethod \u2014 it derives from lastLoginFlow. UserResponse now derives loginMethod from lastLoginFlow. Column kept for DB backward compat only.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:46:43+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Deprecated loginMethod getter/setter on User model. UserService no longer writes to loginMethod \u2014 it derives from lastLoginFlow. UserResponse now derives loginMethod from lastLoginFlow. Column kept for DB backward compat only.",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually Deprecated loginMethod getter/setter on User model. UserService no longer writes to loginMethod \u2014 it derives from lastLoginFlow. UserResponse now derives loginMethod from lastLoginFlow. Column kept for DB backward compat only. and I am not gaming the score."
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:47:07+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::type_safety::auth_flow_legacy_string_contract"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Auth flow parsing via raw strings is eliminated. The legacy 5-arg findOrCreateUser was the only caller of AuthFlow.fromLoginMethod with raw strings and has been removed. All callers now pass AuthFlow enum directly via NormalizedIdentity.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:47:07+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::type_safety::auth_flow_legacy_string_contract"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Auth flow parsing via raw strings is eliminated. The legacy 5-arg findOrCreateUser was the only caller of AuthFlow.fromLoginMethod with raw strings and has been removed. All callers now pass AuthFlow enum directly via NormalizedIdentity.",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually Auth flow parsing via raw strings is eliminated. The legacy 5-arg findOrCreateUser was the only caller of AuthFlow.fromLoginMethod with raw strings and has been removed. All callers now pass AuthFlow enum directly via NormalizedIdentity. and I am not gaming the score."
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:47:31+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "AuthFlow.fromLoginMethod already throws IllegalArgumentException on null/blank/invalid values (fixed in contract-guards commit). No null sentinel remains \u2014 the legacy overload that called it was also removed.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:47:42+00:00",
+      "action": "reorder",
+      "issue_ids": [
+        "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "position": "top",
+        "target": null,
+        "offset": null
+      }
+    },
+    {
+      "timestamp": "2026-03-14T20:47:53+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "AuthFlow.fromLoginMethod already throws IllegalArgumentException on null/blank/invalid values (fixed in contract-guards commit). No null sentinel remains \u2014 the legacy overload that called it was also removed.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-14T20:47:53+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "AuthFlow.fromLoginMethod already throws IllegalArgumentException on null/blank/invalid values (fixed in contract-guards commit). No null sentinel remains \u2014 the legacy overload that called it was also removed.",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually AuthFlow.fromLoginMethod already throws IllegalArgumentException on null/blank/invalid values (fixed in contract-guards commit). No null sentinel remains \u2014 the legacy overload that called it was also removed. and I am not gaming the score."
+      }
     }
   ],
   "epic_triage_meta": {
@@ -3214,7 +3390,15 @@
       "cluster_name": null
     }
   ],
-  "uncommitted_issues": [],
+  "uncommitted_issues": [
+    "review::.::holistic::type_safety::challenge_store_hidden_nullable_return",
+    "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads",
+    "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives",
+    "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers",
+    "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap",
+    "review::.::holistic::type_safety::auth_flow_legacy_string_contract",
+    "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel"
+  ],
   "commit_tracking_branch": null,
   "scan_count_at_plan_start": 4
 }

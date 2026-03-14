@@ -9,9 +9,9 @@ import com.demo.sso.service.AuthCodeStore;
 import com.demo.sso.service.GoogleTokenVerifier;
 import com.demo.sso.service.JwtTokenService;
 import com.demo.sso.service.MicrosoftTokenVerifier;
+import com.demo.sso.service.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -165,14 +165,10 @@ class ControllerIntegrationTest {
 
         @Test
         void returnsTokenAndDualWritesProviderFieldsForValidGoogleToken() throws Exception {
-            GoogleIdToken.Payload payload = new GoogleIdToken.Payload();
-            payload.setSubject("google-123");
-            payload.setEmail("user@example.com");
-            payload.setEmailVerified(true);
-            payload.put("name", "Google User");
-            payload.put("picture", "http://example.com/google.png");
+            VerifiedGoogleIdentity identity = new VerifiedGoogleIdentity(
+                "google-123", "user@example.com", true, "Google User", "http://example.com/google.png");
 
-            when(googleTokenVerifier.verify("valid-google-id-token")).thenReturn(payload);
+            when(googleTokenVerifier.verify("valid-google-id-token")).thenReturn(identity);
 
             MvcResult result = mockMvc.perform(post("/auth/google/verify")
                     .contentType(MediaType.APPLICATION_JSON)

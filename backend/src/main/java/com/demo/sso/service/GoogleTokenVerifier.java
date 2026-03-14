@@ -1,5 +1,6 @@
 package com.demo.sso.service;
 
+import com.demo.sso.model.AuthFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -11,6 +12,10 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 
+/**
+ * Verifies Google ID tokens and returns a provider-neutral {@link VerifiedGoogleIdentity}.
+ * Encapsulates all Google SDK interaction so callers never depend on the Google API library.
+ */
 @Service
 public class GoogleTokenVerifier {
 
@@ -23,12 +28,36 @@ public class GoogleTokenVerifier {
                 .build();
     }
 
-    public GoogleIdToken.Payload verify(String idTokenString)
+    /**
+     * Verifies a Google ID token string and extracts identity claims.
+     *
+     * @param idTokenString the raw ID token from the client
+     * @return verified identity claims
+     * @throws IllegalArgumentException if the token is invalid
+     * @throws GeneralSecurityException on crypto errors
+     * @throws IOException on network errors
+     */
+    public VerifiedGoogleIdentity verify(String idTokenString)
             throws GeneralSecurityException, IOException {
         GoogleIdToken idToken = verifier.verify(idTokenString);
         if (idToken == null) {
             throw new IllegalArgumentException("Invalid Google ID token");
         }
-        return idToken.getPayload();
+        GoogleIdToken.Payload payload = idToken.getPayload();
+        return new VerifiedGoogleIdentity(
+                payload.getSubject(),
+                payload.getEmail(),
+                Boolean.TRUE.equals(payload.getEmailVerified()),
+                (String) payload.get("name"),
+                (String) payload.get("picture"));
+    }
+
+    /** Provider-neutral representation of a verified Google identity. */
+    public record VerifiedGoogleIdentity(
+            String subject,
+            String email,
+            boolean emailVerified,
+            String name,
+            String pictureUrl) {
     }
 }
