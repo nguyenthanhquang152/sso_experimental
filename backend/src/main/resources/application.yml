@@ -60,6 +60,9 @@ app:
     microsoft:
       server-side-enabled: ${APP_AUTH_MICROSOFT_SERVER_SIDE_ENABLED:false}
       client-side-enabled: ${APP_AUTH_MICROSOFT_CLIENT_SIDE_ENABLED:false}
+    google:
+      client-side-enabled: ${APP_AUTH_GOOGLE_CLIENT_SIDE_ENABLED:true}
+      server-side-enabled: ${APP_AUTH_GOOGLE_SERVER_SIDE_ENABLED:true}
   microsoft:
     client-id: ${MICROSOFT_CLIENT_ID:}
     client-secret: ${MICROSOFT_CLIENT_SECRET:}

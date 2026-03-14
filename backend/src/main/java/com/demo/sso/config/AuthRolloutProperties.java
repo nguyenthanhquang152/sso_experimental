@@ -57,6 +57,7 @@ public class AuthRolloutProperties {
 
     public static class Google {
         private boolean clientSideEnabled = true;
+        private boolean serverSideEnabled = true;
 
         public boolean isClientSideEnabled() {
             return clientSideEnabled;
@@ -64,6 +65,14 @@ public class AuthRolloutProperties {
 
         public void setClientSideEnabled(boolean clientSideEnabled) {
             this.clientSideEnabled = clientSideEnabled;
+        }
+
+        public boolean isServerSideEnabled() {
+            return serverSideEnabled;
+        }
+
+        public void setServerSideEnabled(boolean serverSideEnabled) {
+            this.serverSideEnabled = serverSideEnabled;
         }
     }
 

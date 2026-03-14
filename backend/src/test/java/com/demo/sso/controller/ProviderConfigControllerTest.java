@@ -105,4 +105,23 @@ class ProviderConfigControllerTest {
         assertFalse(google.serverSideEnabled());
         assertFalse(google.clientSideEnabled());
     }
+
+    @Test
+    void suppressesGoogleClientSideWhenRolloutFlagIsDisabled() {
+        AuthRolloutProperties rollout = new AuthRolloutProperties();
+        rollout.getGoogle().setClientSideEnabled(false);
+
+        ProviderConfigController controller = new ProviderConfigController(
+            rollout,
+            new MicrosoftAuthProperties(),
+            "google-client-id.apps.googleusercontent.com",
+            "http://localhost:8000");
+
+        ResponseEntity<ProviderConfigResponse> response = controller.getProviders();
+        ProviderConfigResponse.GoogleProviderConfig google = response.getBody().google();
+
+        assertEquals("google-client-id.apps.googleusercontent.com", google.clientId());
+        assertTrue(google.serverSideEnabled());
+        assertFalse(google.clientSideEnabled());
+    }
 }
