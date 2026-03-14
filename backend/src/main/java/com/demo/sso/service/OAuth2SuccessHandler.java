@@ -49,7 +49,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         try {
             identity = normalizeIdentity(authentication, oAuth2User);
         } catch (OAuth2IdentityException e) {
-            logger.warn("OAuth2 login rejected: {}", e.getMessage());
+            logger.warn("OAuth2 login rejected: {}", e.errorCode());
             response.sendRedirect(frontendUrl + "/?error=" + e.errorCode());
             return;
         }
