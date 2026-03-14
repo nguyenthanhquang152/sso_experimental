@@ -1,0 +1,1035 @@
+{
+  "assessments": {
+    "api_surface_coherence": 70.0,
+    "authorization_consistency": 78.0,
+    "contract_coherence": 74.0,
+    "convention_outlier": 80.0,
+    "cross_module_architecture": 72.0,
+    "design_coherence": 68.0,
+    "error_consistency": 65.0,
+    "high_level_elegance": 68.0,
+    "incomplete_migration": 72.0,
+    "logic_clarity": 78.0,
+    "low_level_elegance": 72.0,
+    "mid_level_elegance": 70.0,
+    "naming_quality": 82.0,
+    "package_organization": 70.0,
+    "test_strategy": 52.0,
+    "type_safety": 72.0
+  },
+  "dimension_notes": {
+    "cross_module_architecture": {
+      "evidence": [
+        "Layers are well-defined: model \u2192 repository \u2192 service \u2192 controller, with config as cross-cutting. No obvious upward dependency violations.",
+        "AuthCodeStore and MicrosoftChallengeStore interfaces live in the service package rather than a dedicated ports/interfaces package \u2014 mild boundary blur.",
+        "Controller DTOs (MicrosoftChallengeResponse, MicrosoftVerifyRequest) are properly isolated in controller/dto/.",
+        "AuthController depends on 7 service-layer beans which is high but justified for an orchestration controller.",
+        "No import cycles detected.",
+        "service package contains both interfaces (AuthCodeStore, MicrosoftChallengeStore) and implementations (Redis*) and domain objects (NormalizedIdentity, AuthenticatedUserIdentity) \u2014 mixed concerns in one package.",
+        "The scan flags 25 orphaned files but this is a Java Spring app where Spring wires beans at runtime; the static importer analysis underestimates actual coupling."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "high_level_elegance": {
+      "evidence": [
+        "Top-level packages (config, controller, model, repository, service) map cleanly to Spring conventions and are predictable for any Spring developer.",
+        "AuthController is the single largest class at 222 LOC and handles Google client-side, Microsoft client-side, auth code exchange, logout, and Microsoft challenge issuance \u2014 five distinct responsibilities.",
+        "No README or architecture doc exists beyond skeleton README.md (1 byte).",
+        "JwtTokenService handles both token minting (v1 and v2 paths) and parsing/validation \u2014 dual responsibility that blurs its ownership.",
+        "The frontend has clear page/component/hook/api separation \u2014 good decomposition.",
+        "The 'config' package mixes Spring configuration beans (SecurityConfig), filter implementations (JwtAuthenticationFilter, MicrosoftAuthorizationGateFilter), property holders (MicrosoftAuthProperties, AuthRolloutProperties), and a startup guard (IdentityContractGuard)."
+      ],
+      "impact_scope": "subsystem",
+      "fix_scope": "multi_file_refactor",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "convention_outlier": {
+      "evidence": [
+        "Java backend uses consistent camelCase for methods/fields and PascalCase for classes \u2014 no naming convention drift.",
+        "Frontend uses consistent camelCase throughout TypeScript files.",
+        "All Java classes use constructor injection (not field injection) consistently \u2014 good convention adherence.",
+        "AuthCodeStore and MicrosoftChallengeStore interfaces have consistent documentation style with clear Javadoc contracts.",
+        "MicrosoftAuthorizationGateFilter is missing a newline between class closing brace and next class in the concatenated output, but this is a file boundary artifact not an actual issue.",
+        "controller/dto/ has only 2 files both using record types \u2014 consistent.",
+        "ProviderIdentityNormalizer uses a private static isBlank helper; AuthController also defines a private static isBlank \u2014 duplicated helper across two files.",
+        "User entity uses standard Java getters/setters while newer code uses records (NormalizedIdentity, AuthenticatedUserIdentity, MicrosoftChallengeResponse, MicrosoftVerifyRequest) \u2014 two type strategies for domain objects, but this is intentional: JPA entity vs immutable value objects."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "error_consistency": {
+      "evidence": [
+        "Service layer throws IllegalArgumentException for validation failures (GoogleTokenVerifier, MicrosoftTokenVerifier, ProviderIdentityNormalizer) \u2014 consistent domain-level error type.",
+        "Controller layer catches exceptions and returns structured JSON error responses \u2014 appropriate boundary handling.",
+        "OAuth2SuccessHandler.normalizeIdentity() catches IllegalArgumentException and redirects to frontend error URL \u2014 loses the exception but this is intentional UI-layer handling.",
+        "AuthCodeStore.exchangeCode() returns null for invalid/expired codes. AuthController then checks for null. This null-return pattern is inconsistent with the throw pattern used in tokenVerifiers.",
+        "UserController.getCurrentUser() returns 404 via Optional.map/orElse \u2014 clean.",
+        "error strategy_by_directory shows service/ has both throws (23), try_catch (5), and returns_null (5) \u2014 mixed strategy within the same layer.",
+        "UserService.findOrCreateUser catches DataIntegrityViolationException and rethrows as IllegalStateException \u2014 good context preservation.",
+        "MicrosoftAuthorizationGateFilter writes raw JSON string literal for error responses rather than using ResponseEntity or a shared error body formatter."
+      ],
+      "impact_scope": "subsystem",
+      "fix_scope": "multi_file_refactor",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "naming_quality": {
+      "evidence": [
+        "Domain names are precise: NormalizedIdentity, AuthenticatedUserIdentity, ProviderIdentityNormalizer, AuthCodeStore \u2014 all communicate intent clearly.",
+        "AuthFlow enum (SERVER_SIDE, CLIENT_SIDE) and AuthProvider enum (GOOGLE, MICROSOFT) are clear and well-named.",
+        "JwtMintMode and IdentityContractMode enum names are domain-specific and descriptive.",
+        "isBlank is a reasonable name for the private helper despite being duplicated.",
+        "normalizeGoogleClaims and normalizeMicrosoftClaims in ProviderIdentityNormalizer are clear about what they normalize.",
+        "MicrosoftAuthorizationGateFilter name is accurate but verbose \u2014 'authorization gate' is specific.",
+        "IdentityContractGuard clearly communicates startup enforcement semantics.",
+        "Frontend: useAuth, useProviderConfig, apiFetch are all clear.",
+        "mergeProviderConfig in types/auth.ts is slightly misleading \u2014 it doesn't merge two configs, it fills in defaults for a partial config. A better name would be normalizeProviderConfig or applyProviderConfigDefaults.",
+        "legacyGoogleCompatibilityId in UserService is well-named and communicates the legacy/compat purpose.",
+        "Variable name 'registrationId' in OAuth2SuccessHandler is Spring-idiomatic and accurate."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "low_level_elegance": {
+      "evidence": [
+        "JwtTokenService.parseAuthenticatedUser() has a clear early-return structure: check version, dispatch to legacy or v2 path \u2014 intention-revealing control flow.",
+        "ProviderIdentityNormalizer.normalizeGoogleClaims() and .normalizeMicrosoftClaims() are focused and well-structured.",
+        "AuthController.verifyMicrosoftToken() has 5 sequential guard clauses before the happy path \u2014 slightly verbose but each guards a distinct precondition.",
+        "MicrosoftTokenVerifier.verifyIdToken() decomposes validation into 4 focused private methods (validateAudience, validateIssuer, validateVersion, validateNonce) \u2014 very clean.",
+        "ProviderIdentityNormalizer.normalizeEmail() has a complex validation condition with 5 subexpressions in one if \u2014 could be decomposed.",
+        "UserService.findOrCreateUser() handles the lookup-then-create pattern with a race-condition fallback on DataIntegrityViolationException \u2014 sophisticated but justified and clearly commented.",
+        "AuthController.cookiePath() has a redundant null check: servletContextPath is already normalized to empty string in constructor, so the null check inside cookiePath() is dead code.",
+        "UserController.getCurrentUser() uses a large Map.of() with 10 entries inline \u2014 should use a response DTO record instead.",
+        "DashboardPage.tsx getAvatarInitials function is clean and well-structured with precise edge case handling.",
+        "useAuth hook in frontend is concise and uses correct state initialization patterns."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "mid_level_elegance": {
+      "evidence": [
+        "OAuth2SuccessHandler.onAuthenticationSuccess \u2192 normalizeIdentity \u2192 ProviderIdentityNormalizer is a clean handoff chain with clear data translation at each seam.",
+        "AuthController: Google verify flow is: parse body \u2192 verify token \u2192 normalize identity \u2192 find/create user \u2192 generate JWT \u2192 return token. Clean linear handoff.",
+        "AuthController: Microsoft verify flow has 5 pre-flight checks spread as sequential if-returns before delegating to services \u2014 the guard progression is readable but somewhat scattered.",
+        "The auth code exchange seam (OAuth2SuccessHandler stores JWT \u2192 authCodeStore \u2192 AuthController.exchangeCode) is a clean single-use token redemption pattern.",
+        "JwtTokenService generates token for User, but OAuth2SuccessHandler calls jwtTokenService.generateToken(user) after finding or creating the user \u2014 the handoff is straightforward.",
+        "UserController.getCurrentUser: identity is obtained from Security context \u2192 findCurrentUser(identity) \u2192 map to response. Clean pipeline.",
+        "The Microsoft challenge/verify two-step protocol has a slightly complex session cookie handoff between issueMicrosoftChallenge and verifyMicrosoftToken \u2014 workable but the session ID extraction is spread across both endpoints.",
+        "Frontend: HomePage fetches providers config \u2192 conditionally renders login card components \u2192 components call back with token \u2192 useAuth.login stores it. Clean data flow."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "test_strategy": {
+      "evidence": [
+        "Tests found: JwtAuthenticationFilterTest, MicrosoftAuthorizationGateFilterTest, JwtTokenServiceTest, GoogleTokenVerifierTest, UserServiceTest, OAuth2SuccessHandlerTest, AuthFlowTest, ProviderConfigControllerTest, MicrosoftServerSideIntegrationTest, UserControllerTest.",
+        "JwtTokenServiceTest covers V1 and V2 token generation, parsing, and validation \u2014 good coverage of the core JWT path.",
+        "UserServiceTest covers findOrCreateUser for Google and Microsoft providers \u2014 good.",
+        "GoogleTokenVerifierTest exists but has unused imports (GoogleIdToken, Assertions) suggesting incomplete test development.",
+        "OAuth2SuccessHandlerTest has unused import ArgumentMatchers \u2014 similarly suggests incomplete test development.",
+        "ProviderConfigControllerTest has 4 unit tests covering the enabled/disabled config logic \u2014 good.",
+        "MicrosoftServerSideIntegrationTest is a @SpringBootTest integration test that validates the OAuth2 redirect \u2014 good integration coverage for that path.",
+        "JwtAuthenticationFilterTest and MicrosoftAuthorizationGateFilterTest have unused Assertions and Mockito imports \u2014 test development may be incomplete.",
+        "No tests for: ProviderIdentityNormalizer (critical \u2014 email normalization, guest identity rejection), MicrosoftTokenVerifier (critical \u2014 nonce validation, issuer validation), RedisAuthCodeStore (important \u2014 code exchange logic), RedisMicrosoftChallengeStore, AuthCodeStore exchange flow.",
+        "UserController.getCurrentUser has no test for the identity fallback path (non-AuthenticatedUserIdentity principal).",
+        "The scan correctly identified 25 untested modules \u2014 but many are Spring-wired services that are effectively tested through integration tests."
+      ],
+      "impact_scope": "subsystem",
+      "fix_scope": "multi_file_refactor",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "api_surface_coherence": {
+      "evidence": [
+        "All controller endpoints return ResponseEntity<?> with wildcard type \u2014 loses type information at the API boundary.",
+        "AuthController: /google/verify, /microsoft/verify return ResponseEntity<?> with either Map<String,String> body or error body \u2014 inconsistent response shape depending on success/failure.",
+        "POST /auth/exchange returns Map.of(\"token\", jwt) and POST /auth/google/verify returns Map.of(\"token\", jwt) \u2014 consistent token response shape across auth flows.",
+        "GET /user/me returns Map<String, Object> with 10 fields \u2014 no typed response class.",
+        "/auth/providers returns Map<String, Object> \u2014 untyped response.",
+        "AuthController constructor takes 9 parameters including @Value injected servletContextPath \u2014 large constructor parameter list.",
+        "ProviderConfigController.getProviders() builds response with two nested LinkedHashMaps with boolean+string fields \u2014 not type-safe.",
+        "Frontend API client apiFetch<T> is generic and typed \u2014 good.",
+        "Frontend types/auth.ts defines GoogleProviderConfig and MicrosoftProviderConfig interfaces \u2014 typed contracts for the provider API."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "authorization_consistency": {
+      "evidence": [
+        "SecurityConfig.filterChain() explicitly permits /oauth2/**, /login/oauth2/**, /auth/** and requires authentication for /user/** and anyRequest \u2014 consistent at the route level.",
+        "JwtAuthenticationFilter extracts and validates JWT for all requests \u2014 cross-cutting.',",
+        "MicrosoftAuthorizationGateFilter checks rollout feature flags before allowing Microsoft OAuth flows \u2014 consistent gate.",
+        "IdentityContractGuard enforces at startup that Microsoft SSO requires V2_ONLY identity contract \u2014 prevents misconfiguration.",
+        "AuthController validates rolloutProperties.getMicrosoft().isClientSideEnabled() in both /microsoft/challenge and /microsoft/verify independently \u2014 the feature flag check is duplicated across endpoints rather than centralized.",
+        "AuthController checks rollout flag and returns 503 in two different places for the same Microsoft client-side disabled condition \u2014 consistent error code but duplicated gate logic.",
+        "UserController has no explicit authorization annotation (@PreAuthorize) \u2014 relies entirely on SecurityConfig path matching for authenticated access.",
+        "No permission string literals or magic strings used \u2014 feature flags accessed through typed property classes."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "single_edit",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "incomplete_migration": {
+      "evidence": [
+        "The V1/V2 JWT contract migration is explicitly in-progress and controlled by AuthRolloutProperties.JwtMintMode and IdentityContractMode \u2014 this is an active tracked migration, not stale debt.",
+        "AuthenticatedUserIdentity has legacy() and v2() factory methods \u2014 legitimate compatibility shims for the active migration.",
+        "JwtTokenService.generateToken(User) dispatches on jwtMintMode \u2014 the v1 path will be removed when migration is complete.",
+        "User entity still has googleId field (String) alongside the generic provider/providerUserId pattern \u2014 legacy Google-only identity storage alongside the new multi-provider model.",
+        "UserService.findOrCreateUser() has Google-specific legacy fallback: 'if (existing.isEmpty() && identity.provider() == AuthProvider.GOOGLE) { existing = userRepository.findByGoogleId(identity.providerUserId()); }' \u2014 explicit migration compat code.",
+        "User.loginMethod String field coexists with User.lastLoginFlow AuthFlow enum \u2014 two representations of the same login concept.",
+        "No TODO/FIXME referencing 'legacy' or 'migrate' found \u2014 migration is tracked through the rollout properties, not left as TODO comments.",
+        "No mixed JS/TS files in frontend \u2014 fully TypeScript."
+      ],
+      "impact_scope": "subsystem",
+      "fix_scope": "multi_file_refactor",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "package_organization": {
+      "evidence": [
+        "Top-level packages: config (6 files, 348 LOC), controller (3 files + dto/ subdir), model (3 files), repository (1 file), service (12 files, 823 LOC).",
+        "service/ has 12 files \u2014 the largest package by file count, containing interfaces, implementations, value objects, and domain services all co-located.",
+        "config/ contains 6 files including 2 filter implementations \u2014 filters are not configuration.",
+        "controller/dto/ is a well-placed subpackage for request/response types.",
+        "The backend root package contains only SsoApplication.java \u2014 correct.",
+        "service/ should be split: service/store/ (AuthCodeStore, MicrosoftChallengeStore + Redis impls), service/identity/ (NormalizedIdentity, AuthenticatedUserIdentity, ProviderIdentityNormalizer).",
+        "Frontend structure: api/, components/, hooks/, pages/, types/ \u2014 appropriate flat structure for a small project.",
+        "Frontend is small enough (<15 files) that the flat structure is appropriate \u2014 no split needed.",
+        "No import-affinity mismatch found \u2014 files are generally in appropriate packages."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "design_coherence": {
+      "evidence": [
+        "AuthController has 8 constructor parameters and handles 5 distinct endpoint operations \u2014 doing too many things for a single class.",
+        "MicrosoftTokenVerifier has a clean internal design: constructor delegates to buildDecoder factory, validation split into 4 private methods \u2014 coherent.",
+        "ProviderIdentityNormalizer.normalizeGoogleClaims has 5 params (googleId, email, name, pictureUrl, loginFlow) + ProviderIdentityNormalizer.normalizeMicrosoftClaims has claims map + loginFlow \u2014 the claims Map<String,Object> param is appropriate for dynamic OAuth attribute maps.",
+        "UserService.findOrCreateUser() is 40+ LOC doing: lookup by provider, Google legacy fallback lookup, update existing, create new with race-condition fallback \u2014 3 distinct operations in one method.",
+        "JwtTokenService.generateToken() dispatches on JwtMintMode \u2014 the dual-version token generation is coherent as a single 'emit a token for this user' responsibility.",
+        "IdentityContractGuard.validate() has 4 consecutive validation blocks \u2014 focused single responsibility.",
+        "AuthController.verifyMicrosoftToken() has 5 sequential guard clauses then delegates \u2014 the guards are appropriate but the method could be broken into validateMicrosoftRequest() + performMicrosoftVerification().",
+        "UserService: findOrCreateUser(), findByEmail(), findCurrentUser() \u2014 three public methods, coherent user management responsibility.",
+        "DashboardPage renders avatar, profile card, and logout \u2014 appropriate for a page component."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "contract_coherence": {
+      "evidence": [
+        "AuthCodeStore interface has clear Javadoc contracts: storeJwt returns a code, exchangeCode returns null if invalid/expired.",
+        "The null-return contract of AuthCodeStore.exchangeCode() diverges from the throw convention used by sibling services \u2014 already noted in error_consistency.",
+        "MicrosoftChallengeStore interface has no Javadoc \u2014 the contracts of issueChallenge() and consumeNonce() are undocumented at the interface level.",
+        "JwtTokenService.parseAuthenticatedUser() returns AuthenticatedUserIdentity but can also throw IllegalArgumentException and JwtException \u2014 the exception contract is undocumented.",
+        "JwtTokenService.isTokenValid() returns boolean and never throws \u2014 contract is clear from the name.",
+        "AuthenticatedUserIdentity.legacy() factory creates an object where userId is null \u2014 callers must check isLegacy() before accessing userId. This implicit contract could be documented.",
+        "UserService.findCurrentUser() takes an AuthenticatedUserIdentity but uses identity.email() for legacy and identity.userId() for v2 \u2014 the branching is hidden inside the method, not evident from the signature.",
+        "ProviderIdentityNormalizer methods throw IllegalArgumentException for invalid inputs \u2014 consistent and appropriate.",
+        "MicrosoftChallenge record is declared inside MicrosoftChallengeStore interface \u2014 clean co-location of related contract type."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "single_edit",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "logic_clarity": {
+      "evidence": [
+        "JwtTokenService.parseAuthenticatedUser() control flow: check version null \u2192 legacy path; check version != 2 \u2192 throw; check acceptsV2 \u2192 throw; extract and validate claims \u2192 return. Clear decision tree.",
+        "JwtTokenService.isTokenValid() catches JwtException and IllegalArgumentException and returns false \u2014 clean boolean wrapper.",
+        "AuthController.verifyMicrosoftToken() has clearly distinct guard clauses: feature flag, input validation, session cookie, consumed nonce, verifier availability \u2014 each guards a real precondition, no redundancy.",
+        "UserService.findOrCreateUser() Google legacy fallback: 'if (existing.isEmpty() && identity.provider() == AuthProvider.GOOGLE) { existing = userRepository.findByGoogleId(identity.providerUserId()); }' \u2014 the GOOGLE-specific branch is explicit and correct.",
+        "ProviderIdentityNormalizer.normalizeEmail(): complex condition 'normalized.isBlank() || count('@') != 1 || contains(' ') || atIndex <= 0 || atIndex == normalized.length() - 1' \u2014 correct but complex 5-clause OR is hard to parse at a glance.",
+        "RedisAuthCodeStore.exchangeCode(): multi-path lookup (LEGACY_ONLY \u2192 v2_key, otherwise try legacy then v2 if acceptsV2) \u2014 slightly complex but documented with comment about GETDEL semantics.",
+        "MicrosoftAuthorizationGateFilter: two separate path checks with .endsWith() \u2014 no dead code paths.",
+        "AuthController.cookiePath(): redundant null check (servletContextPath already non-null from constructor) creates a technically dead branch."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    },
+    "type_safety": {
+      "evidence": [
+        "Java is a statically typed language \u2014 most type safety concerns apply to unchecked casts and raw types.",
+        "AuthController: Map<String, String> body parameter for /google/verify \u2014 the credential is accessed via body.get(\"credential\") which returns null for missing keys, handled with null check. Appropriate.",
+        "The unchecked cast @SuppressWarnings(\"unchecked\") Map<String, Object> google = (Map<String, Object>) response.getBody().get(\"google\") in test code \u2014 acceptable in tests.",
+        "ProviderConfigController returns Map<String, Object> \u2014 untyped response, could be typed DTO.",
+        "ProviderIdentityNormalizer.normalizeMicrosoftClaims(): Map<String, Object> claims parameter uses string key access with String.valueOf(claims.get(key)) \u2014 dynamic but safe since it handles null via stringClaim helper.",
+        "AuthenticatedUserIdentity record: userId field is Long (nullable) \u2014 callers must check isLegacy() before accessing. Not enforced by type system.",
+        "Frontend: mergeProviderConfig accepts Partial<ProviderConfig> | null \u2014 proper TypeScript narrowing.",
+        "Frontend: apiFetch<T> is generic and typed \u2014 good.",
+        "Frontend types/auth.ts defines interfaces for all provider config shapes \u2014 good type coverage.",
+        "useAuth hook UserProfile interface doesn't include provider/providerUserId fields that the backend now returns \u2014 TypeScript interface is incomplete/stale.",
+        "ResponseEntity<?> wildcard in controllers loses generics \u2014 see api_surface_coherence."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "single_edit",
+      "confidence": "high",
+      "issues_preventing_higher_score": ""
+    }
+  },
+  "dimension_judgment": {
+    "cross_module_architecture": {
+      "dimension_character": "The architecture follows a standard Spring layered pattern cleanly without cycles, but the service package has grown into a mixed-concern dumping ground holding interfaces, implementations, value objects, and domain records together. There are no hub modules with blast-radius concern, and dependency direction is consistently controller \u2192 service \u2192 repository \u2192 model.",
+      "score_rationale": "Score 72: The layering is healthy and direction violations are absent, which is the most important property. The primary defect is the service package mixing interfaces, Redis implementations, and identity records without subpackaging \u2014 a navigability and boundary clarity issue that falls short of a well-organized codebase but does not create dependency cycles."
+    },
+    "high_level_elegance": {
+      "dimension_character": "The structural decomposition into config/controller/model/repository/service follows Spring idiom and is immediately comprehensible. However, the AuthController has grown into a multi-provider orchestration hub doing too much, and the config package mixes disparate concerns (filters, property classes, startup validation) behind a single label that overpromises cohesion.",
+      "score_rationale": "Score 68: The package layout is conventional and discoverable, but two sources of ownership blur (AuthController doing 5 things, config housing filters + properties + validation) prevent a higher score. A new engineer would understand the shape quickly but find the config and AuthController boundaries fuzzy."
+    },
+    "convention_outlier": {
+      "dimension_character": "The codebase follows consistent naming and injection conventions throughout. The most notable outlier is the duplicated isBlank helper method appearing in both AuthController and ProviderIdentityNormalizer \u2014 a small but real convention gap. The JPA entity vs record duality is intentional and well-reasoned.",
+      "score_rationale": "Score 80: Strong convention adherence with no naming drift or organizational islands. The duplicated utility method is the clearest defect. Overall, a consistent first-time-reader experience."
+    },
+    "error_consistency": {
+      "dimension_character": "The codebase has a generally sound error strategy \u2014 service layer throws typed exceptions, controllers catch and map to HTTP responses. The main inconsistency is that AuthCodeStore returns null for not-found codes while token verifiers throw IllegalArgumentException for the analogous case, creating mixed patterns for callers. Additionally, a few filter-level error responses use raw string JSON instead of a shared formatter.",
+      "score_rationale": "Score 65: The overall strategy is coherent but the null-return from AuthCodeStore vs throw from verifiers forces callers to use two different error-handling patterns. Raw JSON strings in filters are a lesser concern. These are fixable with minimal change."
+    },
+    "naming_quality": {
+      "dimension_character": "Naming across this codebase is notably strong \u2014 domain concepts (identity, provider, flow, contract) are reflected in class and method names consistently with no generic verbs or opaque abbreviations. The single notable outlier is mergeProviderConfig in the frontend types which overpromises what the function does.",
+      "score_rationale": "Score 82: High-quality naming discipline throughout both backend and frontend. Only one name misrepresents behavior (mergeProviderConfig doing defaults-application, not merging two sources). No generic handle/process/do names found."
+    },
+    "low_level_elegance": {
+      "dimension_character": "Most function internals are direct and intention-revealing, with good use of early returns and focused private method extraction (especially in MicrosoftTokenVerifier). The main internal craft issues are a complex multi-condition email validator expression, a redundant null check in cookiePath(), and UserController returning an inline Map with 10 entries instead of a typed DTO.",
+      "score_rationale": "Score 72: Generally clean internals with a few specific craft gaps. None are severe but they add friction and reduce readability at specific call sites."
+    },
+    "mid_level_elegance": {
+      "dimension_character": "The main orchestration flows (OAuth2 success \u2192 identity normalization \u2192 user upsert \u2192 JWT \u2192 redirect/response) are clean composable pipelines. The Microsoft challenge two-step creates some session/cookie state that is managed inline in AuthController rather than in a dedicated component, resulting in a moderately tangled seam between endpoints.",
+      "score_rationale": "Score 70: Most handoffs are explicit and minimal. The main friction point is the Microsoft challenge session state management being spread across two controller endpoints and implemented inline rather than through a dedicated challenge coordinator. This is a mid-level seam design issue, not a breaking problem."
+    },
+    "test_strategy": {
+      "dimension_character": "The test suite has a reasonable foundation covering key services (JWT, UserService, filter behavior) but has critical gaps in ProviderIdentityNormalizer and MicrosoftTokenVerifier \u2014 the two classes with the most complex business logic (email normalization, nonce validation, issuer validation). Several test files also have unused imports suggesting incomplete test development.",
+      "score_rationale": "Score 52: Core JWT and user creation paths are tested. Critical gaps in email normalization (ProviderIdentityNormalizer) and Microsoft token validation (MicrosoftTokenVerifier) where incorrect logic would cause security or UX failures represent high-value missing coverage. Unused imports in test files suggest incomplete implementation."
+    },
+    "api_surface_coherence": {
+      "dimension_character": "The API shapes are functionally consistent (all auth flows return a token in the same structure) but the implementation uses raw Maps throughout instead of typed response DTOs, losing compile-time safety and making the API contract implicit. The frontend compensates with TypeScript interfaces but the backend offers no typed contract.",
+      "score_rationale": "Score 70: The semantic consistency (all flows return {token}) is good, but pervasive use of Map<String,Object> and ResponseEntity<?> wildcards means the API contract is maintained only by convention, not by the type system. Adding response DTOs would be a meaningful improvement."
+    },
+    "authorization_consistency": {
+      "dimension_character": "Authorization is consistently applied \u2014 all protected routes require authentication via SecurityConfig, feature flags are checked through typed properties, and startup validation prevents misconfigured states. The main issue is that the Microsoft client-side feature flag is checked redundantly in two separate endpoints rather than centrally.",
+      "score_rationale": "Score 78: The authorization model is well-structured and consistently applied. The duplicated feature flag check in AuthController is a minor maintenance concern. No missing auth gates or permission string magic literals found."
+    },
+    "incomplete_migration": {
+      "dimension_character": "The V1\u2192V2 JWT contract migration is the dominant migration story and it is actively managed with explicit feature flags and startup validation. The Google-Id legacy compatibility shims in UserService and User entity are intentional and necessary until data migration completes. The main concern is User.loginMethod (String) and User.lastLoginFlow (AuthFlow enum) duplicating the same concept in the entity.",
+      "score_rationale": "Score 72: The in-progress migration is well-managed with proper rollout flags. The User entity's dual login-concept representation (loginMethod String + lastLoginFlow AuthFlow enum) is the clearest technical debt from an incomplete migration, representing legacy data that could be cleaned up by removing loginMethod once all rows have lastLoginFlow populated."
+    },
+    "package_organization": {
+      "dimension_character": "The top-level package layout follows standard Spring idioms and is immediately navigable. The service package is too wide and would benefit from subpackaging to separate storage abstractions from identity domain objects. The config package also houses filters which are processing components, not configuration.",
+      "score_rationale": "Score 70: The package structure is discoverable but the service package mixing 12 files of different concerns is the main organizational issue. This impedes navigation as the codebase grows."
+    },
+    "design_coherence": {
+      "dimension_character": "Most individual classes have coherent designs. The main coherence issues are AuthController (too wide \u2014 multiple auth flows in one class) and UserService.findOrCreateUser() (too much in one method \u2014 lookup logic, creation logic, and race-condition handling mixed together). These are related to high-level decomposition choices.",
+      "score_rationale": "Score 68: Several classes have focused, coherent designs (MicrosoftTokenVerifier, IdentityContractGuard, JwtTokenService). The two outliers are the AuthController breadth and findOrCreateUser() length, both of which exceed single-responsibility at their respective levels."
+    },
+    "contract_coherence": {
+      "dimension_character": "Most primary contracts are declared clearly. The main contract coherence gaps are: AuthCodeStore's null-return contract vs throw convention (already flagged), missing Javadoc on MicrosoftChallengeStore interface methods, and the implicit contract that AuthenticatedUserIdentity.legacy() objects have nullable userId requiring isLegacy() checks before access.",
+      "score_rationale": "Score 74: Core contracts are well-defined by naming and documented interfaces. The defects are at the edges \u2014 interface method documentation gaps and the implicit nullable-field contract of the legacy identity pattern."
+    },
+    "logic_clarity": {
+      "dimension_character": "Control flow throughout the codebase is generally clear and intention-revealing. Guard clauses are used appropriately, decision trees are well-structured, and no identical branches or always-true conditions were found. The main clarity gaps are the complex multi-clause email validation condition and the redundant null check in cookiePath().",
+      "score_rationale": "Score 78: Solid logic clarity throughout. Two specific spots (complex normalizeEmail condition, dead null check in cookiePath) reduce the score but are isolated. No systemic logic issues."
+    },
+    "type_safety": {
+      "dimension_character": "The backend is typed at the class level (records, enums, typed service methods) but loses type safety at controller boundaries through Map<String,Object> and ResponseEntity<?>. The frontend TypeScript types are mostly well-defined but the useAuth UserProfile interface is missing fields the backend now returns. AuthenticatedUserIdentity's nullable userId requires implicit knowledge of isLegacy().",
+      "score_rationale": "Score 72: Java's static typing protects most domain logic. The main type safety gaps are at the controller API boundary (untyped Maps) and the frontend's stale UserProfile interface. These are addressable without architectural change."
+    }
+  },
+  "issues": [
+    {
+      "dimension": "cross_module_architecture",
+      "identifier": "service_pkg_mixed_concerns",
+      "summary": "service package mixes interfaces, Redis implementations, and identity value objects without subpackaging",
+      "confidence": "high",
+      "suggestion": "Split service/ into subpackages: service/store/ for AuthCodeStore+MicrosoftChallengeStore interfaces and their Redis impls, service/identity/ for NormalizedIdentity+AuthenticatedUserIdentity+ProviderIdentityNormalizer, and keep the remaining services in service/.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
+        "backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java",
+        "backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java",
+        "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java"
+      ],
+      "evidence": [
+        "service/ contains 12 files spanning: 2 interfaces (AuthCodeStore, MicrosoftChallengeStore), 2 Redis implementations, 2 identity value records (NormalizedIdentity, AuthenticatedUserIdentity), 2 token verifiers, and 2 identity-handling services.",
+        "NormalizedIdentity and AuthenticatedUserIdentity are domain value objects that don't belong co-located with service implementations."
+      ],
+      "impact_scope": "subsystem",
+      "fix_scope": "multi_file_refactor"
+    },
+    {
+      "dimension": "high_level_elegance",
+      "identifier": "auth_controller_too_wide",
+      "summary": "AuthController conflates Google, Microsoft client-side, challenge issuance, code exchange, and logout into one class",
+      "confidence": "high",
+      "suggestion": "Split into MicrosoftAuthController (challenge + verify) and a leaner AuthController (exchange, logout, Google verify). The cookie session logic can become a ChallengeSessionManager helper.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+      ],
+      "evidence": [
+        "AuthController has 5 endpoints: /google/verify, /microsoft/challenge, /microsoft/verify, /exchange, /logout \u2014 each representing a distinct flow.",
+        "Class injects 8 dependencies, which is a structural signal that ownership is too wide.",
+        "Microsoft challenge session cookie logic (currentChallengeSessionId, createChallengeSessionCookie, cookiePath) adds ~40 LOC of session management that could be a separate component."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor"
+    },
+    {
+      "dimension": "high_level_elegance",
+      "identifier": "config_package_mixed_concerns",
+      "summary": "config package groups filters, property holders, and startup guard under one ambiguous label",
+      "confidence": "medium",
+      "suggestion": "Move JwtAuthenticationFilter and MicrosoftAuthorizationGateFilter to a security/ or filter/ subpackage. IdentityContractGuard could stay in config or move to a startup/ package.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java",
+        "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
+        "backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java"
+      ],
+      "evidence": [
+        "config/ holds: 2 request filters (JwtAuthenticationFilter, MicrosoftAuthorizationGateFilter), 2 property classes, 1 startup validator (IdentityContractGuard), and SecurityConfig.",
+        "Filters are runtime processing components, not configuration; they belong in a filter/ or security/ subpackage."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor"
+    },
+    {
+      "dimension": "convention_outlier",
+      "identifier": "duplicated_is_blank_helper",
+      "summary": "private static isBlank() helper duplicated in AuthController and ProviderIdentityNormalizer",
+      "confidence": "high",
+      "suggestion": "Replace both with String.isBlank() preceded by a null check using Objects.isNull, or use the standard library directly (value == null || value.isBlank()) inline. Alternatively, create a shared StringUtils class in a util/ package if more utilities accumulate.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+        "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
+      ],
+      "evidence": [
+        "AuthController.isBlank: return value == null || value.isBlank()",
+        "ProviderIdentityNormalizer.isBlank: return value == null || value.isBlank()",
+        "Both are private static and identical in behavior."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    },
+    {
+      "dimension": "error_consistency",
+      "identifier": "auth_code_store_null_return",
+      "summary": "AuthCodeStore.exchangeCode() returns null for not-found codes while sibling services throw IllegalArgumentException",
+      "confidence": "high",
+      "suggestion": "Change AuthCodeStore.exchangeCode() to throw IllegalArgumentException (or a custom CodeExpiredException extends IllegalArgumentException) on invalid/expired codes, consistent with the throw convention in sibling services. Update AuthController to use try-catch instead of null check.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
+        "backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java",
+        "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+      ],
+      "evidence": [
+        "AuthCodeStore Javadoc: 'Returns null if invalid/expired.'",
+        "GoogleTokenVerifier.verify(): throws IllegalArgumentException for invalid token.",
+        "MicrosoftTokenVerifier.verifyIdToken(): throws IllegalArgumentException for all validation failures.",
+        "AuthController.exchangeCode() must null-check the result \u2014 if (jwt == null) \u2014 while Google/Microsoft flows use try-catch."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor"
+    },
+    {
+      "dimension": "error_consistency",
+      "identifier": "raw_json_in_filters",
+      "summary": "MicrosoftAuthorizationGateFilter writes raw JSON string literals for error responses instead of shared formatter",
+      "confidence": "medium",
+      "suggestion": "Extract a static writeJsonError(HttpServletResponse response, int status, String message) helper in a FilterResponseHelper class and use it consistently in all filters and the authentication entry point.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java"
+      ],
+      "evidence": [
+        "response.getWriter().write(\"{\\\"error\\\":\\\"Microsoft server-side login is disabled\\\"}\") \u2014 hardcoded JSON string.",
+        "SecurityConfig's authenticationEntryPoint also uses: response.getWriter().write(\"{\\\"error\\\":\\\"Unauthorized\\\"}\") \u2014 same pattern."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    },
+    {
+      "dimension": "naming_quality",
+      "identifier": "merge_provider_config_misnomer",
+      "summary": "mergeProviderConfig name suggests merging two configs but the function applies defaults to a partial/null input",
+      "confidence": "high",
+      "suggestion": "Rename to normalizeProviderConfig or withDefaults to accurately describe applying defaults to a partial server response.",
+      "related_files": [
+        "frontend/src/types/auth.ts"
+      ],
+      "evidence": [
+        "Function signature: mergeProviderConfig(config?: Partial<ProviderConfig> | null): ProviderConfig",
+        "Function body spreads DEFAULT_PROVIDER_CONFIG against the input \u2014 it normalizes defaults, not merges two peer configs.",
+        "Callers: useProviderConfig.ts uses it as mergeProviderConfig(response) \u2014 one argument, not two peers."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    },
+    {
+      "dimension": "low_level_elegance",
+      "identifier": "user_controller_inline_map_response",
+      "summary": "UserController.getCurrentUser() returns a 10-entry inline Map instead of a typed response record",
+      "confidence": "high",
+      "suggestion": "Create a UserResponse record in controller/dto/ with all fields, and a static UserResponse.from(User user) factory. Return ResponseEntity<UserResponse> instead.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/controller/UserController.java"
+      ],
+      "evidence": [
+        "return userService.findCurrentUser(identity).map(user -> ResponseEntity.ok(Map.of(\"id\", user.getId(), \"email\", ... 10 entries total)))",
+        "The Map keys are untyped strings; a typo in a key name produces runtime failure, not compile-time error.",
+        "The null-coalescing for each field (user.getName() != null ? user.getName() : \"\") repeated 6 times adds noise."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    },
+    {
+      "dimension": "low_level_elegance",
+      "identifier": "cookie_path_redundant_null_check",
+      "summary": "AuthController.cookiePath() null-checks servletContextPath which is already guaranteed non-null by constructor normalization",
+      "confidence": "high",
+      "suggestion": "Remove the null check from cookiePath() since the constructor guarantees a non-null value. Simplify to: if (servletContextPath.isBlank() || \"/\".equals(servletContextPath))",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+      ],
+      "evidence": [
+        "Constructor: this.servletContextPath = servletContextPath == null ? \"\" : servletContextPath;",
+        "cookiePath(): if (servletContextPath == null || servletContextPath.isBlank() || ...) \u2014 the null check is unreachable."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    },
+    {
+      "dimension": "mid_level_elegance",
+      "identifier": "microsoft_challenge_state_inline",
+      "summary": "Microsoft challenge session cookie management is spread across two controller endpoints with inline logic",
+      "confidence": "medium",
+      "suggestion": "Extract ChallengeSessionResolver with methods resolveOrCreate(request, response): String and resolve(request): Optional<String>. Inject into AuthController. This cleans up the seam between the two Microsoft endpoints.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+      ],
+      "evidence": [
+        "issueMicrosoftChallenge() calls currentChallengeSessionId(request).orElseGet(() -> createChallengeSessionCookie(response)) inline.",
+        "verifyMicrosoftToken() calls currentChallengeSessionId(httpRequest).orElse(null) with its own null check.",
+        "The sessionId extraction and cookie creation logic (~30 LOC) lives in AuthController rather than in a dedicated ChallengeSessionResolver component."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor"
+    },
+    {
+      "dimension": "test_strategy",
+      "identifier": "no_test_provider_identity_normalizer",
+      "summary": "ProviderIdentityNormalizer has no unit tests despite containing complex email normalization and guest identity rejection logic",
+      "confidence": "high",
+      "suggestion": "Create ProviderIdentityNormalizerTest with cases: valid Google identity, missing sub or email throws, valid Microsoft identity with each of the 3 claim paths, guest #ext# email rejected, email with spaces rejected, email with 2 @ signs rejected.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
+      ],
+      "evidence": [
+        "normalizeEmail() performs: trim, lowercase, count '@' occurrences, check for spaces, guest '#ext#' rejection \u2014 5 distinct validation rules.",
+        "normalizeMicrosoftClaims() uses firstNonBlank across 3 email-like claim keys (email, preferred_username, upn).",
+        "No test file for ProviderIdentityNormalizer found in the test tree.",
+        "A bug here would allow invalid emails or permit guest Microsoft identities \u2014 security-relevant."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "single_edit"
+    },
+    {
+      "dimension": "test_strategy",
+      "identifier": "no_test_microsoft_token_verifier",
+      "summary": "MicrosoftTokenVerifier has no unit tests for nonce validation, issuer validation, and audience validation",
+      "confidence": "high",
+      "suggestion": "Create MicrosoftTokenVerifierTest with mocked JwtDecoder. Test: correct nonce passes, wrong nonce throws, mismatched audience throws, mismatched issuer throws, v1.0 token version throws.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java"
+      ],
+      "evidence": [
+        "validateNonce(), validateIssuer(), validateAudience(), validateVersion() are critical security checks with no corresponding tests.",
+        "A wrong nonce allows replay attacks. A wrong issuer allows cross-tenant impersonation.",
+        "No MicrosoftTokenVerifierTest file found."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "single_edit"
+    },
+    {
+      "dimension": "api_surface_coherence",
+      "identifier": "untyped_response_maps",
+      "summary": "Controllers return Map<String,Object> and ResponseEntity<?> instead of typed response DTOs",
+      "confidence": "high",
+      "suggestion": "Create response DTOs: TokenResponse(String token), UserResponse record with all user fields, ProviderConfigResponse with typed Google/Microsoft sub-records. Change return types to ResponseEntity<TokenResponse> etc.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+        "backend/src/main/java/com/demo/sso/controller/UserController.java",
+        "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+      ],
+      "evidence": [
+        "AuthController methods: public ResponseEntity<?> verifyGoogleToken(...), public ResponseEntity<?> verifyMicrosoftToken(...), public ResponseEntity<?> exchangeCode(...)",
+        "All success bodies: Map.of(\"token\", jwt) \u2014 repeated inline literal key.",
+        "UserController: ResponseEntity<Map<String,Object>> with 10 inline Map.of() entries.",
+        "ProviderConfigController: ResponseEntity<Map<String,Object>> with nested LinkedHashMap construction."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor"
+    },
+    {
+      "dimension": "authorization_consistency",
+      "identifier": "microsoft_feature_flag_duplicated_gate",
+      "summary": "Microsoft client-side enabled check duplicated in both /microsoft/challenge and /microsoft/verify endpoints",
+      "confidence": "medium",
+      "suggestion": "Extract a private assertMicrosoftClientSideEnabled() method that throws a custom FeatureDisabledException, or apply an @PreAuthorize SpEL condition via a custom security expression. Alternatively, handle this at the filter level in MicrosoftAuthorizationGateFilter for /auth/microsoft/** paths.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+      ],
+      "evidence": [
+        "issueMicrosoftChallenge(): if (!rolloutProperties.getMicrosoft().isClientSideEnabled()) return 503",
+        "verifyMicrosoftToken(): if (!rolloutProperties.getMicrosoft().isClientSideEnabled()) return 503",
+        "Same guard, same response body: Map.of(\"error\", \"Microsoft client-side login is disabled\")"
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    },
+    {
+      "dimension": "incomplete_migration",
+      "identifier": "user_entity_dual_login_concept",
+      "summary": "User entity has both loginMethod (String) and lastLoginFlow (AuthFlow enum) representing the same login concept",
+      "confidence": "high",
+      "suggestion": "Once downstream consumers read lastLoginFlow, drop loginMethod from the entity and the database schema via a Flyway migration. Add a DB migration to backfill last_login_flow from login_method for existing rows.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/model/User.java",
+        "backend/src/main/java/com/demo/sso/service/UserService.java"
+      ],
+      "evidence": [
+        "User.loginMethod: @Column(name = \"login_method\", length = 20) private String loginMethod;",
+        "User.lastLoginFlow: @Enumerated(EnumType.STRING) @Column(name = \"last_login_flow\", length = 20) private AuthFlow lastLoginFlow;",
+        "UserService.applyProviderIdentityFields() sets both: user.setLastLoginFlow(identity.loginFlow()); user.setLoginMethod(identity.loginFlow().name());",
+        "The two fields store the same value in different types \u2014 the String field is the legacy representation."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor"
+    },
+    {
+      "dimension": "package_organization",
+      "identifier": "service_package_too_wide",
+      "summary": "service package contains 12 files across interfaces, implementations, value records, and domain services without subpackaging",
+      "confidence": "high",
+      "suggestion": "Create service/store/ for AuthCodeStore + MicrosoftChallengeStore interfaces and their Redis implementations. Create service/identity/ for NormalizedIdentity, AuthenticatedUserIdentity, and ProviderIdentityNormalizer.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/service/",
+        "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
+        "backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java",
+        "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java"
+      ],
+      "evidence": [
+        "service/ has: 2 store interfaces, 2 Redis store implementations, 2 identity value records, 1 identity normalizer, 2 token verifiers, 1 JWT service, 1 success handler, 1 user service.",
+        "NormalizedIdentity and AuthenticatedUserIdentity are pure domain records that don't depend on service infrastructure.",
+        "Redis implementations have @Profile('!test') annotations \u2014 a clear deployment-coupling concern distinct from pure service interfaces."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor"
+    },
+    {
+      "dimension": "design_coherence",
+      "identifier": "find_or_create_user_too_wide",
+      "summary": "UserService.findOrCreateUser() combines lookup, legacy fallback, update, create, and race-condition handling in one method",
+      "confidence": "high",
+      "suggestion": "Extract private methods: updateExistingUser(User user, NormalizedIdentity identity) and createNewUser(NormalizedIdentity identity). Keep findOrCreateUser as orchestrator calling these private methods.",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/service/UserService.java"
+      ],
+      "evidence": [
+        "Method does: (1) findByProviderAndProviderUserId, (2) Google legacy fallback findByGoogleId, (3) update existing user fields, (4) create new user, (5) catch DataIntegrityViolationException for concurrent creation.",
+        "The update-existing block: 5 setters + lastLoginAt \u2014 could be extracted to updateUserFromIdentity(user, identity).",
+        "The create-new block: 6 setters + Redis save + race-condition catch \u2014 could be extracted to createUserFromIdentity(identity)."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    },
+    {
+      "dimension": "contract_coherence",
+      "identifier": "microsoft_challenge_store_no_javadoc",
+      "summary": "MicrosoftChallengeStore interface methods have no Javadoc explaining their contracts",
+      "confidence": "medium",
+      "suggestion": "Add Javadoc to issueChallenge() explaining the sessionId scoping, TTL of 5 minutes, and the returned MicrosoftChallenge structure. Add Javadoc to consumeNonce() explaining single-use semantics (returning null if not found or already consumed).",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java"
+      ],
+      "evidence": [
+        "issueChallenge(String sessionId) \u2014 no documentation explaining what sessionId is, what the challenge lifecycle is.",
+        "consumeNonce(String sessionId, String challengeId) \u2014 no documentation explaining single-use semantics or what null return means."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    },
+    {
+      "dimension": "logic_clarity",
+      "identifier": "normalize_email_complex_condition",
+      "summary": "normalizeEmail() has a 5-clause OR condition that is hard to parse at a glance",
+      "confidence": "medium",
+      "suggestion": "Extract validation conditions into named boolean variables or private predicate methods: boolean hasExactlyOneAt = ...; boolean hasNoSpaces = ...; boolean hasNonEmptyParts = atIndex > 0 && atIndex < normalized.length() - 1;. Then: if (normalized.isBlank() || !hasExactlyOneAt || !hasNoSpaces || !hasNonEmptyParts)",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
+      ],
+      "evidence": [
+        "if (normalized.isBlank() || normalized.chars().filter(ch -> ch == '@').count() != 1 || normalized.contains(\" \") || atIndex <= 0 || atIndex == normalized.length() - 1)"
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    },
+    {
+      "dimension": "type_safety",
+      "identifier": "frontend_user_profile_stale",
+      "summary": "Frontend useAuth UserProfile interface is missing fields that the backend /user/me endpoint now returns",
+      "confidence": "high",
+      "suggestion": "Update UserProfile interface in useAuth.ts to include provider: string, providerUserId: string, lastLoginFlow: string fields. Move UserProfile to types/auth.ts for co-location with other auth types.",
+      "related_files": [
+        "frontend/src/hooks/useAuth.ts"
+      ],
+      "evidence": [
+        "UserProfile interface: { id, email, name, pictureUrl, loginMethod, createdAt, lastLoginAt }",
+        "Backend UserController returns: id, email, name, pictureUrl, loginMethod, provider, providerUserId, lastLoginFlow, createdAt, lastLoginAt",
+        "Missing from UserProfile: provider, providerUserId, lastLoginFlow \u2014 these are now available but untypeable in the frontend."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    }
+  ],
+  "review_quality": {
+    "batch_count": 16,
+    "dimension_coverage": 0.05,
+    "evidence_density": 7.656,
+    "high_score_missing_issue_note": 0
+  },
+  "context_updates": {
+    "cross_module_architecture": {
+      "add": [
+        {
+          "header": "Clean Spring layered architecture with no cycles",
+          "description": "The codebase respects controller \u2192 service \u2192 repository \u2192 model direction throughout. No circular imports. Config is legitimately cross-cutting.",
+          "settled": true,
+          "positive": true
+        },
+        {
+          "header": "service package is an umbrella without subpackaging",
+          "description": "The service package co-locates interfaces, Redis implementations, identity records, and verifier services. As the service layer grows this will impede navigation.",
+          "settled": true,
+          "positive": false
+        }
+      ]
+    },
+    "high_level_elegance": {
+      "add": [
+        {
+          "header": "Frontend has clean page/component/hook decomposition",
+          "description": "The React frontend correctly separates pages, components, hooks, api client, and types \u2014 good structural discipline.",
+          "settled": true,
+          "positive": true
+        },
+        {
+          "header": "AuthController is an overgrown orchestration hub",
+          "description": "With 5 endpoints and 8 injected dependencies, AuthController violates single-responsibility; it owns Google, Microsoft, exchange, and logout in one file.",
+          "settled": true,
+          "positive": false
+        }
+      ]
+    },
+    "convention_outlier": {
+      "add": [
+        {
+          "header": "Consistent constructor injection across all Spring components",
+          "description": "Every Spring bean uses constructor injection rather than field injection \u2014 a consistent and testability-friendly convention.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    },
+    "error_consistency": {
+      "add": [
+        {
+          "header": "Service layer consistently uses IllegalArgumentException for validation failures",
+          "description": "Token verifiers and identity normalizers use a consistent throw-IllegalArgumentException pattern for invalid input, making controller error handling predictable.",
+          "settled": true,
+          "positive": true
+        },
+        {
+          "header": "AuthCodeStore breaks throw convention with null-return",
+          "description": "The null-return contract forces a different handling pattern in AuthController compared to the try-catch used for all other service failures.",
+          "settled": true,
+          "positive": false
+        }
+      ]
+    },
+    "naming_quality": {
+      "add": [
+        {
+          "header": "Domain vocabulary is precise and consistent",
+          "description": "Contract, identity, provider, flow, mint, rollout \u2014 these domain terms are used correctly and consistently across all layers without abbreviation drift.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    },
+    "low_level_elegance": {
+      "add": [
+        {
+          "header": "MicrosoftTokenVerifier has exemplary method decomposition",
+          "description": "Validation logic is split into four focused private methods (validateAudience, validateIssuer, validateVersion, validateNonce), each with a single concern and clear throw on failure.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    },
+    "mid_level_elegance": {
+      "add": [
+        {
+          "header": "OAuth2 success handler has clean data-translation seam",
+          "description": "The flow from OAuth2User attributes \u2192 ProviderIdentityNormalizer \u2192 NormalizedIdentity \u2192 UserService is a clean one-directional data transformation with a single translation point.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    },
+    "test_strategy": {
+      "add": [
+        {
+          "header": "JWT service and filter tests provide solid core coverage",
+          "description": "JwtTokenServiceTest, JwtAuthenticationFilterTest, and UserServiceTest cover the core authentication pipeline with behavioral tests.",
+          "settled": true,
+          "positive": true
+        },
+        {
+          "header": "Critical gaps in identity normalization and Microsoft token validation",
+          "description": "ProviderIdentityNormalizer and MicrosoftTokenVerifier \u2014 the two classes with security-relevant validation logic \u2014 have no unit tests.",
+          "settled": true,
+          "positive": false
+        }
+      ]
+    },
+    "api_surface_coherence": {
+      "add": [
+        {
+          "header": "Consistent token response shape across all auth flows",
+          "description": "All successful auth flows return {\"token\": \"...\"}  consistently \u2014 Google client-side, Microsoft client-side, and code exchange all use the same structure.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    },
+    "authorization_consistency": {
+      "add": [
+        {
+          "header": "Startup IdentityContractGuard prevents authorization misconfiguration",
+          "description": "IdentityContractGuard validates at boot time that Microsoft SSO requires V2_ONLY identity contract mode, preventing runtime authorization failures from configuration errors.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    },
+    "incomplete_migration": {
+      "add": [
+        {
+          "header": "V1\u2192V2 JWT migration is actively managed with rollout flags",
+          "description": "AuthRolloutProperties and IdentityContractGuard provide controlled rollout of the V2 JWT contract. The migration is in progress but well-instrumented.",
+          "settled": true,
+          "positive": true
+        },
+        {
+          "header": "loginMethod String and lastLoginFlow AuthFlow duplicate the same concept",
+          "description": "Both fields store login flow info (SERVER_SIDE/CLIENT_SIDE). The String field is a migration artifact that should be dropped once lastLoginFlow is confirmed as the canonical source.",
+          "settled": true,
+          "positive": false
+        }
+      ]
+    },
+    "package_organization": {
+      "add": [
+        {
+          "header": "Frontend package structure is appropriate for project size",
+          "description": "Frontend uses api/, components/, hooks/, pages/, types/ \u2014 correct granularity for a small project with ~12 source files.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    },
+    "design_coherence": {
+      "add": [
+        {
+          "header": "MicrosoftTokenVerifier has exemplary single-responsibility design",
+          "description": "Four focused private validation methods plus a factory for the decoder produces a class with clear, testable responsibilities.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    },
+    "contract_coherence": {
+      "add": [
+        {
+          "header": "AuthCodeStore has well-documented interface contracts",
+          "description": "Both storeJwt and exchangeCode have Javadoc specifying single-use semantics, null return semantics, and the purpose of the operation.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    },
+    "logic_clarity": {
+      "add": [
+        {
+          "header": "JwtTokenService version-dispatching logic is clear and intention-revealing",
+          "description": "The parseAuthenticatedUser method uses clear early-return guards for each version path with explicit null-check and version-mismatch handling before the happy path.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    },
+    "type_safety": {
+      "add": [
+        {
+          "header": "Domain records and enums provide strong type discipline",
+          "description": "AuthProvider, AuthFlow, JwtMintMode, IdentityContractMode enums prevent magic string comparisons. NormalizedIdentity and AuthenticatedUserIdentity records enforce field completeness at construction.",
+          "settled": true,
+          "positive": true
+        },
+        {
+          "header": "Frontend UserProfile interface is stale relative to backend API",
+          "description": "useAuth.ts UserProfile is missing provider, providerUserId, and lastLoginFlow that /user/me now returns, causing TypeScript to lose type coverage for these new fields.",
+          "settled": true,
+          "positive": false
+        }
+      ]
+    }
+  },
+  "review_scope": {
+    "reviewed_files_count": 0,
+    "successful_batch_count": 16,
+    "full_sweep_included": false,
+    "total_files": 28,
+    "imported_dimensions": [
+      "api_surface_coherence",
+      "authorization_consistency",
+      "contract_coherence",
+      "convention_outlier",
+      "cross_module_architecture",
+      "design_coherence",
+      "error_consistency",
+      "high_level_elegance",
+      "incomplete_migration",
+      "logic_clarity",
+      "low_level_elegance",
+      "mid_level_elegance",
+      "naming_quality",
+      "package_organization",
+      "test_strategy",
+      "type_safety"
+    ]
+  },
+  "provenance": {
+    "kind": "blind_review_batch_import",
+    "blind": true,
+    "runner": "dry-run",
+    "run_stamp": "20260314_164418",
+    "created_at": "2026-03-14T16:53:49+00:00",
+    "batch_count": 16,
+    "batch_indexes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15,
+      17,
+      18,
+      19,
+      20
+    ],
+    "packet_path": "/home/nt-quang/Workspaces/personal/sso_experimental/.desloppify/review_packet_blind.json",
+    "packet_sha256": "eeb2d452308bed0d9c7c4525fb6a0ba546a0f0e79d9c70b0bb503d091ef674c1"
+  },
+  "assessment_coverage": {
+    "scored_dimensions": [
+      "naming_quality",
+      "logic_clarity",
+      "type_safety",
+      "contract_coherence",
+      "error_consistency",
+      "abstraction_fitness",
+      "ai_generated_debt",
+      "high_level_elegance",
+      "mid_level_elegance",
+      "low_level_elegance",
+      "cross_module_architecture",
+      "initialization_coupling",
+      "convention_outlier",
+      "dependency_health",
+      "test_strategy",
+      "api_surface_coherence",
+      "authorization_consistency",
+      "incomplete_migration",
+      "package_organization",
+      "design_coherence"
+    ],
+    "selected_dimensions": [
+      "naming_quality",
+      "logic_clarity",
+      "type_safety",
+      "contract_coherence",
+      "error_consistency",
+      "abstraction_fitness",
+      "ai_generated_debt",
+      "high_level_elegance",
+      "mid_level_elegance",
+      "low_level_elegance",
+      "cross_module_architecture",
+      "initialization_coupling",
+      "convention_outlier",
+      "dependency_health",
+      "test_strategy",
+      "api_surface_coherence",
+      "authorization_consistency",
+      "incomplete_migration",
+      "package_organization",
+      "design_coherence"
+    ],
+    "imported_dimensions": [
+      "api_surface_coherence",
+      "authorization_consistency",
+      "contract_coherence",
+      "convention_outlier",
+      "cross_module_architecture",
+      "design_coherence",
+      "error_consistency",
+      "high_level_elegance",
+      "incomplete_migration",
+      "logic_clarity",
+      "low_level_elegance",
+      "mid_level_elegance",
+      "naming_quality",
+      "package_organization",
+      "test_strategy",
+      "type_safety"
+    ],
+    "missing_dimensions": [
+      "abstraction_fitness",
+      "ai_generated_debt",
+      "initialization_coupling",
+      "dependency_health"
+    ]
+  }
+}

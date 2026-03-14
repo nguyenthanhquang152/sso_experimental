@@ -1,0 +1,57 @@
+{
+  "batch": "contract_coherence",
+  "batch_index": 18,
+  "assessments": {"contract_coherence": 74.0},
+  "dimension_notes": {
+    "contract_coherence": {
+      "evidence": [
+        "AuthCodeStore interface has clear Javadoc contracts: storeJwt returns a code, exchangeCode returns null if invalid/expired.",
+        "The null-return contract of AuthCodeStore.exchangeCode() diverges from the throw convention used by sibling services — already noted in error_consistency.",
+        "MicrosoftChallengeStore interface has no Javadoc — the contracts of issueChallenge() and consumeNonce() are undocumented at the interface level.",
+        "JwtTokenService.parseAuthenticatedUser() returns AuthenticatedUserIdentity but can also throw IllegalArgumentException and JwtException — the exception contract is undocumented.",
+        "JwtTokenService.isTokenValid() returns boolean and never throws — contract is clear from the name.",
+        "AuthenticatedUserIdentity.legacy() factory creates an object where userId is null — callers must check isLegacy() before accessing userId. This implicit contract could be documented.",
+        "UserService.findCurrentUser() takes an AuthenticatedUserIdentity but uses identity.email() for legacy and identity.userId() for v2 — the branching is hidden inside the method, not evident from the signature.",
+        "ProviderIdentityNormalizer methods throw IllegalArgumentException for invalid inputs — consistent and appropriate.",
+        "MicrosoftChallenge record is declared inside MicrosoftChallengeStore interface — clean co-location of related contract type."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "single_edit",
+      "confidence": "high"
+    }
+  },
+  "dimension_judgment": {
+    "contract_coherence": {
+      "dimension_character": "Most primary contracts are declared clearly. The main contract coherence gaps are: AuthCodeStore's null-return contract vs throw convention (already flagged), missing Javadoc on MicrosoftChallengeStore interface methods, and the implicit contract that AuthenticatedUserIdentity.legacy() objects have nullable userId requiring isLegacy() checks before access.",
+      "score_rationale": "Score 74: Core contracts are well-defined by naming and documented interfaces. The defects are at the edges — interface method documentation gaps and the implicit nullable-field contract of the legacy identity pattern."
+    }
+  },
+  "issues": [
+    {
+      "dimension": "contract_coherence",
+      "identifier": "microsoft_challenge_store_no_javadoc",
+      "summary": "MicrosoftChallengeStore interface methods have no Javadoc explaining their contracts",
+      "related_files": ["backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java"],
+      "evidence": [
+        "issueChallenge(String sessionId) — no documentation explaining what sessionId is, what the challenge lifecycle is.",
+        "consumeNonce(String sessionId, String challengeId) — no documentation explaining single-use semantics or what null return means."
+      ],
+      "suggestion": "Add Javadoc to issueChallenge() explaining the sessionId scoping, TTL of 5 minutes, and the returned MicrosoftChallenge structure. Add Javadoc to consumeNonce() explaining single-use semantics (returning null if not found or already consumed).",
+      "confidence": "medium",
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    }
+  ],
+  "context_updates": {
+    "contract_coherence": {
+      "add": [
+        {
+          "header": "AuthCodeStore has well-documented interface contracts",
+          "description": "Both storeJwt and exchangeCode have Javadoc specifying single-use semantics, null return semantics, and the purpose of the operation.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "batch": "dependency_health",
+  "batch_index": 7,
+  "assessments": {"dependency_health": 78.0},
+  "dimension_notes": {
+    "dependency_health": {
+      "evidence": [
+        "pom.xml uses spring-boot-starter-parent for version management — appropriate.",
+        "google-api-client 2.7.2 used only for GoogleIdTokenVerifier — correct purpose-built library.",
+        "NimbusJwtDecoder from spring-security-oauth2-resource-server used for Microsoft JWT decoding — correct.",
+        "jjwt 0.12.6 provides internal JWT minting/parsing.",
+        "No duplicate-purpose libraries detected.",
+        "Frontend: @react-oauth/google and @azure/msal-browser are correct official SDKs for each provider."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit",
+      "confidence": "high"
+    }
+  },
+  "dimension_judgment": {
+    "dependency_health": {
+      "dimension_character": "Both backend and frontend dependency choices are well-matched to use cases with no duplicate-purpose libraries. Backend uses the Spring ecosystem coherently with appropriate third-party additions. Frontend uses official provider SDKs.",
+      "score_rationale": "Score 78: Clean dependency choices with no conflicts or duplication. Minor note: google-api-client is heavy for only ID token verification; Spring OAuth2 resource server could handle this at the framework level. This is an optimization, not a defect."
+    }
+  },
+  "issues": [
+    {
+      "dimension": "dependency_health",
+      "identifier": "google_api_client_heavy_for_scope",
+      "summary": "google-api-client is a heavy transitive dependency used only for GoogleIdTokenVerifier",
+      "related_files": ["backend/pom.xml", "backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java"],
+      "evidence": [
+        "pom.xml includes com.google.api-client:google-api-client:2.7.2",
+        "Only usage: new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), GsonFactory.getDefaultInstance()).setAudience(...).build()",
+        "Spring Security OAuth2 Resource Server (already a dependency) has JwtDecoder which could verify Google ID tokens using Google's JWKS endpoint."
+      ],
+      "suggestion": "Replace google-api-client with NimbusJwtDecoder.withJwkSetUri(\"https://www.googleapis.com/oauth2/v3/certs\") and validate the audience claim manually, removing the heavy google-api-client transitive dependency.",
+      "confidence": "low",
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    }
+  ],
+  "context_updates": {
+    "dependency_health": {
+      "add": [
+        {
+          "header": "No duplicate-purpose dependencies in backend or frontend",
+          "description": "Each domain (JWT, OAuth, HTTP, DB) uses exactly one library across the entire stack. No conflicting versions or alternative implementations for the same concern.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    }
+  }
+}

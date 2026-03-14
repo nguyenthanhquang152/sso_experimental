@@ -1,0 +1,56 @@
+{
+  "batch": "ai_generated_debt",
+  "batch_index": 13,
+  "assessments": {"ai_generated_debt": 76.0},
+  "dimension_notes": {
+    "ai_generated_debt": {
+      "evidence": [
+        "AuthCodeStore.java comment_ratio: 0.58 — highest in codebase. Javadoc explains single-use semantics and null-return contract, not restating code.",
+        "RedisAuthCodeStore: comment '// GETDEL: atomically get and delete — guarantees single-use' — explains non-obvious Redis operation.",
+        "AuthController.guard_density: 8.0 — 8 guard clauses. Each guards a real precondition, not defensive overengineering.",
+        "No entry/exit logging on every function.",
+        "No defensive null checks on clearly non-nullable values in happy paths.",
+        "No generic handle/process/do names.",
+        "No boilerplate error handling copied verbatim across files.",
+        "isBlank() helper appears in two files — duplication, not AI-generated bloat."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit",
+      "confidence": "high"
+    }
+  },
+  "dimension_judgment": {
+    "ai_generated_debt": {
+      "dimension_character": "The codebase is largely free of AI-generated debt patterns. Comments explain WHY rather than restating code. Guard density is high in AuthController but justified by real preconditions. The AuthCodeStore Javadocs have high comment ratio but they document intent, not noise.",
+      "score_rationale": "Score 76: Clean code with purposeful comments and named helpers. Minor deduction for AuthCodeStore method-level Javadocs that partially restate method names rather than adding unique insight."
+    }
+  },
+  "issues": [
+    {
+      "dimension": "ai_generated_debt",
+      "identifier": "auth_code_store_partial_javadoc_restatement",
+      "summary": "AuthCodeStore method Javadocs partially restate method names without adding unique insight",
+      "related_files": ["backend/src/main/java/com/demo/sso/service/AuthCodeStore.java"],
+      "evidence": [
+        "'/** Store a JWT and return a single-use authorization code. */' — 'single-use' adds value but 'Store a JWT' restates storeJwt().",
+        "'/** Exchange a code for the stored JWT. Returns null if invalid/expired. */' — the null-return contract adds value."
+      ],
+      "suggestion": "Revise Javadoc to focus on WHY and edge cases: explain TTL, the security reason for single-use, and that null return requires the caller to handle expired codes.",
+      "confidence": "low",
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    }
+  ],
+  "context_updates": {
+    "ai_generated_debt": {
+      "add": [
+        {
+          "header": "Comments explain non-obvious design decisions consistently",
+          "description": "Key comments explain WHY (GETDEL atomicity, cookie truncation for security logging). No restating comments on obvious operations.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    }
+  }
+}

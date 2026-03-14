@@ -1,0 +1,58 @@
+{
+  "batch": "design_coherence",
+  "batch_index": 17,
+  "assessments": {"design_coherence": 68.0},
+  "dimension_notes": {
+    "design_coherence": {
+      "evidence": [
+        "AuthController has 8 constructor parameters and handles 5 distinct endpoint operations — doing too many things for a single class.",
+        "MicrosoftTokenVerifier has a clean internal design: constructor delegates to buildDecoder factory, validation split into 4 private methods — coherent.",
+        "ProviderIdentityNormalizer.normalizeGoogleClaims has 5 params (googleId, email, name, pictureUrl, loginFlow) + ProviderIdentityNormalizer.normalizeMicrosoftClaims has claims map + loginFlow — the claims Map<String,Object> param is appropriate for dynamic OAuth attribute maps.",
+        "UserService.findOrCreateUser() is 40+ LOC doing: lookup by provider, Google legacy fallback lookup, update existing, create new with race-condition fallback — 3 distinct operations in one method.",
+        "JwtTokenService.generateToken() dispatches on JwtMintMode — the dual-version token generation is coherent as a single 'emit a token for this user' responsibility.",
+        "IdentityContractGuard.validate() has 4 consecutive validation blocks — focused single responsibility.",
+        "AuthController.verifyMicrosoftToken() has 5 sequential guard clauses then delegates — the guards are appropriate but the method could be broken into validateMicrosoftRequest() + performMicrosoftVerification().",
+        "UserService: findOrCreateUser(), findByEmail(), findCurrentUser() — three public methods, coherent user management responsibility.",
+        "DashboardPage renders avatar, profile card, and logout — appropriate for a page component."
+      ],
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor",
+      "confidence": "high"
+    }
+  },
+  "dimension_judgment": {
+    "design_coherence": {
+      "dimension_character": "Most individual classes have coherent designs. The main coherence issues are AuthController (too wide — multiple auth flows in one class) and UserService.findOrCreateUser() (too much in one method — lookup logic, creation logic, and race-condition handling mixed together). These are related to high-level decomposition choices.",
+      "score_rationale": "Score 68: Several classes have focused, coherent designs (MicrosoftTokenVerifier, IdentityContractGuard, JwtTokenService). The two outliers are the AuthController breadth and findOrCreateUser() length, both of which exceed single-responsibility at their respective levels."
+    }
+  },
+  "issues": [
+    {
+      "dimension": "design_coherence",
+      "identifier": "find_or_create_user_too_wide",
+      "summary": "UserService.findOrCreateUser() combines lookup, legacy fallback, update, create, and race-condition handling in one method",
+      "related_files": ["backend/src/main/java/com/demo/sso/service/UserService.java"],
+      "evidence": [
+        "Method does: (1) findByProviderAndProviderUserId, (2) Google legacy fallback findByGoogleId, (3) update existing user fields, (4) create new user, (5) catch DataIntegrityViolationException for concurrent creation.",
+        "The update-existing block: 5 setters + lastLoginAt — could be extracted to updateUserFromIdentity(user, identity).",
+        "The create-new block: 6 setters + Redis save + race-condition catch — could be extracted to createUserFromIdentity(identity)."
+      ],
+      "suggestion": "Extract private methods: updateExistingUser(User user, NormalizedIdentity identity) and createNewUser(NormalizedIdentity identity). Keep findOrCreateUser as orchestrator calling these private methods.",
+      "confidence": "high",
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    }
+  ],
+  "context_updates": {
+    "design_coherence": {
+      "add": [
+        {
+          "header": "MicrosoftTokenVerifier has exemplary single-responsibility design",
+          "description": "Four focused private validation methods plus a factory for the decoder produces a class with clear, testable responsibilities.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    }
+  }
+}

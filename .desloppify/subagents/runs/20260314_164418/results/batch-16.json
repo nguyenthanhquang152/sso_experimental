@@ -1,0 +1,41 @@
+{
+  "batch": "initialization_coupling",
+  "batch_index": 16,
+  "assessments": {"initialization_coupling": 82.0},
+  "dimension_notes": {
+    "initialization_coupling": {
+      "evidence": [
+        "GoogleTokenVerifier creates GoogleIdTokenVerifier in its constructor using @Value-injected clientId — this performs HTTP client setup at bean construction time, but GoogleIdTokenVerifier.Builder is lightweight and doesn't make network calls until verify() is called.",
+        "MicrosoftTokenVerifier.buildDecoder() calls NimbusJwtDecoder.withJwkSetUri(...).build() at constructor time — NimbusJwtDecoder with JWK URI fetches keys lazily on first use, not at construction. No network call at init time.",
+        "IdentityContractGuard uses @PostConstruct to validate config — clean startup validation pattern, no hidden ordering dependency.",
+        "RedisAuthCodeStore reads rolloutProperties at method execution time, not at construction — no import-time side effects.",
+        "SecurityConfig.filterChain() is a @Bean method, called at context initialization — standard Spring pattern.",
+        "No environment variable reads at class load time (static initializers) detected.",
+        "No circular init dependencies found — Spring wires all dependencies through constructor injection cleanly.",
+        "AuthRolloutProperties uses @ConfigurationProperties — values are bound after context startup, not at class load time."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit",
+      "confidence": "high"
+    }
+  },
+  "dimension_judgment": {
+    "initialization_coupling": {
+      "dimension_character": "The codebase uses constructor injection throughout with no module-level side effects at import time. The @PostConstruct startup validation in IdentityContractGuard is a clean pattern. No global singleton ordering concerns or environment reads at class load time.",
+      "score_rationale": "Score 82: Clean initialization with no hidden ordering dependencies or import-time I/O. The only minor concern is that GoogleTokenVerifier creates a somewhat heavy GoogleIdTokenVerifier object in the constructor, though it does not make network calls until use."
+    }
+  },
+  "issues": [],
+  "context_updates": {
+    "initialization_coupling": {
+      "add": [
+        {
+          "header": "Constructor injection prevents initialization ordering issues",
+          "description": "All Spring beans use constructor injection — Spring guarantees dependency resolution order, eliminating hidden initialization coupling.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    }
+  }
+}

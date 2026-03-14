@@ -1,0 +1,56 @@
+{
+  "batch": "initialization_coupling",
+  "batch_index": 16,
+  "assessments": {"initialization_coupling": 82.0},
+  "dimension_notes": {
+    "initialization_coupling": {
+      "evidence": [
+        "GoogleTokenVerifier creates GoogleIdTokenVerifier in its constructor — lightweight builder with no network calls at construction.",
+        "MicrosoftTokenVerifier.buildDecoder() builds NimbusJwtDecoder at construction — JWK key fetch is lazy on first use.",
+        "IdentityContractGuard uses @PostConstruct for startup validation — clean pattern.",
+        "No environment variable reads at class load time.",
+        "No circular init dependencies — Spring constructor injection resolves all ordering.",
+        "AuthRolloutProperties uses @ConfigurationProperties — bound after context startup, not at class load time.",
+        "RedisAuthCodeStore reads rolloutProperties at call time, not at construction."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit",
+      "confidence": "high"
+    }
+  },
+  "dimension_judgment": {
+    "initialization_coupling": {
+      "dimension_character": "The codebase uses constructor injection throughout with no module-level side effects at import time. @PostConstruct startup validation in IdentityContractGuard is a clean pattern. No global singleton ordering concerns.",
+      "score_rationale": "Score 82: Clean initialization with no hidden ordering dependencies or import-time I/O. The only minor note is GoogleTokenVerifier creates a somewhat heavy object in the constructor, though without network calls."
+    }
+  },
+  "issues": [
+    {
+      "dimension": "initialization_coupling",
+      "identifier": "google_verifier_heavy_constructor",
+      "summary": "GoogleTokenVerifier constructs a GoogleIdTokenVerifier (with HTTP transport) in the constructor",
+      "related_files": ["backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java"],
+      "evidence": [
+        "Constructor: this.verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), GsonFactory.getDefaultInstance()).setAudience(...).build()",
+        "NetHttpTransport is created inline at construction time, creating a dependency on network infrastructure at bean initialization.",
+        "No actual network call is made at construction, but the HTTP client is initialized."
+      ],
+      "suggestion": "Consider extracting verifier construction to a @Bean factory method in a config class, making the HTTP transport mockable for tests. Alternatively, accept the current pattern as reasonable since no network I/O occurs at startup.",
+      "confidence": "low",
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    }
+  ],
+  "context_updates": {
+    "initialization_coupling": {
+      "add": [
+        {
+          "header": "Constructor injection prevents initialization ordering issues",
+          "description": "All Spring beans use constructor injection — Spring guarantees dependency resolution order, eliminating hidden initialization coupling.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    }
+  }
+}

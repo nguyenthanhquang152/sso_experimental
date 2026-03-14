@@ -1,6 +1,5 @@
 package com.demo.sso.controller;
 
-import com.demo.sso.model.User;
 import com.demo.sso.service.AuthenticatedUserIdentity;
 import com.demo.sso.service.UserService;
 import org.springframework.http.ResponseEntity;

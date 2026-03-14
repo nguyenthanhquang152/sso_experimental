@@ -34,3 +34,11 @@ postgres_data/
 # OS
 .DS_Store
 Thumbs.db
+
+# Coding Agents Configurations
+.agent/
+.agents/
+.skills-lock.json
+CLAUDE.md
+.rtk/
+skills-lock.json

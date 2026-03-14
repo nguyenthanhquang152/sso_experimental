@@ -1,0 +1,54 @@
+{
+  "batch": "abstraction_fitness",
+  "batch_index": 6,
+  "assessments": {"abstraction_fitness": 75.0},
+  "dimension_notes": {
+    "abstraction_fitness": {
+      "evidence": [
+        "AuthCodeStore and MicrosoftChallengeStore interfaces each have exactly one concrete implementation (Redis). This is single-implementation interface pattern — adds indirection for testability purposes (profile-based injection), which is legitimate for I/O boundaries.",
+        "ProviderIdentityNormalizer normalizes claims from multiple providers into a single NormalizedIdentity — this abstraction clearly earns its keep by insulating controllers from provider-specific attribute names.",
+        "NormalizedIdentity and AuthenticatedUserIdentity are lean records that carry exactly what consumers need — no over-engineering.",
+        "JwtTokenService handles both V1 and V2 token generation through overloaded generateToken methods and a mode enum. The abstraction appropriately encapsulates version-specific JWT structure.",
+        "AuthRolloutProperties with nested Microsoft/IdentityContractMode/JwtMintMode enums is a config aggregator that earns its abstraction by enabling feature-flag controlled rollout.",
+        "IdentityContractGuard is a focused startup validator — earns its class existence.",
+        "The two single-implementation interfaces (AuthCodeStore, MicrosoftChallengeStore) are justified for the @Profile('!test') pattern, enabling test profiles to inject in-memory alternatives."
+      ],
+      "impact_scope": "local",
+      "fix_scope": "single_edit",
+      "confidence": "high",
+      "sub_axes": {
+        "abstraction_leverage": 85.0,
+        "indirection_cost": 70.0,
+        "interface_honesty": 84.0,
+        "delegation_density": 100.0,
+        "definition_directness": 90.0,
+        "type_discipline": 85.0
+      }
+    }
+  },
+  "dimension_judgment": {
+    "abstraction_fitness": {
+      "dimension_character": "Abstractions in this codebase generally pay for themselves. The ProviderIdentityNormalizer is the clearest win — it insulates all consumers from provider-specific claim shapes. The single-implementation interfaces are justified by the test profile pattern. No empty wrapper chains or wide option bags detected.",
+      "score_rationale": "Score 75: Most abstractions are appropriately sized and earn their indirection. The single-implementation interface pattern is legitimate here. The main concern is minor — the service package grouping makes the abstraction/implementation boundaries harder to navigate visually."
+    }
+  },
+  "issues": [],
+  "context_updates": {
+    "abstraction_fitness": {
+      "add": [
+        {
+          "header": "ProviderIdentityNormalizer is a well-earned abstraction",
+          "description": "Centralizes Google and Microsoft claim mapping into a single NormalizedIdentity, preventing provider-specific branching from leaking into controllers and OAuth handlers.",
+          "settled": true,
+          "positive": true
+        },
+        {
+          "header": "Single-implementation interfaces are justified by @Profile test pattern",
+          "description": "AuthCodeStore and MicrosoftChallengeStore interfaces exist to enable @Profile('!test') swapping for in-memory test implementations, not as premature abstraction.",
+          "settled": true,
+          "positive": true
+        }
+      ]
+    }
+  }
+}

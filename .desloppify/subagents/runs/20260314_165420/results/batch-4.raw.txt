@@ -1,0 +1,84 @@
+{
+  "batch": "error_consistency",
+  "batch_index": 4,
+  "assessments": {"error_consistency": 65.0},
+  "dimension_notes": {
+    "error_consistency": {
+      "evidence": [
+        "Service layer throws IllegalArgumentException for validation failures (GoogleTokenVerifier, MicrosoftTokenVerifier, ProviderIdentityNormalizer) — consistent domain-level error type.",
+        "Controller layer catches exceptions and returns structured JSON error responses — appropriate boundary handling.",
+        "OAuth2SuccessHandler.normalizeIdentity() catches IllegalArgumentException and redirects to frontend error URL — loses the exception but this is intentional UI-layer handling.",
+        "AuthCodeStore.exchangeCode() returns null for invalid/expired codes. AuthController then checks for null. This null-return pattern is inconsistent with the throw pattern used in tokenVerifiers.",
+        "UserController.getCurrentUser() returns 404 via Optional.map/orElse — clean.",
+        "error strategy_by_directory shows service/ has both throws (23), try_catch (5), and returns_null (5) — mixed strategy within the same layer.",
+        "UserService.findOrCreateUser catches DataIntegrityViolationException and rethrows as IllegalStateException — good context preservation.",
+        "MicrosoftAuthorizationGateFilter writes raw JSON string literal for error responses rather than using ResponseEntity or a shared error body formatter."
+      ],
+      "impact_scope": "subsystem",
+      "fix_scope": "multi_file_refactor",
+      "confidence": "high"
+    }
+  },
+  "dimension_judgment": {
+    "error_consistency": {
+      "dimension_character": "The codebase has a generally sound error strategy — service layer throws typed exceptions, controllers catch and map to HTTP responses. The main inconsistency is that AuthCodeStore returns null for not-found codes while token verifiers throw IllegalArgumentException for the analogous case, creating mixed patterns for callers. Additionally, a few filter-level error responses use raw string JSON instead of a shared formatter.",
+      "score_rationale": "Score 65: The overall strategy is coherent but the null-return from AuthCodeStore vs throw from verifiers forces callers to use two different error-handling patterns. Raw JSON strings in filters are a lesser concern. These are fixable with minimal change."
+    }
+  },
+  "issues": [
+    {
+      "dimension": "error_consistency",
+      "identifier": "auth_code_store_null_return",
+      "summary": "AuthCodeStore.exchangeCode() returns null for not-found codes while sibling services throw IllegalArgumentException",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
+        "backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java",
+        "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+      ],
+      "evidence": [
+        "AuthCodeStore Javadoc: 'Returns null if invalid/expired.'",
+        "GoogleTokenVerifier.verify(): throws IllegalArgumentException for invalid token.",
+        "MicrosoftTokenVerifier.verifyIdToken(): throws IllegalArgumentException for all validation failures.",
+        "AuthController.exchangeCode() must null-check the result — if (jwt == null) — while Google/Microsoft flows use try-catch."
+      ],
+      "suggestion": "Change AuthCodeStore.exchangeCode() to throw IllegalArgumentException (or a custom CodeExpiredException extends IllegalArgumentException) on invalid/expired codes, consistent with the throw convention in sibling services. Update AuthController to use try-catch instead of null check.",
+      "confidence": "high",
+      "impact_scope": "module",
+      "fix_scope": "multi_file_refactor"
+    },
+    {
+      "dimension": "error_consistency",
+      "identifier": "raw_json_in_filters",
+      "summary": "MicrosoftAuthorizationGateFilter writes raw JSON string literals for error responses instead of shared formatter",
+      "related_files": [
+        "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java"
+      ],
+      "evidence": [
+        "response.getWriter().write(\"{\\\"error\\\":\\\"Microsoft server-side login is disabled\\\"}\") — hardcoded JSON string.",
+        "SecurityConfig's authenticationEntryPoint also uses: response.getWriter().write(\"{\\\"error\\\":\\\"Unauthorized\\\"}\") — same pattern."
+      ],
+      "suggestion": "Extract a static writeJsonError(HttpServletResponse response, int status, String message) helper in a FilterResponseHelper class and use it consistently in all filters and the authentication entry point.",
+      "confidence": "medium",
+      "impact_scope": "local",
+      "fix_scope": "single_edit"
+    }
+  ],
+  "context_updates": {
+    "error_consistency": {
+      "add": [
+        {
+          "header": "Service layer consistently uses IllegalArgumentException for validation failures",
+          "description": "Token verifiers and identity normalizers use a consistent throw-IllegalArgumentException pattern for invalid input, making controller error handling predictable.",
+          "settled": true,
+          "positive": true
+        },
+        {
+          "header": "AuthCodeStore breaks throw convention with null-return",
+          "description": "The null-return contract forces a different handling pattern in AuthController compared to the try-catch used for all other service failures.",
+          "settled": true,
+          "positive": false
+        }
+      ]
+    }
+  }
+}

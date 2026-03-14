@@ -1,0 +1,4239 @@
+{
+  "version": 3,
+  "created": "2026-03-14T16:43:17+00:00",
+  "last_scan": "2026-03-14T16:56:14+00:00",
+  "scan_count": 3,
+  "overall_score": 67.1,
+  "objective_score": 54.4,
+  "strict_score": 67.1,
+  "verified_strict_score": 54.4,
+  "stats": {
+    "total": 109,
+    "auto_resolved": 0,
+    "deferred": 0,
+    "false_positive": 0,
+    "fixed": 0,
+    "open": 109,
+    "triaged_out": 0,
+    "wontfix": 0,
+    "by_tier": {
+      "1": {
+        "auto_resolved": 0,
+        "deferred": 0,
+        "false_positive": 0,
+        "fixed": 0,
+        "open": 14,
+        "triaged_out": 0,
+        "wontfix": 0
+      },
+      "2": {
+        "auto_resolved": 0,
+        "deferred": 0,
+        "false_positive": 0,
+        "fixed": 0,
+        "open": 6,
+        "triaged_out": 0,
+        "wontfix": 0
+      },
+      "3": {
+        "auto_resolved": 0,
+        "deferred": 0,
+        "false_positive": 0,
+        "fixed": 0,
+        "open": 78,
+        "triaged_out": 0,
+        "wontfix": 0
+      },
+      "4": {
+        "auto_resolved": 0,
+        "deferred": 0,
+        "false_positive": 0,
+        "fixed": 0,
+        "open": 11,
+        "triaged_out": 0,
+        "wontfix": 0
+      }
+    }
+  },
+  "work_items": {
+    "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3": {
+      "id": "unused::backend/src/main/java/com/demo/sso/controller/UserController.java::unused_import::3",
+      "detector": "unused",
+      "file": "backend/src/main/java/com/demo/sso/controller/UserController.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: User",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3": {
+      "id": "unused::backend/src/main/java/com/demo/sso/model/User.java::unused_import::3",
+      "detector": "unused",
+      "file": "backend/src/main/java/com/demo/sso/model/User.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: persistence",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18": {
+      "id": "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::18",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Assertions",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19": {
+      "id": "unused::backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java::unused_import::19",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/config/JwtAuthenticationFilterTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Mockito",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16": {
+      "id": "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::16",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Assertions",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17": {
+      "id": "unused::backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java::unused_import::17",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Mockito",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7": {
+      "id": "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::7",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: AbstractHttpConfigurer",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10": {
+      "id": "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::10",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Assertions",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11": {
+      "id": "unused::backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java::unused_import::11",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Mockito",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30": {
+      "id": "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::30",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Matchers",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34": {
+      "id": "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::34",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: MockMvcRequestBuilders",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35": {
+      "id": "unused::backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java::unused_import::35",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/controller/ControllerIntegrationTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: MockMvcResultMatchers",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8": {
+      "id": "unused::backend/src/test/java/com/demo/sso/model/AuthFlowTest.java::unused_import::8",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/model/AuthFlowTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Assertions",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3": {
+      "id": "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::3",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: GoogleIdToken",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10": {
+      "id": "unused::backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java::unused_import::10",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/service/GoogleTokenVerifierTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Assertions",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9": {
+      "id": "unused::backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java::unused_import::9",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/service/JwtTokenServiceTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Assertions",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25": {
+      "id": "unused::backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java::unused_import::25",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/service/OAuth2SuccessHandlerTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: ArgumentMatchers",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15": {
+      "id": "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::15",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Assertions",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16": {
+      "id": "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::16",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: ArgumentMatchers",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17": {
+      "id": "unused::backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java::unused_import::17",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/service/RedisAuthCodeStoreTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Mockito",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16": {
+      "id": "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::16",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/service/UserServiceTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Assertions",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18": {
+      "id": "unused::backend/src/test/java/com/demo/sso/service/UserServiceTest.java::unused_import::18",
+      "detector": "unused",
+      "file": "backend/src/test/java/com/demo/sso/service/UserServiceTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Unused import: Mockito",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "signature::backend/src/main/java/com/demo/sso/controller/AuthController.java::signature_variance::exchangeCode": {
+      "id": "signature::backend/src/main/java/com/demo/sso/controller/AuthController.java::signature_variance::exchangeCode",
+      "detector": "signature",
+      "file": "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "'exchangeCode' has 2 different signatures across 3 files",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "signature::backend/src/test/java/com/demo/sso/config/IdentityContractGuardTest.java::signature_variance::rolloutProperties": {
+      "id": "signature::backend/src/test/java/com/demo/sso/config/IdentityContractGuardTest.java::signature_variance::rolloutProperties",
+      "detector": "signature",
+      "file": "backend/src/test/java/com/demo/sso/config/IdentityContractGuardTest.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "'rolloutProperties' has 2 different signatures across 3 files",
+      "detail": {},
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "test",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/controller/AuthController.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/controller/AuthController.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (222 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 222
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/JwtTokenService.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/JwtTokenService.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/JwtTokenService.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (172 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 172
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/UserService.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/UserService.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/UserService.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (106 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 106
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (102 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 102
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (102 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 102
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (98 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 98
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/model/User.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/model/User.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/model/User.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (89 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 89
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/config/AuthRolloutProperties.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/config/AuthRolloutProperties.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/config/AuthRolloutProperties.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (73 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 73
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (69 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 69
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (67 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 67
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (63 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 63
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/config/SecurityConfig.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/config/SecurityConfig.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/config/SecurityConfig.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (62 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 62
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (51 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 51
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (50 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 50
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (49 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 49
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/RedisMicrosoftChallengeStore.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/RedisMicrosoftChallengeStore.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/RedisMicrosoftChallengeStore.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (46 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 46
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/controller/UserController.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/controller/UserController.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/controller/UserController.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (45 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 45
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (34 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 34
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (34 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 34
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (31 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 31
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/AuthCodeStore.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (19 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 19
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/model/AuthFlow.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/model/AuthFlow.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/model/AuthFlow.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (18 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 18
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/repository/UserRepository.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/repository/UserRepository.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/repository/UserRepository.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (13 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 13
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/SsoApplication.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/SsoApplication.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/SsoApplication.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (11 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 11
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (10 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 10
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (49 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 49,
+        "importer_count": 0,
+        "loc_weight": 7.0
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (63 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 63,
+        "importer_count": 0,
+        "loc_weight": 7.937253933193772
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (102 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 102,
+        "importer_count": 0,
+        "loc_weight": 10.099504938362077
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/repository/UserRepository.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/repository/UserRepository.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/repository/UserRepository.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (13 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 13,
+        "importer_count": 0,
+        "loc_weight": 3.605551275463989
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (10 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 10,
+        "importer_count": 0,
+        "loc_weight": 3.1622776601683795
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/config/AuthRolloutProperties.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/config/AuthRolloutProperties.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/config/AuthRolloutProperties.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (73 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 73,
+        "importer_count": 0,
+        "loc_weight": 8.54400374531753
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (69 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 69,
+        "importer_count": 0,
+        "loc_weight": 8.306623862918075
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (50 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 50,
+        "importer_count": 0,
+        "loc_weight": 7.0710678118654755
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/model/User.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/model/User.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/model/User.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (89 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 89,
+        "importer_count": 0,
+        "loc_weight": 9.433981132056603
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (98 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 98,
+        "importer_count": 0,
+        "loc_weight": 9.899494936611665
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/config/SecurityConfig.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/config/SecurityConfig.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/config/SecurityConfig.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (62 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 62,
+        "importer_count": 0,
+        "loc_weight": 7.874007874011811
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (102 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 102,
+        "importer_count": 0,
+        "loc_weight": 10.099504938362077
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/model/AuthFlow.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/model/AuthFlow.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/model/AuthFlow.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (18 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 18,
+        "importer_count": 0,
+        "loc_weight": 4.242640687119285
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/JwtTokenService.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/service/JwtTokenService.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/service/JwtTokenService.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (172 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 172,
+        "importer_count": 0,
+        "loc_weight": 13.114877048604
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/UserService.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/service/UserService.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/service/UserService.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (106 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 106,
+        "importer_count": 0,
+        "loc_weight": 10.295630140987
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (31 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 31,
+        "importer_count": 0,
+        "loc_weight": 5.5677643628300215
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (51 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 51,
+        "importer_count": 0,
+        "loc_weight": 7.14142842854285
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/SsoApplication.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/SsoApplication.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/SsoApplication.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (11 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 11,
+        "importer_count": 0,
+        "loc_weight": 3.3166247903554
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/controller/AuthController.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/controller/AuthController.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (222 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 222,
+        "importer_count": 0,
+        "loc_weight": 14.89966442575134
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/controller/UserController.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/controller/UserController.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/controller/UserController.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (45 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 45,
+        "importer_count": 0,
+        "loc_weight": 6.708203932499369
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (34 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 34,
+        "importer_count": 0,
+        "loc_weight": 5.830951894845301
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (34 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 34,
+        "importer_count": 0,
+        "loc_weight": 5.830951894845301
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/AuthCodeStore.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/service/AuthCodeStore.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (19 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 19,
+        "importer_count": 0,
+        "loc_weight": 4.358898943540674
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (67 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 67,
+        "importer_count": 0,
+        "loc_weight": 8.18535277187245
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/RedisMicrosoftChallengeStore.java::untested_module": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/service/RedisMicrosoftChallengeStore.java::untested_module",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/service/RedisMicrosoftChallengeStore.java",
+      "tier": 3,
+      "confidence": "high",
+      "summary": "Untested module (46 LOC, 0 importers)",
+      "detail": {
+        "kind": "untested_module",
+        "loc": 46,
+        "importer_count": 0,
+        "loc_weight": 6.782329983125268
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:17+00:00",
+      "last_seen": "2026-03-14T16:43:17+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "stale_exclude::backend/target::backend/target": {
+      "id": "stale_exclude::backend/target::backend/target",
+      "detector": "stale_exclude",
+      "file": "backend/target",
+      "tier": 4,
+      "confidence": "low",
+      "summary": "Excluded directory 'backend/target' has 0 references from scanned code \u2014 may be stale",
+      "detail": {
+        "directory": "backend/target",
+        "references": 0
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:28+00:00",
+      "last_seen": "2026-03-14T16:43:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "stale_exclude::frontend/node_modules::frontend/node_modules": {
+      "id": "stale_exclude::frontend/node_modules::frontend/node_modules",
+      "detector": "stale_exclude",
+      "file": "frontend/node_modules",
+      "tier": 4,
+      "confidence": "low",
+      "summary": "Excluded directory 'frontend/node_modules' has 0 references from scanned code \u2014 may be stale",
+      "detail": {
+        "directory": "frontend/node_modules",
+        "references": 0
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:28+00:00",
+      "last_seen": "2026-03-14T16:43:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "stale_exclude::frontend/dist::frontend/dist": {
+      "id": "stale_exclude::frontend/dist::frontend/dist",
+      "detector": "stale_exclude",
+      "file": "frontend/dist",
+      "tier": 4,
+      "confidence": "low",
+      "summary": "Excluded directory 'frontend/dist' has 0 references from scanned code \u2014 may be stale",
+      "detail": {
+        "directory": "frontend/dist",
+        "references": 0
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:28+00:00",
+      "last_seen": "2026-03-14T16:43:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "stale_exclude::frontend/playwright-report::frontend/playwright-report": {
+      "id": "stale_exclude::frontend/playwright-report::frontend/playwright-report",
+      "detector": "stale_exclude",
+      "file": "frontend/playwright-report",
+      "tier": 4,
+      "confidence": "low",
+      "summary": "Excluded directory 'frontend/playwright-report' has 0 references from scanned code \u2014 may be stale",
+      "detail": {
+        "directory": "frontend/playwright-report",
+        "references": 0
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:28+00:00",
+      "last_seen": "2026-03-14T16:43:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "stale_exclude::frontend/test-results::frontend/test-results": {
+      "id": "stale_exclude::frontend/test-results::frontend/test-results",
+      "detector": "stale_exclude",
+      "file": "frontend/test-results",
+      "tier": 4,
+      "confidence": "low",
+      "summary": "Excluded directory 'frontend/test-results' has 0 references from scanned code \u2014 may be stale",
+      "detail": {
+        "directory": "frontend/test-results",
+        "references": 0
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:28+00:00",
+      "last_seen": "2026-03-14T16:43:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "stale_exclude::.m2::.m2": {
+      "id": "stale_exclude::.m2::.m2",
+      "detector": "stale_exclude",
+      "file": ".m2",
+      "tier": 4,
+      "confidence": "low",
+      "summary": "Excluded directory '.m2' has 0 references from scanned code \u2014 may be stale",
+      "detail": {
+        "directory": ".m2",
+        "references": 0
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:28+00:00",
+      "last_seen": "2026-03-14T16:43:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "stale_exclude::backend/.m2::backend/.m2": {
+      "id": "stale_exclude::backend/.m2::backend/.m2",
+      "detector": "stale_exclude",
+      "file": "backend/.m2",
+      "tier": 4,
+      "confidence": "low",
+      "summary": "Excluded directory 'backend/.m2' has 0 references from scanned code \u2014 may be stale",
+      "detail": {
+        "directory": "backend/.m2",
+        "references": 0
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:28+00:00",
+      "last_seen": "2026-03-14T16:43:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "stale_exclude::backend/~::backend/~": {
+      "id": "stale_exclude::backend/~::backend/~",
+      "detector": "stale_exclude",
+      "file": "backend/~",
+      "tier": 4,
+      "confidence": "low",
+      "summary": "Excluded directory 'backend/~' has 0 references from scanned code \u2014 may be stale",
+      "detail": {
+        "directory": "backend/~",
+        "references": 0
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:28+00:00",
+      "last_seen": "2026-03-14T16:43:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "stale_exclude::.playwright-mcp::.playwright-mcp": {
+      "id": "stale_exclude::.playwright-mcp::.playwright-mcp",
+      "detector": "stale_exclude",
+      "file": ".playwright-mcp",
+      "tier": 4,
+      "confidence": "low",
+      "summary": "Excluded directory '.playwright-mcp' has 0 references from scanned code \u2014 may be stale",
+      "detail": {
+        "directory": ".playwright-mcp",
+        "references": 0
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:28+00:00",
+      "last_seen": "2026-03-14T16:43:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "stale_exclude::.agents::.agents": {
+      "id": "stale_exclude::.agents::.agents",
+      "detector": "stale_exclude",
+      "file": ".agents",
+      "tier": 4,
+      "confidence": "low",
+      "summary": "Excluded directory '.agents' has 0 references from scanned code \u2014 may be stale",
+      "detail": {
+        "directory": ".agents",
+        "references": 0
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:28+00:00",
+      "last_seen": "2026-03-14T16:43:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "stale_exclude::.agent::.agent": {
+      "id": "stale_exclude::.agent::.agent",
+      "detector": "stale_exclude",
+      "file": ".agent",
+      "tier": 4,
+      "confidence": "low",
+      "summary": "Excluded directory '.agent' has 0 references from scanned code \u2014 may be stale",
+      "detail": {
+        "directory": ".agent",
+        "references": 0
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:43:28+00:00",
+      "last_seen": "2026-03-14T16:43:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::cross_module_architecture::service_pkg_mixed_concerns": {
+      "id": "review::.::holistic::cross_module_architecture::service_pkg_mixed_concerns",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "service package mixes interfaces, Redis implementations, and identity value objects without subpackaging",
+      "detail": {
+        "holistic": true,
+        "dimension": "cross_module_architecture",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
+          "backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java",
+          "backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java",
+          "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java"
+        ],
+        "evidence": [
+          "service/ contains 12 files spanning: 2 interfaces (AuthCodeStore, MicrosoftChallengeStore), 2 Redis implementations, 2 identity value records (NormalizedIdentity, AuthenticatedUserIdentity), 2 token verifiers, and 2 identity-handling services.",
+          "NormalizedIdentity and AuthenticatedUserIdentity are domain value objects that don't belong co-located with service implementations."
+        ],
+        "suggestion": "Split service/ into subpackages: service/store/ for AuthCodeStore+MicrosoftChallengeStore interfaces and their Redis impls, service/identity/ for NormalizedIdentity+AuthenticatedUserIdentity+ProviderIdentityNormalizer, and keep the remaining services in service/.",
+        "reasoning": "",
+        "summary_hash": "ae9d1f16"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::high_level_elegance::auth_controller_too_wide": {
+      "id": "review::.::holistic::high_level_elegance::auth_controller_too_wide",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "AuthController conflates Google, Microsoft client-side, challenge issuance, code exchange, and logout into one class",
+      "detail": {
+        "holistic": true,
+        "dimension": "high_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+        ],
+        "evidence": [
+          "AuthController has 5 endpoints: /google/verify, /microsoft/challenge, /microsoft/verify, /exchange, /logout \u2014 each representing a distinct flow.",
+          "Class injects 8 dependencies, which is a structural signal that ownership is too wide.",
+          "Microsoft challenge session cookie logic (currentChallengeSessionId, createChallengeSessionCookie, cookiePath) adds ~40 LOC of session management that could be a separate component."
+        ],
+        "suggestion": "Split into MicrosoftAuthController (challenge + verify) and a leaner AuthController (exchange, logout, Google verify). The cookie session logic can become a ChallengeSessionManager helper.",
+        "reasoning": "",
+        "summary_hash": "abb542cf"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::high_level_elegance::config_package_mixed_concerns": {
+      "id": "review::.::holistic::high_level_elegance::config_package_mixed_concerns",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "config package groups filters, property holders, and startup guard under one ambiguous label",
+      "detail": {
+        "holistic": true,
+        "dimension": "high_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java",
+          "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
+          "backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java"
+        ],
+        "evidence": [
+          "config/ holds: 2 request filters (JwtAuthenticationFilter, MicrosoftAuthorizationGateFilter), 2 property classes, 1 startup validator (IdentityContractGuard), and SecurityConfig.",
+          "Filters are runtime processing components, not configuration; they belong in a filter/ or security/ subpackage."
+        ],
+        "suggestion": "Move JwtAuthenticationFilter and MicrosoftAuthorizationGateFilter to a security/ or filter/ subpackage. IdentityContractGuard could stay in config or move to a startup/ package.",
+        "reasoning": "",
+        "summary_hash": "d954ea45"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::convention_outlier::duplicated_is_blank_helper": {
+      "id": "review::.::holistic::convention_outlier::duplicated_is_blank_helper",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "private static isBlank() helper duplicated in AuthController and ProviderIdentityNormalizer",
+      "detail": {
+        "holistic": true,
+        "dimension": "convention_outlier",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+          "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
+        ],
+        "evidence": [
+          "AuthController.isBlank: return value == null || value.isBlank()",
+          "ProviderIdentityNormalizer.isBlank: return value == null || value.isBlank()",
+          "Both are private static and identical in behavior."
+        ],
+        "suggestion": "Replace both with String.isBlank() preceded by a null check using Objects.isNull, or use the standard library directly (value == null || value.isBlank()) inline. Alternatively, create a shared StringUtils class in a util/ package if more utilities accumulate.",
+        "reasoning": "",
+        "summary_hash": "5945636a"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::error_consistency::auth_code_store_null_return": {
+      "id": "review::.::holistic::error_consistency::auth_code_store_null_return",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "AuthCodeStore.exchangeCode() returns null for not-found codes while sibling services throw IllegalArgumentException",
+      "detail": {
+        "holistic": true,
+        "dimension": "error_consistency",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
+          "backend/src/main/java/com/demo/sso/service/RedisAuthCodeStore.java",
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+        ],
+        "evidence": [
+          "AuthCodeStore Javadoc: 'Returns null if invalid/expired.'",
+          "GoogleTokenVerifier.verify(): throws IllegalArgumentException for invalid token.",
+          "MicrosoftTokenVerifier.verifyIdToken(): throws IllegalArgumentException for all validation failures.",
+          "AuthController.exchangeCode() must null-check the result \u2014 if (jwt == null) \u2014 while Google/Microsoft flows use try-catch."
+        ],
+        "suggestion": "Change AuthCodeStore.exchangeCode() to throw IllegalArgumentException (or a custom CodeExpiredException extends IllegalArgumentException) on invalid/expired codes, consistent with the throw convention in sibling services. Update AuthController to use try-catch instead of null check.",
+        "reasoning": "",
+        "summary_hash": "4fb2b551"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::error_consistency::raw_json_in_filters": {
+      "id": "review::.::holistic::error_consistency::raw_json_in_filters",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "MicrosoftAuthorizationGateFilter writes raw JSON string literals for error responses instead of shared formatter",
+      "detail": {
+        "holistic": true,
+        "dimension": "error_consistency",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java"
+        ],
+        "evidence": [
+          "response.getWriter().write(\"{\\\"error\\\":\\\"Microsoft server-side login is disabled\\\"}\") \u2014 hardcoded JSON string.",
+          "SecurityConfig's authenticationEntryPoint also uses: response.getWriter().write(\"{\\\"error\\\":\\\"Unauthorized\\\"}\") \u2014 same pattern."
+        ],
+        "suggestion": "Extract a static writeJsonError(HttpServletResponse response, int status, String message) helper in a FilterResponseHelper class and use it consistently in all filters and the authentication entry point.",
+        "reasoning": "",
+        "summary_hash": "845d9de9"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::naming_quality::merge_provider_config_misnomer": {
+      "id": "review::.::holistic::naming_quality::merge_provider_config_misnomer",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "mergeProviderConfig name suggests merging two configs but the function applies defaults to a partial/null input",
+      "detail": {
+        "holistic": true,
+        "dimension": "naming_quality",
+        "related_files": [
+          "frontend/src/types/auth.ts"
+        ],
+        "evidence": [
+          "Function signature: mergeProviderConfig(config?: Partial<ProviderConfig> | null): ProviderConfig",
+          "Function body spreads DEFAULT_PROVIDER_CONFIG against the input \u2014 it normalizes defaults, not merges two peer configs.",
+          "Callers: useProviderConfig.ts uses it as mergeProviderConfig(response) \u2014 one argument, not two peers."
+        ],
+        "suggestion": "Rename to normalizeProviderConfig or withDefaults to accurately describe applying defaults to a partial server response.",
+        "reasoning": "",
+        "summary_hash": "6f156003"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::low_level_elegance::user_controller_inline_map_response": {
+      "id": "review::.::holistic::low_level_elegance::user_controller_inline_map_response",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "UserController.getCurrentUser() returns a 10-entry inline Map instead of a typed response record",
+      "detail": {
+        "holistic": true,
+        "dimension": "low_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/UserController.java"
+        ],
+        "evidence": [
+          "return userService.findCurrentUser(identity).map(user -> ResponseEntity.ok(Map.of(\"id\", user.getId(), \"email\", ... 10 entries total)))",
+          "The Map keys are untyped strings; a typo in a key name produces runtime failure, not compile-time error.",
+          "The null-coalescing for each field (user.getName() != null ? user.getName() : \"\") repeated 6 times adds noise."
+        ],
+        "suggestion": "Create a UserResponse record in controller/dto/ with all fields, and a static UserResponse.from(User user) factory. Return ResponseEntity<UserResponse> instead.",
+        "reasoning": "",
+        "summary_hash": "65b9f027"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::low_level_elegance::cookie_path_redundant_null_check": {
+      "id": "review::.::holistic::low_level_elegance::cookie_path_redundant_null_check",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "AuthController.cookiePath() null-checks servletContextPath which is already guaranteed non-null by constructor normalization",
+      "detail": {
+        "holistic": true,
+        "dimension": "low_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+        ],
+        "evidence": [
+          "Constructor: this.servletContextPath = servletContextPath == null ? \"\" : servletContextPath;",
+          "cookiePath(): if (servletContextPath == null || servletContextPath.isBlank() || ...) \u2014 the null check is unreachable."
+        ],
+        "suggestion": "Remove the null check from cookiePath() since the constructor guarantees a non-null value. Simplify to: if (servletContextPath.isBlank() || \"/\".equals(servletContextPath))",
+        "reasoning": "",
+        "summary_hash": "9ea2bc3b"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::mid_level_elegance::microsoft_challenge_state_inline": {
+      "id": "review::.::holistic::mid_level_elegance::microsoft_challenge_state_inline",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "Microsoft challenge session cookie management is spread across two controller endpoints with inline logic",
+      "detail": {
+        "holistic": true,
+        "dimension": "mid_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+        ],
+        "evidence": [
+          "issueMicrosoftChallenge() calls currentChallengeSessionId(request).orElseGet(() -> createChallengeSessionCookie(response)) inline.",
+          "verifyMicrosoftToken() calls currentChallengeSessionId(httpRequest).orElse(null) with its own null check.",
+          "The sessionId extraction and cookie creation logic (~30 LOC) lives in AuthController rather than in a dedicated ChallengeSessionResolver component."
+        ],
+        "suggestion": "Extract ChallengeSessionResolver with methods resolveOrCreate(request, response): String and resolve(request): Optional<String>. Inject into AuthController. This cleans up the seam between the two Microsoft endpoints.",
+        "reasoning": "",
+        "summary_hash": "1e8570aa"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::test_strategy::no_test_provider_identity_normalizer": {
+      "id": "review::.::holistic::test_strategy::no_test_provider_identity_normalizer",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "ProviderIdentityNormalizer has no unit tests despite containing complex email normalization and guest identity rejection logic",
+      "detail": {
+        "holistic": true,
+        "dimension": "test_strategy",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
+        ],
+        "evidence": [
+          "normalizeEmail() performs: trim, lowercase, count '@' occurrences, check for spaces, guest '#ext#' rejection \u2014 5 distinct validation rules.",
+          "normalizeMicrosoftClaims() uses firstNonBlank across 3 email-like claim keys (email, preferred_username, upn).",
+          "No test file for ProviderIdentityNormalizer found in the test tree.",
+          "A bug here would allow invalid emails or permit guest Microsoft identities \u2014 security-relevant."
+        ],
+        "suggestion": "Create ProviderIdentityNormalizerTest with cases: valid Google identity, missing sub or email throws, valid Microsoft identity with each of the 3 claim paths, guest #ext# email rejected, email with spaces rejected, email with 2 @ signs rejected.",
+        "reasoning": "",
+        "summary_hash": "ed9e94b1"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::test_strategy::no_test_microsoft_token_verifier": {
+      "id": "review::.::holistic::test_strategy::no_test_microsoft_token_verifier",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "MicrosoftTokenVerifier has no unit tests for nonce validation, issuer validation, and audience validation",
+      "detail": {
+        "holistic": true,
+        "dimension": "test_strategy",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java"
+        ],
+        "evidence": [
+          "validateNonce(), validateIssuer(), validateAudience(), validateVersion() are critical security checks with no corresponding tests.",
+          "A wrong nonce allows replay attacks. A wrong issuer allows cross-tenant impersonation.",
+          "No MicrosoftTokenVerifierTest file found."
+        ],
+        "suggestion": "Create MicrosoftTokenVerifierTest with mocked JwtDecoder. Test: correct nonce passes, wrong nonce throws, mismatched audience throws, mismatched issuer throws, v1.0 token version throws.",
+        "reasoning": "",
+        "summary_hash": "a45ea069"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::api_surface_coherence::untyped_response_maps": {
+      "id": "review::.::holistic::api_surface_coherence::untyped_response_maps",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "Controllers return Map<String,Object> and ResponseEntity<?> instead of typed response DTOs",
+      "detail": {
+        "holistic": true,
+        "dimension": "api_surface_coherence",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+          "backend/src/main/java/com/demo/sso/controller/UserController.java",
+          "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+        ],
+        "evidence": [
+          "AuthController methods: public ResponseEntity<?> verifyGoogleToken(...), public ResponseEntity<?> verifyMicrosoftToken(...), public ResponseEntity<?> exchangeCode(...)",
+          "All success bodies: Map.of(\"token\", jwt) \u2014 repeated inline literal key.",
+          "UserController: ResponseEntity<Map<String,Object>> with 10 inline Map.of() entries.",
+          "ProviderConfigController: ResponseEntity<Map<String,Object>> with nested LinkedHashMap construction."
+        ],
+        "suggestion": "Create response DTOs: TokenResponse(String token), UserResponse record with all user fields, ProviderConfigResponse with typed Google/Microsoft sub-records. Change return types to ResponseEntity<TokenResponse> etc.",
+        "reasoning": "",
+        "summary_hash": "f578953f"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::authorization_consistency::microsoft_feature_flag_duplicated_gate": {
+      "id": "review::.::holistic::authorization_consistency::microsoft_feature_flag_duplicated_gate",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "Microsoft client-side enabled check duplicated in both /microsoft/challenge and /microsoft/verify endpoints",
+      "detail": {
+        "holistic": true,
+        "dimension": "authorization_consistency",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+        ],
+        "evidence": [
+          "issueMicrosoftChallenge(): if (!rolloutProperties.getMicrosoft().isClientSideEnabled()) return 503",
+          "verifyMicrosoftToken(): if (!rolloutProperties.getMicrosoft().isClientSideEnabled()) return 503",
+          "Same guard, same response body: Map.of(\"error\", \"Microsoft client-side login is disabled\")"
+        ],
+        "suggestion": "Extract a private assertMicrosoftClientSideEnabled() method that throws a custom FeatureDisabledException, or apply an @PreAuthorize SpEL condition via a custom security expression. Alternatively, handle this at the filter level in MicrosoftAuthorizationGateFilter for /auth/microsoft/** paths.",
+        "reasoning": "",
+        "summary_hash": "3488cab1"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::incomplete_migration::user_entity_dual_login_concept": {
+      "id": "review::.::holistic::incomplete_migration::user_entity_dual_login_concept",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "User entity has both loginMethod (String) and lastLoginFlow (AuthFlow enum) representing the same login concept",
+      "detail": {
+        "holistic": true,
+        "dimension": "incomplete_migration",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/model/User.java",
+          "backend/src/main/java/com/demo/sso/service/UserService.java"
+        ],
+        "evidence": [
+          "User.loginMethod: @Column(name = \"login_method\", length = 20) private String loginMethod;",
+          "User.lastLoginFlow: @Enumerated(EnumType.STRING) @Column(name = \"last_login_flow\", length = 20) private AuthFlow lastLoginFlow;",
+          "UserService.applyProviderIdentityFields() sets both: user.setLastLoginFlow(identity.loginFlow()); user.setLoginMethod(identity.loginFlow().name());",
+          "The two fields store the same value in different types \u2014 the String field is the legacy representation."
+        ],
+        "suggestion": "Once downstream consumers read lastLoginFlow, drop loginMethod from the entity and the database schema via a Flyway migration. Add a DB migration to backfill last_login_flow from login_method for existing rows.",
+        "reasoning": "",
+        "summary_hash": "f1a9e452"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::package_organization::service_package_too_wide": {
+      "id": "review::.::holistic::package_organization::service_package_too_wide",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "service package contains 12 files across interfaces, implementations, value records, and domain services without subpackaging",
+      "detail": {
+        "holistic": true,
+        "dimension": "package_organization",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/",
+          "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java",
+          "backend/src/main/java/com/demo/sso/service/NormalizedIdentity.java",
+          "backend/src/main/java/com/demo/sso/service/AuthenticatedUserIdentity.java"
+        ],
+        "evidence": [
+          "service/ has: 2 store interfaces, 2 Redis store implementations, 2 identity value records, 1 identity normalizer, 2 token verifiers, 1 JWT service, 1 success handler, 1 user service.",
+          "NormalizedIdentity and AuthenticatedUserIdentity are pure domain records that don't depend on service infrastructure.",
+          "Redis implementations have @Profile('!test') annotations \u2014 a clear deployment-coupling concern distinct from pure service interfaces."
+        ],
+        "suggestion": "Create service/store/ for AuthCodeStore + MicrosoftChallengeStore interfaces and their Redis implementations. Create service/identity/ for NormalizedIdentity, AuthenticatedUserIdentity, and ProviderIdentityNormalizer.",
+        "reasoning": "",
+        "summary_hash": "a5f0544c"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::design_coherence::find_or_create_user_too_wide": {
+      "id": "review::.::holistic::design_coherence::find_or_create_user_too_wide",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "UserService.findOrCreateUser() combines lookup, legacy fallback, update, create, and race-condition handling in one method",
+      "detail": {
+        "holistic": true,
+        "dimension": "design_coherence",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/UserService.java"
+        ],
+        "evidence": [
+          "Method does: (1) findByProviderAndProviderUserId, (2) Google legacy fallback findByGoogleId, (3) update existing user fields, (4) create new user, (5) catch DataIntegrityViolationException for concurrent creation.",
+          "The update-existing block: 5 setters + lastLoginAt \u2014 could be extracted to updateUserFromIdentity(user, identity).",
+          "The create-new block: 6 setters + Redis save + race-condition catch \u2014 could be extracted to createUserFromIdentity(identity)."
+        ],
+        "suggestion": "Extract private methods: updateExistingUser(User user, NormalizedIdentity identity) and createNewUser(NormalizedIdentity identity). Keep findOrCreateUser as orchestrator calling these private methods.",
+        "reasoning": "",
+        "summary_hash": "b421a461"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::contract_coherence::microsoft_challenge_store_no_javadoc": {
+      "id": "review::.::holistic::contract_coherence::microsoft_challenge_store_no_javadoc",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "MicrosoftChallengeStore interface methods have no Javadoc explaining their contracts",
+      "detail": {
+        "holistic": true,
+        "dimension": "contract_coherence",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/MicrosoftChallengeStore.java"
+        ],
+        "evidence": [
+          "issueChallenge(String sessionId) \u2014 no documentation explaining what sessionId is, what the challenge lifecycle is.",
+          "consumeNonce(String sessionId, String challengeId) \u2014 no documentation explaining single-use semantics or what null return means."
+        ],
+        "suggestion": "Add Javadoc to issueChallenge() explaining the sessionId scoping, TTL of 5 minutes, and the returned MicrosoftChallenge structure. Add Javadoc to consumeNonce() explaining single-use semantics (returning null if not found or already consumed).",
+        "reasoning": "",
+        "summary_hash": "9921936b"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::logic_clarity::normalize_email_complex_condition": {
+      "id": "review::.::holistic::logic_clarity::normalize_email_complex_condition",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "normalizeEmail() has a 5-clause OR condition that is hard to parse at a glance",
+      "detail": {
+        "holistic": true,
+        "dimension": "logic_clarity",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
+        ],
+        "evidence": [
+          "if (normalized.isBlank() || normalized.chars().filter(ch -> ch == '@').count() != 1 || normalized.contains(\" \") || atIndex <= 0 || atIndex == normalized.length() - 1)"
+        ],
+        "suggestion": "Extract validation conditions into named boolean variables or private predicate methods: boolean hasExactlyOneAt = ...; boolean hasNoSpaces = ...; boolean hasNonEmptyParts = atIndex > 0 && atIndex < normalized.length() - 1;. Then: if (normalized.isBlank() || !hasExactlyOneAt || !hasNoSpaces || !hasNonEmptyParts)",
+        "reasoning": "",
+        "summary_hash": "01bb85b2"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::type_safety::frontend_user_profile_stale": {
+      "id": "review::.::holistic::type_safety::frontend_user_profile_stale",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "Frontend useAuth UserProfile interface is missing fields that the backend /user/me endpoint now returns",
+      "detail": {
+        "holistic": true,
+        "dimension": "type_safety",
+        "related_files": [
+          "frontend/src/hooks/useAuth.ts"
+        ],
+        "evidence": [
+          "UserProfile interface: { id, email, name, pictureUrl, loginMethod, createdAt, lastLoginAt }",
+          "Backend UserController returns: id, email, name, pictureUrl, loginMethod, provider, providerUserId, lastLoginFlow, createdAt, lastLoginAt",
+          "Missing from UserProfile: provider, providerUserId, lastLoginFlow \u2014 these are now available but untypeable in the frontend."
+        ],
+        "suggestion": "Update UserProfile interface in useAuth.ts to include provider: string, providerUserId: string, lastLoginFlow: string fields. Move UserProfile to types/auth.ts for co-location with other auth types.",
+        "reasoning": "",
+        "summary_hash": "9909012d"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:53:49+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::abstraction_fitness::no_abstraction_defects_found": {
+      "id": "review::.::holistic::abstraction_fitness::no_abstraction_defects_found",
+      "detector": "review",
+      "file": ".",
+      "tier": 3,
+      "confidence": "low",
+      "summary": "Minor: one-implementation interfaces justified by @Profile test pattern",
+      "detail": {
+        "holistic": true,
+        "dimension": "abstraction_fitness",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java"
+        ],
+        "evidence": [
+          "AuthCodeStore interface has one impl (RedisAuthCodeStore) \u2014 intentional for @Profile('!test') swapping"
+        ],
+        "suggestion": "No change needed; the pattern is intentional for testability.",
+        "reasoning": "",
+        "summary_hash": "c7eaf1c7"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:56:14+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::dependency_health::google_api_client_heavy_for_scope": {
+      "id": "review::.::holistic::dependency_health::google_api_client_heavy_for_scope",
+      "detector": "review",
+      "file": ".",
+      "tier": 3,
+      "confidence": "low",
+      "summary": "google-api-client is a heavy transitive dependency used only for GoogleIdTokenVerifier",
+      "detail": {
+        "holistic": true,
+        "dimension": "dependency_health",
+        "related_files": [
+          "backend/pom.xml",
+          "backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java"
+        ],
+        "evidence": [
+          "pom.xml includes com.google.api-client:google-api-client:2.7.2",
+          "Only usage: new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), GsonFactory.getDefaultInstance()).setAudience(...).build()",
+          "Spring Security OAuth2 Resource Server (already a dependency) has JwtDecoder which could verify Google ID tokens using Google's JWKS endpoint."
+        ],
+        "suggestion": "Replace google-api-client with NimbusJwtDecoder.withJwkSetUri(\"https://www.googleapis.com/oauth2/v3/certs\") and validate the audience claim manually, removing the heavy google-api-client transitive dependency.",
+        "reasoning": "",
+        "summary_hash": "1f300327"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:56:14+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::ai_generated_debt::auth_code_store_partial_javadoc_restatement": {
+      "id": "review::.::holistic::ai_generated_debt::auth_code_store_partial_javadoc_restatement",
+      "detector": "review",
+      "file": ".",
+      "tier": 3,
+      "confidence": "low",
+      "summary": "AuthCodeStore method Javadocs partially restate method names without adding unique insight",
+      "detail": {
+        "holistic": true,
+        "dimension": "ai_generated_debt",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/AuthCodeStore.java"
+        ],
+        "evidence": [
+          "'/** Store a JWT and return a single-use authorization code. */' \u2014 'single-use' adds value but 'Store a JWT' restates storeJwt().",
+          "'/** Exchange a code for the stored JWT. Returns null if invalid/expired. */' \u2014 the null-return contract adds value."
+        ],
+        "suggestion": "Revise Javadoc to focus on WHY and edge cases: explain TTL, the security reason for single-use, and that null return requires the caller to handle expired codes.",
+        "reasoning": "",
+        "summary_hash": "a92dc9fd"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:56:14+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::initialization_coupling::google_verifier_heavy_constructor": {
+      "id": "review::.::holistic::initialization_coupling::google_verifier_heavy_constructor",
+      "detector": "review",
+      "file": ".",
+      "tier": 3,
+      "confidence": "low",
+      "summary": "GoogleTokenVerifier constructs a GoogleIdTokenVerifier (with HTTP transport) in the constructor",
+      "detail": {
+        "holistic": true,
+        "dimension": "initialization_coupling",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/GoogleTokenVerifier.java"
+        ],
+        "evidence": [
+          "Constructor: this.verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), GsonFactory.getDefaultInstance()).setAudience(...).build()",
+          "NetHttpTransport is created inline at construction time, creating a dependency on network infrastructure at bean initialization.",
+          "No actual network call is made at construction, but the HTTP client is initialized."
+        ],
+        "suggestion": "Consider extracting verifier construction to a @Bean factory method in a config class, making the HTTP transport mockable for tests. Alternatively, accept the current pattern as reasonable since no network I/O occurs at startup.",
+        "reasoning": "",
+        "summary_hash": "964957c4"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-14T16:56:14+00:00",
+      "last_seen": "2026-03-14T16:56:14+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    }
+  },
+  "scan_coverage": {
+    "java": {
+      "status": "reduced",
+      "confidence": 0.0,
+      "detectors": {
+        "pmd_violation": {
+          "detector": "pmd_violation",
+          "status": "reduced",
+          "confidence": 0.0,
+          "summary": "pmd tooling unavailable (tool_failed_unparsed_output)",
+          "impact": "Detector results may be under-reported for this scan.",
+          "remediation": "Install/fix the tool command and rerun scan.",
+          "tool": "pmd",
+          "reason": "tool_failed_unparsed_output"
+        },
+        "security": {
+          "detector": "security",
+          "status": "full",
+          "confidence": 1.0,
+          "summary": "Security coverage complete for enabled detectors.",
+          "impact": "",
+          "remediation": "",
+          "tool": "",
+          "reason": ""
+        }
+      },
+      "warnings": [
+        {
+          "detector": "pmd_violation",
+          "status": "reduced",
+          "confidence": 0.0,
+          "summary": "pmd tooling unavailable (tool_failed_unparsed_output)",
+          "impact": "Detector results may be under-reported for this scan.",
+          "remediation": "Install/fix the tool command and rerun scan.",
+          "tool": "pmd",
+          "reason": "tool_failed_unparsed_output"
+        }
+      ],
+      "updated_at": "2026-03-14T16:43:28+00:00"
+    }
+  },
+  "score_confidence": {
+    "status": "reduced",
+    "confidence": 0.0,
+    "detectors": [
+      {
+        "detector": "pmd_violation",
+        "status": "reduced",
+        "confidence": 0.0,
+        "summary": "pmd tooling unavailable (tool_failed_unparsed_output)",
+        "impact": "Detector results may be under-reported for this scan.",
+        "remediation": "Install/fix the tool command and rerun scan.",
+        "tool": "pmd",
+        "reason": "tool_failed_unparsed_output"
+      }
+    ],
+    "dimensions": []
+  },
+  "scan_metadata": {
+    "source": "scan"
+  },
+  "subjective_integrity": {
+    "status": "disabled",
+    "target_score": null,
+    "matched_count": 0,
+    "matched_dimensions": [],
+    "reset_dimensions": []
+  },
+  "subjective_assessments": {
+    "api_surface_coherence": {
+      "score": 70.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "authorization_consistency": {
+      "score": 78.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "contract_coherence": {
+      "score": 74.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "convention_outlier": {
+      "score": 80.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "cross_module_architecture": {
+      "score": 72.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "design_coherence": {
+      "score": 68.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "error_consistency": {
+      "score": 65.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "high_level_elegance": {
+      "score": 68.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "incomplete_migration": {
+      "score": 72.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "logic_clarity": {
+      "score": 78.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "low_level_elegance": {
+      "score": 72.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "mid_level_elegance": {
+      "score": 70.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "naming_quality": {
+      "score": 82.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "package_organization": {
+      "score": 70.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "test_strategy": {
+      "score": 52.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "type_safety": {
+      "score": 72.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "abstraction_fitness": {
+      "score": 75.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "ai_generated_debt": {
+      "score": 76.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "dependency_health": {
+      "score": 78.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    },
+    "initialization_coupling": {
+      "score": 82.0,
+      "source": "holistic",
+      "assessed_at": "2026-03-14T16:56:14+00:00"
+    }
+  },
+  "scan_history": [
+    {
+      "timestamp": "2026-03-14T16:43:28+00:00",
+      "lang": "java",
+      "strict_score": 13.6,
+      "verified_strict_score": 54.4,
+      "objective_score": 54.4,
+      "overall_score": 13.6,
+      "open": 85,
+      "diff_new": 85,
+      "diff_resolved": 0,
+      "ignored": 0,
+      "raw_issues": 85,
+      "suppressed_pct": 0.0,
+      "ignore_patterns": 0,
+      "subjective_integrity": {
+        "status": "pass",
+        "matched_count": 0,
+        "reset_count": 0,
+        "target_score": 95.0
+      },
+      "score_confidence": {
+        "status": "reduced",
+        "confidence": 0.0,
+        "detector_count": 1,
+        "dimension_count": 0
+      },
+      "dimension_scores": {
+        "Code quality": {
+          "score": 65.7,
+          "strict": 65.7
+        },
+        "Security": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "File health": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "Duplication": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "Test health": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Abstraction fit": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "AI generated debt": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "API coherence": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Auth consistency": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Contracts": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Convention drift": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Cross-module arch": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Dep health": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Design coherence": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Error consistency": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "High elegance": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Stale migration": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Init coupling": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Logic clarity": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Low elegance": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Mid elegance": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Naming quality": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Structure nav": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Test strategy": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Type safety": {
+          "score": 0.0,
+          "strict": 0.0
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-14T16:53:49+00:00",
+      "lang": "java",
+      "strict_score": 62.0,
+      "verified_strict_score": 54.4,
+      "objective_score": 54.4,
+      "overall_score": 62.0,
+      "open": 105,
+      "diff_new": 20,
+      "diff_resolved": 0,
+      "ignored": 0,
+      "raw_issues": 20,
+      "suppressed_pct": 0.0,
+      "ignore_patterns": 0,
+      "subjective_integrity": {
+        "status": "disabled",
+        "matched_count": 0,
+        "reset_count": 0,
+        "target_score": null
+      },
+      "score_confidence": {
+        "status": "reduced",
+        "confidence": 0.0,
+        "detector_count": 1,
+        "dimension_count": 0
+      },
+      "dimension_scores": {
+        "Code quality": {
+          "score": 65.7,
+          "strict": 65.7
+        },
+        "Security": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "File health": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "Duplication": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "Test health": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Abstraction fit": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "AI generated debt": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "API coherence": {
+          "score": 70.0,
+          "strict": 70.0
+        },
+        "Auth consistency": {
+          "score": 78.0,
+          "strict": 78.0
+        },
+        "Contracts": {
+          "score": 74.0,
+          "strict": 74.0
+        },
+        "Convention drift": {
+          "score": 80.0,
+          "strict": 80.0
+        },
+        "Cross-module arch": {
+          "score": 72.0,
+          "strict": 72.0
+        },
+        "Dep health": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Design coherence": {
+          "score": 68.0,
+          "strict": 68.0
+        },
+        "Error consistency": {
+          "score": 65.0,
+          "strict": 65.0
+        },
+        "High elegance": {
+          "score": 68.0,
+          "strict": 68.0
+        },
+        "Stale migration": {
+          "score": 72.0,
+          "strict": 72.0
+        },
+        "Init coupling": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Logic clarity": {
+          "score": 78.0,
+          "strict": 78.0
+        },
+        "Low elegance": {
+          "score": 72.0,
+          "strict": 72.0
+        },
+        "Mid elegance": {
+          "score": 70.0,
+          "strict": 70.0
+        },
+        "Naming quality": {
+          "score": 82.0,
+          "strict": 82.0
+        },
+        "Structure nav": {
+          "score": 70.0,
+          "strict": 70.0
+        },
+        "Test strategy": {
+          "score": 52.0,
+          "strict": 52.0
+        },
+        "Type safety": {
+          "score": 72.0,
+          "strict": 72.0
+        }
+      }
+    },
+    {
+      "timestamp": "2026-03-14T16:56:14+00:00",
+      "lang": "java",
+      "strict_score": 67.1,
+      "verified_strict_score": 54.4,
+      "objective_score": 54.4,
+      "overall_score": 67.1,
+      "open": 109,
+      "diff_new": 4,
+      "diff_resolved": 0,
+      "ignored": 0,
+      "raw_issues": 24,
+      "suppressed_pct": 0.0,
+      "ignore_patterns": 0,
+      "subjective_integrity": {
+        "status": "disabled",
+        "matched_count": 0,
+        "reset_count": 0,
+        "target_score": null
+      },
+      "score_confidence": {
+        "status": "reduced",
+        "confidence": 0.0,
+        "detector_count": 1,
+        "dimension_count": 0
+      },
+      "dimension_scores": {
+        "Code quality": {
+          "score": 65.7,
+          "strict": 65.7
+        },
+        "Security": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "File health": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "Duplication": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "Test health": {
+          "score": 0.0,
+          "strict": 0.0
+        },
+        "Abstraction fit": {
+          "score": 75.0,
+          "strict": 75.0
+        },
+        "AI generated debt": {
+          "score": 76.0,
+          "strict": 76.0
+        },
+        "API coherence": {
+          "score": 70.0,
+          "strict": 70.0
+        },
+        "Auth consistency": {
+          "score": 78.0,
+          "strict": 78.0
+        },
+        "Contracts": {
+          "score": 74.0,
+          "strict": 74.0
+        },
+        "Convention drift": {
+          "score": 80.0,
+          "strict": 80.0
+        },
+        "Cross-module arch": {
+          "score": 72.0,
+          "strict": 72.0
+        },
+        "Dep health": {
+          "score": 78.0,
+          "strict": 78.0
+        },
+        "Design coherence": {
+          "score": 68.0,
+          "strict": 68.0
+        },
+        "Error consistency": {
+          "score": 65.0,
+          "strict": 65.0
+        },
+        "High elegance": {
+          "score": 68.0,
+          "strict": 68.0
+        },
+        "Stale migration": {
+          "score": 72.0,
+          "strict": 72.0
+        },
+        "Init coupling": {
+          "score": 82.0,
+          "strict": 82.0
+        },
+        "Logic clarity": {
+          "score": 78.0,
+          "strict": 78.0
+        },
+        "Low elegance": {
+          "score": 72.0,
+          "strict": 72.0
+        },
+        "Mid elegance": {
+          "score": 70.0,
+          "strict": 70.0
+        },
+        "Naming quality": {
+          "score": 82.0,
+          "strict": 82.0
+        },
+        "Structure nav": {
+          "score": 70.0,
+          "strict": 70.0
+        },
+        "Test strategy": {
+          "score": 52.0,
+          "strict": 52.0
+        },
+        "Type safety": {
+          "score": 72.0,
+          "strict": 72.0
+        }
+      }
+    }
+  ],
+  "lang_capabilities": {
+    "java": {
+      "fixers": [],
+      "typecheck_cmd": ""
+    }
+  },
+  "zone_distribution": {
+    "production": 28,
+    "test": 20
+  },
+  "tool_hash": "813e8f078156",
+  "scan_path": null,
+  "scan_completeness": {
+    "java": "full"
+  },
+  "potentials": {
+    "java": {
+      "structural": 28,
+      "flat_dirs": 23,
+      "unused_imports": 22,
+      "signature": 2,
+      "security": 28,
+      "single_use": 0,
+      "cycles": 28,
+      "orphaned": 28,
+      "test_coverage": 189,
+      "boilerplate_duplication": 0,
+      "dupes": 101,
+      "stale_wontfix": 0,
+      "review": 10
+    }
+  },
+  "codebase_metrics": {
+    "java": {
+      "total_files": 48,
+      "total_loc": 4820,
+      "total_directories": 12
+    }
+  },
+  "dimension_scores": {
+    "Code quality": {
+      "score": 65.7,
+      "strict": 65.7,
+      "verified_strict_score": 65.7,
+      "checks": 51,
+      "failing": 25,
+      "tier": 3,
+      "detectors": {
+        "orphaned": {
+          "potential": 28,
+          "pass_rate": 0.3750000000000003,
+          "failing": 25,
+          "weighted_failures": 17.499999999999993
+        },
+        "flat_dirs": {
+          "potential": 23,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        }
+      }
+    },
+    "Security": {
+      "score": 100.0,
+      "strict": 100.0,
+      "verified_strict_score": 100.0,
+      "checks": 56,
+      "failing": 0,
+      "tier": 4,
+      "detectors": {
+        "cycles": {
+          "potential": 28,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        },
+        "security": {
+          "potential": 28,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        }
+      }
+    },
+    "File health": {
+      "score": 100.0,
+      "strict": 100.0,
+      "verified_strict_score": 100.0,
+      "checks": 28,
+      "failing": 0,
+      "tier": 3,
+      "detectors": {
+        "structural": {
+          "potential": 28,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        }
+      }
+    },
+    "Duplication": {
+      "score": 100.0,
+      "strict": 100.0,
+      "verified_strict_score": 100.0,
+      "checks": 101,
+      "failing": 0,
+      "tier": 3,
+      "detectors": {
+        "dupes": {
+          "potential": 101,
+          "pass_rate": 1.0,
+          "failing": 0,
+          "weighted_failures": 0.0
+        }
+      }
+    },
+    "Test health": {
+      "score": 0.0,
+      "strict": 0.0,
+      "verified_strict_score": 0.0,
+      "checks": 189,
+      "failing": 25,
+      "tier": 4,
+      "detectors": {
+        "test_coverage": {
+          "potential": 189,
+          "pass_rate": 0.0,
+          "failing": 25,
+          "weighted_failures": 189.30859141324973
+        }
+      }
+    },
+    "Abstraction fit": {
+      "score": 75.0,
+      "strict": 75.0,
+      "verified_strict_score": 75.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.75,
+          "failing": 1,
+          "weighted_failures": 2.5,
+          "assessment_score": 75.0,
+          "placeholder": false,
+          "dimension_key": "abstraction_fitness",
+          "configured_weight": 8.0,
+          "components": []
+        }
+      }
+    },
+    "AI generated debt": {
+      "score": 76.0,
+      "strict": 76.0,
+      "verified_strict_score": 76.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.76,
+          "failing": 1,
+          "weighted_failures": 2.4,
+          "assessment_score": 76.0,
+          "placeholder": false,
+          "dimension_key": "ai_generated_debt",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "API coherence": {
+      "score": 70.0,
+      "strict": 70.0,
+      "verified_strict_score": 70.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.7,
+          "failing": 1,
+          "weighted_failures": 3.0,
+          "assessment_score": 70.0,
+          "placeholder": false,
+          "dimension_key": "api_surface_coherence",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Auth consistency": {
+      "score": 78.0,
+      "strict": 78.0,
+      "verified_strict_score": 78.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.78,
+          "failing": 1,
+          "weighted_failures": 2.2,
+          "assessment_score": 78.0,
+          "placeholder": false,
+          "dimension_key": "authorization_consistency",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Contracts": {
+      "score": 74.0,
+      "strict": 74.0,
+      "verified_strict_score": 74.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.74,
+          "failing": 1,
+          "weighted_failures": 2.6,
+          "assessment_score": 74.0,
+          "placeholder": false,
+          "dimension_key": "contract_coherence",
+          "configured_weight": 12.0,
+          "components": []
+        }
+      }
+    },
+    "Convention drift": {
+      "score": 80.0,
+      "strict": 80.0,
+      "verified_strict_score": 80.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.8,
+          "failing": 1,
+          "weighted_failures": 2.0,
+          "assessment_score": 80.0,
+          "placeholder": false,
+          "dimension_key": "convention_outlier",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Cross-module arch": {
+      "score": 72.0,
+      "strict": 72.0,
+      "verified_strict_score": 72.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.72,
+          "failing": 1,
+          "weighted_failures": 2.8,
+          "assessment_score": 72.0,
+          "placeholder": false,
+          "dimension_key": "cross_module_architecture",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Dep health": {
+      "score": 78.0,
+      "strict": 78.0,
+      "verified_strict_score": 78.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.78,
+          "failing": 1,
+          "weighted_failures": 2.2,
+          "assessment_score": 78.0,
+          "placeholder": false,
+          "dimension_key": "dependency_health",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Design coherence": {
+      "score": 68.0,
+      "strict": 68.0,
+      "verified_strict_score": 68.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.68,
+          "failing": 1,
+          "weighted_failures": 3.2,
+          "assessment_score": 68.0,
+          "placeholder": false,
+          "dimension_key": "design_coherence",
+          "configured_weight": 10.0,
+          "components": []
+        }
+      }
+    },
+    "Error consistency": {
+      "score": 65.0,
+      "strict": 65.0,
+      "verified_strict_score": 65.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.65,
+          "failing": 2,
+          "weighted_failures": 3.5,
+          "assessment_score": 65.0,
+          "placeholder": false,
+          "dimension_key": "error_consistency",
+          "configured_weight": 3.0,
+          "components": []
+        }
+      }
+    },
+    "High elegance": {
+      "score": 68.0,
+      "strict": 68.0,
+      "verified_strict_score": 68.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.68,
+          "failing": 2,
+          "weighted_failures": 3.2,
+          "assessment_score": 68.0,
+          "placeholder": false,
+          "dimension_key": "high_level_elegance",
+          "configured_weight": 22.0,
+          "components": []
+        }
+      }
+    },
+    "Stale migration": {
+      "score": 72.0,
+      "strict": 72.0,
+      "verified_strict_score": 72.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.72,
+          "failing": 1,
+          "weighted_failures": 2.8,
+          "assessment_score": 72.0,
+          "placeholder": false,
+          "dimension_key": "incomplete_migration",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Init coupling": {
+      "score": 82.0,
+      "strict": 82.0,
+      "verified_strict_score": 82.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.82,
+          "failing": 1,
+          "weighted_failures": 1.8,
+          "assessment_score": 82.0,
+          "placeholder": false,
+          "dimension_key": "initialization_coupling",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Logic clarity": {
+      "score": 78.0,
+      "strict": 78.0,
+      "verified_strict_score": 78.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.78,
+          "failing": 1,
+          "weighted_failures": 2.2,
+          "assessment_score": 78.0,
+          "placeholder": false,
+          "dimension_key": "logic_clarity",
+          "configured_weight": 6.0,
+          "components": []
+        }
+      }
+    },
+    "Low elegance": {
+      "score": 72.0,
+      "strict": 72.0,
+      "verified_strict_score": 72.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.72,
+          "failing": 2,
+          "weighted_failures": 2.8,
+          "assessment_score": 72.0,
+          "placeholder": false,
+          "dimension_key": "low_level_elegance",
+          "configured_weight": 12.0,
+          "components": []
+        }
+      }
+    },
+    "Mid elegance": {
+      "score": 70.0,
+      "strict": 70.0,
+      "verified_strict_score": 70.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.7,
+          "failing": 1,
+          "weighted_failures": 3.0,
+          "assessment_score": 70.0,
+          "placeholder": false,
+          "dimension_key": "mid_level_elegance",
+          "configured_weight": 22.0,
+          "components": []
+        }
+      }
+    },
+    "Naming quality": {
+      "score": 82.0,
+      "strict": 82.0,
+      "verified_strict_score": 82.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.82,
+          "failing": 1,
+          "weighted_failures": 1.8,
+          "assessment_score": 82.0,
+          "placeholder": false,
+          "dimension_key": "naming_quality",
+          "configured_weight": 2.0,
+          "components": []
+        }
+      }
+    },
+    "Structure nav": {
+      "score": 70.0,
+      "strict": 70.0,
+      "verified_strict_score": 70.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.7,
+          "failing": 1,
+          "weighted_failures": 3.0,
+          "assessment_score": 70.0,
+          "placeholder": false,
+          "dimension_key": "package_organization",
+          "configured_weight": 5.0,
+          "components": []
+        }
+      }
+    },
+    "Test strategy": {
+      "score": 52.0,
+      "strict": 52.0,
+      "verified_strict_score": 52.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.52,
+          "failing": 2,
+          "weighted_failures": 4.8,
+          "assessment_score": 52.0,
+          "placeholder": false,
+          "dimension_key": "test_strategy",
+          "configured_weight": 1.0,
+          "components": []
+        }
+      }
+    },
+    "Type safety": {
+      "score": 72.0,
+      "strict": 72.0,
+      "verified_strict_score": 72.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "detectors": {
+        "subjective_assessment": {
+          "potential": 10,
+          "pass_rate": 0.72,
+          "failing": 1,
+          "weighted_failures": 2.8,
+          "assessment_score": 72.0,
+          "placeholder": false,
+          "dimension_key": "type_safety",
+          "configured_weight": 12.0,
+          "components": []
+        }
+      }
+    }
+  },
+  "reminder_history": {
+    "zone_classification": 1,
+    "report_scores": 1
+  },
+  "review_cache": {
+    "files": {},
+    "holistic": {
+      "reviewed_at": "2026-03-14T16:56:14+00:00",
+      "file_count_at_review": 28,
+      "issue_count": 24,
+      "reviewed_files_count": 0,
+      "full_sweep_included": false
+    }
+  },
+  "assessment_import_audit": [
+    {
+      "timestamp": "2026-03-14T16:53:49+00:00",
+      "mode": "trusted_internal",
+      "trusted": true,
+      "reason": "trusted import-run replay from 20260314_164418",
+      "override_used": false,
+      "attested_external": false,
+      "provisional": false,
+      "provisional_count": 0,
+      "attest": "",
+      "import_file": "/home/nt-quang/Workspaces/personal/sso_experimental/.desloppify/subagents/runs/20260314_164418/holistic_issues_merged.json",
+      "packet_sha256": "eeb2d452308bed0d9c7c4525fb6a0ba546a0f0e79d9c70b0bb503d091ef674c1"
+    },
+    {
+      "timestamp": "2026-03-14T16:56:14+00:00",
+      "mode": "trusted_internal",
+      "trusted": true,
+      "reason": "trusted import-run replay from 20260314_165420",
+      "override_used": false,
+      "attested_external": false,
+      "provisional": false,
+      "provisional_count": 0,
+      "attest": "",
+      "import_file": "/home/nt-quang/Workspaces/personal/sso_experimental/.desloppify/subagents/runs/20260314_165420/holistic_issues_merged.json",
+      "packet_sha256": "eccad9761af04bfae3b074afb0a26799b63e60c5c31db51e9ddaa8fdbffe3e5d"
+    }
+  ]
+}
