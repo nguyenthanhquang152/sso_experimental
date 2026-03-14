@@ -100,12 +100,12 @@ export function DashboardPage() {
             <span style={{
               padding: '2px 8px',
               borderRadius: '4px',
-              backgroundColor: user.loginMethod === 'SERVER_SIDE' ? '#e3f2fd' : '#f3e5f5',
-              color: user.loginMethod === 'SERVER_SIDE' ? '#1565c0' : '#7b1fa2',
+              backgroundColor: user.lastLoginFlow === 'SERVER_SIDE' ? '#e3f2fd' : '#f3e5f5',
+              color: user.lastLoginFlow === 'SERVER_SIDE' ? '#1565c0' : '#7b1fa2',
               fontWeight: 'bold',
               fontSize: '12px',
             }}>
-              {user.loginMethod}
+              {user.lastLoginFlow}
             </span>
           </div>
           <div>

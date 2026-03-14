@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit tests for AuthFlow enum.
- * Tests the enum values and the fromLoginMethod static factory method.
+ * Tests the enum values and the fromValue static factory method.
  */
 class AuthFlowTest {
 
@@ -28,46 +28,46 @@ class AuthFlowTest {
     }
 
     @Test
-    void testFromLoginMethodWithServerSideUpperCase() {
+    void testFromValueWithServerSideUpperCase() {
         // Arrange & Act
-        AuthFlow result = AuthFlow.fromLoginMethod("SERVER_SIDE");
+        AuthFlow result = AuthFlow.fromValue("SERVER_SIDE");
 
         // Assert
         assertEquals(AuthFlow.SERVER_SIDE, result, "SERVER_SIDE should map to SERVER_SIDE enum");
     }
 
     @Test
-    void testFromLoginMethodWithClientSideUpperCase() {
+    void testFromValueWithClientSideUpperCase() {
         // Arrange & Act
-        AuthFlow result = AuthFlow.fromLoginMethod("CLIENT_SIDE");
+        AuthFlow result = AuthFlow.fromValue("CLIENT_SIDE");
 
         // Assert
         assertEquals(AuthFlow.CLIENT_SIDE, result, "CLIENT_SIDE should map to CLIENT_SIDE enum");
     }
 
     @Test
-    void testFromLoginMethodWithServerSideLowerCase() {
+    void testFromValueWithServerSideLowerCase() {
         // Arrange & Act
-        AuthFlow result = AuthFlow.fromLoginMethod("server_side");
+        AuthFlow result = AuthFlow.fromValue("server_side");
 
         // Assert
         assertEquals(AuthFlow.SERVER_SIDE, result, "Lowercase server_side should map to SERVER_SIDE enum");
     }
 
     @Test
-    void testFromLoginMethodWithClientSideLowerCase() {
+    void testFromValueWithClientSideLowerCase() {
         // Arrange & Act
-        AuthFlow result = AuthFlow.fromLoginMethod("client_side");
+        AuthFlow result = AuthFlow.fromValue("client_side");
 
         // Assert
         assertEquals(AuthFlow.CLIENT_SIDE, result, "Lowercase client_side should map to CLIENT_SIDE enum");
     }
 
     @Test
-    void testFromLoginMethodWithMixedCase() {
+    void testFromValueWithMixedCase() {
         // Arrange & Act
-        AuthFlow serverSide = AuthFlow.fromLoginMethod("SeRvEr_SiDe");
-        AuthFlow clientSide = AuthFlow.fromLoginMethod("ClIeNt_SiDe");
+        AuthFlow serverSide = AuthFlow.fromValue("SeRvEr_SiDe");
+        AuthFlow clientSide = AuthFlow.fromValue("ClIeNt_SiDe");
 
         // Assert
         assertEquals(AuthFlow.SERVER_SIDE, serverSide, "Mixed case should be converted to uppercase");
@@ -75,10 +75,10 @@ class AuthFlowTest {
     }
 
     @Test
-    void testFromLoginMethodWithLeadingAndTrailingWhitespace() {
+    void testFromValueWithLeadingAndTrailingWhitespace() {
         // Arrange & Act
-        AuthFlow serverSide = AuthFlow.fromLoginMethod("  SERVER_SIDE  ");
-        AuthFlow clientSide = AuthFlow.fromLoginMethod("\tCLIENT_SIDE\n");
+        AuthFlow serverSide = AuthFlow.fromValue("  SERVER_SIDE  ");
+        AuthFlow clientSide = AuthFlow.fromValue("\tCLIENT_SIDE\n");
 
         // Assert
         assertEquals(AuthFlow.SERVER_SIDE, serverSide, "Leading/trailing whitespace should be trimmed");
@@ -88,25 +88,25 @@ class AuthFlowTest {
     @ParameterizedTest
     @NullAndEmptySource
     @ValueSource(strings = {" ", "  ", "\t", "\n", "\r\n"})
-    void testFromLoginMethodWithNullEmptyOrBlank(String input) {
+    void testFromValueWithNullEmptyOrBlank(String input) {
         assertThrows(IllegalArgumentException.class,
-            () -> AuthFlow.fromLoginMethod(input),
+            () -> AuthFlow.fromValue(input),
             "Null, empty, or blank input should throw IllegalArgumentException");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"invalid", "UNKNOWN", "google", "microsoft", "123", "server", "client"})
-    void testFromLoginMethodWithInvalidValues(String input) {
+    void testFromValueWithInvalidValues(String input) {
         assertThrows(IllegalArgumentException.class,
-            () -> AuthFlow.fromLoginMethod(input),
+            () -> AuthFlow.fromValue(input),
             "Invalid auth flow value should throw IllegalArgumentException: " + input);
     }
 
     @Test
-    void testFromLoginMethodWithSpecialCharacters() {
-        assertThrows(IllegalArgumentException.class, () -> AuthFlow.fromLoginMethod("SERVER-SIDE"));
-        assertThrows(IllegalArgumentException.class, () -> AuthFlow.fromLoginMethod("CLIENT.SIDE"));
-        assertThrows(IllegalArgumentException.class, () -> AuthFlow.fromLoginMethod("SERVER/SIDE"));
+    void testFromValueWithSpecialCharacters() {
+        assertThrows(IllegalArgumentException.class, () -> AuthFlow.fromValue("SERVER-SIDE"));
+        assertThrows(IllegalArgumentException.class, () -> AuthFlow.fromValue("CLIENT.SIDE"));
+        assertThrows(IllegalArgumentException.class, () -> AuthFlow.fromValue("SERVER/SIDE"));
     }
 
     @Test
@@ -131,10 +131,10 @@ class AuthFlowTest {
     }
 
     @Test
-    void testFromLoginMethodPreservesEnumIdentity() {
+    void testFromValuePreservesEnumIdentity() {
         // Verify that the same enum instance is returned
-        AuthFlow first = AuthFlow.fromLoginMethod("SERVER_SIDE");
-        AuthFlow second = AuthFlow.fromLoginMethod("server_side");
+        AuthFlow first = AuthFlow.fromValue("SERVER_SIDE");
+        AuthFlow second = AuthFlow.fromValue("server_side");
 
         assertSame(first, second, "Same enum constant should be returned for equivalent inputs");
         assertSame(AuthFlow.SERVER_SIDE, first, "Should return the singleton enum instance");

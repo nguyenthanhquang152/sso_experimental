@@ -34,7 +34,7 @@ test.describe('Auth Code Exchange Handling', () => {
         body: JSON.stringify({
           email: 'test@example.com',
           name: 'Test User',
-          loginMethod: 'SERVER_SIDE',
+          lastLoginFlow: 'SERVER_SIDE',
           pictureUrl: null,
         }),
       });

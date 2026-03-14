@@ -111,7 +111,7 @@ class ControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email").value("test@example.com"))
                 .andExpect(jsonPath("$.name").value("Test User"))
-                .andExpect(jsonPath("$.loginMethod").value("SERVER_SIDE"))
+                .andExpect(jsonPath("$.lastLoginFlow").value("SERVER_SIDE"))
                 .andExpect(jsonPath("$.pictureUrl").value("http://example.com/pic.jpg"));
         }
 

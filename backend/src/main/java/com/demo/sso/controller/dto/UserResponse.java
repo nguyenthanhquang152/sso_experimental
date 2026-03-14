@@ -12,7 +12,6 @@ public record UserResponse(
         String email,
         String name,
         String pictureUrl,
-        String loginMethod,
         String provider,
         String providerUserId,
         String lastLoginFlow,
@@ -21,17 +20,15 @@ public record UserResponse(
 ) {
     /** Factory method that maps a {@link User} entity to a {@code UserResponse}. */
     public static UserResponse from(User user) {
-        String loginFlow = user.getLastLoginFlow() != null ? user.getLastLoginFlow().name() : "";
         return new UserResponse(
                 user.getId(),
                 user.getEmail(),
                 user.getName() != null ? user.getName() : "",
                 user.getPictureUrl() != null ? user.getPictureUrl() : "",
-                loginFlow,
                 user.getProvider() != null ? user.getProvider().name() : "",
                 user.getProviderUserId() != null ? user.getProviderUserId() : "",
-                loginFlow,
-                user.getCreatedAt() != null ? user.getCreatedAt().toString() : "",
+                user.getLastLoginFlow() != null ? user.getLastLoginFlow().name() : "",
+                user.getCreatedAt().toString(),
                 user.getLastLoginAt() != null ? user.getLastLoginAt().toString() : ""
         );
     }

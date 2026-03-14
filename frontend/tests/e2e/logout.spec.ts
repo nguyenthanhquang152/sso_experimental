@@ -11,7 +11,7 @@ test.describe('Logout Flow', () => {
           email: 'logout@example.com',
           name: 'Logout User',
           pictureUrl: null,
-          loginMethod: 'CLIENT_SIDE',
+          lastLoginFlow: 'CLIENT_SIDE',
           createdAt: '2026-03-13T10:00:00Z',
           lastLoginAt: '2026-03-13T10:05:00Z',
         }),

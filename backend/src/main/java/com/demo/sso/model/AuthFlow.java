@@ -5,21 +5,21 @@ public enum AuthFlow {
     CLIENT_SIDE;
 
     /**
-     * Parses a login method string into an AuthFlow enum value.
+     * Parses a string into an AuthFlow enum value.
      *
-     * @param loginMethod case-insensitive enum name (e.g. "server_side", "CLIENT_SIDE")
+     * @param value case-insensitive enum name (e.g. "server_side", "CLIENT_SIDE")
      * @return the matching AuthFlow value
-     * @throws IllegalArgumentException if loginMethod is null, blank, or not a valid AuthFlow
+     * @throws IllegalArgumentException if value is null, blank, or not a valid AuthFlow
      */
-    public static AuthFlow fromLoginMethod(String loginMethod) {
-        if (loginMethod == null || loginMethod.isBlank()) {
-            throw new IllegalArgumentException("loginMethod must not be null or blank");
+    public static AuthFlow fromValue(String value) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException("value must not be null or blank");
         }
 
         try {
-            return AuthFlow.valueOf(loginMethod.trim().toUpperCase());
+            return AuthFlow.valueOf(value.trim().toUpperCase());
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Unknown auth flow: " + loginMethod.trim(), e);
+            throw new IllegalArgumentException("Unknown auth flow: " + value.trim(), e);
         }
     }
 }

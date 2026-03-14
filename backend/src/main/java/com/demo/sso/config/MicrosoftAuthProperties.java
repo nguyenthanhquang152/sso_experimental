@@ -46,12 +46,6 @@ public class MicrosoftAuthProperties {
         this.scopes = scopes == null ? new ArrayList<>() : new ArrayList<>(scopes);
     }
 
-    /** @deprecated Use {@link #isClientSideConfigured()} or {@link #isServerSideConfigured()} instead. */
-    @Deprecated
-    public boolean isConfigured() {
-        return isClientSideConfigured();
-    }
-
     public boolean isClientSideConfigured() {
         return clientId != null && !clientId.isBlank()
             && authority != null && !authority.isBlank();

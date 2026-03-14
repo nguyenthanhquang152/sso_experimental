@@ -11,7 +11,7 @@ test.describe('Dashboard Avatar', () => {
           email: 'microsoft.user@example.com',
           name: 'Microsoft User',
           pictureUrl: '',
-          loginMethod: 'CLIENT_SIDE',
+          lastLoginFlow: 'CLIENT_SIDE',
           createdAt: '2026-03-13T10:00:00Z',
           lastLoginAt: '2026-03-13T10:05:00Z',
         }),
