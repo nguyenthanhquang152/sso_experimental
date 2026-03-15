@@ -33,4 +33,14 @@ postgres_data/
 
 # OS
 .DS_Store
-Thumbs.db
+Thumbs.
+
+# Coding Agents Configurations
+.agent/
+.agents/
+.github/
+.desloppify/
+.skills-lock.json
+CLAUDE.md
+.rtk/
+skills-lock.json
