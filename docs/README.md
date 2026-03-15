@@ -8,6 +8,12 @@ The `docs/` tree is organized by document type so design, implementation, and re
 - `docs/specs/` — design and architecture specifications
 - `docs/plans/` — implementation plans and execution checklists
 - `docs/research/` — dated investigation artifacts and findings
+- `docs/templates/` — reusable templates for specs and plans
+
+## Templates
+
+- Spec template: `docs/templates/spec-template.md`
+- Plan template: `docs/templates/plan-template.md`
 
 ## Current documents
 
@@ -15,6 +21,7 @@ The `docs/` tree is organized by document type so design, implementation, and re
 - Microsoft SSO guide: `docs/guides/microsoft-sso-integration.md`
 - Google SSO design: `docs/specs/2026-03-11-google-sso-design.md`
 - Microsoft SSO design: `docs/specs/2026-03-13-microsoft-sso-design.md`
+- Harness engineering design: `docs/specs/2026-03-15-harness-engineering-design.md`
 - Google SSO implementation plan: `docs/plans/2026-03-11-google-sso-implementation.md`
 - Microsoft SSO implementation plan: `docs/plans/2026-03-13-microsoft-sso-implementation.md`
 

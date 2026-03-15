@@ -35,6 +35,11 @@ postgres_data/
 .DS_Store
 Thumbs.
 
+# Logs
+logs/
+*.log
+.tmp/
+
 # Coding Agents Configurations
 .agent/
 .agents/

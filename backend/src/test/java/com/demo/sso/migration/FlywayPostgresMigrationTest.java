@@ -31,7 +31,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 class FlywayPostgresMigrationTest {
 
     @Container
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:17-alpine");
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:18-alpine");
 
     @Test
     void baselinesExistingSchemaThenMigratesToRelease1Shape() throws Exception {

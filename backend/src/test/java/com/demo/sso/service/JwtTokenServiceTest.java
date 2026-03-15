@@ -64,7 +64,13 @@ class JwtTokenServiceTest {
     @Test
     void isTokenValid_returnsFalseForTamperedToken() {
         String token = jwtTokenService.generateToken("user@example.com", "google-123");
-        String tampered = token.substring(0, token.length() - 1) + "X";
+
+        String[] parts = token.split("\\.");
+        String signature = parts[2];
+        char replacement = signature.charAt(0) == 'A' ? 'B' : 'A';
+        String tampered = parts[0] + "." + parts[1] + "." + replacement + signature.substring(1);
+
+        assertNotEquals(token, tampered);
         assertFalse(jwtTokenService.isTokenValid(tampered));
     }
 

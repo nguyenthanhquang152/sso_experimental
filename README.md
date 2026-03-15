@@ -98,6 +98,10 @@ Access via Traefik at `http://localhost:8000`
 ## Testing
 
 ```bash
+# Preferred repo-local flow
+just up
+just check
+
 # Backend unit + integration tests
 cd backend && mvn test
 
@@ -107,6 +111,8 @@ cd frontend && npm run build && npm run lint
 # E2E tests (requires running app)
 cd frontend && npx playwright test
 ```
+
+`just check` includes Playwright E2E against `http://localhost:8000`. If the local stack is not running, the task runner fails fast and tells you to run `just up` first.
 
 ## Configuration
 
