@@ -96,7 +96,7 @@ class AuthControllerTest {
 
         assertEquals(400, response.getStatusCode().value());
         assertInstanceOf(ErrorResponse.class, response.getBody());
-        assertEquals("Missing code", ((ErrorResponse) response.getBody()).error());
+        assertEquals("Missing code", ((ErrorResponse) response.getBody()).message());
     }
 
     @Test
@@ -114,7 +114,7 @@ class AuthControllerTest {
 
         assertEquals(400, response.getStatusCode().value());
         assertInstanceOf(ErrorResponse.class, response.getBody());
-        assertEquals("Missing code", ((ErrorResponse) response.getBody()).error());
+        assertEquals("Missing code", ((ErrorResponse) response.getBody()).message());
     }
 
     @Test
@@ -127,7 +127,7 @@ class AuthControllerTest {
 
         assertEquals(400, response.getStatusCode().value());
         assertInstanceOf(ErrorResponse.class, response.getBody());
-        assertEquals("Invalid or expired code", ((ErrorResponse) response.getBody()).error());
+        assertEquals("Invalid or expired code", ((ErrorResponse) response.getBody()).message());
     }
 
     // --- google/verify ---
@@ -155,7 +155,7 @@ class AuthControllerTest {
 
         assertEquals(400, response.getStatusCode().value());
         assertInstanceOf(ErrorResponse.class, response.getBody());
-        assertEquals("Missing credential", ((ErrorResponse) response.getBody()).error());
+        assertEquals("Missing credential", ((ErrorResponse) response.getBody()).message());
     }
 
     @Test
@@ -185,7 +185,7 @@ class AuthControllerTest {
 
         assertEquals(400, response.getStatusCode().value());
         assertInstanceOf(ErrorResponse.class, response.getBody());
-        assertEquals("Invalid Google credential", ((ErrorResponse) response.getBody()).error());
+        assertEquals("Invalid Google credential", ((ErrorResponse) response.getBody()).message());
     }
 
     @Test
@@ -199,7 +199,7 @@ class AuthControllerTest {
 
         assertEquals(400, response.getStatusCode().value());
         assertInstanceOf(ErrorResponse.class, response.getBody());
-        assertEquals("Email not verified by Google", ((ErrorResponse) response.getBody()).error());
+        assertEquals("Email not verified by Google", ((ErrorResponse) response.getBody()).message());
     }
 
     @Test
@@ -228,6 +228,6 @@ class AuthControllerTest {
 
         assertEquals(400, response.getStatusCode().value());
         assertNotNull(response.getBody());
-        assertEquals("Invalid Google credential", ((ErrorResponse) response.getBody()).error());
+        assertEquals("Invalid Google credential", ((ErrorResponse) response.getBody()).message());
     }
 }

@@ -25,6 +25,9 @@ export function ClientSideLogin({ onSuccess, clientReady }: ClientSideLoginProps
         method: 'POST',
         body: JSON.stringify({ credential: credentialResponse.credential }),
       });
+      if (!data) {
+        throw new Error('No response from verify endpoint');
+      }
       onSuccess(data.token);
     } catch (error: unknown) {
       setError(getErrorMessage(error, 'Google sign-in failed. Please try again.'));

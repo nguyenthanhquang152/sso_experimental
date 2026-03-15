@@ -52,6 +52,9 @@ export function MicrosoftClientSideLogin({ config, onSuccess }: MicrosoftClientS
         method: 'POST',
         credentials: 'include',
       });
+      if (!challenge) {
+        throw new Error('No response from challenge endpoint');
+      }
 
       const response = await msalClient.loginPopup({
         scopes: config.scopes,
@@ -71,6 +74,9 @@ export function MicrosoftClientSideLogin({ config, onSuccess }: MicrosoftClientS
           challengeId: challenge.challengeId,
         }),
       });
+      if (!verification) {
+        throw new Error('No response from verification endpoint');
+      }
 
       onSuccess(verification.token);
     } catch (loginError) {

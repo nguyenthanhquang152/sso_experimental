@@ -21,7 +21,7 @@ import java.time.Instant;
  *       {@code provider_user_id} pair. Retained because the migration backfill
  *       (V3 Flyway script) copies {@code google_id} into {@code provider_user_id},
  *       but existing rows written before the migration may still be looked up by
- *       {@code google_id} in {@link com.demo.sso.service.user.UserService#findOrCreateUser}.
+ *       {@code google_id} in {@link com.demo.sso.service.user.UserService#syncUser}.
  *       <b>Can be dropped</b> once all Google users have logged in at least once
  *       after the V3 migration (so their {@code provider_user_id} is populated)
  *       and the {@code findByGoogleId} fallback path is removed.

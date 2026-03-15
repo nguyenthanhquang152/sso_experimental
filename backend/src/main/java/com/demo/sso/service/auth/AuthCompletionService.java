@@ -36,28 +36,28 @@ public class AuthCompletionService {
         this.providerIdentityNormalizer = providerIdentityNormalizer;
     }
 
-    /** For client-side flows: finds/creates user and returns a JWT directly. */
+    /** For client-side flows: syncs user state and returns a JWT directly. */
     public String completeAuthentication(NormalizedIdentity identity) {
-        User user = userService.findOrCreateUser(identity);
+        User user = userService.syncUser(identity);
         String jwt = jwtTokenService.generateToken(user);
         logger.info("Authentication completed: provider={}, email={}, flow={}",
             identity.provider(), identity.email(), identity.loginFlow());
         return jwt;
     }
 
-    /** For server-side flows: finds/creates user, mints a JWT, and returns an auth code for exchange. */
+    /** For server-side flows: syncs user state, mints a JWT, and returns an auth code for exchange. */
     public String completeAuthenticationWithCode(NormalizedIdentity identity) {
         String jwt = completeAuthentication(identity);
         return authCodeStore.storeJwt(jwt);
     }
 
-    /** Normalizes Google claims, finds/creates user, and returns a JWT. */
+    /** Normalizes Google claims, syncs user state, and returns a JWT. */
     public String completeGoogleAuthentication(VerifiedGoogleIdentity google, AuthFlow flow) {
         NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(google, flow);
         return completeAuthentication(identity);
     }
 
-    /** Normalizes Microsoft claims, finds/creates user, and returns a JWT. */
+    /** Normalizes Microsoft claims, syncs user state, and returns a JWT. */
     public String completeMicrosoftAuthentication(MicrosoftIdTokenClaims claims, AuthFlow flow) {
         NormalizedIdentity identity = providerIdentityNormalizer.normalizeMicrosoftClaims(claims, flow);
         return completeAuthentication(identity);

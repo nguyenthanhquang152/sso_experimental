@@ -1,6 +1,8 @@
 package com.demo.sso.config;
 
 import com.demo.sso.service.auth.OAuth2SuccessHandler;
+import com.demo.sso.controller.dto.ErrorResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,13 +20,16 @@ public class SecurityConfig {
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final MicrosoftAuthorizationGateFilter microsoftAuthorizationGateFilter;
+    private final ObjectMapper objectMapper;
 
     public SecurityConfig(OAuth2SuccessHandler oAuth2SuccessHandler,
                           JwtAuthenticationFilter jwtAuthenticationFilter,
-                          MicrosoftAuthorizationGateFilter microsoftAuthorizationGateFilter) {
+                          MicrosoftAuthorizationGateFilter microsoftAuthorizationGateFilter,
+                          ObjectMapper objectMapper) {
         this.oAuth2SuccessHandler = oAuth2SuccessHandler;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.microsoftAuthorizationGateFilter = microsoftAuthorizationGateFilter;
+        this.objectMapper = objectMapper;
     }
 
     @Bean
@@ -56,7 +61,7 @@ public class SecurityConfig {
                 .authenticationEntryPoint((request, response, authException) -> {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     response.setContentType("application/json");
-                    response.getWriter().write("{\"error\":\"Unauthorized\"}");
+                    response.getWriter().write(objectMapper.writeValueAsString(new ErrorResponse("Unauthorized")));
                 })
             )
             .addFilterBefore(microsoftAuthorizationGateFilter, OAuth2AuthorizationRequestRedirectFilter.class)

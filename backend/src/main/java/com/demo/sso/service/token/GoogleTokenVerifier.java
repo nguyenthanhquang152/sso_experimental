@@ -54,8 +54,8 @@ public class GoogleTokenVerifier {
                 payload.getSubject(),
                 payload.getEmail(),
                 Boolean.TRUE.equals(payload.getEmailVerified()),
-                (String) payload.get("name"),
-                (String) payload.get("picture"));
+                payload.get("name") instanceof String name ? name : null,
+                payload.get("picture") instanceof String pic ? pic : null);
     }
 
     /**

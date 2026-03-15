@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleIllegalArgument(IllegalArgumentException e) {
         logger.warn("Bad request: {}", e.getMessage());
-        return ResponseEntity.badRequest().body(new ErrorResponse(e.getMessage()));
+        return ResponseEntity.badRequest().body(new ErrorResponse("Invalid request"));
     }
 
     @ExceptionHandler(IllegalStateException.class)

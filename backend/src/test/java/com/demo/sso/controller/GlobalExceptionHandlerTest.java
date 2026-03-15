@@ -25,7 +25,7 @@ class GlobalExceptionHandlerTest {
 
         assertEquals(400, response.getStatusCode().value());
         assertNotNull(response.getBody());
-        assertEquals("bad input", response.getBody().error());
+        assertEquals("Invalid request", response.getBody().message());
     }
 
     @Test
@@ -36,7 +36,7 @@ class GlobalExceptionHandlerTest {
 
         assertEquals(500, response.getStatusCode().value());
         assertNotNull(response.getBody());
-        assertEquals("Internal server error", response.getBody().error());
+        assertEquals("Internal server error", response.getBody().message());
     }
 
     @Test
@@ -47,6 +47,6 @@ class GlobalExceptionHandlerTest {
 
         assertEquals(500, response.getStatusCode().value());
         assertNotNull(response.getBody());
-        assertEquals("Internal server error", response.getBody().error());
+        assertEquals("Internal server error", response.getBody().message());
     }
 }

@@ -37,6 +37,9 @@ export function HomePage({ providerConfig }: HomePageProps) {
         body: JSON.stringify({ code }),
       })
         .then((data) => {
+          if (!data?.token) {
+            throw new Error('No token received from exchange');
+          }
           login(data.token);
           navigate('/dashboard', { replace: true });
         })

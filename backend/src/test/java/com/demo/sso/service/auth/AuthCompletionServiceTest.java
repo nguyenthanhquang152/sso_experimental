@@ -68,13 +68,13 @@ class AuthCompletionServiceTest {
 
     @Test
     void completeAuthentication_findsOrCreatesUserAndReturnsJwt() {
-        when(userService.findOrCreateUser(googleIdentity)).thenReturn(testUser);
+        when(userService.syncUser(googleIdentity)).thenReturn(testUser);
         when(jwtTokenService.generateToken(testUser)).thenReturn("jwt-token-abc");
 
         String jwt = service.completeAuthentication(googleIdentity);
 
         assertEquals("jwt-token-abc", jwt);
-        verify(userService).findOrCreateUser(googleIdentity);
+        verify(userService).syncUser(googleIdentity);
         verify(jwtTokenService).generateToken(testUser);
         verifyNoInteractions(authCodeStore);
     }
@@ -87,19 +87,19 @@ class AuthCompletionServiceTest {
         msUser.setProvider(AuthProvider.MICROSOFT);
         msUser.setProviderUserId("ms-oid-456");
 
-        when(userService.findOrCreateUser(microsoftIdentity)).thenReturn(msUser);
+        when(userService.syncUser(microsoftIdentity)).thenReturn(msUser);
         when(jwtTokenService.generateToken(msUser)).thenReturn("jwt-ms-token");
 
         String jwt = service.completeAuthentication(microsoftIdentity);
 
         assertEquals("jwt-ms-token", jwt);
-        verify(userService).findOrCreateUser(microsoftIdentity);
+        verify(userService).syncUser(microsoftIdentity);
         verify(jwtTokenService).generateToken(msUser);
     }
 
     @Test
     void completeAuthentication_propagatesUserServiceException() {
-        when(userService.findOrCreateUser(googleIdentity))
+        when(userService.syncUser(googleIdentity))
                 .thenThrow(new IllegalStateException("Concurrent user creation failed"));
 
         assertThrows(IllegalStateException.class,
@@ -109,7 +109,7 @@ class AuthCompletionServiceTest {
 
     @Test
     void completeAuthentication_propagatesTokenGenerationException() {
-        when(userService.findOrCreateUser(googleIdentity)).thenReturn(testUser);
+        when(userService.syncUser(googleIdentity)).thenReturn(testUser);
         when(jwtTokenService.generateToken(testUser))
                 .thenThrow(new IllegalArgumentException("V2 JWT minting requires id"));
 
@@ -121,7 +121,7 @@ class AuthCompletionServiceTest {
 
     @Test
     void completeAuthenticationWithCode_returnsAuthCode() {
-        when(userService.findOrCreateUser(microsoftIdentity)).thenReturn(testUser);
+        when(userService.syncUser(microsoftIdentity)).thenReturn(testUser);
         when(jwtTokenService.generateToken(testUser)).thenReturn("jwt-for-code");
         when(authCodeStore.storeJwt("jwt-for-code")).thenReturn("auth-code-xyz");
 
@@ -133,21 +133,21 @@ class AuthCompletionServiceTest {
 
     @Test
     void completeAuthenticationWithCode_chainsCompleteAuthentication() {
-        when(userService.findOrCreateUser(googleIdentity)).thenReturn(testUser);
+        when(userService.syncUser(googleIdentity)).thenReturn(testUser);
         when(jwtTokenService.generateToken(testUser)).thenReturn("chained-jwt");
         when(authCodeStore.storeJwt("chained-jwt")).thenReturn("code-123");
 
         String code = service.completeAuthenticationWithCode(googleIdentity);
 
         assertEquals("code-123", code);
-        verify(userService).findOrCreateUser(googleIdentity);
+        verify(userService).syncUser(googleIdentity);
         verify(jwtTokenService).generateToken(testUser);
         verify(authCodeStore).storeJwt("chained-jwt");
     }
 
     @Test
     void completeAuthenticationWithCode_propagatesAuthCodeStoreException() {
-        when(userService.findOrCreateUser(googleIdentity)).thenReturn(testUser);
+        when(userService.syncUser(googleIdentity)).thenReturn(testUser);
         when(jwtTokenService.generateToken(testUser)).thenReturn("jwt-ok");
         when(authCodeStore.storeJwt("jwt-ok"))
                 .thenThrow(new RuntimeException("Redis unavailable"));
@@ -160,7 +160,7 @@ class AuthCompletionServiceTest {
 
     @Test
     void completeGoogleAuthentication_normalizesAndCompletesAuthentication() {
-        when(userService.findOrCreateUser(any(NormalizedIdentity.class))).thenReturn(testUser);
+        when(userService.syncUser(any(NormalizedIdentity.class))).thenReturn(testUser);
         when(jwtTokenService.generateToken(testUser)).thenReturn("google-jwt");
 
         VerifiedGoogleIdentity google = new VerifiedGoogleIdentity(
@@ -168,7 +168,7 @@ class AuthCompletionServiceTest {
         String jwt = service.completeGoogleAuthentication(google, AuthFlow.CLIENT_SIDE);
 
         assertEquals("google-jwt", jwt);
-        verify(userService).findOrCreateUser(any(NormalizedIdentity.class));
+        verify(userService).syncUser(any(NormalizedIdentity.class));
     }
 
     // --- completeMicrosoftAuthentication tests ---
@@ -181,7 +181,7 @@ class AuthCompletionServiceTest {
         msUser.setProvider(AuthProvider.MICROSOFT);
         msUser.setProviderUserId("ms-oid-456");
 
-        when(userService.findOrCreateUser(any(NormalizedIdentity.class))).thenReturn(msUser);
+        when(userService.syncUser(any(NormalizedIdentity.class))).thenReturn(msUser);
         when(jwtTokenService.generateToken(msUser)).thenReturn("ms-jwt");
 
         MicrosoftIdTokenClaims claims = new MicrosoftIdTokenClaims(
@@ -197,6 +197,6 @@ class AuthCompletionServiceTest {
         String jwt = service.completeMicrosoftAuthentication(claims, AuthFlow.CLIENT_SIDE);
 
         assertEquals("ms-jwt", jwt);
-        verify(userService).findOrCreateUser(any(NormalizedIdentity.class));
+        verify(userService).syncUser(any(NormalizedIdentity.class));
     }
 }

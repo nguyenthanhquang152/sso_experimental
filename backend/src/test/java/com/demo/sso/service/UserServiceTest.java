@@ -41,7 +41,7 @@ class UserServiceTest {
     }
 
     @Test
-    void findOrCreateUser_createsNewUserWhenNotFound() {
+    void syncUser_createsNewUserWhenNotFound() {
         when(userRepository.findByProviderAndProviderUserId(AuthProvider.GOOGLE, "google-123"))
             .thenReturn(Optional.empty());
         when(userRepository.findByGoogleId("google-123")).thenReturn(Optional.empty());
@@ -51,7 +51,7 @@ class UserServiceTest {
             return u;
         });
 
-        User result = userService.findOrCreateUser(
+        User result = userService.syncUser(
             NormalizedIdentity.google("google-123", "user@example.com", "John", "http://pic.url", AuthFlow.CLIENT_SIDE));
 
         assertEquals("google-123", result.getGoogleId());
@@ -71,7 +71,7 @@ class UserServiceTest {
     }
 
     @Test
-    void findOrCreateUser_updatesExistingUser() {
+    void syncUser_updatesExistingUser() {
         User existing = new User();
         existing.setId(1L);
         existing.setGoogleId("google-123");
@@ -85,7 +85,7 @@ class UserServiceTest {
         when(userRepository.findByGoogleId("google-123")).thenReturn(Optional.of(existing));
         when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
 
-        User result = userService.findOrCreateUser(
+        User result = userService.syncUser(
             NormalizedIdentity.google("google-123", "user@example.com", "New Name", "http://new-pic.url", AuthFlow.CLIENT_SIDE));
 
         assertEquals("New Name", result.getName());
@@ -97,7 +97,7 @@ class UserServiceTest {
     }
 
     @Test
-    void findOrCreateUser_updatesLastLoginAtForExistingUser() {
+    void syncUser_updatesLastLoginAtForExistingUser() {
         User existing = new User();
         existing.setId(1L);
         existing.setGoogleId("google-123");
@@ -108,7 +108,7 @@ class UserServiceTest {
         when(userRepository.findByGoogleId("google-123")).thenReturn(Optional.of(existing));
         when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
 
-        User result = userService.findOrCreateUser(
+        User result = userService.syncUser(
             NormalizedIdentity.google("google-123", "user@example.com", "Name", "http://pic.url", AuthFlow.SERVER_SIDE));
 
         assertNotNull(result.getLastLoginAt());
@@ -136,7 +136,7 @@ class UserServiceTest {
     }
 
     @Test
-    void findOrCreateUser_prefersProviderAwareLookupBeforeLegacyGoogleId() {
+    void syncUser_prefersProviderAwareLookupBeforeLegacyGoogleId() {
         User existing = new User();
         existing.setId(7L);
         existing.setGoogleId("legacy-google-id");
@@ -148,7 +148,7 @@ class UserServiceTest {
             .thenReturn(Optional.of(existing));
         when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
 
-        User result = userService.findOrCreateUser(
+        User result = userService.syncUser(
             NormalizedIdentity.google("google-123", "user@example.com", "Updated Name", "http://new-pic.url", AuthFlow.SERVER_SIDE));
 
         assertEquals(7L, result.getId());
@@ -187,7 +187,7 @@ class UserServiceTest {
     }
 
     @Test
-    void findOrCreateUser_createsMicrosoftUserFromProviderIdentity() {
+    void syncUser_createsMicrosoftUserFromProviderIdentity() {
         when(userRepository.findByProviderAndProviderUserId(AuthProvider.MICROSOFT,
             "https://login.microsoftonline.com/tenant/v2.0|ms-subject-123"))
             .thenReturn(Optional.empty());
@@ -197,7 +197,7 @@ class UserServiceTest {
             return u;
         });
 
-        User result = userService.findOrCreateUser(
+        User result = userService.syncUser(
             NormalizedIdentity.microsoft(
                 "https://login.microsoftonline.com/tenant/v2.0|ms-subject-123",
                 "employee@example.com",

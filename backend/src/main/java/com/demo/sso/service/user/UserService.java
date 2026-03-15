@@ -24,7 +24,7 @@ import java.util.Optional;
  *
  * <p>Affected methods:
  * <ul>
- *   <li>{@link #findOrCreateUser} — falls back to {@code findByGoogleId}
+ *   <li>{@link #syncUser} — falls back to {@code findByGoogleId}
  *   <li>{@link #createNewUser} — populates {@code google_id} for new Google users
  *   <li>{@link #recoverFromConcurrentCreation} — recovers via {@code findByGoogleId}
  * </ul>
@@ -42,7 +42,7 @@ public class UserService {
     }
 
     @Transactional
-    public User findOrCreateUser(NormalizedIdentity identity) {
+    public User syncUser(NormalizedIdentity identity) {
         Optional<User> existing = userRepository.findByProviderAndProviderUserId(
             identity.provider(),
             identity.providerUserId()

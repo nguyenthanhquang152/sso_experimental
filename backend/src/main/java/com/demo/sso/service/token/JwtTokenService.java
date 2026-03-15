@@ -90,6 +90,18 @@ public class JwtTokenService {
      * {@code JwtMintMode.LEGACY} is active. Once all deployments switch to
      * {@code JwtMintMode.V2}, this dispatch and the legacy method can be removed.
      */
+    /**
+     * Generates a signed JWT for the given user.
+     *
+     * <p>The token format depends on the configured {@link AuthRolloutProperties.JwtMintMode}:
+     * in {@code V2} mode, the user must have {@code id}, {@code email}, {@code provider},
+     * and {@code providerUserId} set; in {@code LEGACY} mode, only {@code email} and
+     * {@code googleId} are required.
+     *
+     * @param user the authenticated user to mint a token for
+     * @return the signed JWT string
+     * @throws IllegalArgumentException if V2 mode is active and the user is missing required fields
+     */
     public String generateToken(User user) {
         if (rolloutProperties.getJwtMintMode() == AuthRolloutProperties.JwtMintMode.V2) {
             return generateV2Token(user);
@@ -187,7 +199,7 @@ public class JwtTokenService {
         try {
             return Optional.of(parseAuthenticatedUser(token));
         } catch (JwtException | IllegalArgumentException e) {
-            logger.warn("JWT validation failed: {}", e.getMessage());
+            logger.warn("JWT validation failed [{}]: {}", e.getClass().getSimpleName(), e.getMessage());
             return Optional.empty();
         }
     }
