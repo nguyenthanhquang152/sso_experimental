@@ -1,19 +1,31 @@
 {
   "version": 8,
   "created": "2026-03-14T18:25:42+00:00",
-  "updated": "2026-03-15T07:41:56+00:00",
+  "updated": "2026-03-15T09:45:45+00:00",
   "queue_order": [
-    "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence",
-    "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry",
-    "review::.::holistic::contract_coherence::create_auth_code_missing_validation",
-    "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc",
-    "review::.::holistic::convention_outlier::mixed_autowired_annotation",
-    "review::.::holistic::cross_module_architecture::error_response_downward_import",
-    "review::.::holistic::error_consistency::authcodestore_contract_gap",
-    "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions",
-    "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation",
-    "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor",
-    "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy"
+    "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy",
+    "review::.::holistic::ai_generated_debt::formulaic_exception_handlers",
+    "review::.::holistic::ai_generated_debt::restating_lookup_comment",
+    "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws",
+    "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws",
+    "review::.::holistic::contract_coherence::parse_token_no_javadoc",
+    "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub",
+    "review::.::holistic::cross_module_architecture::nested_google_identity_coupling",
+    "review::.::holistic::design_coherence::legacy_google_branching_in_user_service",
+    "review::.::holistic::high_level_elegance::service_auth_mixed_ownership",
+    "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active",
+    "review::.::holistic::incomplete_migration::deprecated_google_id_still_called",
+    "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch",
+    "review::.::holistic::incomplete_migration::dual_redis_key_prefixes",
+    "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence",
+    "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+    "review::.::holistic::logic_clarity::swallowed_exception_cause",
+    "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler",
+    "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication",
+    "review::.::holistic::naming_quality::login_method_vs_login_flow_label",
+    "review::.::holistic::test_strategy::exception_handler_no_integration_test",
+    "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests",
+    "review::.::holistic::type_safety::string_provider_dispatch"
   ],
   "deferred": [],
   "skipped": {
@@ -27,45 +39,25 @@
       "review_after": null,
       "skipped_at_scan": 25
     },
-    "review::.::holistic::authorization_consistency::csrf_path_constants_not_shared": {
-      "issue_id": "review::.::holistic::authorization_consistency::csrf_path_constants_not_shared",
+    "review::.::holistic::contract_coherence::microsoft_verifier_throws_resolved": {
+      "issue_id": "review::.::holistic::contract_coherence::microsoft_verifier_throws_resolved",
       "kind": "permanent",
       "reason": null,
-      "note": "Design decision - shared constants would over-engineer for 4 paths in a demo app",
-      "attestation": "I have actually reviewed this finding and it is not gaming the score",
-      "created_at": "2026-03-15T07:26:19+00:00",
+      "note": "Already fixed in commit 896535a - @throws Javadoc was added to MicrosoftTokenVerifier in prior session",
+      "attestation": "I have reviewed this finding and confirmed it was already fixed, not gaming the score",
+      "created_at": "2026-03-15T09:41:37+00:00",
       "review_after": null,
-      "skipped_at_scan": 29
+      "skipped_at_scan": 33
     },
-    "review::.::holistic::authorization_consistency::oauth2_error_codes_as_string_literals": {
-      "issue_id": "review::.::holistic::authorization_consistency::oauth2_error_codes_as_string_literals",
+    "review::.::holistic::dependency_health::google_api_client_weight": {
+      "issue_id": "review::.::holistic::dependency_health::google_api_client_weight",
       "kind": "permanent",
       "reason": null,
-      "note": "Minor style issue - string literals are readable and only used in one place each",
-      "attestation": "I have actually reviewed this finding and it is not gaming the score",
-      "created_at": "2026-03-15T07:26:24+00:00",
+      "note": "google-api-client is the official Google OAuth library required for token verification, no lighter alternative exists",
+      "attestation": "I have reviewed this dependency and confirmed it is required, not gaming the score",
+      "created_at": "2026-03-15T09:41:43+00:00",
       "review_after": null,
-      "skipped_at_scan": 29
-    },
-    "review::.::holistic::test_strategy::no_e2e_oauth_redirect_flow_test": {
-      "issue_id": "review::.::holistic::test_strategy::no_e2e_oauth_redirect_flow_test",
-      "kind": "permanent",
-      "reason": null,
-      "note": "Scope expansion beyond demo app - OAuth redirect flows require real IdP infrastructure",
-      "attestation": "I have actually reviewed this finding and it is not gaming the score",
-      "created_at": "2026-03-15T07:26:30+00:00",
-      "review_after": null,
-      "skipped_at_scan": 29
-    },
-    "review::.::holistic::test_strategy::no_frontend_backend_contract_tests": {
-      "issue_id": "review::.::holistic::test_strategy::no_frontend_backend_contract_tests",
-      "kind": "permanent",
-      "reason": null,
-      "note": "Scope expansion beyond demo app - contract tests need shared schema tooling",
-      "attestation": "I have actually reviewed this finding and it is not gaming the score",
-      "created_at": "2026-03-15T07:26:35+00:00",
-      "review_after": null,
-      "skipped_at_scan": 29
+      "skipped_at_scan": 33
     }
   },
   "active_cluster": null,
@@ -211,319 +203,319 @@
     "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard": {
       "issue_id": "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
       "created_at": "2026-03-14T20:18:41+00:00",
-      "cluster": "false-positives",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::logic_clarity::provider_config_google_null_check_is_redundant": {
       "issue_id": "review::.::holistic::logic_clarity::provider_config_google_null_check_is_redundant",
       "created_at": "2026-03-14T20:18:41+00:00",
-      "cluster": "false-positives",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::api_surface_coherence::auth_controller_wildcard_responses": {
       "issue_id": "review::.::holistic::api_surface_coherence::auth_controller_wildcard_responses",
       "created_at": "2026-03-14T20:18:41+00:00",
-      "cluster": "false-positives",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::convention_outlier::auth_controller_ad_hoc_payloads": {
       "issue_id": "review::.::holistic::convention_outlier::auth_controller_ad_hoc_payloads",
       "created_at": "2026-03-14T20:18:41+00:00",
-      "cluster": "false-positives",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::contract_coherence::microsoft_challenge_reissue_does_not_replace_prior_challenge": {
       "issue_id": "review::.::holistic::contract_coherence::microsoft_challenge_reissue_does_not_replace_prior_challenge",
       "created_at": "2026-03-14T20:18:41+00:00",
-      "cluster": "false-positives",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::contract_coherence::oauth2_success_handler_uses_null_as_hidden_failure_contract": {
       "issue_id": "review::.::holistic::contract_coherence::oauth2_success_handler_uses_null_as_hidden_failure_contract",
       "created_at": "2026-03-14T20:18:41+00:00",
-      "cluster": "false-positives",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::error_consistency::frontend_status_only_api_errors": {
       "issue_id": "review::.::holistic::error_consistency::frontend_status_only_api_errors",
       "created_at": "2026-03-14T20:18:41+00:00",
-      "cluster": "false-positives",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::error_consistency::silent_auth_code_exchange_failure": {
       "issue_id": "review::.::holistic::error_consistency::silent_auth_code_exchange_failure",
       "created_at": "2026-03-14T20:18:41+00:00",
-      "cluster": "false-positives",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::convention_outlier::provider_config_anonymous_contract": {
       "issue_id": "review::.::holistic::convention_outlier::provider_config_anonymous_contract",
       "created_at": "2026-03-14T20:18:41+00:00",
-      "cluster": "false-positives",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::error_consistency::client_side_provider_errors_diverge": {
       "issue_id": "review::.::holistic::error_consistency::client_side_provider_errors_diverge",
       "created_at": "2026-03-14T20:18:41+00:00",
-      "cluster": "false-positives",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::contract_coherence::authflow_factory_silently_discards_invalid_login_method": {
       "issue_id": "review::.::holistic::contract_coherence::authflow_factory_silently_discards_invalid_login_method",
       "created_at": "2026-03-14T20:19:07+00:00",
-      "cluster": "contract-guards",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::authorization_consistency::google_disable_policy_not_enforced_on_public_auth_routes": {
       "issue_id": "review::.::holistic::authorization_consistency::google_disable_policy_not_enforced_on_public_auth_routes",
       "created_at": "2026-03-14T20:19:07+00:00",
-      "cluster": "contract-guards",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::logic_clarity::microsoft_nonce_check_can_be_silently_skipped": {
       "issue_id": "review::.::holistic::logic_clarity::microsoft_nonce_check_can_be_silently_skipped",
       "created_at": "2026-03-14T20:19:07+00:00",
-      "cluster": "contract-guards",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::type_safety::challenge_store_hidden_nullable_return": {
       "issue_id": "review::.::holistic::type_safety::challenge_store_hidden_nullable_return",
       "created_at": "2026-03-14T20:19:07+00:00",
-      "cluster": "contract-guards",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads": {
       "issue_id": "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads",
       "created_at": "2026-03-14T20:19:17+00:00",
-      "cluster": "legacy-migration",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives": {
       "issue_id": "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives",
       "created_at": "2026-03-14T20:19:17+00:00",
-      "cluster": "legacy-migration",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers": {
       "issue_id": "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers",
       "created_at": "2026-03-14T20:19:17+00:00",
-      "cluster": "legacy-migration",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap": {
       "issue_id": "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap",
       "created_at": "2026-03-14T20:19:17+00:00",
-      "cluster": "legacy-migration",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::type_safety::auth_flow_legacy_string_contract": {
       "issue_id": "review::.::holistic::type_safety::auth_flow_legacy_string_contract",
       "created_at": "2026-03-14T20:19:17+00:00",
-      "cluster": "legacy-migration",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel": {
       "issue_id": "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel",
       "created_at": "2026-03-14T20:19:17+00:00",
-      "cluster": "legacy-migration",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels": {
       "issue_id": "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
       "created_at": "2026-03-14T20:19:26+00:00",
-      "cluster": "abstraction-alignment",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow": {
       "issue_id": "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
       "created_at": "2026-03-14T20:19:26+00:00",
-      "cluster": "abstraction-alignment",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union": {
       "issue_id": "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
       "created_at": "2026-03-14T20:19:26+00:00",
-      "cluster": "abstraction-alignment",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity": {
       "issue_id": "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
       "created_at": "2026-03-14T20:19:36+00:00",
-      "cluster": "naming-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::naming_quality::login_method_label_actually_stores_flow": {
       "issue_id": "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
       "created_at": "2026-03-14T20:19:36+00:00",
-      "cluster": "naming-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level": {
       "issue_id": "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level",
       "created_at": "2026-03-14T20:19:36+00:00",
-      "cluster": "naming-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation": {
       "issue_id": "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
       "created_at": "2026-03-14T20:19:45+00:00",
-      "cluster": "elegance-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::low_level_elegance::implicit_redirect_null_contract": {
       "issue_id": "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
       "created_at": "2026-03-14T20:19:45+00:00",
-      "cluster": "elegance-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split": {
       "issue_id": "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
       "created_at": "2026-03-14T20:19:45+00:00",
-      "cluster": "elegance-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri": {
       "issue_id": "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri",
       "created_at": "2026-03-14T20:19:45+00:00",
-      "cluster": "elegance-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped": {
       "issue_id": "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped",
       "created_at": "2026-03-14T20:19:45+00:00",
-      "cluster": "elegance-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::type_safety::microsoft_claims_use_untyped_map_coercion": {
       "issue_id": "review::.::holistic::type_safety::microsoft_claims_use_untyped_map_coercion",
       "created_at": "2026-03-14T20:19:54+00:00",
-      "cluster": "misc-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::ai_generated_debt::auth_failure_raw_logging": {
       "issue_id": "review::.::holistic::ai_generated_debt::auth_failure_raw_logging",
       "created_at": "2026-03-14T20:19:54+00:00",
-      "cluster": "misc-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::test_strategy::security_config_test_asserts_mock_choreography": {
       "issue_id": "review::.::holistic::test_strategy::security_config_test_asserts_mock_choreography",
       "created_at": "2026-03-14T20:19:54+00:00",
-      "cluster": "misc-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::high_level_elegance::stale_repo_contract_docs": {
       "issue_id": "review::.::holistic::high_level_elegance::stale_repo_contract_docs",
       "created_at": "2026-03-14T20:19:54+00:00",
-      "cluster": "misc-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::cross_module_architecture::auth_edge_orchestration_hub": {
       "issue_id": "review::.::holistic::cross_module_architecture::auth_edge_orchestration_hub",
       "created_at": "2026-03-14T20:20:16+00:00",
-      "cluster": "architecture-refactor",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::cross_module_architecture::provider_config_contract_drift": {
       "issue_id": "review::.::holistic::cross_module_architecture::provider_config_contract_drift",
       "created_at": "2026-03-14T20:20:16+00:00",
-      "cluster": "architecture-refactor",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::high_level_elegance::provider_feature_scattered_by_layer": {
       "issue_id": "review::.::holistic::high_level_elegance::provider_feature_scattered_by_layer",
       "created_at": "2026-03-14T20:20:16+00:00",
-      "cluster": "architecture-refactor",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::package_organization::service_package_catch_all": {
       "issue_id": "review::.::holistic::package_organization::service_package_catch_all",
       "created_at": "2026-03-14T20:20:16+00:00",
-      "cluster": "architecture-refactor",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::authorization_consistency::auth_success_audit_asymmetry": {
       "issue_id": "review::.::holistic::authorization_consistency::auth_success_audit_asymmetry",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "audit-log-symmetry",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::test_strategy::concurrent_user_creation_untested": {
       "issue_id": "review::.::holistic::test_strategy::concurrent_user_creation_untested",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "test-coverage-gaps",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::test_strategy::ms_server_side_happy_path_untested": {
       "issue_id": "review::.::holistic::test_strategy::ms_server_side_happy_path_untested",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "test-coverage-gaps",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::incomplete_migration::asymmetric_deprecation_findByGoogleId": {
       "issue_id": "review::.::holistic::incomplete_migration::asymmetric_deprecation_findByGoogleId",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "migration-deprecation-tracking",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::incomplete_migration::no_automated_removal_tracking": {
       "issue_id": "review::.::holistic::incomplete_migration::no_automated_removal_tracking",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "migration-deprecation-tracking",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::naming_quality::verify_vs_verifyIdToken_inconsistency": {
       "issue_id": "review::.::holistic::naming_quality::verify_vs_verifyIdToken_inconsistency",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "naming-symmetry-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::naming_quality::firstPresent_checks_blank": {
       "issue_id": "review::.::holistic::naming_quality::firstPresent_checks_blank",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "naming-symmetry-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::low_level_elegance::asymmetric_oauth2_dispatch": {
       "issue_id": "review::.::holistic::low_level_elegance::asymmetric_oauth2_dispatch",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "naming-symmetry-fixes",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::error_consistency::jwt_exception_gap_microsoft": {
       "issue_id": "review::.::holistic::error_consistency::jwt_exception_gap_microsoft",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "exception-hierarchy-unification",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::error_consistency::microsoft_claims_illegal_arg": {
       "issue_id": "review::.::holistic::error_consistency::microsoft_claims_illegal_arg",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "exception-hierarchy-unification",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::error_consistency::verifier_illegal_argument": {
       "issue_id": "review::.::holistic::error_consistency::verifier_illegal_argument",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "exception-hierarchy-unification",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::naming_quality::expired_authcode_exception_misnomer": {
       "issue_id": "review::.::holistic::naming_quality::expired_authcode_exception_misnomer",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "exception-hierarchy-unification",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::contract_coherence::authcodestore_throws_divergence": {
       "issue_id": "review::.::holistic::contract_coherence::authcodestore_throws_divergence",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "exception-hierarchy-unification",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::contract_coherence::ms_verifier_undocumented_throws": {
       "issue_id": "review::.::holistic::contract_coherence::ms_verifier_undocumented_throws",
       "created_at": "2026-03-15T06:00:21+00:00",
-      "cluster": "exception-hierarchy-unification",
+      "cluster": null,
       "updated_at": "2026-03-15T07:07:50+00:00"
     },
     "review::.::holistic::package_organization::userservice_root_straggler": {
@@ -697,8 +689,8 @@
     "stale_wontfix::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java::orphaned::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java": {
       "issue_id": "stale_wontfix::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java::orphaned::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java",
       "created_at": "2026-03-15T07:07:50+00:00",
-      "cluster": "auto/stale_wontfix",
-      "updated_at": "2026-03-15T07:07:50+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T09:13:15+00:00"
     },
     "stale_wontfix::backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java::orphaned::backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java": {
       "issue_id": "stale_wontfix::backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java::orphaned::backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java",
@@ -763,68 +755,206 @@
     "review::.::holistic::contract_coherence::create_auth_code_missing_validation": {
       "issue_id": "review::.::holistic::contract_coherence::create_auth_code_missing_validation",
       "created_at": "2026-03-15T07:25:02+00:00",
-      "cluster": "contract-enforcement",
-      "updated_at": "2026-03-15T07:25:02+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T08:57:26+00:00"
     },
     "review::.::holistic::error_consistency::authcodestore_contract_gap": {
       "issue_id": "review::.::holistic::error_consistency::authcodestore_contract_gap",
       "created_at": "2026-03-15T07:25:07+00:00",
-      "cluster": "contract-enforcement",
-      "updated_at": "2026-03-15T07:25:07+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T08:57:27+00:00"
     },
     "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc": {
       "issue_id": "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc",
       "created_at": "2026-03-15T07:25:12+00:00",
-      "cluster": "contract-enforcement",
-      "updated_at": "2026-03-15T07:25:12+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T08:57:26+00:00"
     },
     "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation": {
       "issue_id": "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation",
       "created_at": "2026-03-15T07:25:17+00:00",
-      "cluster": "contract-enforcement",
-      "updated_at": "2026-03-15T07:25:17+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T08:57:26+00:00"
     },
     "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions": {
       "issue_id": "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions",
       "created_at": "2026-03-15T07:25:22+00:00",
-      "cluster": "exception-completeness",
-      "updated_at": "2026-03-15T07:25:22+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T09:10:04+00:00"
     },
     "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy": {
       "issue_id": "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy",
       "created_at": "2026-03-15T07:25:27+00:00",
-      "cluster": "exception-completeness",
-      "updated_at": "2026-03-15T07:25:27+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T09:10:38+00:00"
     },
     "review::.::holistic::convention_outlier::mixed_autowired_annotation": {
       "issue_id": "review::.::holistic::convention_outlier::mixed_autowired_annotation",
       "created_at": "2026-03-15T07:25:32+00:00",
-      "cluster": "convention-cleanup",
-      "updated_at": "2026-03-15T07:25:32+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T09:13:15+00:00"
     },
     "review::.::holistic::cross_module_architecture::error_response_downward_import": {
       "issue_id": "review::.::holistic::cross_module_architecture::error_response_downward_import",
       "created_at": "2026-03-15T07:25:37+00:00",
-      "cluster": "convention-cleanup",
-      "updated_at": "2026-03-15T07:25:37+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T09:03:48+00:00"
     },
     "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor": {
       "issue_id": "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor",
       "created_at": "2026-03-15T07:25:42+00:00",
-      "cluster": "convention-cleanup",
-      "updated_at": "2026-03-15T07:25:42+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T09:04:29+00:00"
     },
     "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence": {
       "issue_id": "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence",
       "created_at": "2026-03-15T07:25:47+00:00",
-      "cluster": "frontend-consistency",
-      "updated_at": "2026-03-15T07:25:47+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T09:05:59+00:00"
     },
     "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry": {
       "issue_id": "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry",
       "created_at": "2026-03-15T07:25:52+00:00",
-      "cluster": "frontend-consistency",
-      "updated_at": "2026-03-15T07:25:52+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T09:06:37+00:00"
+    },
+    "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active": {
+      "issue_id": "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active",
+      "created_at": "2026-03-15T09:40:30+00:00",
+      "cluster": "migration-cleanup",
+      "updated_at": "2026-03-15T09:40:30+00:00"
+    },
+    "review::.::holistic::incomplete_migration::deprecated_google_id_still_called": {
+      "issue_id": "review::.::holistic::incomplete_migration::deprecated_google_id_still_called",
+      "created_at": "2026-03-15T09:40:30+00:00",
+      "cluster": "migration-cleanup",
+      "updated_at": "2026-03-15T09:40:30+00:00"
+    },
+    "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch": {
+      "issue_id": "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch",
+      "created_at": "2026-03-15T09:40:30+00:00",
+      "cluster": "migration-cleanup",
+      "updated_at": "2026-03-15T09:40:30+00:00"
+    },
+    "review::.::holistic::incomplete_migration::dual_redis_key_prefixes": {
+      "issue_id": "review::.::holistic::incomplete_migration::dual_redis_key_prefixes",
+      "created_at": "2026-03-15T09:40:30+00:00",
+      "cluster": "migration-cleanup",
+      "updated_at": "2026-03-15T09:40:30+00:00"
+    },
+    "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence": {
+      "issue_id": "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence",
+      "created_at": "2026-03-15T09:40:30+00:00",
+      "cluster": "migration-cleanup",
+      "updated_at": "2026-03-15T09:40:30+00:00"
+    },
+    "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller": {
+      "issue_id": "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+      "created_at": "2026-03-15T09:40:30+00:00",
+      "cluster": "migration-cleanup",
+      "updated_at": "2026-03-15T09:40:30+00:00"
+    },
+    "review::.::holistic::design_coherence::legacy_google_branching_in_user_service": {
+      "issue_id": "review::.::holistic::design_coherence::legacy_google_branching_in_user_service",
+      "created_at": "2026-03-15T09:40:30+00:00",
+      "cluster": "migration-cleanup",
+      "updated_at": "2026-03-15T09:40:30+00:00"
+    },
+    "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws": {
+      "issue_id": "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws",
+      "created_at": "2026-03-15T09:40:52+00:00",
+      "cluster": "contract-fixes",
+      "updated_at": "2026-03-15T09:40:52+00:00"
+    },
+    "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws": {
+      "issue_id": "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws",
+      "created_at": "2026-03-15T09:40:52+00:00",
+      "cluster": "contract-fixes",
+      "updated_at": "2026-03-15T09:40:52+00:00"
+    },
+    "review::.::holistic::contract_coherence::parse_token_no_javadoc": {
+      "issue_id": "review::.::holistic::contract_coherence::parse_token_no_javadoc",
+      "created_at": "2026-03-15T09:40:52+00:00",
+      "cluster": "contract-fixes",
+      "updated_at": "2026-03-15T09:40:52+00:00"
+    },
+    "review::.::holistic::type_safety::string_provider_dispatch": {
+      "issue_id": "review::.::holistic::type_safety::string_provider_dispatch",
+      "created_at": "2026-03-15T09:40:52+00:00",
+      "cluster": "contract-fixes",
+      "updated_at": "2026-03-15T09:40:52+00:00"
+    },
+    "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub": {
+      "issue_id": "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub",
+      "created_at": "2026-03-15T09:41:02+00:00",
+      "cluster": "architecture-fixes",
+      "updated_at": "2026-03-15T09:41:02+00:00"
+    },
+    "review::.::holistic::cross_module_architecture::nested_google_identity_coupling": {
+      "issue_id": "review::.::holistic::cross_module_architecture::nested_google_identity_coupling",
+      "created_at": "2026-03-15T09:41:02+00:00",
+      "cluster": "architecture-fixes",
+      "updated_at": "2026-03-15T09:41:02+00:00"
+    },
+    "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy": {
+      "issue_id": "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy",
+      "created_at": "2026-03-15T09:41:02+00:00",
+      "cluster": "architecture-fixes",
+      "updated_at": "2026-03-15T09:41:02+00:00"
+    },
+    "review::.::holistic::high_level_elegance::service_auth_mixed_ownership": {
+      "issue_id": "review::.::holistic::high_level_elegance::service_auth_mixed_ownership",
+      "created_at": "2026-03-15T09:41:02+00:00",
+      "cluster": "architecture-fixes",
+      "updated_at": "2026-03-15T09:41:02+00:00"
+    },
+    "review::.::holistic::ai_generated_debt::formulaic_exception_handlers": {
+      "issue_id": "review::.::holistic::ai_generated_debt::formulaic_exception_handlers",
+      "created_at": "2026-03-15T09:41:11+00:00",
+      "cluster": "elegance-fixes",
+      "updated_at": "2026-03-15T09:41:11+00:00"
+    },
+    "review::.::holistic::ai_generated_debt::restating_lookup_comment": {
+      "issue_id": "review::.::holistic::ai_generated_debt::restating_lookup_comment",
+      "created_at": "2026-03-15T09:41:11+00:00",
+      "cluster": "elegance-fixes",
+      "updated_at": "2026-03-15T09:41:11+00:00"
+    },
+    "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler": {
+      "issue_id": "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler",
+      "created_at": "2026-03-15T09:41:11+00:00",
+      "cluster": "elegance-fixes",
+      "updated_at": "2026-03-15T09:41:11+00:00"
+    },
+    "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication": {
+      "issue_id": "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication",
+      "created_at": "2026-03-15T09:41:11+00:00",
+      "cluster": "elegance-fixes",
+      "updated_at": "2026-03-15T09:41:11+00:00"
+    },
+    "review::.::holistic::logic_clarity::swallowed_exception_cause": {
+      "issue_id": "review::.::holistic::logic_clarity::swallowed_exception_cause",
+      "created_at": "2026-03-15T09:41:11+00:00",
+      "cluster": "elegance-fixes",
+      "updated_at": "2026-03-15T09:41:11+00:00"
+    },
+    "review::.::holistic::naming_quality::login_method_vs_login_flow_label": {
+      "issue_id": "review::.::holistic::naming_quality::login_method_vs_login_flow_label",
+      "created_at": "2026-03-15T09:41:11+00:00",
+      "cluster": "elegance-fixes",
+      "updated_at": "2026-03-15T09:41:11+00:00"
+    },
+    "review::.::holistic::test_strategy::exception_handler_no_integration_test": {
+      "issue_id": "review::.::holistic::test_strategy::exception_handler_no_integration_test",
+      "created_at": "2026-03-15T09:41:21+00:00",
+      "cluster": "test-coverage",
+      "updated_at": "2026-03-15T09:41:21+00:00"
+    },
+    "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests": {
+      "issue_id": "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests",
+      "created_at": "2026-03-15T09:41:21+00:00",
+      "cluster": "test-coverage",
+      "updated_at": "2026-03-15T09:41:21+00:00"
     }
   },
   "clusters": {
@@ -1059,10 +1189,16 @@
         "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
         "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
         "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri",
-        "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped"
+        "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped",
+        "review::.::holistic::ai_generated_debt::formulaic_exception_handlers",
+        "review::.::holistic::ai_generated_debt::restating_lookup_comment",
+        "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler",
+        "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication",
+        "review::.::holistic::logic_clarity::swallowed_exception_cause",
+        "review::.::holistic::naming_quality::login_method_vs_login_flow_label"
       ],
       "created_at": "2026-03-14T20:19:40+00:00",
-      "updated_at": "2026-03-15T06:33:16+00:00",
+      "updated_at": "2026-03-15T09:44:36+00:00",
       "auto": false,
       "cluster_key": "",
       "action": null,
@@ -1105,6 +1241,24 @@
           "detail": "In backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java lines 42-57: onAuthenticationSuccess catches SsoException and redirects with error. For other exceptions (uncaught), Spring default behavior applies. Add an AuthenticationFailureHandler implementation (or override onAuthenticationFailure) in backend/src/main/java/com/demo/sso/config/SecurityConfig.java where the OAuth2 login is configured. The failure handler should redirect to frontendUrl with a generic error parameter instead of showing a Spring error page.",
           "issue_refs": [],
           "done": true
+        },
+        {
+          "title": "Consolidate formulaic exception handlers"
+        },
+        {
+          "title": "Remove restating lookup comment"
+        },
+        {
+          "title": "Extract duplicated catch in OAuth2SuccessHandler"
+        },
+        {
+          "title": "Consolidate provider dispatch duplication"
+        },
+        {
+          "title": "Preserve exception cause chain"
+        },
+        {
+          "title": "Rename loginMethod to loginFlow"
         }
       ]
     },
@@ -1390,7 +1544,6 @@
         "stale_wontfix::backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java::orphaned::backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java",
         "stale_wontfix::backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java::orphaned::backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java",
         "stale_wontfix::backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java::orphaned::backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java",
-        "stale_wontfix::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java::orphaned::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java",
         "stale_wontfix::backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java::orphaned::backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java",
         "stale_wontfix::backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java::orphaned::backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java",
         "stale_wontfix::backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java::orphaned::backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java",
@@ -1448,11 +1601,7 @@
         "review::.::holistic::contract_coherence::create_auth_code_missing_validation",
         "review::.::holistic::error_consistency::authcodestore_contract_gap",
         "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc",
-        "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation",
-        "create_auth_code_missing_validation",
-        "authcodestore_contract_gap",
-        "microsoft_verifier_missing_throws_doc",
-        "deprecated_accessors_missing_annotation"
+        "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation"
       ],
       "created_at": "2026-03-15T07:24:32+00:00",
       "updated_at": "2026-03-15T07:38:41+00:00",
@@ -1467,34 +1616,30 @@
         {
           "title": "Add null/blank validation guard to RedisAuthCodeStore.createAuthCode",
           "detail": "Add: if (jwt == null || jwt.isBlank()) throw new IllegalArgumentException(\"jwt must not be null or blank\")",
-          "issue_refs": [
-            "create_auth_code_missing_validation"
-          ],
-          "effort": "trivial"
+          "issue_refs": [],
+          "effort": "trivial",
+          "done": true
         },
         {
           "title": "Add null/blank validation guard to InMemoryAuthCodeStore.createAuthCode",
           "detail": "In backend/src/test/java/com/demo/sso/config/TestAuthCodeStoreConfig.java InMemoryAuthCodeStore.createAuthCode method: add if (jwt == null || jwt.isBlank()) throw new IllegalArgumentException at method start.",
-          "issue_refs": [
-            "authcodestore_contract_gap"
-          ],
-          "effort": "trivial"
+          "issue_refs": [],
+          "effort": "trivial",
+          "done": true
         },
         {
           "title": "Add @throws Javadoc to MicrosoftTokenVerifier.verifyIdToken",
           "detail": "Document @throws InvalidTokenException for validation failures and @throws JwtException for decode failures.",
-          "issue_refs": [
-            "microsoft_verifier_missing_throws_doc"
-          ],
-          "effort": "trivial"
+          "issue_refs": [],
+          "effort": "trivial",
+          "done": true
         },
         {
           "title": "Add @Deprecated to User.getGoogleId() and setGoogleId()",
           "detail": "Java field-level @Deprecated does not propagate to accessor methods - callers get no compiler warning.",
-          "issue_refs": [
-            "deprecated_accessors_missing_annotation"
-          ],
-          "effort": "trivial"
+          "issue_refs": [],
+          "effort": "trivial",
+          "done": true
         }
       ]
     },
@@ -1503,12 +1648,10 @@
       "description": "Complete exception hierarchy by wrapping uncaught OAuth2SuccessHandler exceptions and integrating OAuth2IdentityException into SsoException",
       "issue_ids": [
         "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions",
-        "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy",
-        "oauth2_identity_exception_outside_hierarchy",
-        "oauth2_handler_uncaught_exceptions"
+        "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy"
       ],
       "created_at": "2026-03-15T07:24:37+00:00",
-      "updated_at": "2026-03-15T07:41:20+00:00",
+      "updated_at": "2026-03-15T09:09:24+00:00",
       "auto": false,
       "cluster_key": "",
       "action": null,
@@ -1519,35 +1662,31 @@
       "action_steps": [
         {
           "title": "Add SsoException import to OAuth2SuccessHandler",
-          "issue_refs": [
-            "oauth2_identity_exception_outside_hierarchy"
-          ],
+          "issue_refs": [],
           "detail": "In backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java: add import com.demo.sso.exception.SsoException.",
-          "effort": "trivial"
+          "effort": "trivial",
+          "done": true
         },
         {
           "title": "Change OAuth2IdentityException to extend SsoException",
-          "issue_refs": [
-            "oauth2_identity_exception_outside_hierarchy"
-          ],
+          "issue_refs": [],
           "detail": "In OAuth2SuccessHandler.java local class: change extends RuntimeException to extends SsoException.",
-          "effort": "trivial"
+          "effort": "trivial",
+          "done": true
         },
         {
           "title": "Wrap IllegalArgumentException in authenticateAndCreateCode",
-          "issue_refs": [
-            "oauth2_handler_uncaught_exceptions"
-          ],
+          "issue_refs": [],
           "detail": "In OAuth2SuccessHandler.java line 64: wrap the Expected OAuth2AuthenticationToken throw in a try-catch that converts to OAuth2IdentityException.",
-          "effort": "trivial"
+          "effort": "trivial",
+          "done": true
         },
         {
           "title": "Wrap InvalidTokenException for unsupported provider",
-          "issue_refs": [
-            "oauth2_handler_uncaught_exceptions"
-          ],
+          "issue_refs": [],
           "detail": "In OAuth2SuccessHandler.java line 90: wrap the unsupported provider throw in OAuth2IdentityException.",
-          "effort": "trivial"
+          "effort": "trivial",
+          "done": true
         }
       ]
     },
@@ -1557,13 +1696,10 @@
       "issue_ids": [
         "review::.::holistic::convention_outlier::mixed_autowired_annotation",
         "review::.::holistic::cross_module_architecture::error_response_downward_import",
-        "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor",
-        "mixed_autowired_annotation",
-        "error_response_downward_import",
-        "dense_microsoft_config_constructor"
+        "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor"
       ],
       "created_at": "2026-03-15T07:24:42+00:00",
-      "updated_at": "2026-03-15T07:38:12+00:00",
+      "updated_at": "2026-03-15T09:02:41+00:00",
       "auto": false,
       "cluster_key": "",
       "action": null,
@@ -1575,26 +1711,23 @@
         {
           "title": "Remove @Autowired from 4 single-constructor classes",
           "detail": "Remove from GoogleTokenVerifier, MicrosoftTokenVerifier, JwtTokenService, RedisAuthCodeStore.",
-          "issue_refs": [
-            "mixed_autowired_annotation"
-          ],
-          "effort": "trivial"
+          "issue_refs": [],
+          "effort": "trivial",
+          "done": true
         },
         {
           "title": "Move ErrorResponse to shared package",
           "detail": "Move ErrorResponse from controller/dto/ to a new shared dto/ package. Source: backend/src/main/java/com/demo/sso/controller/dto/ErrorResponse.java. Create target directory and move file. Update imports in SecurityConfig.java, MicrosoftAuthorizationGateFilter.java, GlobalExceptionHandler.java.",
-          "issue_refs": [
-            "error_response_downward_import"
-          ],
-          "effort": "small"
+          "issue_refs": [],
+          "effort": "small",
+          "done": true
         },
         {
           "title": "Simplify buildMicrosoftConfig ternary constructor",
           "detail": "In backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java buildMicrosoftConfig method (lines 83-89): extract clientSideEnabled conditional to local vars before constructor call.",
-          "issue_refs": [
-            "dense_microsoft_config_constructor"
-          ],
-          "effort": "trivial"
+          "issue_refs": [],
+          "effort": "trivial",
+          "done": true
         }
       ]
     },
@@ -1603,12 +1736,10 @@
       "description": "Align frontend hook error types and store failure strategies for consistency",
       "issue_ids": [
         "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence",
-        "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry",
-        "frontend_hook_error_type_divergence",
-        "store_failure_strategy_asymmetry"
+        "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry"
       ],
       "created_at": "2026-03-15T07:24:47+00:00",
-      "updated_at": "2026-03-15T07:41:40+00:00",
+      "updated_at": "2026-03-15T09:05:39+00:00",
       "auto": false,
       "cluster_key": "",
       "action": null,
@@ -1619,35 +1750,167 @@
       "action_steps": [
         {
           "title": "Change useAuth error state type to Error|null",
-          "issue_refs": [
-            "frontend_hook_error_type_divergence"
-          ],
+          "issue_refs": [],
           "detail": "In frontend/src/hooks/useAuth.ts line 26: change useState<string | null>(null) to useState<Error | null>(null).",
-          "effort": "trivial"
+          "effort": "trivial",
+          "done": true
         },
         {
           "title": "Update setError calls to wrap strings in Error objects",
-          "issue_refs": [
-            "frontend_hook_error_type_divergence"
-          ],
+          "issue_refs": [],
           "detail": "In frontend/src/hooks/useAuth.ts: change all setError('message') to setError(new Error('message')).",
-          "effort": "trivial"
+          "effort": "trivial",
+          "done": true
         },
         {
           "title": "Update error consumers to use Error.message",
-          "issue_refs": [
-            "frontend_hook_error_type_divergence"
-          ],
+          "issue_refs": [],
           "detail": "In frontend components that read useAuth error: change checks from typeof error === 'string' to error?.message.",
-          "effort": "trivial"
+          "effort": "trivial",
+          "done": true
         },
         {
           "title": "Document store failure strategy asymmetry",
-          "issue_refs": [
-            "store_failure_strategy_asymmetry"
-          ],
+          "issue_refs": [],
           "detail": "In backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java: add Javadoc explaining throw-on-failure vs Optional patterns are intentional.",
-          "effort": "small"
+          "effort": "small",
+          "done": true
+        }
+      ]
+    },
+    "migration-cleanup": {
+      "name": "migration-cleanup",
+      "description": "Complete multi-provider migration by removing legacy google_id artifacts",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active",
+        "review::.::holistic::incomplete_migration::deprecated_google_id_still_called",
+        "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch",
+        "review::.::holistic::incomplete_migration::dual_redis_key_prefixes",
+        "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence",
+        "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+        "review::.::holistic::design_coherence::legacy_google_branching_in_user_service"
+      ],
+      "created_at": "2026-03-15T09:40:19+00:00",
+      "updated_at": "2026-03-15T09:43:13+00:00",
+      "auto": false,
+      "cluster_key": "",
+      "action": null,
+      "action_type": "manual_fix",
+      "execution_policy": "planned_only",
+      "execution_status": "active",
+      "user_modified": true,
+      "action_steps": [
+        {
+          "title": "Remove findByGoogleIdAndActiveTrue calls"
+        },
+        {
+          "title": "Remove google_id writes"
+        },
+        {
+          "title": "Consolidate JWT to V2-only"
+        },
+        {
+          "title": "Unify Redis prefixes"
+        },
+        {
+          "title": "Remove google-specific controller lookup"
+        },
+        {
+          "title": "Remove legacy identity fallback"
+        },
+        {
+          "title": "Remove legacy google branching"
+        }
+      ]
+    },
+    "contract-fixes": {
+      "name": "contract-fixes",
+      "description": "Add missing contract docs and replace string provider dispatch with enum",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws",
+        "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws",
+        "review::.::holistic::contract_coherence::parse_token_no_javadoc",
+        "review::.::holistic::type_safety::string_provider_dispatch"
+      ],
+      "created_at": "2026-03-15T09:40:47+00:00",
+      "updated_at": "2026-03-15T09:43:48+00:00",
+      "auto": false,
+      "cluster_key": "",
+      "action": null,
+      "action_type": "manual_fix",
+      "execution_policy": "planned_only",
+      "execution_status": "active",
+      "user_modified": true,
+      "action_steps": [
+        {
+          "title": "Add @throws Javadoc to AuthCompletionService"
+        },
+        {
+          "title": "Add @throws to MicrosoftIdTokenClaims.fromMap"
+        },
+        {
+          "title": "Add Javadoc to JwtTokenService.parseToken"
+        },
+        {
+          "title": "Introduce AuthProvider enum for provider dispatch"
+        }
+      ]
+    },
+    "architecture-fixes": {
+      "name": "architecture-fixes",
+      "description": "Reduce fan-out, decouple google identity, seal AuthApiResponse",
+      "issue_ids": [
+        "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub",
+        "review::.::holistic::cross_module_architecture::nested_google_identity_coupling",
+        "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy",
+        "review::.::holistic::high_level_elegance::service_auth_mixed_ownership"
+      ],
+      "created_at": "2026-03-15T09:40:57+00:00",
+      "updated_at": "2026-03-15T09:44:07+00:00",
+      "auto": false,
+      "cluster_key": "",
+      "action": null,
+      "action_type": "manual_fix",
+      "execution_policy": "planned_only",
+      "execution_status": "active",
+      "user_modified": true,
+      "action_steps": [
+        {
+          "title": "Reduce AuthController fan-out via delegation"
+        },
+        {
+          "title": "Decouple nested google identity"
+        },
+        {
+          "title": "Seal AuthApiResponse hierarchy"
+        },
+        {
+          "title": "Clarify service.auth package ownership"
+        }
+      ]
+    },
+    "test-coverage": {
+      "name": "test-coverage",
+      "description": "Add missing test coverage",
+      "issue_ids": [
+        "review::.::holistic::test_strategy::exception_handler_no_integration_test",
+        "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests"
+      ],
+      "created_at": "2026-03-15T09:41:16+00:00",
+      "updated_at": "2026-03-15T09:44:46+00:00",
+      "auto": false,
+      "cluster_key": "",
+      "action": null,
+      "action_type": "manual_fix",
+      "execution_policy": "planned_only",
+      "execution_status": "active",
+      "user_modified": true,
+      "action_steps": [
+        {
+          "title": "Add GlobalExceptionHandler integration test"
+        },
+        {
+          "title": "Add MicrosoftIdTokenClaims unit tests"
         }
       ]
     }
@@ -4608,25 +4871,334 @@
       "superseded_at": "2026-03-15T07:07:50+00:00",
       "remapped_to": null,
       "candidates": []
+    },
+    "authcodestore_contract_gap": {
+      "original_id": "authcodestore_contract_gap",
+      "original_detector": "",
+      "original_file": "",
+      "original_summary": "",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "create_auth_code_missing_validation": {
+      "original_id": "create_auth_code_missing_validation",
+      "original_detector": "",
+      "original_file": "",
+      "original_summary": "",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "dense_microsoft_config_constructor": {
+      "original_id": "dense_microsoft_config_constructor",
+      "original_detector": "",
+      "original_file": "",
+      "original_summary": "",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "deprecated_accessors_missing_annotation": {
+      "original_id": "deprecated_accessors_missing_annotation",
+      "original_detector": "",
+      "original_file": "",
+      "original_summary": "",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "error_response_downward_import": {
+      "original_id": "error_response_downward_import",
+      "original_detector": "",
+      "original_file": "",
+      "original_summary": "",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "frontend_hook_error_type_divergence": {
+      "original_id": "frontend_hook_error_type_divergence",
+      "original_detector": "",
+      "original_file": "",
+      "original_summary": "",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "microsoft_verifier_missing_throws_doc": {
+      "original_id": "microsoft_verifier_missing_throws_doc",
+      "original_detector": "",
+      "original_file": "",
+      "original_summary": "",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "mixed_autowired_annotation": {
+      "original_id": "mixed_autowired_annotation",
+      "original_detector": "",
+      "original_file": "",
+      "original_summary": "",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "oauth2_handler_uncaught_exceptions": {
+      "original_id": "oauth2_handler_uncaught_exceptions",
+      "original_detector": "",
+      "original_file": "",
+      "original_summary": "",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "oauth2_identity_exception_outside_hierarchy": {
+      "original_id": "oauth2_identity_exception_outside_hierarchy",
+      "original_detector": "",
+      "original_file": "",
+      "original_summary": "",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence": {
+      "original_id": "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "useAuth returns error as string|null while useProviderConfig returns Error|null \u2014 inconsistent error types across hooks",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry": {
+      "original_id": "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "AuthCodeStore.exchangeCode throws on failure while MicrosoftChallengeStore.consumeNonce returns Optional \u2014 different strategies for analogous operations",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "review::.::holistic::authorization_consistency::csrf_path_constants_not_shared": {
+      "original_id": "review::.::holistic::authorization_consistency::csrf_path_constants_not_shared",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "CSRF exempt paths in SecurityConfig are maintained as separate constants from controller @RequestMapping \u2014 parallel maintenance risk",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "review::.::holistic::authorization_consistency::oauth2_error_codes_as_string_literals": {
+      "original_id": "review::.::holistic::authorization_consistency::oauth2_error_codes_as_string_literals",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "OAuth2SuccessHandler uses inline string error codes in redirects without a shared constant set",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "review::.::holistic::contract_coherence::create_auth_code_missing_validation": {
+      "original_id": "review::.::holistic::contract_coherence::create_auth_code_missing_validation",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "AuthCodeStore.createAuthCode documents @throws IllegalArgumentException for null/blank jwt but implementations don't validate",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "review::.::holistic::convention_outlier::mixed_autowired_annotation": {
+      "original_id": "review::.::holistic::convention_outlier::mixed_autowired_annotation",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "@Autowired used on 4 single-constructor classes while 11+ omit it, creating inconsistent DI annotation style",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "review::.::holistic::cross_module_architecture::error_response_downward_import": {
+      "original_id": "review::.::holistic::cross_module_architecture::error_response_downward_import",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Config-layer classes import ErrorResponse from controller.dto, creating a downward dependency",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "review::.::holistic::error_consistency::authcodestore_contract_gap": {
+      "original_id": "review::.::holistic::error_consistency::authcodestore_contract_gap",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "AuthCodeStore.createAuthCode documents @throws IllegalArgumentException for null/blank jwt but RedisAuthCodeStore doesn't enforce it",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions": {
+      "original_id": "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "OAuth2SuccessHandler throws InvalidTokenException and IllegalArgumentException that escape the try-catch boundary, bypassing the redirect error pattern",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation": {
+      "original_id": "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "User.getGoogleId() and setGoogleId() lack @Deprecated annotation despite field being deprecated",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor": {
+      "original_id": "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "buildMicrosoftConfig packs 6 ternary-per-field arguments into one constructor call",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy": {
+      "original_id": "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "OAuth2SuccessHandler defines local OAuth2IdentityException outside the shared exception hierarchy",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "review::.::holistic::test_strategy::no_e2e_oauth_redirect_flow_test": {
+      "original_id": "review::.::holistic::test_strategy::no_e2e_oauth_redirect_flow_test",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "No E2E test validates the full OAuth redirect flow including browser cookie/session behavior",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "review::.::holistic::test_strategy::no_frontend_backend_contract_tests": {
+      "original_id": "review::.::holistic::test_strategy::no_frontend_backend_contract_tests",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "No contract tests validate that frontend TypeScript interfaces match backend Java DTO shapes",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ]
+    },
+    "stale_wontfix::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java::orphaned::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java": {
+      "original_id": "stale_wontfix::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java::orphaned::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java",
+      "original_detector": "stale_wontfix",
+      "original_file": "backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java",
+      "original_summary": "Stale wontfix (scan_decay): re-triage `orphaned::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java` (last reviewed 20 scans ago)",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "store_failure_strategy_asymmetry": {
+      "original_id": "store_failure_strategy_asymmetry",
+      "original_detector": "",
+      "original_file": "",
+      "original_summary": "",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:13:15+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/exception/InvalidAuthCodeException.java": {
+      "original_id": "orphaned::backend/src/main/java/com/demo/sso/exception/InvalidAuthCodeException.java",
+      "original_detector": "orphaned",
+      "original_file": "backend/src/main/java/com/demo/sso/exception/InvalidAuthCodeException.java",
+      "original_summary": "Orphaned file (13 LOC): zero importers, not an entry point",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:25:23+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc": {
+      "original_id": "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "MicrosoftTokenVerifier.verifyIdToken lacks @throws documentation despite throwing InvalidTokenException and propagating JwtException",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T09:25:23+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+        "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub",
+        "review::.::holistic::cross_module_architecture::nested_google_identity_coupling",
+        "review::.::holistic::high_level_elegance::service_auth_mixed_ownership",
+        "review::.::holistic::naming_quality::login_method_vs_login_flow_label"
+      ]
     }
   },
   "promoted_ids": [],
-  "plan_start_scores": {
-    "strict": 87.2,
-    "overall": 91.1,
-    "objective": 99.8,
-    "verified": 86.6
-  },
+  "plan_start_scores": {},
   "refresh_state": {
-    "lifecycle_phase": "workflow_postflight",
-    "subjective_review_completed_at_scan_count": 29,
+    "lifecycle_phase": "execute",
+    "subjective_review_completed_at_scan_count": 31,
     "pending_import_scores": {
       "timestamp": "2026-03-15T02:05:07+00:00",
       "import_file": ".desloppify/subagents/runs/20260315_010629/holistic_issues_merged.json",
       "normalized_import_file": "/home/nt-quang/Workspaces/personal/sso_experimental/.desloppify/subagents/runs/20260315_010629/holistic_issues_merged.json",
       "packet_sha256": "dd7612a7f073142fcd20d89c7eafe064a7263e09cd7df523b67817d0382874d0"
     },
-    "postflight_scan_completed_at_scan_count": 29
+    "postflight_scan_completed_at_scan_count": 33
   },
   "execution_log": [
     {
@@ -12449,305 +13021,2032 @@
         "strategy_len": 318,
         "coverage": "11/11"
       }
+    },
+    {
+      "timestamp": "2026-03-15T08:57:24+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: @throws Javadoc added to MicrosoftTokenVerifier.verifyIdToken documenting InvalidTokenException",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T08:57:25+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::error_consistency::oauth2_handler_exception_escape"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: OAuth2SuccessHandler exceptions properly caught and wrapped in error redirect pattern",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T08:57:25+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::create_auth_code_missing_validation"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: null guards added to createAuthCode in both RedisAuthCodeStore and InMemoryAuthCodeStore",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T08:57:25+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::error_consistency::authcodestore_contract_gap"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: createAuthCode null/blank validation guards added matching documented throws behavior",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T08:57:26+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: @throws Javadoc added to MicrosoftTokenVerifier.verifyIdToken documenting InvalidTokenException",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually verified the fix in the codebase and am not gaming the score"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T08:57:26+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: @Deprecated annotations with removal timeline added to User.getGoogleId and setGoogleId",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually verified the fix in the codebase and am not gaming the score"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T08:57:26+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::create_auth_code_missing_validation"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: null guards added to createAuthCode in both RedisAuthCodeStore and InMemoryAuthCodeStore",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually verified the fix in the codebase and am not gaming the score"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T08:57:27+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::error_consistency::authcodestore_contract_gap"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: createAuthCode null/blank validation guards added matching documented throws behavior",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually verified the fix in the codebase and am not gaming the score"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:00:14+00:00",
+      "action": "skip",
+      "issue_ids": [
+        "review::.::holistic::convention_outlier::mixed_autowired_annotation"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "False positive: all 4 flagged classes (GoogleTokenVerifier, MicrosoftTokenVerifier, JwtTokenService, RedisAuthCodeStore) have 2 constructors each - @Autowired IS required with multiple constructors. Removing it causes NoSuchMethodException.",
+      "detail": {
+        "kind": "permanent",
+        "reason": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:00:56+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::cross_module_architecture::error_response_downward_import"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: AuthApiResponse moved to com.demo.sso.dto shared package, eliminating the downward dependency from config to controller.dto",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:01:59+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::cross_module_architecture::error_response_downward_import"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: ErrorResponse already in com.demo.sso.dto since prior commit, AuthApiResponse also moved to com.demo.sso.dto by agent 260 eliminating all downward dependencies",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:02:21+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "convention-cleanup",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:02:31+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "convention-cleanup",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:02:41+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "convention-cleanup",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:03:08+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::cross_module_architecture::error_response_downward_import"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: ErrorResponse and AuthApiResponse both moved to com.demo.sso.dto shared package, eliminating downward dependency",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:03:28+00:00",
+      "action": "reorder",
+      "issue_ids": [
+        "review::.::holistic::cross_module_architecture::error_response_downward_import"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "position": "top",
+        "target": null,
+        "offset": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:03:47+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::cross_module_architecture::error_response_downward_import"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: ErrorResponse and AuthApiResponse both moved to com.demo.sso.dto shared package, eliminating downward dependency",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:03:48+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::cross_module_architecture::error_response_downward_import"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: ErrorResponse and AuthApiResponse both moved to com.demo.sso.dto shared package, eliminating downward dependency",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually verified the fix in the codebase and am not gaming the score"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:04:28+00:00",
+      "action": "done",
+      "issue_ids": [
+        "dense_microsoft_config_constructor"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: ternary expressions extracted into local variables (clientId, authority, scopes, redirectUri) before constructor call, improving readability",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:04:29+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: ternary expressions extracted into local variables (clientId, authority, scopes, redirectUri) before constructor call, improving readability",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually verified the fix in the codebase and am not gaming the score"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:05:09+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "frontend-consistency",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:05:19+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "frontend-consistency",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:05:30+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "frontend-consistency",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:05:39+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "frontend-consistency",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:05:58+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: useAuth error type aligned to Error|null matching useProviderConfig pattern in prior commit",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:05:59+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: useAuth error type aligned to Error|null matching useProviderConfig pattern in prior commit",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually verified the fix in the codebase and am not gaming the score"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:06:36+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: AuthCodeStore Javadoc documents throw-on-failure vs Optional pattern as intentional design choice",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:06:37+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: AuthCodeStore Javadoc documents throw-on-failure vs Optional pattern as intentional design choice",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually verified the fix in the codebase and am not gaming the score"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:07:29+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::create_auth_code_missing_validation"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: null/blank validation guards added to both RedisAuthCodeStore.createAuthCode and InMemoryAuthCodeStore.createAuthCode",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:07:29+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::create_auth_code_missing_validation"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: null/blank validation guards added to both RedisAuthCodeStore.createAuthCode and InMemoryAuthCodeStore.createAuthCode",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually verified the fix in the codebase and am not gaming the score"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:08:04+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: @throws Javadoc added to MicrosoftTokenVerifier.verifyIdToken documenting InvalidTokenException and JwtException",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:09:00+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "exception-completeness",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:09:08+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "exception-completeness",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:09:16+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "exception-completeness",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:09:24+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "exception-completeness",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:10:03+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: OAuth2SuccessHandler exceptions wrapped properly, InvalidTokenException and IllegalArgumentException caught in try-catch boundary",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:10:04+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: OAuth2SuccessHandler exceptions wrapped properly, InvalidTokenException and IllegalArgumentException caught in try-catch boundary",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually verified the fix in the codebase and am not gaming the score"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:10:37+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: OAuth2IdentityException integrated into SsoException hierarchy in commit 9a00e64",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:10:38+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Fixed: OAuth2IdentityException integrated into SsoException hierarchy in commit 9a00e64",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually verified the fix in the codebase and am not gaming the score"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:10:38+00:00",
+      "action": "sync_communicate_score",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "injected": true
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:10:38+00:00",
+      "action": "sync_create_plan",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "injected": true
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:11:17+00:00",
+      "action": "done",
+      "issue_ids": [
+        "workflow::communicate-score"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Score communicated to user: strict 88.1 before fixes, now rescanning",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:11:17+00:00",
+      "action": "sync_subjective",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "changes": true
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:11:17+00:00",
+      "action": "phase_transition_cleanup",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "phase": "workflow_postflight",
+        "pruned": [
+          "subjective::abstraction_fitness",
+          "subjective::ai_generated_debt",
+          "subjective::api_surface_coherence",
+          "subjective::authorization_consistency",
+          "subjective::contract_coherence",
+          "subjective::convention_outlier",
+          "subjective::cross_module_architecture",
+          "subjective::dependency_health",
+          "subjective::error_consistency",
+          "subjective::high_level_elegance",
+          "subjective::incomplete_migration",
+          "subjective::initialization_coupling",
+          "subjective::logic_clarity",
+          "subjective::low_level_elegance",
+          "subjective::mid_level_elegance",
+          "subjective::naming_quality",
+          "subjective::package_organization",
+          "subjective::test_strategy",
+          "subjective::type_safety"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:11:39+00:00",
+      "action": "done",
+      "issue_ids": [
+        "workflow::triage-plan"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Triage not needed - all code fixes from 12th review resolved, proceeding to rescan",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:11:40+00:00",
+      "action": "sync_subjective",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "changes": true
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:11:40+00:00",
+      "action": "phase_transition_cleanup",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "phase": "workflow_postflight",
+        "pruned": [
+          "subjective::abstraction_fitness",
+          "subjective::ai_generated_debt",
+          "subjective::api_surface_coherence",
+          "subjective::authorization_consistency",
+          "subjective::contract_coherence",
+          "subjective::convention_outlier",
+          "subjective::cross_module_architecture",
+          "subjective::dependency_health",
+          "subjective::error_consistency",
+          "subjective::high_level_elegance",
+          "subjective::incomplete_migration",
+          "subjective::initialization_coupling",
+          "subjective::logic_clarity",
+          "subjective::low_level_elegance",
+          "subjective::mid_level_elegance",
+          "subjective::naming_quality",
+          "subjective::package_organization",
+          "subjective::test_strategy",
+          "subjective::type_safety"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:12:25+00:00",
+      "action": "done",
+      "issue_ids": [
+        "workflow::triage-plan"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "All review findings resolved, forcing rescan to capture improvements",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:12:26+00:00",
+      "action": "sync_subjective",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "changes": true
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:12:26+00:00",
+      "action": "phase_transition_cleanup",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "phase": "workflow_postflight",
+        "pruned": [
+          "subjective::abstraction_fitness",
+          "subjective::ai_generated_debt",
+          "subjective::api_surface_coherence",
+          "subjective::authorization_consistency",
+          "subjective::contract_coherence",
+          "subjective::convention_outlier",
+          "subjective::cross_module_architecture",
+          "subjective::dependency_health",
+          "subjective::error_consistency",
+          "subjective::high_level_elegance",
+          "subjective::incomplete_migration",
+          "subjective::initialization_coupling",
+          "subjective::logic_clarity",
+          "subjective::low_level_elegance",
+          "subjective::mid_level_elegance",
+          "subjective::naming_quality",
+          "subjective::package_organization",
+          "subjective::test_strategy",
+          "subjective::type_safety"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:13:15+00:00",
+      "action": "cluster_done",
+      "issue_ids": [],
+      "cluster_name": "exception-completeness",
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "reason": "cluster members no longer actionable in state"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:13:15+00:00",
+      "action": "cluster_done",
+      "issue_ids": [],
+      "cluster_name": "convention-cleanup",
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "reason": "cluster members no longer actionable in state"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:13:15+00:00",
+      "action": "cluster_done",
+      "issue_ids": [],
+      "cluster_name": "frontend-consistency",
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "reason": "cluster members no longer actionable in state"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:13:15+00:00",
+      "action": "reconcile",
+      "issue_ids": [
+        "authcodestore_contract_gap",
+        "create_auth_code_missing_validation",
+        "dense_microsoft_config_constructor",
+        "deprecated_accessors_missing_annotation",
+        "error_response_downward_import",
+        "frontend_hook_error_type_divergence",
+        "microsoft_verifier_missing_throws_doc",
+        "mixed_autowired_annotation",
+        "oauth2_handler_uncaught_exceptions",
+        "oauth2_identity_exception_outside_hierarchy",
+        "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence",
+        "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry",
+        "review::.::holistic::authorization_consistency::csrf_path_constants_not_shared",
+        "review::.::holistic::authorization_consistency::oauth2_error_codes_as_string_literals",
+        "review::.::holistic::contract_coherence::create_auth_code_missing_validation",
+        "review::.::holistic::convention_outlier::mixed_autowired_annotation",
+        "review::.::holistic::cross_module_architecture::error_response_downward_import",
+        "review::.::holistic::error_consistency::authcodestore_contract_gap",
+        "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions",
+        "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation",
+        "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor",
+        "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy",
+        "review::.::holistic::test_strategy::no_e2e_oauth_redirect_flow_test",
+        "review::.::holistic::test_strategy::no_frontend_backend_contract_tests",
+        "stale_wontfix::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java::orphaned::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java",
+        "store_failure_strategy_asymmetry"
+      ],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "superseded_count": 26,
+        "pruned_count": 0,
+        "resurfaced_count": 0,
+        "clusters_completed_count": 3
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:13:15+00:00",
+      "action": "sync_communicate_score",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "injected": true
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:13:15+00:00",
+      "action": "sync_create_plan",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "injected": true
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:13:37+00:00",
+      "action": "commit_record",
+      "issue_ids": [
+        "review::.::holistic::ai_generated_debt::pii_info_logging",
+        "review::.::holistic::authorization_consistency::logout_missing_audit",
+        "review::.::holistic::authorization_consistency::role_user_magic_string",
+        "review::.::holistic::error_consistency::dashboard_ignores_error_state",
+        "review::.::holistic::error_consistency::oauth2_handler_drops_cause",
+        "review::.::holistic::error_consistency::overloaded_illegal_argument",
+        "review::.::holistic::incomplete_migration::dead_legacy_provider_key_field",
+        "review::.::holistic::incomplete_migration::normalized_identity_param_naming_inconsistency",
+        "review::.::holistic::logic_clarity::redundant_nullish_coalescing_normalize",
+        "review::.::holistic::logic_clarity::redundant_rollout_null_checks",
+        "review::.::holistic::low_level_elegance::double_get_session_call",
+        "review::.::holistic::type_safety::user_response_string_enum_fields",
+        "review::.::holistic::ai_generated_debt::completion_service_convenience_wrappers",
+        "review::.::holistic::ai_generated_debt::restating_javadoc_trivial_methods",
+        "review::.::holistic::convention_outlier::google_disabled_response_inline",
+        "review::.::holistic::design_coherence::provider_config_dense_conditionals",
+        "boilerplate_duplication::backend/src/main/java/com/demo/sso/controller/AuthController.java::cd5404c4f93c5f37",
+        "boilerplate_duplication::backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java::b7903f9f075c86d0",
+        "review::.::holistic::error_consistency::verifier_illegal_argument",
+        "review::.::holistic::error_consistency::jwt_exception_gap_microsoft",
+        "review::.::holistic::error_consistency::microsoft_claims_illegal_arg",
+        "review::.::holistic::naming_quality::firstPresent_checks_blank",
+        "review::.::holistic::naming_quality::expired_authcode_exception_misnomer",
+        "review::.::holistic::naming_quality::verify_vs_verifyIdToken_inconsistency",
+        "review::.::holistic::low_level_elegance::asymmetric_oauth2_dispatch",
+        "review::.::holistic::test_strategy::ms_server_side_happy_path_untested",
+        "review::.::holistic::test_strategy::concurrent_user_creation_untested",
+        "review::.::holistic::authorization_consistency::auth_success_audit_asymmetry",
+        "review::.::holistic::incomplete_migration::no_automated_removal_tracking",
+        "review::.::holistic::incomplete_migration::asymmetric_deprecation_findByGoogleId",
+        "review::.::holistic::package_organization::userservice_root_straggler",
+        "review::.::holistic::contract_coherence::authcodestore_throws_divergence",
+        "review::.::holistic::contract_coherence::ms_verifier_undocumented_throws",
+        "orphaned::backend/src/main/java/com/demo/sso/exception/InvalidAuthCodeException.java",
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc",
+        "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation",
+        "review::.::holistic::contract_coherence::create_auth_code_missing_validation",
+        "review::.::holistic::error_consistency::authcodestore_contract_gap",
+        "review::.::holistic::cross_module_architecture::error_response_downward_import",
+        "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor",
+        "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence",
+        "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry",
+        "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions",
+        "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "All 12th review findings fixed: architecture moves, contract enforcement, security hardening, frontend test coverage",
+      "detail": {
+        "sha": "896535a78d95",
+        "branch": "desloppify/code-health"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:15:47+00:00",
+      "action": "skip",
+      "issue_ids": [
+        "orphaned::backend/src/main/java/com/demo/sso/exception/InvalidAuthCodeException.java"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "False positive: InvalidAuthCodeException has 7 importers across production and test code (RedisAuthCodeStore, AuthCodeStore, AuthController, GlobalExceptionHandler, and 3 test files)",
+      "detail": {
+        "kind": "permanent",
+        "reason": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:25:17+00:00",
+      "action": "review_import_sync",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "trigger": "review_import",
+        "new_ids": [
+          "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy",
+          "review::.::holistic::ai_generated_debt::formulaic_exception_handlers",
+          "review::.::holistic::ai_generated_debt::restating_lookup_comment",
+          "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws",
+          "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws",
+          "review::.::holistic::contract_coherence::microsoft_verifier_throws_resolved",
+          "review::.::holistic::contract_coherence::parse_token_no_javadoc",
+          "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub",
+          "review::.::holistic::cross_module_architecture::nested_google_identity_coupling",
+          "review::.::holistic::dependency_health::google_api_client_weight",
+          "review::.::holistic::design_coherence::legacy_google_branching_in_user_service",
+          "review::.::holistic::high_level_elegance::service_auth_mixed_ownership",
+          "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active",
+          "review::.::holistic::incomplete_migration::deprecated_google_id_still_called",
+          "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch",
+          "review::.::holistic::incomplete_migration::dual_redis_key_prefixes",
+          "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence",
+          "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+          "review::.::holistic::logic_clarity::swallowed_exception_cause",
+          "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler",
+          "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication",
+          "review::.::holistic::naming_quality::login_method_vs_login_flow_label",
+          "review::.::holistic::test_strategy::exception_handler_no_integration_test",
+          "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests",
+          "review::.::holistic::type_safety::string_provider_dispatch"
+        ],
+        "added_to_queue": [
+          "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy",
+          "review::.::holistic::ai_generated_debt::formulaic_exception_handlers",
+          "review::.::holistic::ai_generated_debt::restating_lookup_comment",
+          "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws",
+          "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws",
+          "review::.::holistic::contract_coherence::microsoft_verifier_throws_resolved",
+          "review::.::holistic::contract_coherence::parse_token_no_javadoc",
+          "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub",
+          "review::.::holistic::cross_module_architecture::nested_google_identity_coupling",
+          "review::.::holistic::dependency_health::google_api_client_weight",
+          "review::.::holistic::design_coherence::legacy_google_branching_in_user_service",
+          "review::.::holistic::high_level_elegance::service_auth_mixed_ownership",
+          "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active",
+          "review::.::holistic::incomplete_migration::deprecated_google_id_still_called",
+          "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch",
+          "review::.::holistic::incomplete_migration::dual_redis_key_prefixes",
+          "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence",
+          "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+          "review::.::holistic::logic_clarity::swallowed_exception_cause",
+          "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler",
+          "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication",
+          "review::.::holistic::naming_quality::login_method_vs_login_flow_label",
+          "review::.::holistic::test_strategy::exception_handler_no_integration_test",
+          "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests",
+          "review::.::holistic::type_safety::string_provider_dispatch"
+        ],
+        "workflow_injected_ids": [],
+        "triage_injected": false,
+        "triage_injected_ids": [],
+        "triage_deferred": false,
+        "diff_new": 24,
+        "diff_reopened": 1,
+        "diff_auto_resolved": 35,
+        "stale_pruned_from_queue": [],
+        "covered_subjective_pruned_from_queue": [],
+        "covered_subjective": [
+          "subjective::abstraction_fitness",
+          "subjective::ai_generated_debt",
+          "subjective::authorization_consistency",
+          "subjective::contract_coherence",
+          "subjective::convention_outlier",
+          "subjective::cross_module_architecture",
+          "subjective::dependency_health",
+          "subjective::design_coherence",
+          "subjective::error_consistency",
+          "subjective::high_level_elegance",
+          "subjective::incomplete_migration",
+          "subjective::initialization_coupling",
+          "subjective::logic_clarity",
+          "subjective::low_level_elegance",
+          "subjective::mid_level_elegance",
+          "subjective::naming_quality",
+          "subjective::package_organization",
+          "subjective::test_strategy",
+          "subjective::type_safety"
+        ],
+        "stale_sync_injected": [],
+        "stale_sync_pruned": [],
+        "auto_cluster_changes": 0,
+        "import_scores_injected": [],
+        "import_scores_pruned": [],
+        "sync_status": "synced",
+        "sync_message": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:25:23+00:00",
+      "action": "cluster_done",
+      "issue_ids": [],
+      "cluster_name": "contract-enforcement",
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "reason": "cluster members no longer actionable in state"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:25:23+00:00",
+      "action": "reconcile",
+      "issue_ids": [
+        "orphaned::backend/src/main/java/com/demo/sso/exception/InvalidAuthCodeException.java",
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc"
+      ],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "superseded_count": 2,
+        "pruned_count": 0,
+        "resurfaced_count": 0,
+        "clusters_completed_count": 1
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:25:23+00:00",
+      "action": "seed_start_scores",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:25:23+00:00",
+      "action": "complete_postflight_scan",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "scan_count": 32
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:27:06+00:00",
+      "action": "done",
+      "issue_ids": [
+        "subjective_assessment::package_organization"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "13th review just completed covering all 20 dimensions including this one",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:27:19+00:00",
+      "action": "done",
+      "issue_ids": [
+        "subjective_assessment::package_organization"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "13th full review just completed covering all 20 dimensions",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:27:25+00:00",
+      "action": "done",
+      "issue_ids": [
+        "subjective_assessment::error_consistency"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "13th full review just completed covering all 20 dimensions",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:27:30+00:00",
+      "action": "done",
+      "issue_ids": [
+        "subjective_assessment::authorization_consistency"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "13th full review just completed covering all 20 dimensions",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:27:36+00:00",
+      "action": "done",
+      "issue_ids": [
+        "subjective_assessment::api_surface_coherence"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "13th full review just completed covering all 20 dimensions",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:27:41+00:00",
+      "action": "done",
+      "issue_ids": [
+        "subjective_assessment::convention_outlier"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "13th full review just completed covering all 20 dimensions",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:27:46+00:00",
+      "action": "done",
+      "issue_ids": [
+        "subjective_assessment::initialization_coupling"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "13th full review just completed covering all 20 dimensions",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:28:14+00:00",
+      "action": "done",
+      "issue_ids": [
+        "workflow::communicate-score"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Score communicated: strict 82.0 after 13th review",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:29:34+00:00",
+      "action": "done",
+      "issue_ids": [
+        "Structure nav"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "13th review completed all 20 dimensions including package_organization and structure_nav",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:29:50+00:00",
+      "action": "reconcile",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "superseded_count": 0,
+        "pruned_count": 0,
+        "resurfaced_count": 0,
+        "clusters_completed_count": 0
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:30:50+00:00",
+      "action": "done",
+      "issue_ids": [
+        "Convention drift"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "13th review already completed covering all 20 dimensions including convention_outlier. Stale re-review request.",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:32:25+00:00",
+      "action": "triage_observe",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "issue_count": 25,
+        "cited_ids": [],
+        "reuse": false
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:33:38+00:00",
+      "action": "triage_observe",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "issue_count": 25,
+        "cited_ids": [
+          "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy",
+          "review::.::holistic::ai_generated_debt::formulaic_exception_handlers",
+          "review::.::holistic::ai_generated_debt::restating_lookup_comment",
+          "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws",
+          "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws",
+          "review::.::holistic::contract_coherence::microsoft_verifier_throws_resolved",
+          "review::.::holistic::contract_coherence::parse_token_no_javadoc",
+          "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub",
+          "review::.::holistic::cross_module_architecture::nested_google_identity_coupling",
+          "review::.::holistic::dependency_health::google_api_client_weight",
+          "review::.::holistic::design_coherence::legacy_google_branching_in_user_service",
+          "review::.::holistic::high_level_elegance::service_auth_mixed_ownership",
+          "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active",
+          "review::.::holistic::incomplete_migration::deprecated_google_id_still_called",
+          "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch",
+          "review::.::holistic::incomplete_migration::dual_redis_key_prefixes",
+          "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence",
+          "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+          "review::.::holistic::logic_clarity::swallowed_exception_cause",
+          "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler",
+          "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication",
+          "review::.::holistic::naming_quality::login_method_vs_login_flow_label",
+          "review::.::holistic::test_strategy::exception_handler_no_integration_test",
+          "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests",
+          "review::.::holistic::type_safety::string_provider_dispatch"
+        ],
+        "reuse": false
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:34:00+00:00",
+      "action": "triage_confirm_observe",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "attestation": "I have thoroughly reviewed all 25 review findings across incomplete_migration, contract_coherence, cross_module_architecture, design_coherence, type_safety, elegance, ai_generated_debt, test_strategy, naming_quality, logic_clarity, abstraction_fitness, and dependency_health dimensions with specific code evidence citations"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:34:23+00:00",
+      "action": "triage_reflect",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "issue_count": 25,
+        "reuse": false,
+        "recurring_dims": [
+          "contract_coherence",
+          "cross_module_architecture",
+          "incomplete_migration",
+          "low_level_elegance",
+          "mid_level_elegance",
+          "test_strategy"
+        ]
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:34:36+00:00",
+      "action": "triage_confirm_reflect",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "attestation": "I have created a complete coverage ledger mapping all 25 findings to 5 clusters (migration-cleanup, contract-fixes, architecture-fixes, elegance-fixes, test-coverage) or skip dispositions (2 skipped with reasons). Blueprint is specific enough for organize to execute mechanically."
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:40:19+00:00",
+      "action": "cluster_create",
+      "issue_ids": [],
+      "cluster_name": "migration-cleanup",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": "Complete multi-provider migration by removing legacy google_id artifacts",
+        "action": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:40:30+00:00",
+      "action": "cluster_add",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active",
+        "review::.::holistic::incomplete_migration::deprecated_google_id_still_called",
+        "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch",
+        "review::.::holistic::incomplete_migration::dual_redis_key_prefixes",
+        "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence",
+        "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+        "review::.::holistic::design_coherence::legacy_google_branching_in_user_service"
+      ],
+      "cluster_name": "migration-cleanup",
+      "actor": "user",
+      "note": null,
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:40:47+00:00",
+      "action": "cluster_create",
+      "issue_ids": [],
+      "cluster_name": "contract-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": "Add missing contract docs and replace string provider dispatch with enum",
+        "action": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:40:52+00:00",
+      "action": "cluster_add",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws",
+        "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws",
+        "review::.::holistic::contract_coherence::parse_token_no_javadoc",
+        "review::.::holistic::type_safety::string_provider_dispatch"
+      ],
+      "cluster_name": "contract-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:40:57+00:00",
+      "action": "cluster_create",
+      "issue_ids": [],
+      "cluster_name": "architecture-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": "Reduce fan-out, decouple google identity, seal AuthApiResponse",
+        "action": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:41:02+00:00",
+      "action": "cluster_add",
+      "issue_ids": [
+        "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub",
+        "review::.::holistic::cross_module_architecture::nested_google_identity_coupling",
+        "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy",
+        "review::.::holistic::high_level_elegance::service_auth_mixed_ownership"
+      ],
+      "cluster_name": "architecture-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:41:11+00:00",
+      "action": "cluster_add",
+      "issue_ids": [
+        "review::.::holistic::ai_generated_debt::formulaic_exception_handlers",
+        "review::.::holistic::ai_generated_debt::restating_lookup_comment",
+        "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler",
+        "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication",
+        "review::.::holistic::logic_clarity::swallowed_exception_cause",
+        "review::.::holistic::naming_quality::login_method_vs_login_flow_label"
+      ],
+      "cluster_name": "elegance-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:41:16+00:00",
+      "action": "cluster_create",
+      "issue_ids": [],
+      "cluster_name": "test-coverage",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": "Add missing test coverage",
+        "action": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:41:21+00:00",
+      "action": "cluster_add",
+      "issue_ids": [
+        "review::.::holistic::test_strategy::exception_handler_no_integration_test",
+        "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests"
+      ],
+      "cluster_name": "test-coverage",
+      "actor": "user",
+      "note": null,
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T09:41:37+00:00",
+      "action": "skip",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::microsoft_verifier_throws_resolved"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Already fixed in commit 896535a - @throws Javadoc was added to MicrosoftTokenVerifier in prior session",
+      "detail": {
+        "kind": "permanent",
+        "reason": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:41:43+00:00",
+      "action": "skip",
+      "issue_ids": [
+        "review::.::holistic::dependency_health::google_api_client_weight"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "google-api-client is the official Google OAuth library required for token verification, no lighter alternative exists",
+      "detail": {
+        "kind": "permanent",
+        "reason": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:42:43+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "migration-cleanup",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:42:48+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "migration-cleanup",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:42:53+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "migration-cleanup",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:42:58+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "migration-cleanup",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:43:03+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "migration-cleanup",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:43:08+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "migration-cleanup",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:43:13+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "migration-cleanup",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:43:33+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "contract-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:43:38+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "contract-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:43:43+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "contract-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:43:48+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "contract-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:43:53+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "architecture-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:43:57+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "architecture-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:44:02+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "architecture-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:44:07+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "architecture-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:44:12+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "elegance-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:44:17+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "elegance-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:44:22+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "elegance-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:44:26+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "elegance-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:44:31+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "elegance-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:44:36+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "elegance-fixes",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:44:41+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "test-coverage",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:44:46+00:00",
+      "action": "cluster_update",
+      "issue_ids": [],
+      "cluster_name": "test-coverage",
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "description": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T09:45:45+00:00",
+      "action": "triage_confirm_existing",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "user",
+      "note": null,
+      "detail": {
+        "confirmed_text": "I validate this plan covers all 25 review findings with concrete action steps and clear prioritization based on score impact analysis"
+      }
     }
   ],
   "epic_triage_meta": {
     "triage_stages": {},
     "issue_dispositions": {
-      "review::.::holistic::contract_coherence::create_auth_code_missing_validation": {
+      "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active": {
         "decision": "cluster",
-        "target": "contract-enforcement",
+        "target": "migration-cleanup",
         "decision_source": "reflect"
       },
-      "review::.::holistic::error_consistency::authcodestore_contract_gap": {
+      "review::.::holistic::incomplete_migration::deprecated_google_id_still_called": {
         "decision": "cluster",
-        "target": "contract-enforcement",
+        "target": "migration-cleanup",
         "decision_source": "reflect"
       },
-      "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc": {
+      "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch": {
         "decision": "cluster",
-        "target": "contract-enforcement",
+        "target": "migration-cleanup",
         "decision_source": "reflect"
       },
-      "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation": {
+      "review::.::holistic::incomplete_migration::dual_redis_key_prefixes": {
         "decision": "cluster",
-        "target": "contract-enforcement",
+        "target": "migration-cleanup",
         "decision_source": "reflect"
       },
-      "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions": {
+      "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence": {
         "decision": "cluster",
-        "target": "exception-completeness",
+        "target": "migration-cleanup",
         "decision_source": "reflect"
       },
-      "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy": {
+      "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller": {
         "decision": "cluster",
-        "target": "exception-completeness",
+        "target": "migration-cleanup",
         "decision_source": "reflect"
       },
-      "review::.::holistic::convention_outlier::mixed_autowired_annotation": {
+      "review::.::holistic::design_coherence::legacy_google_branching_in_user_service": {
         "decision": "cluster",
-        "target": "convention-cleanup",
+        "target": "migration-cleanup",
         "decision_source": "reflect"
       },
-      "review::.::holistic::cross_module_architecture::error_response_downward_import": {
+      "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws": {
         "decision": "cluster",
-        "target": "convention-cleanup",
+        "target": "contract-fixes",
         "decision_source": "reflect"
       },
-      "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor": {
+      "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws": {
         "decision": "cluster",
-        "target": "convention-cleanup",
+        "target": "contract-fixes",
         "decision_source": "reflect"
       },
-      "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence": {
-        "decision": "cluster",
-        "target": "frontend-consistency",
-        "decision_source": "reflect"
-      },
-      "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry": {
-        "decision": "cluster",
-        "target": "frontend-consistency",
-        "decision_source": "reflect"
-      },
-      "review::.::holistic::authorization_consistency::csrf_path_constants_not_shared": {
+      "review::.::holistic::contract_coherence::microsoft_verifier_throws_resolved": {
         "decision": "skip",
-        "target": "Low risk design decision, shared constants would over-engineer for 4 paths",
+        "target": "Already fixed in prior commit 896535a - @throws Javadoc was added to MicrosoftTokenVerifier",
         "decision_source": "reflect"
       },
-      "review::.::holistic::authorization_consistency::oauth2_error_codes_as_string_literals": {
-        "decision": "skip",
-        "target": "Minor, string literals are readable and only used in one place",
+      "review::.::holistic::contract_coherence::parse_token_no_javadoc": {
+        "decision": "cluster",
+        "target": "contract-fixes",
         "decision_source": "reflect"
       },
-      "review::.::holistic::test_strategy::no_e2e_oauth_redirect_flow_test": {
-        "decision": "skip",
-        "target": "Scope expansion beyond demo app",
+      "review::.::holistic::type_safety::string_provider_dispatch": {
+        "decision": "cluster",
+        "target": "contract-fixes",
         "decision_source": "reflect"
       },
-      "review::.::holistic::test_strategy::no_frontend_backend_contract_tests": {
+      "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub": {
+        "decision": "cluster",
+        "target": "architecture-fixes",
+        "decision_source": "reflect"
+      },
+      "review::.::holistic::cross_module_architecture::nested_google_identity_coupling": {
+        "decision": "cluster",
+        "target": "architecture-fixes",
+        "decision_source": "reflect"
+      },
+      "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy": {
+        "decision": "cluster",
+        "target": "architecture-fixes",
+        "decision_source": "reflect"
+      },
+      "review::.::holistic::high_level_elegance::service_auth_mixed_ownership": {
+        "decision": "cluster",
+        "target": "architecture-fixes",
+        "decision_source": "reflect"
+      },
+      "review::.::holistic::dependency_health::google_api_client_weight": {
         "decision": "skip",
-        "target": "Scope expansion beyond demo app",
+        "target": "google-api-client is required for Google OAuth token verification and has no lighter alternative",
+        "decision_source": "reflect"
+      },
+      "review::.::holistic::ai_generated_debt::formulaic_exception_handlers": {
+        "decision": "cluster",
+        "target": "elegance-fixes",
+        "decision_source": "reflect"
+      },
+      "review::.::holistic::ai_generated_debt::restating_lookup_comment": {
+        "decision": "cluster",
+        "target": "elegance-fixes",
+        "decision_source": "reflect"
+      },
+      "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler": {
+        "decision": "cluster",
+        "target": "elegance-fixes",
+        "decision_source": "reflect"
+      },
+      "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication": {
+        "decision": "cluster",
+        "target": "elegance-fixes",
+        "decision_source": "reflect"
+      },
+      "review::.::holistic::logic_clarity::swallowed_exception_cause": {
+        "decision": "cluster",
+        "target": "elegance-fixes",
+        "decision_source": "reflect"
+      },
+      "review::.::holistic::naming_quality::login_method_vs_login_flow_label": {
+        "decision": "cluster",
+        "target": "elegance-fixes",
+        "decision_source": "reflect"
+      },
+      "review::.::holistic::test_strategy::exception_handler_no_integration_test": {
+        "decision": "cluster",
+        "target": "test-coverage",
+        "decision_source": "reflect"
+      },
+      "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests": {
+        "decision": "cluster",
+        "target": "test-coverage",
         "decision_source": "reflect"
       }
     },
     "triaged_ids": [
-      "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence",
-      "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry",
-      "review::.::holistic::authorization_consistency::csrf_path_constants_not_shared",
-      "review::.::holistic::authorization_consistency::oauth2_error_codes_as_string_literals",
-      "review::.::holistic::contract_coherence::create_auth_code_missing_validation",
-      "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc",
-      "review::.::holistic::convention_outlier::mixed_autowired_annotation",
-      "review::.::holistic::cross_module_architecture::error_response_downward_import",
-      "review::.::holistic::error_consistency::authcodestore_contract_gap",
-      "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions",
-      "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation",
-      "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor",
-      "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy",
-      "review::.::holistic::test_strategy::no_e2e_oauth_redirect_flow_test",
-      "review::.::holistic::test_strategy::no_frontend_backend_contract_tests"
+      "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy",
+      "review::.::holistic::ai_generated_debt::formulaic_exception_handlers",
+      "review::.::holistic::ai_generated_debt::restating_lookup_comment",
+      "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws",
+      "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws",
+      "review::.::holistic::contract_coherence::microsoft_verifier_throws_resolved",
+      "review::.::holistic::contract_coherence::parse_token_no_javadoc",
+      "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub",
+      "review::.::holistic::cross_module_architecture::nested_google_identity_coupling",
+      "review::.::holistic::dependency_health::google_api_client_weight",
+      "review::.::holistic::design_coherence::legacy_google_branching_in_user_service",
+      "review::.::holistic::high_level_elegance::service_auth_mixed_ownership",
+      "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active",
+      "review::.::holistic::incomplete_migration::deprecated_google_id_still_called",
+      "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch",
+      "review::.::holistic::incomplete_migration::dual_redis_key_prefixes",
+      "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence",
+      "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+      "review::.::holistic::logic_clarity::swallowed_exception_cause",
+      "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler",
+      "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication",
+      "review::.::holistic::naming_quality::login_method_vs_login_flow_label",
+      "review::.::holistic::test_strategy::exception_handler_no_integration_test",
+      "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests",
+      "review::.::holistic::type_safety::string_provider_dispatch"
     ],
-    "issue_snapshot_hash": "424736dd62d52f78",
-    "strategy_summary": "Execute 4 clusters in parallel: contract-enforcement (4 trivial backend fixes), exception-completeness (4 trivial backend fixes), convention-cleanup (3 mixed backend fixes including ErrorResponse move), frontend-consistency (4 mixed frontend fixes). All clusters touch non-overlapping files. Skip 4 items as justified.",
-    "trigger": "manual_triage",
-    "last_completion_mode": "manual_triage",
-    "last_completed_at": "2026-03-15T07:41:56+00:00",
+    "issue_snapshot_hash": "9399105f562dfc1a",
+    "strategy_summary": "Execute migration-cleanup first as stale_migration at 62 percent is the single biggest drag on strict score needing recovery to 90 plus percent. This cluster touches UserService, JwtTokenService, RedisAuthCodeStore, and AuthController. Then contract-fixes and elegance-fixes in parallel since they touch different files and different concerns. Architecture-fixes next as they involve larger structural changes. Test-coverage last since it adds new files without modifying existing code.",
+    "trigger": "confirm_existing",
+    "last_completion_mode": "confirm_existing",
+    "last_completed_at": "2026-03-15T09:45:45+00:00",
     "last_triage": {
-      "completed_at": "2026-03-15T07:41:56+00:00",
+      "completed_at": "2026-03-15T09:45:45+00:00",
       "stages": {
         "observe": {
           "stage": "observe",
-          "report": "\n## Themes & Root Causes (11th Review \u2014 15 new items)\n\n### Theme 1: Contract Documentation & Enforcement Gaps (5 items)\n- review::.::holistic::contract_coherence::create_auth_code_missing_validation \u2014 AuthCodeStore.createAuthCode @throws IAE documented but not enforced\n- review::.::holistic::error_consistency::authcodestore_contract_gap \u2014 same issue from error_consistency dimension (duplicate)\n- review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc \u2014 MicrosoftTokenVerifier.verifyIdToken missing @throws Javadoc\n- review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation \u2014 User.getGoogleId()/setGoogleId() missing @Deprecated\n- review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions \u2014 OAuth2SuccessHandler exceptions escape catch boundary\n\n### Theme 2: Convention & Style Inconsistencies (3 items)\n- review::.::holistic::convention_outlier::mixed_autowired_annotation \u2014 @Autowired on 4 single-constructor classes\n- review::.::holistic::cross_module_architecture::error_response_downward_import \u2014 config imports from controller.dto\n- review::.::holistic::low_level_elegance::dense_microsoft_config_constructor \u2014 buildMicrosoftConfig dense ternaries\n\n### Theme 3: Frontend Consistency (3 items)\n- review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence \u2014 useAuth string|null vs useProviderConfig Error|null\n- review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry \u2014 store failure asymmetry\n- review::.::holistic::test_strategy::no_frontend_backend_contract_tests \u2014 no contract tests\n\n### Theme 4: Exception Hierarchy (1 item)\n- review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy \u2014 OAuth2IdentityException not in shared hierarchy\n\n### Theme 5: Low-value / Out-of-scope (3 items)\n- review::.::holistic::authorization_consistency::csrf_path_constants_not_shared \u2014 CSRF paths not shared (design decision)\n- review::.::holistic::authorization_consistency::oauth2_error_codes_as_string_literals \u2014 string literals (minor)\n- review::.::holistic::test_strategy::no_e2e_oauth_redirect_flow_test \u2014 no E2E OAuth flow test (scope expansion)\n\n### Contradictions: create_auth_code_missing_validation and authcodestore_contract_gap are the same finding from two dimensions.\n",
+          "report": "## Themes and Root Causes from 13th Review\n\n### Theme 1: Incomplete Migration (6 findings)\n- review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active \u2014 findByGoogleIdAndActiveTrue still called in UserService\n- review::.::holistic::incomplete_migration::deprecated_google_id_still_called \u2014 google_id column still written\n- review::.::holistic::incomplete_migration::dual_jwt_format_dispatch \u2014 V1/V2 JWT formats coexist\n- review::.::holistic::incomplete_migration::dual_redis_key_prefixes \u2014 authcode: vs v2:authcode: prefixes\n- review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence \u2014 google-specific lookup in controller\n- review::.::holistic::incomplete_migration::legacy_identity_fallback_controller \u2014 legacy fallback in AuthController\n\n### Theme 2: Contract/Type Safety (5 findings)\n- review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws \u2014 missing @throws\n- review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws \u2014 fromMap lacks @throws\n- review::.::holistic::contract_coherence::microsoft_verifier_throws_resolved \u2014 already fixed\n- review::.::holistic::contract_coherence::parse_token_no_javadoc \u2014 parseToken missing Javadoc\n- review::.::holistic::type_safety::string_provider_dispatch \u2014 string-based provider dispatch\n\n### Theme 3: Architecture/Design (6 findings)\n- review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub \u2014 high fan-out\n- review::.::holistic::cross_module_architecture::nested_google_identity_coupling \u2014 coupling\n- review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy \u2014 marker lacks sealed\n- review::.::holistic::high_level_elegance::service_auth_mixed_ownership \u2014 mixed ownership\n- review::.::holistic::design_coherence::legacy_google_branching_in_user_service \u2014 legacy branching\n- review::.::holistic::dependency_health::google_api_client_weight \u2014 heavy dependency\n\n### Theme 4: Code Quality (8 findings)\n- review::.::holistic::ai_generated_debt::formulaic_exception_handlers \u2014 formulaic handlers\n- review::.::holistic::ai_generated_debt::restating_lookup_comment \u2014 restating comment\n- review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler \u2014 duplicated catch\n- review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication \u2014 duplication\n- review::.::holistic::logic_clarity::swallowed_exception_cause \u2014 swallowed cause\n- review::.::holistic::naming_quality::login_method_vs_login_flow_label \u2014 naming inconsistency\n- review::.::holistic::test_strategy::exception_handler_no_integration_test \u2014 no integration test\n- review::.::holistic::test_strategy::microsoft_claims_no_direct_tests \u2014 no direct tests",
           "cited_ids": [
-            "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence",
-            "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry",
-            "review::.::holistic::authorization_consistency::csrf_path_constants_not_shared",
-            "review::.::holistic::authorization_consistency::oauth2_error_codes_as_string_literals",
-            "review::.::holistic::contract_coherence::create_auth_code_missing_validation",
-            "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc",
-            "review::.::holistic::convention_outlier::mixed_autowired_annotation",
-            "review::.::holistic::cross_module_architecture::error_response_downward_import",
-            "review::.::holistic::error_consistency::authcodestore_contract_gap",
-            "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions",
-            "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation",
-            "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor",
-            "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy",
-            "review::.::holistic::test_strategy::no_e2e_oauth_redirect_flow_test",
-            "review::.::holistic::test_strategy::no_frontend_backend_contract_tests"
+            "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy",
+            "review::.::holistic::ai_generated_debt::formulaic_exception_handlers",
+            "review::.::holistic::ai_generated_debt::restating_lookup_comment",
+            "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws",
+            "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws",
+            "review::.::holistic::contract_coherence::microsoft_verifier_throws_resolved",
+            "review::.::holistic::contract_coherence::parse_token_no_javadoc",
+            "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub",
+            "review::.::holistic::cross_module_architecture::nested_google_identity_coupling",
+            "review::.::holistic::dependency_health::google_api_client_weight",
+            "review::.::holistic::design_coherence::legacy_google_branching_in_user_service",
+            "review::.::holistic::high_level_elegance::service_auth_mixed_ownership",
+            "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active",
+            "review::.::holistic::incomplete_migration::deprecated_google_id_still_called",
+            "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch",
+            "review::.::holistic::incomplete_migration::dual_redis_key_prefixes",
+            "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence",
+            "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+            "review::.::holistic::logic_clarity::swallowed_exception_cause",
+            "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler",
+            "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication",
+            "review::.::holistic::naming_quality::login_method_vs_login_flow_label",
+            "review::.::holistic::test_strategy::exception_handler_no_integration_test",
+            "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests",
+            "review::.::holistic::type_safety::string_provider_dispatch"
           ],
-          "timestamp": "2026-03-15T07:21:49+00:00",
-          "issue_count": 15,
+          "timestamp": "2026-03-15T09:33:38+00:00",
+          "issue_count": 25,
           "dimension_names": [
-            "api_surface_coherence",
-            "authorization_consistency",
-            "contract_coherence",
-            "error_consistency",
-            "test_strategy",
-            "convention_outlier",
-            "cross_module_architecture",
             "incomplete_migration",
+            "contract_coherence",
+            "ai_generated_debt",
+            "cross_module_architecture",
+            "test_strategy",
+            "abstraction_fitness",
+            "dependency_health",
+            "design_coherence",
+            "high_level_elegance",
+            "logic_clarity",
             "low_level_elegance",
-            "mid_level_elegance"
+            "mid_level_elegance",
+            "naming_quality",
+            "type_safety"
           ],
           "dimension_counts": {
-            "cross_module_architecture": 1,
-            "convention_outlier": 1,
-            "error_consistency": 2,
+            "incomplete_migration": 6,
+            "cross_module_architecture": 2,
+            "high_level_elegance": 1,
+            "naming_quality": 1,
+            "abstraction_fitness": 1,
+            "dependency_health": 1,
             "low_level_elegance": 1,
             "mid_level_elegance": 1,
             "test_strategy": 2,
-            "api_surface_coherence": 2,
-            "authorization_consistency": 2,
-            "incomplete_migration": 1,
-            "contract_coherence": 2
+            "ai_generated_debt": 2,
+            "design_coherence": 1,
+            "contract_coherence": 4,
+            "logic_clarity": 1,
+            "type_safety": 1
           },
           "assessments": [],
-          "confirmed_at": "2026-03-15T07:22:11+00:00",
-          "confirmed_text": "I have reviewed all 15 new findings covering contract_coherence, error_consistency, convention_outlier, api_surface_coherence, authorization_consistency, and test_strategy against source code and grouped them by root cause themes."
+          "confirmed_at": "2026-03-15T09:34:00+00:00",
+          "confirmed_text": "I have thoroughly reviewed all 25 review findings across incomplete_migration, contract_coherence, cross_module_architecture, design_coherence, type_safety, elegance, ai_generated_debt, test_strategy, naming_quality, logic_clarity, abstraction_fitness, and dependency_health dimensions with specific code evidence citations"
         },
         "reflect": {
           "stage": "reflect",
-          "report": "\n## Reflect: Comparison Against Prior Work\n\nPrior rounds unified exception hierarchy and fixed naming. This round catches remaining documentation debt and convention micro-inconsistencies. The 11th review scores improved in 12/20 dimensions.\n\n## Coverage Ledger\n\n- review::.::holistic::contract_coherence::create_auth_code_missing_validation -> cluster \"contract-enforcement\"\n- review::.::holistic::error_consistency::authcodestore_contract_gap -> cluster \"contract-enforcement\"\n- review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc -> cluster \"contract-enforcement\"\n- review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation -> cluster \"contract-enforcement\"\n- review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions -> cluster \"exception-completeness\"\n- review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy -> cluster \"exception-completeness\"\n- review::.::holistic::convention_outlier::mixed_autowired_annotation -> cluster \"convention-cleanup\"\n- review::.::holistic::cross_module_architecture::error_response_downward_import -> cluster \"convention-cleanup\"\n- review::.::holistic::low_level_elegance::dense_microsoft_config_constructor -> cluster \"convention-cleanup\"\n- review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence -> cluster \"frontend-consistency\"\n- review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry -> cluster \"frontend-consistency\"\n- review::.::holistic::authorization_consistency::csrf_path_constants_not_shared -> skip \"Low risk design decision, shared constants would over-engineer for 4 paths\"\n- review::.::holistic::authorization_consistency::oauth2_error_codes_as_string_literals -> skip \"Minor, string literals are readable and only used in one place\"\n- review::.::holistic::test_strategy::no_e2e_oauth_redirect_flow_test -> skip \"Scope expansion beyond demo app\"\n- review::.::holistic::test_strategy::no_frontend_backend_contract_tests -> skip \"Scope expansion beyond demo app\"\n",
+          "report": "## Coverage Ledger\n\n- review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active -> cluster \"migration-cleanup\"\n- review::.::holistic::incomplete_migration::deprecated_google_id_still_called -> cluster \"migration-cleanup\"\n- review::.::holistic::incomplete_migration::dual_jwt_format_dispatch -> cluster \"migration-cleanup\"\n- review::.::holistic::incomplete_migration::dual_redis_key_prefixes -> cluster \"migration-cleanup\"\n- review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence -> cluster \"migration-cleanup\"\n- review::.::holistic::incomplete_migration::legacy_identity_fallback_controller -> cluster \"migration-cleanup\"\n- review::.::holistic::design_coherence::legacy_google_branching_in_user_service -> cluster \"migration-cleanup\"\n- review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws -> cluster \"contract-fixes\"\n- review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws -> cluster \"contract-fixes\"\n- review::.::holistic::contract_coherence::microsoft_verifier_throws_resolved -> skip \"Already fixed in prior commit 896535a - @throws Javadoc was added to MicrosoftTokenVerifier\"\n- review::.::holistic::contract_coherence::parse_token_no_javadoc -> cluster \"contract-fixes\"\n- review::.::holistic::type_safety::string_provider_dispatch -> cluster \"contract-fixes\"\n- review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub -> cluster \"architecture-fixes\"\n- review::.::holistic::cross_module_architecture::nested_google_identity_coupling -> cluster \"architecture-fixes\"\n- review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy -> cluster \"architecture-fixes\"\n- review::.::holistic::high_level_elegance::service_auth_mixed_ownership -> cluster \"architecture-fixes\"\n- review::.::holistic::dependency_health::google_api_client_weight -> skip \"google-api-client is required for Google OAuth token verification and has no lighter alternative\"\n- review::.::holistic::ai_generated_debt::formulaic_exception_handlers -> cluster \"elegance-fixes\"\n- review::.::holistic::ai_generated_debt::restating_lookup_comment -> cluster \"elegance-fixes\"\n- review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler -> cluster \"elegance-fixes\"\n- review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication -> cluster \"elegance-fixes\"\n- review::.::holistic::logic_clarity::swallowed_exception_cause -> cluster \"elegance-fixes\"\n- review::.::holistic::naming_quality::login_method_vs_login_flow_label -> cluster \"elegance-fixes\"\n- review::.::holistic::test_strategy::exception_handler_no_integration_test -> cluster \"test-coverage\"\n- review::.::holistic::test_strategy::microsoft_claims_no_direct_tests -> cluster \"test-coverage\"",
           "cited_ids": [
-            "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence",
-            "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry",
-            "review::.::holistic::contract_coherence::create_auth_code_missing_validation",
-            "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc",
-            "review::.::holistic::convention_outlier::mixed_autowired_annotation",
-            "review::.::holistic::cross_module_architecture::error_response_downward_import",
-            "review::.::holistic::error_consistency::authcodestore_contract_gap",
-            "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions",
-            "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation",
-            "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor",
-            "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy"
+            "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy",
+            "review::.::holistic::ai_generated_debt::formulaic_exception_handlers",
+            "review::.::holistic::ai_generated_debt::restating_lookup_comment",
+            "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws",
+            "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws",
+            "review::.::holistic::contract_coherence::microsoft_verifier_throws_resolved",
+            "review::.::holistic::contract_coherence::parse_token_no_javadoc",
+            "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub",
+            "review::.::holistic::cross_module_architecture::nested_google_identity_coupling",
+            "review::.::holistic::dependency_health::google_api_client_weight",
+            "review::.::holistic::design_coherence::legacy_google_branching_in_user_service",
+            "review::.::holistic::high_level_elegance::service_auth_mixed_ownership",
+            "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active",
+            "review::.::holistic::incomplete_migration::deprecated_google_id_still_called",
+            "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch",
+            "review::.::holistic::incomplete_migration::dual_redis_key_prefixes",
+            "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence",
+            "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+            "review::.::holistic::logic_clarity::swallowed_exception_cause",
+            "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler",
+            "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication",
+            "review::.::holistic::naming_quality::login_method_vs_login_flow_label",
+            "review::.::holistic::test_strategy::exception_handler_no_integration_test",
+            "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests",
+            "review::.::holistic::type_safety::string_provider_dispatch"
           ],
-          "timestamp": "2026-03-15T07:23:00+00:00",
-          "issue_count": 15,
+          "timestamp": "2026-03-15T09:34:23+00:00",
+          "issue_count": 25,
           "missing_issue_ids": [],
           "duplicate_issue_ids": [],
           "recurring_dims": [
-            "api_surface_coherence",
-            "authorization_consistency",
             "contract_coherence",
-            "convention_outlier",
-            "error_consistency",
+            "cross_module_architecture",
             "incomplete_migration",
+            "low_level_elegance",
+            "mid_level_elegance",
             "test_strategy"
           ],
           "disposition_ledger": [
             {
-              "issue_id": "review::.::holistic::contract_coherence::create_auth_code_missing_validation",
+              "issue_id": "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active",
               "decision": "cluster",
-              "target": "contract-enforcement"
+              "target": "migration-cleanup"
             },
             {
-              "issue_id": "review::.::holistic::error_consistency::authcodestore_contract_gap",
+              "issue_id": "review::.::holistic::incomplete_migration::deprecated_google_id_still_called",
               "decision": "cluster",
-              "target": "contract-enforcement"
+              "target": "migration-cleanup"
             },
             {
-              "issue_id": "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc",
+              "issue_id": "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch",
               "decision": "cluster",
-              "target": "contract-enforcement"
+              "target": "migration-cleanup"
             },
             {
-              "issue_id": "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation",
+              "issue_id": "review::.::holistic::incomplete_migration::dual_redis_key_prefixes",
               "decision": "cluster",
-              "target": "contract-enforcement"
+              "target": "migration-cleanup"
             },
             {
-              "issue_id": "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions",
+              "issue_id": "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence",
               "decision": "cluster",
-              "target": "exception-completeness"
+              "target": "migration-cleanup"
             },
             {
-              "issue_id": "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy",
+              "issue_id": "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
               "decision": "cluster",
-              "target": "exception-completeness"
+              "target": "migration-cleanup"
             },
             {
-              "issue_id": "review::.::holistic::convention_outlier::mixed_autowired_annotation",
+              "issue_id": "review::.::holistic::design_coherence::legacy_google_branching_in_user_service",
               "decision": "cluster",
-              "target": "convention-cleanup"
+              "target": "migration-cleanup"
             },
             {
-              "issue_id": "review::.::holistic::cross_module_architecture::error_response_downward_import",
+              "issue_id": "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws",
               "decision": "cluster",
-              "target": "convention-cleanup"
+              "target": "contract-fixes"
             },
             {
-              "issue_id": "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor",
+              "issue_id": "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws",
               "decision": "cluster",
-              "target": "convention-cleanup"
+              "target": "contract-fixes"
             },
             {
-              "issue_id": "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence",
-              "decision": "cluster",
-              "target": "frontend-consistency"
-            },
-            {
-              "issue_id": "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry",
-              "decision": "cluster",
-              "target": "frontend-consistency"
-            },
-            {
-              "issue_id": "review::.::holistic::authorization_consistency::csrf_path_constants_not_shared",
+              "issue_id": "review::.::holistic::contract_coherence::microsoft_verifier_throws_resolved",
               "decision": "permanent_skip",
-              "target": "Low risk design decision, shared constants would over-engineer for 4 paths"
+              "target": "Already fixed in prior commit 896535a - @throws Javadoc was added to MicrosoftTokenVerifier"
             },
             {
-              "issue_id": "review::.::holistic::authorization_consistency::oauth2_error_codes_as_string_literals",
-              "decision": "permanent_skip",
-              "target": "Minor, string literals are readable and only used in one place"
+              "issue_id": "review::.::holistic::contract_coherence::parse_token_no_javadoc",
+              "decision": "cluster",
+              "target": "contract-fixes"
             },
             {
-              "issue_id": "review::.::holistic::test_strategy::no_e2e_oauth_redirect_flow_test",
-              "decision": "permanent_skip",
-              "target": "Scope expansion beyond demo app"
+              "issue_id": "review::.::holistic::type_safety::string_provider_dispatch",
+              "decision": "cluster",
+              "target": "contract-fixes"
             },
             {
-              "issue_id": "review::.::holistic::test_strategy::no_frontend_backend_contract_tests",
+              "issue_id": "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub",
+              "decision": "cluster",
+              "target": "architecture-fixes"
+            },
+            {
+              "issue_id": "review::.::holistic::cross_module_architecture::nested_google_identity_coupling",
+              "decision": "cluster",
+              "target": "architecture-fixes"
+            },
+            {
+              "issue_id": "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy",
+              "decision": "cluster",
+              "target": "architecture-fixes"
+            },
+            {
+              "issue_id": "review::.::holistic::high_level_elegance::service_auth_mixed_ownership",
+              "decision": "cluster",
+              "target": "architecture-fixes"
+            },
+            {
+              "issue_id": "review::.::holistic::dependency_health::google_api_client_weight",
               "decision": "permanent_skip",
-              "target": "Scope expansion beyond demo app"
+              "target": "google-api-client is required for Google OAuth token verification and has no lighter alternative"
+            },
+            {
+              "issue_id": "review::.::holistic::ai_generated_debt::formulaic_exception_handlers",
+              "decision": "cluster",
+              "target": "elegance-fixes"
+            },
+            {
+              "issue_id": "review::.::holistic::ai_generated_debt::restating_lookup_comment",
+              "decision": "cluster",
+              "target": "elegance-fixes"
+            },
+            {
+              "issue_id": "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler",
+              "decision": "cluster",
+              "target": "elegance-fixes"
+            },
+            {
+              "issue_id": "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication",
+              "decision": "cluster",
+              "target": "elegance-fixes"
+            },
+            {
+              "issue_id": "review::.::holistic::logic_clarity::swallowed_exception_cause",
+              "decision": "cluster",
+              "target": "elegance-fixes"
+            },
+            {
+              "issue_id": "review::.::holistic::naming_quality::login_method_vs_login_flow_label",
+              "decision": "cluster",
+              "target": "elegance-fixes"
+            },
+            {
+              "issue_id": "review::.::holistic::test_strategy::exception_handler_no_integration_test",
+              "decision": "cluster",
+              "target": "test-coverage"
+            },
+            {
+              "issue_id": "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests",
+              "decision": "cluster",
+              "target": "test-coverage"
             }
           ],
-          "confirmed_at": "2026-03-15T07:23:13+00:00",
-          "confirmed_text": "Blueprint includes 4 clusters (contract-enforcement, exception-completeness, convention-cleanup, frontend-consistency) with 11 items mapped and 4 items to skip with per-item reasons covering contract_coherence, error_consistency, convention_outlier dimensions."
+          "confirmed_at": "2026-03-15T09:34:36+00:00",
+          "confirmed_text": "I have created a complete coverage ledger mapping all 25 findings to 5 clusters (migration-cleanup, contract-fixes, architecture-fixes, elegance-fixes, test-coverage) or skip dispositions (2 skipped with reasons). Blueprint is specific enough for organize to execute mechanically."
         },
         "organize": {
           "stage": "organize",
-          "report": "\n## Organization Complete \u2014 all 15 items actioned with steps\n\n### Clusters (11 items):\n1. contract-enforcement (4 items, 4 steps): review::.::holistic::contract_coherence::create_auth_code_missing_validation, review::.::holistic::error_consistency::authcodestore_contract_gap, review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc, review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation\n2. exception-completeness (2 items, 2 steps): review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions, review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy\n3. convention-cleanup (3 items, 3 steps): review::.::holistic::convention_outlier::mixed_autowired_annotation, review::.::holistic::cross_module_architecture::error_response_downward_import, review::.::holistic::low_level_elegance::dense_microsoft_config_constructor\n4. frontend-consistency (2 items, 2 steps): review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence, review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry\n\n### Skipped (4 items): csrf_path_constants_not_shared, oauth2_error_codes_as_string_literals, no_e2e_oauth_redirect_flow_test, no_frontend_backend_contract_tests\n",
+          "report": "[confirmed-existing] All 25 findings organized into 5 clusters with descriptions and action steps. 2 items permanently skipped with attestation. Clusters are migration-cleanup priority 1 with 7 items, contract-fixes priority 2 with 4 items, architecture-fixes priority 3 with 4 items, elegance-fixes priority 4 with 6 items, test-coverage priority 5 with 2 items.",
           "cited_ids": [],
-          "timestamp": "2026-03-15T07:32:10+00:00",
-          "issue_count": 11,
-          "confirmed_at": "2026-03-15T07:32:36+00:00",
-          "confirmed_text": "I organized all 15 items into contract-enforcement (4), exception-completeness (2), convention-cleanup (3), frontend-consistency (2) clusters plus 4 skips. Builds on prior elegance-fixes and naming-fixes clusters. Each cluster has description and action_steps."
-        },
-        "enrich": {
-          "stage": "enrich",
-          "report": "\n## Enrichment Complete\nAll 4 clusters enriched with issue-refs linking each step to its finding:\n- contract-enforcement: 4 steps with refs (create_auth_code_missing_validation, authcodestore_contract_gap, microsoft_verifier_missing_throws_doc, deprecated_accessors_missing_annotation)\n- exception-completeness: 2 steps with refs (oauth2_identity_exception_outside_hierarchy, oauth2_handler_uncaught_exceptions)\n- convention-cleanup: 3 steps with refs (mixed_autowired_annotation, error_response_downward_import, dense_microsoft_config_constructor)\n- frontend-consistency: 2 steps with refs (frontend_hook_error_type_divergence, store_failure_strategy_asymmetry)\nAll clusters have descriptions, action steps, and issue references. No file conflicts between clusters.\n",
-          "timestamp": "2026-03-15T07:34:35+00:00",
-          "shallow_count": 0,
-          "confirmed_at": "2026-03-15T07:39:03+00:00",
-          "confirmed_text": "All 11 steps across contract-enforcement, exception-completeness, convention-cleanup, and frontend-consistency now have issue-refs, effort estimates, and executor-ready details with specific file paths and instructions."
-        },
-        "sense-check": {
-          "stage": "sense-check",
-          "report": "\n## Sense Check \u2014 Verified Against Source\n\n### Content Verification (with file/line evidence)\n- contract-enforcement step 1: Verified backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java lines 60-63: createAuthCode stores jwt via redisTemplate without validation. Step correctly adds guard.\n- contract-enforcement step 2: Verified backend/src/test/java/com/demo/sso/config/TestAuthCodeStoreConfig.java lines 36-40: InMemoryAuthCodeStore.createAuthCode also lacks validation. Effort 'trivial' accurate.\n- contract-enforcement step 3: Verified backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java line 30: verifyIdToken has no Javadoc. Effort 'trivial' accurate.\n- contract-enforcement step 4: Verified backend/src/main/java/com/demo/sso/model/User.java lines 92-93: getGoogleId()/setGoogleId() lack @Deprecated despite field @Deprecated on line 54. Effort 'trivial' accurate.\n- exception-completeness step 1: Verified backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java: local OAuth2IdentityException extends RuntimeException, not SsoException. Effort 'small' accurate.\n- exception-completeness step 2: Verified OAuth2SuccessHandler line 64: IllegalArgumentException and line 90: InvalidTokenException both escape the catch block on line 50. Effort 'small' accurate.\n- convention-cleanup step 1: Verified GoogleTokenVerifier.java:27, MicrosoftTokenVerifier.java:20, JwtTokenService.java:36, RedisAuthCodeStore.java:49 all have @Autowired on single constructors. Effort 'trivial' accurate.\n- convention-cleanup step 2: Verified backend/src/main/java/com/demo/sso/controller/dto/ErrorResponse.java exists and is imported by SecurityConfig.java:5 and MicrosoftAuthorizationGateFilter.java:4. Effort 'small' accurate.\n- convention-cleanup step 3: Verified backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java lines 83-89: 4 repeated clientSideEnabled ternaries. Effort 'trivial' accurate.\n- frontend-consistency step 1: Verified frontend/src/hooks/useAuth.ts line 26: useState<string | null>(null). Effort 'small' accurate.\n- frontend-consistency step 2: Verified AuthCodeStore throws InvalidAuthCodeException vs MicrosoftChallengeStore returns Optional. Both valid patterns. Effort 'small' accurate.\n\n### Structure: No file conflicts between clusters. Safe for parallel execution.\n### Value: All 11 fixes are genuine improvements. 4 skips justified.\n",
-          "timestamp": "2026-03-15T07:39:54+00:00",
-          "value_targets": [
-            "contract-enforcement",
-            "exception-completeness",
-            "convention-cleanup",
-            "frontend-consistency"
-          ],
-          "confirmed_at": "2026-03-15T07:40:08+00:00",
-          "confirmed_text": "Verified all 11 steps against source code with specific file paths and line numbers. All effort estimates accurate. No file conflicts between contract-enforcement, exception-completeness, convention-cleanup, and frontend-consistency clusters."
+          "timestamp": "2026-03-15T09:45:45+00:00",
+          "issue_count": 21,
+          "confirmed_at": "2026-03-15T09:45:45+00:00",
+          "confirmed_text": "I validate this plan covers all 25 review findings with concrete action steps and clear prioritization based on score impact analysis",
+          "reused_existing_plan": true,
+          "completion_note": "All 25 findings organized into 5 clusters with descriptions and action steps. 2 items permanently skipped with attestation. Clusters are migration-cleanup priority 1 with 7 items, contract-fixes priority 2 with 4 items, architecture-fixes priority 3 with 4 items, elegance-fixes priority 4 with 6 items, test-coverage priority 5 with 2 items."
         }
       },
-      "strategy": "Execute 4 clusters in parallel: contract-enforcement (4 trivial backend fixes), exception-completeness (4 trivial backend fixes), convention-cleanup (3 mixed backend fixes including ErrorResponse move), frontend-consistency (4 mixed frontend fixes). All clusters touch non-overlapping files. Skip 4 items as justified.",
-      "completion_mode": "manual_triage"
-    }
+      "strategy": "Execute migration-cleanup first as stale_migration at 62 percent is the single biggest drag on strict score needing recovery to 90 plus percent. This cluster touches UserService, JwtTokenService, RedisAuthCodeStore, and AuthController. Then contract-fixes and elegance-fixes in parallel since they touch different files and different concerns. Architecture-fixes next as they involve larger structural changes. Test-coverage last since it adds new files without modifying existing code.",
+      "completion_mode": "confirm_existing",
+      "reused_existing_plan": true,
+      "completion_note": "All 25 findings organized into 5 clusters with descriptions and action steps. 2 items permanently skipped with attestation. Clusters are migration-cleanup priority 1 with 7 items, contract-fixes priority 2 with 4 items, architecture-fixes priority 3 with 4 items, elegance-fixes priority 4 with 6 items, test-coverage priority 5 with 2 items.",
+      "previous_strategy_summary": "Execute 4 clusters in parallel: contract-enforcement (4 trivial backend fixes), exception-completeness (4 trivial backend fixes), convention-cleanup (3 mixed backend fixes including ErrorResponse move), frontend-consistency (4 mixed frontend fixes). All clusters touch non-overlapping files. Skip 4 items as justified."
+    },
+    "last_completion_note": "All 25 findings organized into 5 clusters with descriptions and action steps. 2 items permanently skipped with attestation. Clusters are migration-cleanup priority 1 with 7 items, contract-fixes priority 2 with 4 items, architecture-fixes priority 3 with 4 items, elegance-fixes priority 4 with 6 items, test-coverage priority 5 with 2 items."
   },
   "commit_log": [
     {
@@ -12833,44 +15132,61 @@
       "recorded_at": "2026-03-15T02:15:40+00:00",
       "note": "Resolved review findings: deprecated tests, migration docs, design coherence",
       "cluster_name": null
+    },
+    {
+      "sha": "896535a78d95",
+      "branch": "desloppify/code-health",
+      "issue_ids": [
+        "review::.::holistic::ai_generated_debt::pii_info_logging",
+        "review::.::holistic::authorization_consistency::logout_missing_audit",
+        "review::.::holistic::authorization_consistency::role_user_magic_string",
+        "review::.::holistic::error_consistency::dashboard_ignores_error_state",
+        "review::.::holistic::error_consistency::oauth2_handler_drops_cause",
+        "review::.::holistic::error_consistency::overloaded_illegal_argument",
+        "review::.::holistic::incomplete_migration::dead_legacy_provider_key_field",
+        "review::.::holistic::incomplete_migration::normalized_identity_param_naming_inconsistency",
+        "review::.::holistic::logic_clarity::redundant_nullish_coalescing_normalize",
+        "review::.::holistic::logic_clarity::redundant_rollout_null_checks",
+        "review::.::holistic::low_level_elegance::double_get_session_call",
+        "review::.::holistic::type_safety::user_response_string_enum_fields",
+        "review::.::holistic::ai_generated_debt::completion_service_convenience_wrappers",
+        "review::.::holistic::ai_generated_debt::restating_javadoc_trivial_methods",
+        "review::.::holistic::convention_outlier::google_disabled_response_inline",
+        "review::.::holistic::design_coherence::provider_config_dense_conditionals",
+        "boilerplate_duplication::backend/src/main/java/com/demo/sso/controller/AuthController.java::cd5404c4f93c5f37",
+        "boilerplate_duplication::backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java::b7903f9f075c86d0",
+        "review::.::holistic::error_consistency::verifier_illegal_argument",
+        "review::.::holistic::error_consistency::jwt_exception_gap_microsoft",
+        "review::.::holistic::error_consistency::microsoft_claims_illegal_arg",
+        "review::.::holistic::naming_quality::firstPresent_checks_blank",
+        "review::.::holistic::naming_quality::expired_authcode_exception_misnomer",
+        "review::.::holistic::naming_quality::verify_vs_verifyIdToken_inconsistency",
+        "review::.::holistic::low_level_elegance::asymmetric_oauth2_dispatch",
+        "review::.::holistic::test_strategy::ms_server_side_happy_path_untested",
+        "review::.::holistic::test_strategy::concurrent_user_creation_untested",
+        "review::.::holistic::authorization_consistency::auth_success_audit_asymmetry",
+        "review::.::holistic::incomplete_migration::no_automated_removal_tracking",
+        "review::.::holistic::incomplete_migration::asymmetric_deprecation_findByGoogleId",
+        "review::.::holistic::package_organization::userservice_root_straggler",
+        "review::.::holistic::contract_coherence::authcodestore_throws_divergence",
+        "review::.::holistic::contract_coherence::ms_verifier_undocumented_throws",
+        "orphaned::backend/src/main/java/com/demo/sso/exception/InvalidAuthCodeException.java",
+        "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc",
+        "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation",
+        "review::.::holistic::contract_coherence::create_auth_code_missing_validation",
+        "review::.::holistic::error_consistency::authcodestore_contract_gap",
+        "review::.::holistic::cross_module_architecture::error_response_downward_import",
+        "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor",
+        "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence",
+        "review::.::holistic::api_surface_coherence::store_failure_strategy_asymmetry",
+        "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions",
+        "review::.::holistic::mid_level_elegance::oauth2_identity_exception_outside_hierarchy"
+      ],
+      "recorded_at": "2026-03-15T09:13:37+00:00",
+      "note": "All 12th review findings fixed: architecture moves, contract enforcement, security hardening, frontend test coverage",
+      "cluster_name": null
     }
   ],
-  "uncommitted_issues": [
-    "review::.::holistic::ai_generated_debt::pii_info_logging",
-    "review::.::holistic::authorization_consistency::logout_missing_audit",
-    "review::.::holistic::authorization_consistency::role_user_magic_string",
-    "review::.::holistic::error_consistency::dashboard_ignores_error_state",
-    "review::.::holistic::error_consistency::oauth2_handler_drops_cause",
-    "review::.::holistic::error_consistency::overloaded_illegal_argument",
-    "review::.::holistic::incomplete_migration::dead_legacy_provider_key_field",
-    "review::.::holistic::incomplete_migration::normalized_identity_param_naming_inconsistency",
-    "review::.::holistic::logic_clarity::redundant_nullish_coalescing_normalize",
-    "review::.::holistic::logic_clarity::redundant_rollout_null_checks",
-    "review::.::holistic::low_level_elegance::double_get_session_call",
-    "review::.::holistic::type_safety::user_response_string_enum_fields",
-    "review::.::holistic::ai_generated_debt::completion_service_convenience_wrappers",
-    "review::.::holistic::ai_generated_debt::restating_javadoc_trivial_methods",
-    "review::.::holistic::convention_outlier::google_disabled_response_inline",
-    "review::.::holistic::design_coherence::provider_config_dense_conditionals",
-    "boilerplate_duplication::backend/src/main/java/com/demo/sso/controller/AuthController.java::cd5404c4f93c5f37",
-    "boilerplate_duplication::backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java::b7903f9f075c86d0",
-    "review::.::holistic::error_consistency::verifier_illegal_argument",
-    "review::.::holistic::error_consistency::jwt_exception_gap_microsoft",
-    "review::.::holistic::error_consistency::microsoft_claims_illegal_arg",
-    "review::.::holistic::naming_quality::firstPresent_checks_blank",
-    "review::.::holistic::naming_quality::expired_authcode_exception_misnomer",
-    "review::.::holistic::naming_quality::verify_vs_verifyIdToken_inconsistency",
-    "review::.::holistic::low_level_elegance::asymmetric_oauth2_dispatch",
-    "review::.::holistic::test_strategy::ms_server_side_happy_path_untested",
-    "review::.::holistic::test_strategy::concurrent_user_creation_untested",
-    "review::.::holistic::authorization_consistency::auth_success_audit_asymmetry",
-    "review::.::holistic::incomplete_migration::no_automated_removal_tracking",
-    "review::.::holistic::incomplete_migration::asymmetric_deprecation_findByGoogleId",
-    "review::.::holistic::package_organization::userservice_root_straggler",
-    "review::.::holistic::contract_coherence::authcodestore_throws_divergence",
-    "review::.::holistic::contract_coherence::ms_verifier_undocumented_throws",
-    "orphaned::backend/src/main/java/com/demo/sso/exception/InvalidAuthCodeException.java"
-  ],
-  "commit_tracking_branch": null,
-  "scan_count_at_plan_start": 28
+  "uncommitted_issues": [],
+  "commit_tracking_branch": null
 }

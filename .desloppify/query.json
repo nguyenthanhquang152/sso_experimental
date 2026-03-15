@@ -1,293 +1,468 @@
 {
-  "command": "show",
-  "query": "review",
-  "status_filter": "open",
-  "total": 10,
-  "summary": {
-    "by_tier": {
-      "T1": 5,
-      "T2": 5
+  "command": "next",
+  "items": [
+    {
+      "id": "elegance-fixes",
+      "action_type": "manual_fix",
+      "summary": "Reduce duplication and improve elegance",
+      "member_count": 6,
+      "members": [
+        {
+          "id": "review::.::holistic::ai_generated_debt::formulaic_exception_handlers",
+          "confidence": "high",
+          "detector": "review",
+          "file": ".",
+          "summary": "GlobalExceptionHandler repeats identical log-then-return pattern across 8 methods",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::ai_generated_debt::formulaic_exception_handlers\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::ai_generated_debt::restating_lookup_comment",
+          "confidence": "medium",
+          "detector": "review",
+          "file": ".",
+          "summary": "Inline comment at RedisAuthCodeStore:54 partially restates the switch-case logic",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::ai_generated_debt::restating_lookup_comment\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::logic_clarity::swallowed_exception_cause",
+          "confidence": "medium",
+          "detector": "review",
+          "file": ".",
+          "summary": "recoverFromConcurrentCreation accepts DataIntegrityViolationException cause but never uses it",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::logic_clarity::swallowed_exception_cause\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler",
+          "confidence": "low",
+          "detector": "review",
+          "file": ".",
+          "summary": "OAuth2SuccessHandler.authenticateAndCreateCode has identical catch blocks for Microsoft and Google branches",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::low_level_elegance::duplicated_catch_in_oauth2_handler\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication",
+          "confidence": "medium",
+          "detector": "review",
+          "file": ".",
+          "summary": "OAuth2SuccessHandler duplicates try-catch\u2192OAuth2IdentityException wrapping per provider branch",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::mid_level_elegance::oauth2_handler_provider_dispatch_duplication\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::naming_quality::login_method_vs_login_flow_label",
+          "confidence": "medium",
+          "detector": "review",
+          "file": ".",
+          "summary": "DashboardPage displays 'Login Method' but the domain field is lastLoginFlow \u2014 terminology mismatch",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::naming_quality::login_method_vs_login_flow_label\" --note \"<what you did>\" --confirm"
+        }
+      ],
+      "cluster_name": "elegance-fixes",
+      "cluster_auto": false,
+      "detector": "review",
+      "kind": "cluster",
+      "primary_command": "desloppify next --cluster elegance-fixes --count 10",
+      "action_steps": [
+        {
+          "title": "Remove duplicated Microsoft claim validation",
+          "effort": "medium",
+          "detail": "In backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java: fromMap() at lines 34-53 does all claim extraction. The stringClaim() helper at lines 66-75 handles type-safe extraction. Check if the sub-claim validation at lines 49-51 (null/blank check on result.sub()) duplicates validation done elsewhere (e.g., in MicrosoftTokenVerifier). If MicrosoftTokenVerifier also validates sub presence, remove the redundant check from fromMap and let the verifier handle it. If fromMap is the only validation point, keep it.",
+          "issue_refs": [],
+          "done": true
+        },
+        {
+          "title": "Make OAuth2SuccessHandler redirect explicit",
+          "effort": "small",
+          "detail": "In backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java: the redirect at line 56 concatenates frontendUrl with query params. The error redirect at line 51 does the same with error code. To make explicit: extract a private buildRedirectUrl(String frontendUrl, String paramName, String paramValue) helper method. Replace line 56 with buildRedirectUrl(frontendUrl, 'code', encodedCode) and line 51 with buildRedirectUrl(frontendUrl, 'error', e.errorCode()). Use UriComponentsBuilder for proper URL encoding instead of string concatenation.",
+          "issue_refs": [],
+          "done": true
+        },
+        {
+          "title": "Consolidate Microsoft enablement policy",
+          "effort": "small",
+          "detail": "In backend/src/main/java/com/demo/sso/config/properties/MicrosoftAuthProperties.java: enablement logic is split between isClientSideConfigured() at lines 49-52 and isServerSideConfigured() at lines 54-58. Check if any caller needs a combined 'isAnyModeConfigured()' check. If the split is intentional (different callers check different modes), this is correct by design. If callers duplicate both checks, add a convenience isConfigured() that returns isClientSideConfigured() || isServerSideConfigured(). Check AuthController and SecurityConfig for usage patterns.",
+          "issue_refs": [],
+          "done": true
+        },
+        {
+          "title": "Add redirectUri to provider config",
+          "effort": "trivial",
+          "detail": "In backend/src/main/java/com/demo/sso/controller/dto/ProviderConfigResponse.java: MicrosoftProviderConfig at lines 24-31 already has redirectUri field at line 30. GoogleProviderConfig at lines 13-17 does not have redirectUri. Check if the frontend needs Google redirectUri \u2014 if Google uses client-side-only flow (no server redirect), redirectUri is not needed. If this finding is about adding redirectUri to Google config, verify the frontend actually needs it. If MicrosoftProviderConfig already has it, this may be a false positive.",
+          "issue_refs": [],
+          "done": true
+        },
+        {
+          "title": "Add OAuth2 failure handler",
+          "effort": "small",
+          "detail": "In backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java lines 42-57: onAuthenticationSuccess catches SsoException and redirects with error. For other exceptions (uncaught), Spring default behavior applies. Add an AuthenticationFailureHandler implementation (or override onAuthenticationFailure) in backend/src/main/java/com/demo/sso/config/SecurityConfig.java where the OAuth2 login is configured. The failure handler should redirect to frontendUrl with a generic error parameter instead of showing a Spring error page.",
+          "issue_refs": [],
+          "done": true
+        },
+        {
+          "title": "Consolidate formulaic exception handlers"
+        },
+        {
+          "title": "Remove restating lookup comment"
+        },
+        {
+          "title": "Extract duplicated catch in OAuth2SuccessHandler"
+        },
+        {
+          "title": "Consolidate provider dispatch duplication"
+        },
+        {
+          "title": "Preserve exception cause chain"
+        },
+        {
+          "title": "Rename loginMethod to loginFlow"
+        }
+      ]
     },
-    "by_detector": {
-      "review": 10
+    {
+      "id": "migration-cleanup",
+      "action_type": "manual_fix",
+      "summary": "Complete multi-provider migration by removing legacy google_id artifacts",
+      "member_count": 7,
+      "members": [
+        {
+          "id": "review::.::holistic::design_coherence::legacy_google_branching_in_user_service",
+          "confidence": "medium",
+          "detector": "review",
+          "file": ".",
+          "summary": "Google-specific legacy fallback in UserService breaks provider-neutral lookup pattern across syncUser and recoverFromConcurrentCreation",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::design_coherence::legacy_google_branching_in_user_service\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active",
+          "confidence": "high",
+          "detector": "review",
+          "file": ".",
+          "summary": "Deprecated UserRepository.findByGoogleId() called in two active code paths in UserService",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::incomplete_migration::deprecated_find_by_google_id_active\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::incomplete_migration::deprecated_google_id_still_called",
+          "confidence": "high",
+          "detector": "review",
+          "file": ".",
+          "summary": "Deprecated User.getGoogleId() actively called in JwtTokenService legacy token generation",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::incomplete_migration::deprecated_google_id_still_called\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::incomplete_migration::dual_jwt_format_dispatch",
+          "confidence": "high",
+          "detector": "review",
+          "file": ".",
+          "summary": "Runtime JWT format dispatch creates two coexisting token formats with different claim structures",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::incomplete_migration::dual_jwt_format_dispatch\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::incomplete_migration::dual_redis_key_prefixes",
+          "confidence": "high",
+          "detector": "review",
+          "file": ".",
+          "summary": "RedisAuthCodeStore maintains legacy and V2 key prefixes with compatibility fallback",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::incomplete_migration::dual_redis_key_prefixes\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence",
+          "confidence": "high",
+          "detector": "review",
+          "file": ".",
+          "summary": "UserService has Google-specific legacy lookup branches not needed for other providers",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::incomplete_migration::google_specific_user_lookup_divergence\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+          "confidence": "high",
+          "detector": "review",
+          "file": ".",
+          "summary": "UserController.getCurrentUser() has dual principal handling for legacy vs V2 JWTs",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::incomplete_migration::legacy_identity_fallback_controller\" --note \"<what you did>\" --confirm"
+        }
+      ],
+      "cluster_name": "migration-cleanup",
+      "cluster_auto": false,
+      "detector": "review",
+      "kind": "cluster",
+      "primary_command": "desloppify next --cluster migration-cleanup --count 10",
+      "action_steps": [
+        {
+          "title": "Remove findByGoogleIdAndActiveTrue calls"
+        },
+        {
+          "title": "Remove google_id writes"
+        },
+        {
+          "title": "Consolidate JWT to V2-only"
+        },
+        {
+          "title": "Unify Redis prefixes"
+        },
+        {
+          "title": "Remove google-specific controller lookup"
+        },
+        {
+          "title": "Remove legacy identity fallback"
+        },
+        {
+          "title": "Remove legacy google branching"
+        }
+      ]
     },
-    "files": 1
-  },
-  "by_file": {
-    ".": [
-      {
-        "id": "review::.::holistic::contract_coherence::create_auth_code_missing_validation",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "AuthCodeStore.createAuthCode documents @throws IllegalArgumentException for null/blank jwt but implementations don't validate",
-        "detail": {
-          "holistic": true,
-          "dimension": "contract_coherence",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java",
-            "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
-          ],
-          "evidence": [
-            "AuthCodeStore interface line 10: /** @throws IllegalArgumentException if jwt is null or blank */",
-            "RedisAuthCodeStore.createAuthCode (line 60-63) stores jwt directly via redisTemplate without null/blank check",
-            "InMemoryAuthCodeStore.createAuthCode (TestAuthCodeStoreConfig line 36-40) also stores jwt without validation"
-          ],
-          "suggestion": "Add validation at the start of both createAuthCode implementations: if (jwt == null || jwt.isBlank()) throw new IllegalArgumentException(\"jwt must not be null or blank\"); \u2014 or add a default method in the interface itself to centralize the precondition check.",
-          "reasoning": "",
-          "summary_hash": "658772c6"
+    {
+      "id": "contract-fixes",
+      "action_type": "manual_fix",
+      "summary": "Add missing contract docs and replace string provider dispatch with enum",
+      "member_count": 4,
+      "members": [
+        {
+          "id": "review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws",
+          "confidence": "high",
+          "detector": "review",
+          "file": ".",
+          "summary": "AuthCompletionService.completeAuthentication propagates exceptions from dependencies without documenting them",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::contract_coherence::auth_completion_service_undocumented_throws\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws",
+          "confidence": "high",
+          "detector": "review",
+          "file": ".",
+          "summary": "MicrosoftIdTokenClaims.fromMap throws InvalidTokenException for missing sub claim but has no @throws documentation",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::contract_coherence::microsoft_claims_frommap_no_throws\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::contract_coherence::parse_token_no_javadoc",
+          "confidence": "high",
+          "detector": "review",
+          "file": ".",
+          "summary": "JwtTokenService.parseToken is a public method with no Javadoc despite throwing JwtException on invalid tokens",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::contract_coherence::parse_token_no_javadoc\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::type_safety::string_provider_dispatch",
+          "confidence": "medium",
+          "detector": "review",
+          "file": ".",
+          "summary": "OAuth2SuccessHandler uses raw string literals for provider routing instead of AuthProvider enum",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::type_safety::string_provider_dispatch\" --note \"<what you did>\" --confirm"
         }
-      },
-      {
-        "id": "review::.::holistic::convention_outlier::mixed_autowired_annotation",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "@Autowired used on 4 single-constructor classes while 11+ omit it, creating inconsistent DI annotation style",
-        "detail": {
-          "holistic": true,
-          "dimension": "convention_outlier",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java",
-            "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java",
-            "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
-            "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
-          ],
-          "evidence": [
-            "GoogleTokenVerifier line 27: @Autowired on single-constructor class",
-            "MicrosoftTokenVerifier line 20: @Autowired on single-constructor class",
-            "JwtTokenService line 36: @Autowired on single-constructor class",
-            "RedisAuthCodeStore line 49: @Autowired on single-constructor class",
-            "AuthCompletionService, UserService, ProviderConfigController, UserController, OAuth2SuccessHandler, IdentityContractGuard, JwtAuthenticationFilter, MicrosoftAuthorizationGateFilter, RedisMicrosoftChallengeStore, SecurityConfig, ProviderIdentityNormalizer \u2014 all omit @Autowired on single constructors"
-          ],
-          "suggestion": "Remove @Autowired from the 4 annotated single-constructor classes to match the majority pattern. Spring 4.3+ implicit injection makes them unnecessary.",
-          "reasoning": "",
-          "summary_hash": "9771b673"
+      ],
+      "cluster_name": "contract-fixes",
+      "cluster_auto": false,
+      "detector": "review",
+      "kind": "cluster",
+      "primary_command": "desloppify next --cluster contract-fixes --count 10",
+      "action_steps": [
+        {
+          "title": "Add @throws Javadoc to AuthCompletionService"
+        },
+        {
+          "title": "Add @throws to MicrosoftIdTokenClaims.fromMap"
+        },
+        {
+          "title": "Add Javadoc to JwtTokenService.parseToken"
+        },
+        {
+          "title": "Introduce AuthProvider enum for provider dispatch"
         }
-      },
-      {
-        "id": "review::.::holistic::cross_module_architecture::error_response_downward_import",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "Config-layer classes import ErrorResponse from controller.dto, creating a downward dependency",
-        "detail": {
-          "holistic": true,
-          "dimension": "cross_module_architecture",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/config/SecurityConfig.java",
-            "backend/src/main/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilter.java",
-            "backend/src/main/java/com/demo/sso/controller/dto/ErrorResponse.java"
-          ],
-          "evidence": [
-            "SecurityConfig.java:5 imports com.demo.sso.controller.dto.ErrorResponse \u2014 config depends on controller",
-            "MicrosoftAuthorizationGateFilter.java:4 imports com.demo.sso.controller.dto.ErrorResponse \u2014 config.filter depends on controller.dto",
-            "ErrorResponse is a trivial record (1 field) used only for JSON serialization in handleUnauthorized() and the gate filter's 503 response"
-          ],
-          "suggestion": "Move ErrorResponse to a shared package (e.g., com.demo.sso.dto or com.demo.sso.model.dto) accessible to both config and controller layers, or inline the JSON construction in the two config-layer usages: response.getWriter().write(objectMapper.writeValueAsString(Map.of(\"error\", message)))",
-          "reasoning": "",
-          "summary_hash": "4d4fb34f"
-        }
-      },
-      {
-        "id": "review::.::holistic::error_consistency::authcodestore_contract_gap",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "AuthCodeStore.createAuthCode documents @throws IllegalArgumentException for null/blank jwt but RedisAuthCodeStore doesn't enforce it",
-        "detail": {
-          "holistic": true,
-          "dimension": "error_consistency",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java",
-            "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
-          ],
-          "evidence": [
-            "AuthCodeStore line 10: javadoc '@throws IllegalArgumentException if jwt is null or blank'",
-            "RedisAuthCodeStore.createAuthCode lines 60-63: generates code and writes to Redis without any null/blank validation of the jwt parameter"
-          ],
-          "suggestion": "Add a guard at the top of RedisAuthCodeStore.createAuthCode: if (jwt == null || jwt.isBlank()) throw new IllegalArgumentException(\"jwt must not be null or blank\"). Alternatively, remove the @throws from the interface if validation is not intended.",
-          "reasoning": "",
-          "summary_hash": "84c21369"
-        }
-      },
-      {
-        "id": "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation",
-        "tier": 1,
-        "confidence": "high",
-        "summary": "User.getGoogleId() and setGoogleId() lack @Deprecated annotation despite field being deprecated",
-        "detail": {
-          "holistic": true,
-          "dimension": "incomplete_migration",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/model/User.java"
-          ],
-          "evidence": [
-            "User.java line 54: @Deprecated on googleId field, but lines 92-93: getGoogleId()/setGoogleId() have no @Deprecated",
-            "In Java, field-level @Deprecated does not propagate to accessor methods \u2014 callers using user.getGoogleId() get no compiler warning",
-            "UserService.createNewUser() line 74 calls user.setGoogleId() without any deprecation warning; JwtTokenService.generateToken() line 107 calls user.getGoogleId() without warning"
-          ],
-          "suggestion": "Add @Deprecated annotation to getGoogleId() and setGoogleId() methods to ensure callers receive compiler deprecation warnings during the migration period",
-          "reasoning": "",
-          "summary_hash": "de228b57"
-        }
-      },
-      {
-        "id": "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence",
-        "tier": 2,
-        "confidence": "medium",
-        "summary": "useAuth returns error as string|null while useProviderConfig returns Error|null \u2014 inconsistent error types across hooks",
-        "detail": {
-          "holistic": true,
-          "dimension": "api_surface_coherence",
-          "related_files": [
-            "frontend/src/hooks/useAuth.ts",
-            "frontend/src/hooks/useProviderConfig.ts"
-          ],
-          "evidence": [
-            "useAuth (line 26): useState<string | null>(null) \u2014 error state is string|null",
-            "useProviderConfig (line 14): useState<Error | null>(null) \u2014 error state is Error|null",
-            "Consumers must check error type differently depending on which hook they use"
-          ],
-          "suggestion": "Align both hooks to return the same error type. Recommend Error|null for both, since useProviderConfig already wraps non-Error values. In useAuth, wrap string errors: setError(new Error(message)) and update the type to Error|null.",
-          "reasoning": "",
-          "summary_hash": "9369647a"
-        }
-      },
-      {
-        "id": "review::.::holistic::authorization_consistency::csrf_path_constants_not_shared",
-        "tier": 2,
-        "confidence": "medium",
-        "summary": "CSRF exempt paths in SecurityConfig are maintained as separate constants from controller @RequestMapping \u2014 parallel maintenance risk",
-        "detail": {
-          "holistic": true,
-          "dimension": "authorization_consistency",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/config/SecurityConfig.java",
-            "backend/src/main/java/com/demo/sso/controller/AuthController.java"
-          ],
-          "evidence": [
-            "SecurityConfig lines 25-28 define AUTH_GOOGLE_VERIFY_PATH, AUTH_MICROSOFT_PATH, AUTH_EXCHANGE_PATH, AUTH_LOGOUT_PATH as private constants",
-            "AuthController uses @PostMapping annotations with path fragments ('/google/verify', '/microsoft/challenge', etc.) under @RequestMapping('/auth')",
-            "If a controller path changes without updating SecurityConfig's CSRF exemptions, CSRF protection would silently re-engage on auth POST endpoints, breaking them"
-          ],
-          "suggestion": "Extract shared path constants into AuthPaths class or use a wildcard CSRF exemption for /auth/** (since all /auth endpoints are already permitAll and stateless JWT-based, CSRF protection is unnecessary for the entire /auth namespace). The wildcard approach is simpler and eliminates the parallel maintenance problem entirely.",
-          "reasoning": "",
-          "summary_hash": "ce59d1af"
-        }
-      },
-      {
-        "id": "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc",
-        "tier": 2,
-        "confidence": "medium",
-        "summary": "MicrosoftTokenVerifier.verifyIdToken lacks @throws documentation despite throwing InvalidTokenException and propagating JwtException",
-        "detail": {
-          "holistic": true,
-          "dimension": "contract_coherence",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java"
-          ],
-          "evidence": [
-            "MicrosoftTokenVerifier.verifyIdToken (line 30) has no Javadoc at all",
-            "Method throws InvalidTokenException from validateAudience, validateIssuer, validateVersion, validateNonce (lines 40-66)",
-            "Method propagates JwtException from jwtDecoder.decode(credential) on line 31",
-            "Caller AuthController.verifyMicrosoftToken correctly catches both InvalidTokenException and JwtException (line 156), indicating awareness of the undocumented contract"
-          ],
-          "suggestion": "Add Javadoc to verifyIdToken documenting: @throws InvalidTokenException if audience, issuer, version, or nonce validation fails; @throws org.springframework.security.oauth2.jwt.JwtException if the token cannot be decoded or signature validation fails",
-          "reasoning": "",
-          "summary_hash": "4e604120"
-        }
-      },
-      {
-        "id": "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions",
-        "tier": 2,
-        "confidence": "medium",
-        "summary": "OAuth2SuccessHandler throws InvalidTokenException and IllegalArgumentException that escape the try-catch boundary, bypassing the redirect error pattern",
-        "detail": {
-          "holistic": true,
-          "dimension": "error_consistency",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java"
-          ],
-          "evidence": [
-            "Line 64: throw new IllegalArgumentException('Expected OAuth2AuthenticationToken') \u2014 thrown inside authenticateAndCreateCode but not caught by line 50's catch(OAuth2IdentityException)",
-            "Line 90: throw new InvalidTokenException('Unsupported provider: ' + registrationId) \u2014 also escapes the OAuth2IdentityException catch block",
-            "Lines 50-53: only OAuth2IdentityException is caught, redirecting with error code \u2014 other exceptions propagate to Spring Security's error handling, likely producing a 500 page instead of a user-friendly redirect"
-          ],
-          "suggestion": "Wrap the unsupported-provider and unexpected-auth-type cases in OAuth2IdentityException so they follow the same redirect-with-error-code pattern as identity validation failures. E.g., throw new OAuth2IdentityException(\"unsupported_provider\", \"Unsupported provider: \" + registrationId)",
-          "reasoning": "",
-          "summary_hash": "5279bea9"
-        }
-      },
-      {
-        "id": "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor",
-        "tier": 2,
-        "confidence": "medium",
-        "summary": "buildMicrosoftConfig packs 6 ternary-per-field arguments into one constructor call",
-        "detail": {
-          "holistic": true,
-          "dimension": "low_level_elegance",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
-          ],
-          "evidence": [
-            "Lines 83-89: new MicrosoftProviderConfig(serverSideEnabled, clientSideEnabled, clientSideEnabled ? ... : null, clientSideEnabled ? ... : null, clientSideEnabled ? ... : List.of(), clientSideEnabled ? ... : null) \u2014 4 of 6 args repeat the same ternary guard on clientSideEnabled"
-          ],
-          "suggestion": "Extract the clientSideEnabled check once and use local variables for the conditional fields, or add a static factory MicrosoftProviderConfig.clientSideDisabled(serverSideEnabled) to eliminate the repeated ternary pattern.",
-          "reasoning": "",
-          "summary_hash": "a452d996"
-        }
-      }
-    ]
-  },
-  "total_matching": 15,
-  "hidden": {
-    "by_detector": {
-      "review": 5
+      ]
     },
-    "total": 5
+    {
+      "id": "architecture-fixes",
+      "action_type": "manual_fix",
+      "summary": "Reduce fan-out, decouple google identity, seal AuthApiResponse",
+      "member_count": 4,
+      "members": [
+        {
+          "id": "review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy",
+          "confidence": "low",
+          "detector": "review",
+          "file": ".",
+          "summary": "AuthApiResponse marker interface has no methods \u2014 a sealed interface would make the type hierarchy explicit",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::abstraction_fitness::auth_api_response_marker_lacks_sealed_hierarchy\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub",
+          "confidence": "medium",
+          "detector": "review",
+          "file": ".",
+          "summary": "AuthController depends on 6 service classes directly, creating a coupling hub with wide blast radius",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::cross_module_architecture::auth_controller_fan_out_hub\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::cross_module_architecture::nested_google_identity_coupling",
+          "confidence": "medium",
+          "detector": "review",
+          "file": ".",
+          "summary": "VerifiedGoogleIdentity nested in GoogleTokenVerifier forces identity consumers to import from the verifier",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::cross_module_architecture::nested_google_identity_coupling\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::high_level_elegance::service_auth_mixed_ownership",
+          "confidence": "low",
+          "detector": "review",
+          "file": ".",
+          "summary": "service.auth groups user-lifecycle management with auth-flow orchestration, blurring ownership",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::high_level_elegance::service_auth_mixed_ownership\" --note \"<what you did>\" --confirm"
+        }
+      ],
+      "cluster_name": "architecture-fixes",
+      "cluster_auto": false,
+      "detector": "review",
+      "kind": "cluster",
+      "primary_command": "desloppify next --cluster architecture-fixes --count 10",
+      "action_steps": [
+        {
+          "title": "Reduce AuthController fan-out via delegation"
+        },
+        {
+          "title": "Decouple nested google identity"
+        },
+        {
+          "title": "Seal AuthApiResponse hierarchy"
+        },
+        {
+          "title": "Clarify service.auth package ownership"
+        }
+      ]
+    },
+    {
+      "id": "test-coverage",
+      "action_type": "manual_fix",
+      "summary": "Add missing test coverage",
+      "member_count": 2,
+      "members": [
+        {
+          "id": "review::.::holistic::test_strategy::exception_handler_no_integration_test",
+          "confidence": "medium",
+          "detector": "review",
+          "file": ".",
+          "summary": "GlobalExceptionHandler is tested only at unit level, not through the Spring MVC filter chain",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::test_strategy::exception_handler_no_integration_test\" --note \"<what you did>\" --confirm"
+        },
+        {
+          "id": "review::.::holistic::test_strategy::microsoft_claims_no_direct_tests",
+          "confidence": "medium",
+          "detector": "review",
+          "file": ".",
+          "summary": "MicrosoftIdTokenClaims.fromMap() lacks dedicated unit tests for its validation and coercion logic",
+          "status": "open",
+          "kind": "issue",
+          "primary_command": "desloppify plan resolve \"review::.::holistic::test_strategy::microsoft_claims_no_direct_tests\" --note \"<what you did>\" --confirm"
+        }
+      ],
+      "cluster_name": "test-coverage",
+      "cluster_auto": false,
+      "detector": "review",
+      "kind": "cluster",
+      "primary_command": "desloppify next --cluster test-coverage --count 10",
+      "action_steps": [
+        {
+          "title": "Add GlobalExceptionHandler integration test"
+        },
+        {
+          "title": "Add MicrosoftIdTokenClaims unit tests"
+        }
+      ]
+    }
+  ],
+  "queue": {
+    "total": 5,
+    "mode": "execution"
   },
-  "noise_budget": 10,
-  "noise_global_budget": 0,
   "narrative": {
-    "phase": "refinement",
-    "headline": " (15 review work items \u2014 run `desloppify show review --status open`)",
+    "phase": "stagnation",
+    "headline": "Score plateaued at 82.0 for 5 scans. Code quality (54.7%) is where the breakthrough is. 177 wontfix items may also be worth revisiting. (23 review work items \u2014 run `desloppify show review --status open`)",
     "dimensions": {
       "lowest_dimensions": [
         {
           "name": "Code quality",
-          "strict": 54.8,
-          "failing": 1,
-          "impact": 0.0
-        },
-        {
-          "name": "Test health",
-          "strict": 71.3,
-          "failing": 0,
-          "impact": 0.0
-        },
-        {
-          "name": "API coherence",
-          "strict": 86.5,
+          "strict": 54.7,
           "failing": 2,
+          "impact": 0.0
+        },
+        {
+          "name": "Stale migration",
+          "strict": 62.0,
+          "failing": 6,
           "impact": 0.0,
           "subjective": true,
           "impact_description": "re-review to improve"
+        },
+        {
+          "name": "Test health",
+          "strict": 71.6,
+          "failing": 0,
+          "impact": 0.0
         }
       ],
       "biggest_gap_dimensions": [
         {
           "name": "Code quality",
-          "lenient": 99.1,
-          "strict": 54.8,
-          "gap": 44.3,
-          "wontfix_count": 51
+          "lenient": 98.4,
+          "strict": 54.7,
+          "gap": 43.7,
+          "wontfix_count": 52
         },
         {
           "name": "Test health",
           "lenient": 100.0,
-          "strict": 71.3,
-          "gap": 28.7,
+          "strict": 71.6,
+          "gap": 28.4,
           "wontfix_count": 9
         }
       ],
       "stagnant_dimensions": [
+        {
+          "name": "Code quality",
+          "strict": 54.7,
+          "stuck_scans": 5
+        },
         {
           "name": "Security",
           "strict": 100.0,
@@ -305,32 +480,17 @@
         },
         {
           "name": "Test health",
-          "strict": 71.3,
+          "strict": 71.6,
           "stuck_scans": 5
         },
         {
-          "name": "Design coherence",
-          "strict": 89.0,
+          "name": "API coherence",
+          "strict": 86.5,
           "stuck_scans": 5
         },
         {
-          "name": "Init coupling",
-          "strict": 92.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Logic clarity",
-          "strict": 91.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Mid elegance",
-          "strict": 89.5,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Type safety",
-          "strict": 90.0,
+          "name": "Naming quality",
+          "strict": 90.5,
           "stuck_scans": 5
         }
       ]
@@ -339,8 +499,8 @@
       {
         "type": "reorganize",
         "detector": "orphaned",
-        "count": 1,
-        "description": "1 orphaned issues \u2014 delete dead files or relocate with `desloppify move`",
+        "count": 2,
+        "description": "2 orphaned issues \u2014 delete dead files or relocate with `desloppify move`",
         "command": "desloppify show orphaned --status open",
         "impact": 0.0,
         "dimension": "Code quality",
@@ -361,8 +521,8 @@
       {
         "type": "refactor",
         "detector": "review",
-        "count": 15,
-        "description": "15 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
+        "count": 23,
+        "description": "23 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
         "command": "desloppify show review --status open",
         "impact": 0.0,
         "dimension": "Unknown",
@@ -372,12 +532,16 @@
       {
         "type": "manual_fix",
         "detector": "stale_wontfix",
-        "count": 37,
-        "description": "37 stale_wontfix work items \u2014 re-evaluate old wontfix decisions \u2014 fix, document, or escalate",
-        "command": "desloppify show stale_wontfix --status open",
+        "count": 41,
+        "description": "41 stale_wontfix issues in 1 cluster(s) \u2014 run `desloppify next`",
+        "command": "desloppify next",
         "impact": 0.0,
         "dimension": "Unknown",
         "priority": 4,
+        "clusters": [
+          "auto/stale_wontfix"
+        ],
+        "cluster_count": 1,
         "lane": "refactor_0"
       },
       {
@@ -393,7 +557,7 @@
     "strategy": {
       "fixer_leverage": {
         "auto_fixable_count": 0,
-        "total_count": 84,
+        "total_count": 113,
         "coverage": 0.0,
         "impact_ratio": 0.0,
         "recommendation": "none"
@@ -403,7 +567,7 @@
           "actions": [
             1
           ],
-          "file_count": 1,
+          "file_count": 2,
           "total_impact": 0.0,
           "automation": "manual",
           "run_first": false
@@ -413,7 +577,7 @@
             2,
             4
           ],
-          "file_count": 34,
+          "file_count": 38,
           "total_impact": 0.0,
           "automation": "manual",
           "run_first": false
@@ -438,14 +602,14 @@
         }
       },
       "can_parallelize": false,
-      "hint": "Work through actions in priority order. Rescan after each fix to track progress. Review: 15 issue(s) \u2014 `desloppify show review --status open`."
+      "hint": "Try a different dimension to break the plateau. Review: 23 issue(s) \u2014 `desloppify show review --status open`."
     },
     "tools": {
       "fixers": [],
       "move": {
         "available": true,
         "relevant": true,
-        "reason": "1 orphaned files",
+        "reason": "2 orphaned files",
         "usage": "desloppify move <source> <dest> [--dry-run]"
       },
       "plan": {
@@ -461,17 +625,17 @@
     },
     "debt": {
       "overall_gap": 2.5,
-      "wontfix_count": 169,
+      "wontfix_count": 177,
       "worst_dimension": "Code quality",
-      "worst_gap": 44.3,
+      "worst_gap": 43.7,
       "trend": "stable"
     },
     "milestone": null,
     "primary_action": {
       "command": "desloppify show orphaned --status open",
-      "description": "1 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
+      "description": "2 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
     },
-    "why_now": "Work through actions in priority order. Rescan after each fix to track progress. Review: 15 issue(s) \u2014 `desloppify show review --status open`.",
+    "why_now": "Try a different dimension to break the plateau. Review: 23 issue(s) \u2014 `desloppify show review --status open`.",
     "verification_step": {
       "command": "desloppify scan",
       "reason": "revalidate after changes"
@@ -480,20 +644,20 @@
       {
         "type": "wontfix_gap",
         "severity": "high",
-        "message": "Strict/lenient gap is 2.5 pts with 169 wontfix issues"
+        "message": "Strict/lenient gap is 2.5 pts with 177 wontfix issues"
       }
     ],
     "strict_target": {
       "target": 95.0,
-      "current": 88.1,
-      "gap": 6.9,
+      "current": 82.0,
+      "gap": 13.0,
       "state": "below",
       "warning": null
     },
     "reminders": [],
     "reminder_history": {
       "zone_classification": 3,
-      "report_scores": 21,
+      "report_scores": 24,
       "review_issues_pending": 3,
       "stagnant_nudge": 3,
       "feedback_nudge": 3,
@@ -501,6 +665,586 @@
       "wontfix_growing": 3
     }
   },
+  "agent_notes": [
+    "Do NOT use `desloppify plan skip` unless the user explicitly asks you to skip an item.",
+    "If you cannot fix an item, report it and move to the next one.",
+    "For cluster items: if the autofix_hint finds 0 results, drill into individual issues with the primary_command."
+  ],
+  "plan": {
+    "active": true,
+    "focus": null,
+    "clusters": [
+      {
+        "name": "false-positives",
+        "description": "Findings already fixed in codebase - resolve immediately",
+        "item_count": 10
+      },
+      {
+        "name": "contract-guards",
+        "description": "Missing contract guards and validation",
+        "item_count": 4
+      },
+      {
+        "name": "legacy-migration",
+        "description": "Legacy migration debt cleanup",
+        "item_count": 6
+      },
+      {
+        "name": "abstraction-alignment",
+        "description": "Align provider verifier abstractions",
+        "item_count": 3
+      },
+      {
+        "name": "naming-fixes",
+        "description": "Rename for clarity",
+        "item_count": 3
+      },
+      {
+        "name": "elegance-fixes",
+        "description": "Reduce duplication and improve elegance",
+        "item_count": 11
+      },
+      {
+        "name": "misc-fixes",
+        "description": "Type safety, logging, testing, docs",
+        "item_count": 4
+      },
+      {
+        "name": "architecture-refactor",
+        "description": "Large T4 architectural refactors - lower priority",
+        "item_count": 4
+      },
+      {
+        "name": "naming-symmetry-fixes",
+        "description": "Three rename/restructure operations: GoogleTokenVerifier.verify() to verifyIdToken() with 2-3 call site updates, firstPresent() to firstNonBlank() in ProviderIdentityNormalizer, and restructure OAuth2SuccessHandler dispatch to symmetric if/else-if/else pattern.",
+        "item_count": 3
+      },
+      {
+        "name": "test-coverage-gaps",
+        "description": "Add unit test for UserService concurrent creation recovery (stub save() to throw DataIntegrityViolationException). Add integration test for Microsoft server-side OAuth2 happy path. Execute AFTER all code clusters to test final state.",
+        "item_count": 2
+      },
+      {
+        "name": "audit-log-symmetry",
+        "description": "Promote auth success log from DEBUG to INFO in AuthCompletionService (line 37). Message already excludes PII. Creates symmetric audit trail where both successes and failures are visible at default log level.",
+        "item_count": 1
+      },
+      {
+        "name": "migration-deprecation-tracking",
+        "description": "Add @Deprecated to UserRepository.findByGoogleId() for symmetric deprecation signals matching User.googleId's existing @Deprecated annotation. No startup tracking mechanism \u2014 over-engineered for a demo app.",
+        "item_count": 2
+      },
+      {
+        "name": "exception-hierarchy-unification",
+        "description": "Complete IllegalArgumentException to InvalidTokenException migration across all token verification code. Catch JwtException in MicrosoftTokenVerifier, rename ExpiredAuthCodeException to InvalidAuthCodeException, update AuthCodeStore @throws Javadoc, add @throws to MicrosoftTokenVerifier.verifyIdToken(). Fixes real 500 errors for malformed Microsoft tokens.",
+        "item_count": 6
+      },
+      {
+        "name": "auto/stale_wontfix",
+        "description": "Fix 37 stale wontfix issues",
+        "item_count": 36
+      },
+      {
+        "name": "auto/stale-review",
+        "description": "Re-review 14 stale subjective dimensions",
+        "item_count": 0
+      },
+      {
+        "name": "auto/under-target-review",
+        "description": "Consider re-reviewing 5 dimensions under target score",
+        "item_count": 0
+      },
+      {
+        "name": "contract-enforcement",
+        "description": "Add null/blank validation to createAuthCode, @throws Javadoc to MicrosoftTokenVerifier, @Deprecated to User accessors",
+        "item_count": 4
+      },
+      {
+        "name": "exception-completeness",
+        "description": "Complete exception hierarchy by wrapping uncaught OAuth2SuccessHandler exceptions and integrating OAuth2IdentityException into SsoException",
+        "item_count": 2
+      },
+      {
+        "name": "convention-cleanup",
+        "description": "Remove unnecessary @Autowired from 4 classes, move ErrorResponse out of controller.dto, simplify dense ternary constructor",
+        "item_count": 3
+      },
+      {
+        "name": "frontend-consistency",
+        "description": "Align frontend hook error types and store failure strategies for consistency",
+        "item_count": 2
+      },
+      {
+        "name": "migration-cleanup",
+        "description": "Complete multi-provider migration by removing legacy google_id artifacts",
+        "item_count": 7
+      },
+      {
+        "name": "contract-fixes",
+        "description": "Add missing contract docs and replace string provider dispatch with enum",
+        "item_count": 4
+      },
+      {
+        "name": "architecture-fixes",
+        "description": "Reduce fan-out, decouple google identity, seal AuthApiResponse",
+        "item_count": 4
+      },
+      {
+        "name": "test-coverage",
+        "description": "Add missing test coverage",
+        "item_count": 2
+      }
+    ],
+    "total_ordered": 23,
+    "total_skipped": 3,
+    "plan_overrides_narrative": true
+  },
+  "overall_score": 85.8,
+  "objective_score": 99.7,
+  "strict_score": 82.0,
+  "scorecard_dimensions": [
+    {
+      "name": "File health",
+      "score": 100.0,
+      "strict": 100.0,
+      "checks": 47,
+      "failing": 0,
+      "tier": 3,
+      "subjective": false
+    },
+    {
+      "name": "AI generated debt",
+      "score": 84.5,
+      "strict": 84.5,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "ai_generated_debt"
+      ]
+    },
+    {
+      "name": "API coherence",
+      "score": 86.5,
+      "strict": 86.5,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "api_surface_coherence"
+      ]
+    },
+    {
+      "name": "Abstraction fit",
+      "score": 88.0,
+      "strict": 88.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "abstraction_fitness"
+      ]
+    },
+    {
+      "name": "Auth consistency",
+      "score": 85.0,
+      "strict": 85.0,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "authorization_consistency"
+      ]
+    },
+    {
+      "name": "Code quality",
+      "score": 98.4,
+      "strict": 54.7,
+      "checks": 85,
+      "failing": 2,
+      "tier": 3,
+      "subjective": false
+    },
+    {
+      "name": "Convention drift",
+      "score": 91.0,
+      "strict": 91.0,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "convention_outlier"
+      ]
+    },
+    {
+      "name": "Cross-module arch",
+      "score": 79.0,
+      "strict": 79.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "cross_module_architecture"
+      ]
+    },
+    {
+      "name": "Dep health",
+      "score": 82.0,
+      "strict": 82.0,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "dependency_health"
+      ]
+    },
+    {
+      "name": "Design coherence",
+      "score": 75.0,
+      "strict": 75.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "design_coherence"
+      ]
+    },
+    {
+      "name": "Duplication",
+      "score": 99.5,
+      "strict": 99.0,
+      "checks": 144,
+      "failing": 1,
+      "tier": 3,
+      "subjective": false
+    },
+    {
+      "name": "Elegance",
+      "score": 82.3,
+      "strict": 82.3,
+      "checks": 30,
+      "failing": 3,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "high_level_elegance",
+        "low_level_elegance",
+        "mid_level_elegance"
+      ]
+    },
+    {
+      "name": "Error consistency",
+      "score": 90.0,
+      "strict": 90.0,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "error_consistency"
+      ]
+    },
+    {
+      "name": "Init coupling",
+      "score": 91.0,
+      "strict": 91.0,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "initialization_coupling"
+      ]
+    },
+    {
+      "name": "Naming quality",
+      "score": 90.5,
+      "strict": 90.5,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "naming_quality"
+      ]
+    },
+    {
+      "name": "Security",
+      "score": 100.0,
+      "strict": 100.0,
+      "checks": 94,
+      "failing": 0,
+      "tier": 4,
+      "subjective": false
+    },
+    {
+      "name": "Stale migration",
+      "score": 62.0,
+      "strict": 62.0,
+      "checks": 10,
+      "failing": 6,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "incomplete_migration"
+      ]
+    },
+    {
+      "name": "Structure nav",
+      "score": 87.0,
+      "strict": 87.0,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "package_organization"
+      ]
+    },
+    {
+      "name": "Test health",
+      "score": 100.0,
+      "strict": 71.6,
+      "checks": 266,
+      "failing": 0,
+      "tier": 4,
+      "subjective": false
+    },
+    {
+      "name": "Test strategy",
+      "score": 84.5,
+      "strict": 84.5,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "test_strategy"
+      ]
+    }
+  ],
+  "subjective_measures": [
+    {
+      "name": "AI generated debt",
+      "score": 84.5,
+      "strict": 84.5,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "ai_generated_debt"
+      ]
+    },
+    {
+      "name": "API coherence",
+      "score": 86.5,
+      "strict": 86.5,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "api_surface_coherence"
+      ]
+    },
+    {
+      "name": "Abstraction fit",
+      "score": 88.0,
+      "strict": 88.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "abstraction_fitness"
+      ]
+    },
+    {
+      "name": "Auth consistency",
+      "score": 85.0,
+      "strict": 85.0,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "authorization_consistency"
+      ]
+    },
+    {
+      "name": "Convention drift",
+      "score": 91.0,
+      "strict": 91.0,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "convention_outlier"
+      ]
+    },
+    {
+      "name": "Cross-module arch",
+      "score": 79.0,
+      "strict": 79.0,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "cross_module_architecture"
+      ]
+    },
+    {
+      "name": "Dep health",
+      "score": 82.0,
+      "strict": 82.0,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "dependency_health"
+      ]
+    },
+    {
+      "name": "Design coherence",
+      "score": 75.0,
+      "strict": 75.0,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "design_coherence"
+      ]
+    },
+    {
+      "name": "Elegance",
+      "score": 82.3,
+      "strict": 82.3,
+      "checks": 30,
+      "failing": 3,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "high_level_elegance",
+        "low_level_elegance",
+        "mid_level_elegance"
+      ]
+    },
+    {
+      "name": "Error consistency",
+      "score": 90.0,
+      "strict": 90.0,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "error_consistency"
+      ]
+    },
+    {
+      "name": "Init coupling",
+      "score": 91.0,
+      "strict": 91.0,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "initialization_coupling"
+      ]
+    },
+    {
+      "name": "Naming quality",
+      "score": 90.5,
+      "strict": 90.5,
+      "checks": 10,
+      "failing": 1,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "naming_quality"
+      ]
+    },
+    {
+      "name": "Stale migration",
+      "score": 62.0,
+      "strict": 62.0,
+      "checks": 10,
+      "failing": 6,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "incomplete_migration"
+      ]
+    },
+    {
+      "name": "Structure nav",
+      "score": 87.0,
+      "strict": 87.0,
+      "checks": 10,
+      "failing": 0,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "package_organization"
+      ]
+    },
+    {
+      "name": "Test strategy",
+      "score": 84.5,
+      "strict": 84.5,
+      "checks": 10,
+      "failing": 2,
+      "tier": 4,
+      "subjective": true,
+      "placeholder": false,
+      "cli_keys": [
+        "test_strategy"
+      ]
+    }
+  ],
   "config": {
     "target_strict_score": 95,
     "review_max_age_days": 30,
