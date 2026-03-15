@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 import com.demo.sso.config.properties.AuthRolloutProperties;
 import com.demo.sso.controller.dto.AuthApiResponse;
 import com.demo.sso.controller.dto.AuthCodeExchangeRequest;
-import com.demo.sso.controller.dto.ErrorResponse;
+import com.demo.sso.dto.ErrorResponse;
 import com.demo.sso.controller.dto.GoogleVerifyRequest;
 import com.demo.sso.controller.dto.LogoutResponse;
 import com.demo.sso.controller.dto.TokenResponse;

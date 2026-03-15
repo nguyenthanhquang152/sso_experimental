@@ -52,7 +52,7 @@ public class RedisAuthCodeStore implements AuthCodeStore {
         this.rolloutProperties = rolloutProperties;
     }
 
-    public RedisAuthCodeStore(StringRedisTemplate redisTemplate) {
+    RedisAuthCodeStore(StringRedisTemplate redisTemplate) {
         this(redisTemplate, new AuthRolloutProperties());
     }
 

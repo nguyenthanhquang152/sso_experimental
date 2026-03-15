@@ -1,4 +1,5 @@
 package com.demo.sso.controller.dto;
 
-public sealed interface AuthApiResponse permits ErrorResponse, LogoutResponse, MicrosoftChallengeResponse, TokenResponse {
+/** Marker interface for all authentication API response types. */
+public interface AuthApiResponse {
 }

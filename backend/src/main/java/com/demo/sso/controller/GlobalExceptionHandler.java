@@ -1,6 +1,6 @@
 package com.demo.sso.controller;
 
-import com.demo.sso.controller.dto.ErrorResponse;
+import com.demo.sso.dto.ErrorResponse;
 import com.demo.sso.exception.InvalidAuthCodeException;
 import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.exception.InvalidTokenException;

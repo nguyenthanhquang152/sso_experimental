@@ -1,6 +1,6 @@
 package com.demo.sso.controller;
 
-import com.demo.sso.controller.dto.ErrorResponse;
+import com.demo.sso.dto.ErrorResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.demo.sso.config.filter;
 
 import com.demo.sso.config.properties.AuthRolloutProperties;
-import com.demo.sso.controller.dto.ErrorResponse;
+import com.demo.sso.dto.ErrorResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;

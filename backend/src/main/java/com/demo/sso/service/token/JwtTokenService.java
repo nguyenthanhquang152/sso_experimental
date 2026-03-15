@@ -45,7 +45,7 @@ public class JwtTokenService {
     }
 
     /** Test-only constructor; defaults to {@link AuthRolloutProperties.IdentityContractMode#LEGACY_ONLY}. */
-    public JwtTokenService(String secret, long expirationMs) {
+    JwtTokenService(String secret, long expirationMs) {
         this(secret, expirationMs, new AuthRolloutProperties());
     }
 

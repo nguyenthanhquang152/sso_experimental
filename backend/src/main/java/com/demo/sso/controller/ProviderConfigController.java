@@ -80,13 +80,11 @@ public class ProviderConfigController {
             logger.warn("Microsoft server-side config missing despite rollout flag being enabled");
         }
 
+        String clientId = clientSideEnabled ? microsoftAuthProperties.getClientId() : null;
+        String authority = clientSideEnabled ? microsoftAuthProperties.getAuthority() : null;
+        List<String> scopes = clientSideEnabled ? List.copyOf(microsoftAuthProperties.getScopes()) : List.of();
+        String redirectUri = clientSideEnabled ? frontendUrl : null;
         return new ProviderConfigResponse.MicrosoftProviderConfig(
-            serverSideEnabled,
-            clientSideEnabled,
-            clientSideEnabled ? microsoftAuthProperties.getClientId() : null,
-            clientSideEnabled ? microsoftAuthProperties.getAuthority() : null,
-            clientSideEnabled ? List.copyOf(microsoftAuthProperties.getScopes()) : List.of(),
-            clientSideEnabled ? frontendUrl : null
-        );
+            serverSideEnabled, clientSideEnabled, clientId, authority, scopes, redirectUri);
     }
 }
