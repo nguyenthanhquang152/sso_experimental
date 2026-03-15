@@ -8,7 +8,7 @@ import java.security.Principal;
  * to model legacy (v1) and V2 identity contracts. Use {@link #isLegacy()}
  * to determine the variant; construct via factory methods only.
  *
- * @see #legacy(String, String)
+ * @see #legacy(String)
  * @see #v2(Long, String, AuthProvider, String)
  */
 public record AuthenticatedUserIdentity(
@@ -16,14 +16,13 @@ public record AuthenticatedUserIdentity(
         String email,
         AuthProvider provider,
         String providerUserId,
-        Integer contractVersion,
-        String legacyProviderKey) implements Principal {
+        Integer contractVersion) implements Principal {
 
-    public static AuthenticatedUserIdentity legacy(String email, String googleId) {
+    public static AuthenticatedUserIdentity legacy(String email) {
         if (email == null || email.isBlank()) {
             throw new IllegalArgumentException("Legacy identity requires a non-blank email");
         }
-        return new AuthenticatedUserIdentity(null, email, null, null, null, googleId);
+        return new AuthenticatedUserIdentity(null, email, null, null, null);
     }
 
     public static AuthenticatedUserIdentity v2(
@@ -34,7 +33,7 @@ public record AuthenticatedUserIdentity(
         if (userId == null || email == null || provider == null || providerUserId == null) {
             throw new IllegalArgumentException("V2 identity requires userId, email, provider, and providerUserId");
         }
-        return new AuthenticatedUserIdentity(userId, email, provider, providerUserId, 2, null);
+        return new AuthenticatedUserIdentity(userId, email, provider, providerUserId, 2);
     }
 
     public boolean isLegacy() {

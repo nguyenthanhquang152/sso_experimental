@@ -3,6 +3,7 @@ package com.demo.sso.service.token;
 import com.demo.sso.service.token.JwtTokenService;
 import com.demo.sso.service.model.AuthenticatedUserIdentity;
 import com.demo.sso.config.properties.AuthRolloutProperties;
+import com.demo.sso.exception.InvalidTokenException;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -172,7 +173,7 @@ class JwtTokenServiceTest {
         String legacyToken = legacyService.generateLegacyToken("user@example.com", "google-123");
 
         assertTrue(v2OnlyService.validateAndExtract(legacyToken).isEmpty());
-        assertThrows(IllegalArgumentException.class, () -> v2OnlyService.parseAuthenticatedUser(legacyToken));
+        assertThrows(InvalidTokenException.class, () -> v2OnlyService.parseAuthenticatedUser(legacyToken));
     }
 
     private static AuthRolloutProperties rolloutProperties(

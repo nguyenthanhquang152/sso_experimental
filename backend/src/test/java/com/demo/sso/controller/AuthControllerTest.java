@@ -14,6 +14,7 @@ import com.demo.sso.controller.dto.ErrorResponse;
 import com.demo.sso.controller.dto.GoogleVerifyRequest;
 import com.demo.sso.controller.dto.LogoutResponse;
 import com.demo.sso.controller.dto.TokenResponse;
+import com.demo.sso.exception.ExpiredAuthCodeException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.auth.AuthCompletionService;
 import com.demo.sso.service.challenge.AuthCodeStore;
@@ -110,7 +111,7 @@ class AuthControllerTest {
     @Test
     void exchangeReturnsBadRequestForInvalidOrExpiredCode() {
         when(authCodeStore.exchangeCode("expired-code"))
-                .thenThrow(new IllegalArgumentException("expired"));
+                .thenThrow(new ExpiredAuthCodeException("expired"));
 
         ResponseEntity<AuthApiResponse> response = controller.exchangeCode(
                 new AuthCodeExchangeRequest("expired-code"));

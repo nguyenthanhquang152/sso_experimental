@@ -12,12 +12,12 @@ public record NormalizedIdentity(
     AuthFlow loginFlow
 ) {
     public static NormalizedIdentity google(
-            String googleId,
+            String providerUserId,
             String email,
             String name,
             String pictureUrl,
             AuthFlow loginFlow) {
-        return new NormalizedIdentity(AuthProvider.GOOGLE, googleId, email, name, pictureUrl, loginFlow);
+        return new NormalizedIdentity(AuthProvider.GOOGLE, providerUserId, email, name, pictureUrl, loginFlow);
     }
 
     public static NormalizedIdentity microsoft(

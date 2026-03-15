@@ -22,7 +22,7 @@ function getAvatarInitials(name: string, email: string) {
 }
 
 export function DashboardPage() {
-  const { user, loading, logout, isAuthenticated } = useAuth();
+  const { user, loading, logout, isAuthenticated, error } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,6 +33,10 @@ export function DashboardPage() {
 
   if (loading) {
     return <div className={styles.loadingContainer}>Loading...</div>;
+  }
+
+  if (error) {
+    return <div className={styles.error}>{error}</div>;
   }
 
   if (!user) {

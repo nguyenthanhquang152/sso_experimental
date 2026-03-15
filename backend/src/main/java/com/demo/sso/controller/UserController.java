@@ -44,7 +44,7 @@ public class UserController {
         } else {
             // Legacy fallback — see method Javadoc for removal criteria
             logger.warn("Legacy identity fallback: principal type={}", authentication.getPrincipal().getClass().getSimpleName());
-            identity = AuthenticatedUserIdentity.legacy(authentication.getName(), null);
+            identity = AuthenticatedUserIdentity.legacy(authentication.getName());
         }
 
         return userService.findCurrentUser(identity)

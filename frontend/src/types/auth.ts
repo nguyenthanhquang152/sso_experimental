@@ -71,7 +71,7 @@ export function normalizeProviderConfig(config?: Partial<ProviderConfig> | null)
       scopes: Array.isArray(microsoft?.scopes) ? microsoft.scopes : [],
       // Clear redirectUri when client-side is disabled so MSAL is never
       // initialised with a stale value from a previous response.
-      redirectUri: microsoft?.clientSideEnabled ? (microsoft.redirectUri ?? undefined) : undefined,
+      redirectUri: microsoft?.clientSideEnabled ? microsoft.redirectUri : undefined,
     },
   };
 }

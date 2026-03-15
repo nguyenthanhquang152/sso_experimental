@@ -1,6 +1,9 @@
 package com.demo.sso.controller;
 
 import com.demo.sso.controller.dto.ErrorResponse;
+import com.demo.sso.exception.ExpiredAuthCodeException;
+import com.demo.sso.exception.InvalidIdentityException;
+import com.demo.sso.exception.InvalidTokenException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +28,24 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleUnreadableMessage(HttpMessageNotReadableException e) {
         logger.warn("Malformed request body: {}", e.getMessage());
         return ResponseEntity.badRequest().body(new ErrorResponse("Malformed request body"));
+    }
+
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidToken(InvalidTokenException e) {
+        logger.warn("Invalid token: {}", e.getMessage());
+        return ResponseEntity.status(401).body(new ErrorResponse("Invalid or expired token"));
+    }
+
+    @ExceptionHandler(InvalidIdentityException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidIdentity(InvalidIdentityException e) {
+        logger.warn("Invalid identity: {}", e.getMessage());
+        return ResponseEntity.badRequest().body(new ErrorResponse("Invalid identity"));
+    }
+
+    @ExceptionHandler(ExpiredAuthCodeException.class)
+    public ResponseEntity<ErrorResponse> handleExpiredAuthCode(ExpiredAuthCodeException e) {
+        logger.warn("Expired auth code: {}", e.getMessage());
+        return ResponseEntity.status(410).body(new ErrorResponse("Invalid or expired authorization code"));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

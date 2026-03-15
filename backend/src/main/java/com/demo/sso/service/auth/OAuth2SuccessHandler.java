@@ -1,5 +1,6 @@
 package com.demo.sso.service.auth;
 
+import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.MicrosoftIdTokenClaims;
@@ -63,8 +64,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
             try {
                 MicrosoftIdTokenClaims claims = MicrosoftIdTokenClaims.fromMap(oAuth2User.getAttributes());
                 return authCompletionService.completeMicrosoftAuthenticationWithCode(claims, AuthFlow.SERVER_SIDE);
-            } catch (IllegalArgumentException e) {
-                throw new OAuth2IdentityException("missing_attributes", "invalid identity claims");
+            } catch (IllegalArgumentException | InvalidIdentityException e) {
+                throw new OAuth2IdentityException("missing_attributes", "invalid identity claims", e);
             }
         }
 
@@ -80,8 +81,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         try {
             VerifiedGoogleIdentity google = VerifiedGoogleIdentity.fromOAuth2User(oAuth2User);
             return authCompletionService.completeGoogleAuthenticationWithCode(google, AuthFlow.SERVER_SIDE);
-        } catch (IllegalArgumentException e) {
-            throw new OAuth2IdentityException("missing_attributes", "missing sub or email attribute");
+        } catch (IllegalArgumentException | InvalidIdentityException e) {
+            throw new OAuth2IdentityException("missing_attributes", "missing sub or email attribute", e);
         }
     }
 
@@ -91,6 +92,11 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         OAuth2IdentityException(String errorCode, String message) {
             super(message);
+            this.errorCode = errorCode;
+        }
+
+        OAuth2IdentityException(String errorCode, String message, Throwable cause) {
+            super(message, cause);
             this.errorCode = errorCode;
         }
 

@@ -3,6 +3,7 @@ package com.demo.sso.service.auth;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.service.model.NormalizedIdentity;
@@ -59,7 +60,7 @@ class ProviderIdentityNormalizerTest {
 
     @Test
     void normalizeMicrosoftClaims_rejectsGuestStyleIdentifiers() {
-        assertThrows(IllegalArgumentException.class, () -> normalizer.normalizeMicrosoftClaims(MicrosoftIdTokenClaims.fromMap(Map.of(
+        assertThrows(InvalidIdentityException.class, () -> normalizer.normalizeMicrosoftClaims(MicrosoftIdTokenClaims.fromMap(Map.of(
             "iss", "https://login.microsoftonline.com/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/v2.0",
             "sub", "microsoft-subject",
             "tid", "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
@@ -69,7 +70,7 @@ class ProviderIdentityNormalizerTest {
 
     @Test
     void normalizeMicrosoftClaims_rejectsExternalIdentityProviders() {
-        assertThrows(IllegalArgumentException.class, () -> normalizer.normalizeMicrosoftClaims(MicrosoftIdTokenClaims.fromMap(Map.of(
+        assertThrows(InvalidIdentityException.class, () -> normalizer.normalizeMicrosoftClaims(MicrosoftIdTokenClaims.fromMap(Map.of(
             "iss", "https://login.microsoftonline.com/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/v2.0",
             "sub", "microsoft-subject",
             "tid", "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
@@ -107,7 +108,7 @@ class ProviderIdentityNormalizerTest {
 
     @Test
     void normalizeMicrosoftClaims_rejectsGuestExtInEmail() {
-        assertThrows(IllegalArgumentException.class, () -> normalizer.normalizeMicrosoftClaims(MicrosoftIdTokenClaims.fromMap(Map.of(
+        assertThrows(InvalidIdentityException.class, () -> normalizer.normalizeMicrosoftClaims(MicrosoftIdTokenClaims.fromMap(Map.of(
             "iss", "https://login.microsoftonline.com/tid/v2.0",
             "sub", "sub1",
             "tid", "tid",
@@ -145,21 +146,21 @@ class ProviderIdentityNormalizerTest {
 
         @Test
         void emailWithMultipleAtSigns_throws() {
-            assertThrows(IllegalArgumentException.class,
+            assertThrows(InvalidIdentityException.class,
                     () -> normalizer.normalizeMicrosoftClaims(
                             microsoftClaims("user@@domain.com"), AuthFlow.CLIENT_SIDE));
         }
 
         @Test
         void emailWithEmptyLocalPart_throws() {
-            assertThrows(IllegalArgumentException.class,
+            assertThrows(InvalidIdentityException.class,
                     () -> normalizer.normalizeMicrosoftClaims(
                             microsoftClaims("@domain.com"), AuthFlow.CLIENT_SIDE));
         }
 
         @Test
         void emailWithEmptyDomain_throws() {
-            assertThrows(IllegalArgumentException.class,
+            assertThrows(InvalidIdentityException.class,
                     () -> normalizer.normalizeMicrosoftClaims(
                             microsoftClaims("user@"), AuthFlow.CLIENT_SIDE));
         }

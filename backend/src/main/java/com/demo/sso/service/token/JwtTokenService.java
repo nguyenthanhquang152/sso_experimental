@@ -2,6 +2,7 @@ package com.demo.sso.service.token;
 
 import com.demo.sso.service.model.AuthenticatedUserIdentity;
 import com.demo.sso.config.properties.AuthRolloutProperties;
+import com.demo.sso.exception.InvalidTokenException;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
 import io.jsonwebtoken.Claims;
@@ -141,21 +142,20 @@ public class JwtTokenService {
 
         if (version == null) {
             if (!rolloutProperties.getIdentityContractMode().acceptsLegacy()) {
-                throw new IllegalArgumentException("Legacy JWTs are not accepted in "
+                throw new InvalidTokenException("Legacy JWTs are not accepted in "
                     + rolloutProperties.getIdentityContractMode());
             }
-            logger.info("Legacy JWT identity fallback: subject={}", claims.getSubject());
+            logger.debug("Legacy JWT identity fallback");
             return AuthenticatedUserIdentity.legacy(
-                claims.getSubject(),
-                claims.get("googleId", String.class));
+                claims.getSubject());
         }
 
         if (version != 2) {
-            throw new IllegalArgumentException("Unsupported JWT contract version: " + version);
+            throw new InvalidTokenException("Unsupported JWT contract version: " + version);
         }
 
         if (!rolloutProperties.getIdentityContractMode().acceptsV2()) {
-            throw new IllegalArgumentException("V2 JWTs are not accepted in "
+            throw new InvalidTokenException("V2 JWTs are not accepted in "
                 + rolloutProperties.getIdentityContractMode());
         }
 
@@ -165,7 +165,7 @@ public class JwtTokenService {
         String providerUserId = claims.get("providerUserId", String.class);
 
         if (subject == null || email == null || provider == null || providerUserId == null) {
-            throw new IllegalArgumentException("V2 JWT is missing required identity claims");
+            throw new InvalidTokenException("V2 JWT is missing required identity claims");
         }
 
         try {
@@ -175,7 +175,7 @@ public class JwtTokenService {
                 AuthProvider.valueOf(provider),
                 providerUserId);
         } catch (RuntimeException e) {
-            throw new IllegalArgumentException("Invalid V2 JWT identity claims", e);
+            throw new InvalidTokenException("Invalid V2 JWT identity claims", e);
         }
     }
 
@@ -187,7 +187,7 @@ public class JwtTokenService {
     public Optional<AuthenticatedUserIdentity> validateAndExtract(String token) {
         try {
             return Optional.of(parseAuthenticatedUser(token));
-        } catch (JwtException | IllegalArgumentException e) {
+        } catch (JwtException | InvalidTokenException | IllegalArgumentException e) {
             logger.warn("JWT validation failed [{}]: {}", e.getClass().getSimpleName(), e.getMessage());
             return Optional.empty();
         }

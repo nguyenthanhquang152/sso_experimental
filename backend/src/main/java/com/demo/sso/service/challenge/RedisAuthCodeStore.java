@@ -1,6 +1,7 @@
 package com.demo.sso.service.challenge;
 
 import com.demo.sso.config.properties.AuthRolloutProperties;
+import com.demo.sso.exception.ExpiredAuthCodeException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,7 @@ public class RedisAuthCodeStore implements AuthCodeStore {
     private String exchangeOrThrow(String key) {
         String jwt = redisTemplate.opsForValue().getAndDelete(key);
         if (jwt == null) {
-            throw new IllegalArgumentException("Invalid or expired authorization code");
+            throw new ExpiredAuthCodeException("Invalid or expired authorization code");
         }
         return jwt;
     }

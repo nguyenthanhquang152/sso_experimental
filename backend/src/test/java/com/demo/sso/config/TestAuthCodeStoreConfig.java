@@ -1,5 +1,6 @@
 package com.demo.sso.config;
 
+import com.demo.sso.exception.ExpiredAuthCodeException;
 import com.demo.sso.service.challenge.AuthCodeStore;
 import com.demo.sso.service.challenge.MicrosoftChallengeStore;
 import com.demo.sso.service.challenge.SecureCodeGenerator;
@@ -42,7 +43,7 @@ public class TestAuthCodeStoreConfig {
         public String exchangeCode(String code) {
             CodeEntry entry = store.remove(code);
             if (entry == null || System.currentTimeMillis() - entry.createdAt > CODE_TTL_MS) {
-                throw new IllegalArgumentException("Invalid or expired authorization code");
+                throw new ExpiredAuthCodeException("Invalid or expired authorization code");
             }
             return entry.jwt;
         }

@@ -22,6 +22,7 @@ import java.util.Optional;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+    private static final String ROLE_USER = "ROLE_USER";
 
     private final JwtTokenService jwtTokenService;
 
@@ -57,7 +58,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         var auth = new UsernamePasswordAuthenticationToken(
                 identity.get(), null,
-                List.of(new SimpleGrantedAuthority("ROLE_USER")));
+                List.of(new SimpleGrantedAuthority(ROLE_USER)));
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         filterChain.doFilter(request, response);

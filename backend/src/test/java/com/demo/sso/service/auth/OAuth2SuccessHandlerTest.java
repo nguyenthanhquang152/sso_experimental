@@ -1,5 +1,6 @@
 package com.demo.sso.service.auth;
 
+import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.MicrosoftIdTokenClaims;
@@ -138,7 +139,7 @@ class OAuth2SuccessHandlerTest {
 
         when(authCompletionService.completeGoogleAuthenticationWithCode(
             any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
-            .thenThrow(new IllegalArgumentException("Google identity is missing required claims"));
+            .thenThrow(new InvalidIdentityException("Google identity is missing required claims"));
 
         handler.onAuthenticationSuccess(request, response, authentication);
 
@@ -155,7 +156,7 @@ class OAuth2SuccessHandlerTest {
 
         when(authCompletionService.completeGoogleAuthenticationWithCode(
             any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
-            .thenThrow(new IllegalArgumentException("Google identity is missing required claims"));
+            .thenThrow(new InvalidIdentityException("Google identity is missing required claims"));
 
         handler.onAuthenticationSuccess(request, response, authentication);
 

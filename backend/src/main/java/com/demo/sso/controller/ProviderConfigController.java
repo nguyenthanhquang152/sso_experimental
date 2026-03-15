@@ -54,8 +54,8 @@ public class ProviderConfigController {
     private ProviderConfigResponse.GoogleProviderConfig buildGoogleConfig() {
         boolean configured = !googleClientId.isBlank();
         var googleRollout = rolloutProperties.getGoogle();
-        boolean serverSideEnabled = configured && googleRollout != null && googleRollout.isServerSideEnabled();
-        boolean clientSideEnabled = configured && googleRollout != null && googleRollout.isClientSideEnabled();
+        boolean serverSideEnabled = configured && googleRollout.isServerSideEnabled();
+        boolean clientSideEnabled = configured && googleRollout.isClientSideEnabled();
 
         if (!configured) {
             logger.debug("Google provider not configured: client ID is missing");
@@ -70,13 +70,13 @@ public class ProviderConfigController {
         var microsoftRollout = rolloutProperties.getMicrosoft();
         boolean clientSideConfigured = microsoftAuthProperties.isClientSideConfigured();
         boolean serverSideConfigured = microsoftAuthProperties.isServerSideConfigured();
-        boolean serverSideEnabled = microsoftRollout != null && microsoftRollout.isServerSideEnabled() && serverSideConfigured;
-        boolean clientSideEnabled = microsoftRollout != null && microsoftRollout.isClientSideEnabled() && clientSideConfigured;
+        boolean serverSideEnabled = microsoftRollout.isServerSideEnabled() && serverSideConfigured;
+        boolean clientSideEnabled = microsoftRollout.isClientSideEnabled() && clientSideConfigured;
 
-        if (!clientSideConfigured && microsoftRollout != null && microsoftRollout.isClientSideEnabled()) {
+        if (!clientSideConfigured && microsoftRollout.isClientSideEnabled()) {
             logger.warn("Microsoft client-side config missing despite rollout flag being enabled");
         }
-        if (!serverSideConfigured && microsoftRollout != null && microsoftRollout.isServerSideEnabled()) {
+        if (!serverSideConfigured && microsoftRollout.isServerSideEnabled()) {
             logger.warn("Microsoft server-side config missing despite rollout flag being enabled");
         }
 

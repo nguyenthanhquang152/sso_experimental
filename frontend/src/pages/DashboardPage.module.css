@@ -88,3 +88,13 @@
   cursor: pointer;
   font-weight: bold;
 }
+
+.error {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 16px 20px;
+  color: #b71c1c;
+  background-color: #ffebee;
+  border: 1px solid #ef9a9a;
+  border-radius: 4px;
+}

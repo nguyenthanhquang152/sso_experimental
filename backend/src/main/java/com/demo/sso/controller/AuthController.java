@@ -9,6 +9,8 @@ import com.demo.sso.controller.dto.LogoutResponse;
 import com.demo.sso.controller.dto.MicrosoftChallengeResponse;
 import com.demo.sso.controller.dto.MicrosoftVerifyRequest;
 import com.demo.sso.controller.dto.TokenResponse;
+import com.demo.sso.exception.ExpiredAuthCodeException;
+import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.auth.AuthCompletionService;
 import com.demo.sso.service.challenge.AuthCodeStore;
@@ -94,7 +96,7 @@ public class AuthController {
                 google, AuthFlow.CLIENT_SIDE);
 
             return ResponseEntity.ok(new TokenResponse(jwt));
-        } catch (GeneralSecurityException | IOException | IllegalArgumentException e) {
+        } catch (GeneralSecurityException | IOException | IllegalArgumentException | InvalidIdentityException e) {
             logger.warn("Google token verification failed: {}", e.getMessage());
             return badRequest("Invalid Google credential");
         }
@@ -143,7 +145,7 @@ public class AuthController {
             String jwt = authCompletionService.completeMicrosoftAuthentication(
                 claims, AuthFlow.CLIENT_SIDE);
             return ResponseEntity.ok(new TokenResponse(jwt));
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | InvalidIdentityException e) {
             logger.warn("Microsoft token verification failed: {}", e.getMessage());
             return badRequest("Invalid Microsoft credential");
         }
@@ -160,7 +162,7 @@ public class AuthController {
         try {
             String jwt = authCodeStore.exchangeCode(code);
             return ResponseEntity.ok(new TokenResponse(jwt));
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | ExpiredAuthCodeException e) {
             logger.warn("Auth code exchange failed: {}", e.getMessage());
             return badRequest("Invalid or expired code");
         }
@@ -168,6 +170,7 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<AuthApiResponse> logout() {
+        logger.info("Logout requested");
         return ResponseEntity.ok(new LogoutResponse("Logged out successfully"));
     }
 

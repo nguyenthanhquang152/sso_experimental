@@ -40,8 +40,8 @@ public class AuthCompletionService {
     public String completeAuthentication(NormalizedIdentity identity) {
         User user = userService.syncUser(identity);
         String jwt = jwtTokenService.generateToken(user);
-        logger.info("Authentication completed: provider={}, email={}, flow={}",
-            identity.provider(), identity.email(), identity.loginFlow());
+        logger.debug("Authentication completed: provider={}, flow={}",
+            identity.provider(), identity.loginFlow());
         return jwt;
     }
 
