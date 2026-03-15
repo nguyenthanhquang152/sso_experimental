@@ -12,25 +12,10 @@ import java.time.Duration;
 /**
  * Redis-backed auth-code store with dual key-prefix routing for the legacy→V2 migration.
  *
- * <h3>Why two key prefixes?</h3>
- * <p>During the JWT identity migration ({@link AuthRolloutProperties.JwtMintMode}),
- * legacy tokens and V2 tokens coexist. The store uses different Redis key prefixes
- * ({@value #LEGACY_KEY_PREFIX} vs {@value #V2_KEY_PREFIX}) so that the exchange
- * endpoint can look up codes written by either mint mode.
- *
- * <ul>
- *   <li><b>Write path:</b> prefix is chosen by the current {@code JwtMintMode} —
- *       see {@link #currentWritePrefix()}.
- *   <li><b>Read path:</b> prefix is chosen by the current {@code IdentityContractMode} —
- *       see {@link #exchangeCode(String)}.
- * </ul>
- *
- * <h3>When can this be removed?</h3>
- * <p>Once all deployments run with {@code JwtMintMode.V2} and no legacy auth codes
- * remain in Redis (i.e., after the {@value #CODE_TTL} TTL has elapsed since the
- * last legacy mint), the {@code LEGACY_KEY_PREFIX} branch and compatibility
- * fallback can be deleted. Track via the {@code IdentityContractMode.V2_ONLY}
- * rollout phase.
+ * <p>Uses separate key prefixes ({@value #LEGACY_KEY_PREFIX} vs {@value #V2_KEY_PREFIX})
+ * so legacy and V2 auth codes can coexist during the JWT identity migration.
+ * Remove the legacy prefix once all deployments run {@code JwtMintMode.V2}
+ * and the {@value #CODE_TTL} TTL has elapsed since the last legacy mint.
  *
  * @see AuthRolloutProperties.JwtMintMode
  * @see AuthRolloutProperties.IdentityContractMode

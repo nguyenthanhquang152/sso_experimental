@@ -1,14 +1,15 @@
 package com.demo.sso.controller;
 
 import com.demo.sso.config.properties.AuthRolloutProperties;
-import com.demo.sso.controller.dto.AuthApiResponse;
+import com.demo.sso.config.properties.AuthRolloutProperties;
 import com.demo.sso.controller.dto.AuthCodeExchangeRequest;
-import com.demo.sso.dto.ErrorResponse;
 import com.demo.sso.controller.dto.GoogleVerifyRequest;
 import com.demo.sso.controller.dto.LogoutResponse;
 import com.demo.sso.controller.dto.MicrosoftChallengeResponse;
 import com.demo.sso.controller.dto.MicrosoftVerifyRequest;
 import com.demo.sso.controller.dto.TokenResponse;
+import com.demo.sso.dto.AuthApiResponse;
+import com.demo.sso.dto.ErrorResponse;
 import com.demo.sso.exception.InvalidAuthCodeException;
 import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.exception.InvalidTokenException;
@@ -17,10 +18,10 @@ import com.demo.sso.service.auth.AuthCompletionService;
 import com.demo.sso.service.auth.ProviderIdentityNormalizer;
 import com.demo.sso.service.challenge.AuthCodeStore;
 import com.demo.sso.service.challenge.MicrosoftChallengeStore;
+import com.demo.sso.service.model.MicrosoftIdTokenClaims;
 import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
-import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import com.demo.sso.service.token.MicrosoftTokenVerifier;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -205,6 +206,7 @@ public class AuthController {
         String sessionId = UUID.randomUUID().toString();
         ResponseCookie cookie = ResponseCookie.from(MICROSOFT_CHALLENGE_SESSION_COOKIE, sessionId)
             .httpOnly(true)
+            .secure(true)
             .sameSite("Lax")
             .path(cookiePath())
             .maxAge(MICROSOFT_CHALLENGE_SESSION_TTL)
