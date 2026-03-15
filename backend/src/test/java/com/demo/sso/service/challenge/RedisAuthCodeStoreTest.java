@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.never;
 
 @ExtendWith(MockitoExtension.class)
 class RedisAuthCodeStoreTest {
@@ -49,7 +48,7 @@ class RedisAuthCodeStoreTest {
     }
 
     @Test
-    void createAuthCode_setsValueInRedisWithTtl() {
+    void createAuthCode_alwaysUsesV2Namespace() {
         store.createAuthCode("my.jwt.token");
 
         ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
@@ -58,23 +57,34 @@ class RedisAuthCodeStoreTest {
 
         verify(valueOps).set(keyCaptor.capture(), valueCaptor.capture(), ttlCaptor.capture());
 
-        assertTrue(keyCaptor.getValue().startsWith("authcode:"));
+        assertTrue(keyCaptor.getValue().startsWith("authcode:v2:"));
         assertEquals("my.jwt.token", valueCaptor.getValue());
         assertEquals(Duration.ofSeconds(30), ttlCaptor.getValue());
     }
 
     @Test
-    void exchangeCode_callsGetAndDelete() {
-        when(valueOps.getAndDelete("authcode:test-code")).thenReturn("stored.jwt");
+    void exchangeCode_findsV2Key() {
+        when(valueOps.getAndDelete("authcode:v2:test-code")).thenReturn("stored.jwt");
 
         String jwt = store.exchangeCode("test-code");
 
         assertEquals("stored.jwt", jwt);
-        verify(valueOps).getAndDelete("authcode:test-code");
+        verify(valueOps).getAndDelete("authcode:v2:test-code");
+    }
+
+    @Test
+    void exchangeCode_fallsBackToLegacyKeyForInflightCodes() {
+        when(valueOps.getAndDelete("authcode:v2:legacy-code")).thenReturn(null);
+        when(valueOps.getAndDelete("authcode:legacy-code")).thenReturn("legacy.jwt");
+
+        String jwt = store.exchangeCode("legacy-code");
+
+        assertEquals("legacy.jwt", jwt);
     }
 
     @Test
     void exchangeCode_throwsForUnknownCode() {
+        when(valueOps.getAndDelete("authcode:v2:nonexistent")).thenReturn(null);
         when(valueOps.getAndDelete("authcode:nonexistent")).thenReturn(null);
 
         assertThrows(InvalidAuthCodeException.class, () -> store.exchangeCode("nonexistent"));
@@ -85,59 +95,5 @@ class RedisAuthCodeStoreTest {
         String code1 = store.createAuthCode("jwt1");
         String code2 = store.createAuthCode("jwt2");
         assertNotEquals(code1, code2);
-    }
-
-    @Test
-    void createAuthCode_usesV2NamespaceWhenMintModeIsV2() {
-        RedisAuthCodeStore v2Store = new RedisAuthCodeStore(
-            redisTemplate,
-            rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.V2)
-        );
-
-        v2Store.createAuthCode("v2.jwt.token");
-
-        ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
-        verify(valueOps).set(keyCaptor.capture(), eq("v2.jwt.token"), eq(Duration.ofSeconds(30)));
-        assertTrue(keyCaptor.getValue().startsWith("authcode:v2:"));
-    }
-
-    @Test
-    void exchangeCode_readsLegacyThenV2NamespaceDuringCompatibilityMode() {
-        RedisAuthCodeStore compatibilityStore = new RedisAuthCodeStore(
-            redisTemplate,
-            rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.LEGACY)
-        );
-        when(valueOps.getAndDelete("authcode:compat-code")).thenReturn(null);
-        when(valueOps.getAndDelete("authcode:v2:compat-code")).thenReturn("stored.v2.jwt");
-
-        String jwt = compatibilityStore.exchangeCode("compat-code");
-
-        assertEquals("stored.v2.jwt", jwt);
-        verify(valueOps).getAndDelete("authcode:compat-code");
-        verify(valueOps).getAndDelete("authcode:v2:compat-code");
-    }
-
-    @Test
-    void exchangeCode_ignoresLegacyNamespaceWhenContractIsV2Only() {
-        RedisAuthCodeStore v2OnlyStore = new RedisAuthCodeStore(
-            redisTemplate,
-            rolloutProperties(AuthRolloutProperties.IdentityContractMode.V2_ONLY, AuthRolloutProperties.JwtMintMode.V2)
-        );
-        when(valueOps.getAndDelete("authcode:v2:compat-code")).thenReturn("stored.v2.jwt");
-
-        String jwt = v2OnlyStore.exchangeCode("compat-code");
-
-        assertEquals("stored.v2.jwt", jwt);
-        verify(valueOps, never()).getAndDelete("authcode:compat-code");
-        verify(valueOps).getAndDelete("authcode:v2:compat-code");
-    }
-
-    private static AuthRolloutProperties rolloutProperties(
-            AuthRolloutProperties.IdentityContractMode identityContractMode,
-            AuthRolloutProperties.JwtMintMode jwtMintMode) {
-        AuthRolloutProperties properties = new AuthRolloutProperties();
-        properties.setIdentityContractMode(identityContractMode);
-        properties.setJwtMintMode(jwtMintMode);
-        return properties;
     }
 }

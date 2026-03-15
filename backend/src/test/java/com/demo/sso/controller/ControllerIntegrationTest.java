@@ -74,7 +74,6 @@ class ControllerIntegrationTest {
 
     private User createTestUser() {
         User user = new User();
-        user.setGoogleId("google-test-123");
         user.setEmail("test@example.com");
         user.setName("Test User");
         user.setPictureUrl("http://example.com/pic.jpg");
@@ -186,9 +185,9 @@ class ControllerIntegrationTest {
             assertNotNull(token);
 
             var claims = jwtTokenService.parseToken(token);
-            assertEquals("user@example.com", claims.getSubject());
-            // Legacy JWT format: googleId claim is null for new users since
-            // createNewUser no longer populates the google_id column.
+            // V2 JWT format: subject is the user ID, not the email
+            assertEquals(2, claims.get("ver", Integer.class));
+            assertEquals("user@example.com", claims.get("email", String.class));
             assertNull(claims.get("googleId", String.class));
 
             User savedUser = userRepository.findByProviderAndProviderUserId(

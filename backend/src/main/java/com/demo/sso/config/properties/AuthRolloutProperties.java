@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "app.auth")
 public class AuthRolloutProperties {
 
-    private IdentityContractMode identityContractMode = IdentityContractMode.LEGACY_ONLY;
-    private JwtMintMode jwtMintMode = JwtMintMode.LEGACY;
+    private IdentityContractMode identityContractMode = IdentityContractMode.COMPATIBILITY;
+    private JwtMintMode jwtMintMode = JwtMintMode.V2;
     private final Google google = new Google();
     private final Microsoft microsoft = new Microsoft();
 

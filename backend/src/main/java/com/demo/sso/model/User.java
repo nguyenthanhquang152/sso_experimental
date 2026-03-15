@@ -15,21 +15,15 @@ import java.time.Instant;
 /**
  * Persistent user entity.
  *
- * <h3>Legacy column retention (migration in progress)</h3>
+ * <h3>Legacy column retention</h3>
  * <ul>
  *   <li>{@code google_id} — Superseded by the provider-neutral {@code provider} +
- *       {@code provider_user_id} pair. Retained because the migration backfill
- *       (V3 Flyway script) copies {@code google_id} into {@code provider_user_id},
- *       but existing rows written before the migration may still be looked up by
- *       {@code google_id} in {@link com.demo.sso.service.UserService#syncUser}.
- *       <b>Can be dropped</b> once all Google users have logged in at least once
- *       after the V3 migration (so their {@code provider_user_id} is populated)
- *       and the {@code findByGoogleId} fallback path is removed.
+ *       {@code provider_user_id} pair. The field is retained for backward compatibility
+ *       with existing database rows but is no longer written to (setter is a no-op).
+ *       The column can be dropped in a future migration once all legacy data is cleaned up.
  *   <li>{@code login_method} (SQL column) — Renamed to {@code last_login_flow} in
  *       the V3 migration. The old column is retained in the database schema for
  *       rollback safety but is no longer mapped by JPA.
- *       <b>Can be dropped</b> via a future migration once rollback to pre-V3 is
- *       no longer needed.
  * </ul>
  */
 @Entity
@@ -48,8 +42,7 @@ public class User {
 
     /**
      * @deprecated Legacy column — use {@code provider} + {@code providerUserId} instead.
-     *             Retained for backward-compatible lookup during migration.
-     *             See class-level Javadoc for removal criteria.
+     *             Retained read-only for backward compatibility with existing database rows.
      */
     @Deprecated
     @Column(name = "google_id", nullable = true)
@@ -91,8 +84,9 @@ public class User {
 
     @Deprecated
     public String getGoogleId() { return googleId; }
+    /** @deprecated No-op — google_id is no longer written. Field retained for existing data. */
     @Deprecated
-    public void setGoogleId(String googleId) { this.googleId = googleId; }
+    public void setGoogleId(String googleId) { /* no-op: legacy field, no longer written */ }
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }

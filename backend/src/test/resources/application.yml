@@ -54,8 +54,8 @@ app:
   frontend-url: http://localhost:3000
   google-client-id: test-client-id
   auth:
-    identity-contract-mode: LEGACY_ONLY
-    jwt-mint-mode: legacy
+    identity-contract-mode: COMPATIBILITY
+    jwt-mint-mode: V2
     microsoft:
       server-side-enabled: false
       client-side-enabled: false

@@ -64,7 +64,6 @@ class ControllerCompatibilityIntegrationTest {
     @Test
     void userMeResolvesV2TokenByInternalUserId() throws Exception {
         User user = new User();
-        user.setGoogleId("google-test-123");
         user.setEmail("test@example.com");
         user.setName("Compatibility User");
         user.setPictureUrl("http://example.com/pic.jpg");

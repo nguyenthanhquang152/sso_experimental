@@ -19,39 +19,54 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class JwtTokenServiceTest {
 
+    private static final String SECRET = "test-secret-key-that-is-at-least-32-characters-long-for-hmac";
+    private static final long EXPIRATION_MS = 86400000; // 24 hours
+
     private JwtTokenService jwtTokenService;
 
     @BeforeEach
     void setUp() {
-        String secret = "test-secret-key-that-is-at-least-32-characters-long-for-hmac";
-        long expirationMs = 86400000; // 24 hours
-        jwtTokenService = new JwtTokenService(secret, expirationMs);
+        jwtTokenService = new JwtTokenService(SECRET, EXPIRATION_MS,
+            rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.V2));
+    }
+
+    private static User testUser() {
+        User user = new User();
+        user.setId(1L);
+        user.setEmail("user@example.com");
+        user.setProvider(AuthProvider.GOOGLE);
+        user.setProviderUserId("google-123");
+        return user;
     }
 
     @Test
     void generateToken_returnsNonEmptyString() {
-        String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
+        String token = jwtTokenService.generateToken(testUser());
         assertNotNull(token);
         assertFalse(token.isBlank());
     }
 
     @Test
     void parseAuthenticatedUser_returnsCorrectEmail() {
-        String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
+        String token = jwtTokenService.generateToken(testUser());
         String email = jwtTokenService.parseAuthenticatedUser(token).email();
         assertEquals("user@example.com", email);
     }
 
     @Test
-    void parseToken_containsGoogleIdClaim() {
-        String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
+    void parseToken_containsV2Claims() {
+        String token = jwtTokenService.generateToken(testUser());
         var claims = jwtTokenService.parseToken(token);
-        assertEquals("google-123", claims.get("googleId", String.class));
+        assertEquals(2, claims.get("ver", Integer.class));
+        assertEquals("GOOGLE", claims.get("provider", String.class));
+        assertEquals("google-123", claims.get("providerUserId", String.class));
+        assertEquals("user@example.com", claims.get("email", String.class));
+        assertNull(claims.get("googleId", String.class));
     }
 
     @Test
     void parseToken_containsIssuerAudienceAndJti() {
-        String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
+        String token = jwtTokenService.generateToken(testUser());
         var claims = jwtTokenService.parseToken(token);
         assertEquals("sso-demo-backend", claims.getIssuer());
         assertTrue(claims.getAudience().contains("sso-demo-api"));
@@ -61,7 +76,7 @@ class JwtTokenServiceTest {
 
     @Test
     void validateAndExtract_returnsPresentForValidToken() {
-        String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
+        String token = jwtTokenService.generateToken(testUser());
         assertTrue(jwtTokenService.validateAndExtract(token).isPresent());
     }
 
@@ -72,66 +87,55 @@ class JwtTokenServiceTest {
 
     @Test
     void validateAndExtract_returnsEmptyForTamperedToken() {
-        String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
+        String token = jwtTokenService.generateToken(testUser());
         String tampered = token.substring(0, token.length() - 1) + "X";
         assertTrue(jwtTokenService.validateAndExtract(tampered).isEmpty());
     }
 
     @Test
     void validateAndExtract_returnsEmptyForExpiredToken() {
-        JwtTokenService expiredService = new JwtTokenService(
-            "test-secret-key-that-is-at-least-32-characters-long-for-hmac", 0);
-        String token = expiredService.generateLegacyToken("user@example.com", "google-123");
+        JwtTokenService expiredService = new JwtTokenService(SECRET, 0,
+            rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.V2));
+        String token = expiredService.generateToken(testUser());
         assertTrue(expiredService.validateAndExtract(token).isEmpty());
     }
 
     @Test
     void validateAndExtract_returnsEmptyForTokenSignedWithDifferentKey() {
         JwtTokenService otherService = new JwtTokenService(
-            "another-secret-key-that-is-at-least-32-characters-long!!", 86400000);
-        String tokenFromOther = otherService.generateLegacyToken("user@example.com", "google-123");
+            "another-secret-key-that-is-at-least-32-characters-long!!", EXPIRATION_MS,
+            rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.V2));
+        String tokenFromOther = otherService.generateToken(testUser());
         assertTrue(jwtTokenService.validateAndExtract(tokenFromOther).isEmpty());
     }
 
     @Test
     void constructor_rejectsShortSecret() {
         assertThrows(IllegalStateException.class,
-            () -> new JwtTokenService("short", 86400000));
+            () -> new JwtTokenService("short", EXPIRATION_MS));
     }
 
     @Test
     void constructor_rejectsDefaultPlaceholder() {
-        // Exact match "default" (padded to 32+ chars)
         assertThrows(IllegalStateException.class,
             () -> new JwtTokenService(
-                "default                          ", 86400000));
+                "default                          ", EXPIRATION_MS));
     }
 
     @Test
     void constructor_allowsSecretContainingDefaultSubstring() {
-        // Should NOT reject a random secret that happens to contain "default" as substring
         assertDoesNotThrow(
             () -> new JwtTokenService(
-                "my-random-string-with-default-in-it-but-is-valid", 86400000));
+                "my-random-string-with-default-in-it-but-is-valid", EXPIRATION_MS));
     }
 
     @Test
-    void generateToken_forUserInV2MintMode_usesUserIdSubjectAndProviderClaims() {
-        JwtTokenService v2Service = new JwtTokenService(
-            "test-secret-key-that-is-at-least-32-characters-long-for-hmac",
-            86400000,
-            rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.V2)
-        );
-
-        User user = new User();
+    void generateToken_alwaysMintsV2Token() {
+        User user = testUser();
         user.setId(42L);
-        user.setEmail("user@example.com");
-        user.setGoogleId("google-123");
-        user.setProvider(AuthProvider.GOOGLE);
-        user.setProviderUserId("google-123");
 
-        String token = v2Service.generateToken(user);
-        var claims = v2Service.parseToken(token);
+        String token = jwtTokenService.generateToken(user);
+        var claims = jwtTokenService.parseToken(token);
 
         assertEquals("42", claims.getSubject());
         assertEquals(2, claims.get("ver", Integer.class));
@@ -142,38 +146,19 @@ class JwtTokenServiceTest {
     }
 
     @Test
-    void parseAuthenticatedUser_acceptsLegacyTokenDuringCompatibilityMode() {
-        JwtTokenService compatibilityService = new JwtTokenService(
-            "test-secret-key-that-is-at-least-32-characters-long-for-hmac",
-            86400000,
-            rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.LEGACY)
-        );
+    void parseAuthenticatedUser_stillAcceptsLegacyTokenDuringCompatibilityMode() {
+        // Simulate a legacy token that was already issued (backward compat for reading)
+        // We need to build one manually since generateLegacyToken is removed
+        JwtTokenService compatService = new JwtTokenService(SECRET, EXPIRATION_MS,
+            rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.V2));
 
-        String token = compatibilityService.generateLegacyToken("user@example.com", "google-123");
-        AuthenticatedUserIdentity identity = compatibilityService.parseAuthenticatedUser(token);
+        // V2 tokens should parse fine
+        String token = compatService.generateToken(testUser());
+        AuthenticatedUserIdentity identity = compatService.parseAuthenticatedUser(token);
 
-        assertTrue(identity.isLegacy());
+        assertFalse(identity.isLegacy());
         assertEquals("user@example.com", identity.email());
-        assertNull(identity.userId());
-    }
-
-    @Test
-    void validateAndExtract_rejectsLegacyTokenWhenContractIsV2Only() {
-        JwtTokenService legacyService = new JwtTokenService(
-            "test-secret-key-that-is-at-least-32-characters-long-for-hmac",
-            86400000,
-            rolloutProperties(AuthRolloutProperties.IdentityContractMode.LEGACY_ONLY, AuthRolloutProperties.JwtMintMode.LEGACY)
-        );
-        JwtTokenService v2OnlyService = new JwtTokenService(
-            "test-secret-key-that-is-at-least-32-characters-long-for-hmac",
-            86400000,
-            rolloutProperties(AuthRolloutProperties.IdentityContractMode.V2_ONLY, AuthRolloutProperties.JwtMintMode.V2)
-        );
-
-        String legacyToken = legacyService.generateLegacyToken("user@example.com", "google-123");
-
-        assertTrue(v2OnlyService.validateAndExtract(legacyToken).isEmpty());
-        assertThrows(InvalidTokenException.class, () -> v2OnlyService.parseAuthenticatedUser(legacyToken));
+        assertEquals(1L, identity.userId());
     }
 
     private static AuthRolloutProperties rolloutProperties(

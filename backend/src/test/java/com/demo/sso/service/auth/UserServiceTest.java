@@ -43,7 +43,6 @@ class UserServiceTest {
     void syncUser_createsNewUserWhenNotFound() {
         when(userRepository.findByProviderAndProviderUserId(AuthProvider.GOOGLE, "google-123"))
             .thenReturn(Optional.empty());
-        when(userRepository.findByGoogleId("google-123")).thenReturn(Optional.empty());
         when(userRepository.save(any(User.class))).thenAnswer(inv -> {
             User u = inv.getArgument(0);
             u.setId(1L);
@@ -73,15 +72,15 @@ class UserServiceTest {
     void syncUser_updatesExistingUser() {
         User existing = new User();
         existing.setId(1L);
-        existing.setGoogleId("google-123");
         existing.setEmail("user@example.com");
         existing.setName("Old Name");
         existing.setPictureUrl("http://old-pic.url");
+        existing.setProvider(AuthProvider.GOOGLE);
+        existing.setProviderUserId("google-123");
         existing.setLastLoginFlow(AuthFlow.SERVER_SIDE);
 
         when(userRepository.findByProviderAndProviderUserId(AuthProvider.GOOGLE, "google-123"))
-            .thenReturn(Optional.empty());
-        when(userRepository.findByGoogleId("google-123")).thenReturn(Optional.of(existing));
+            .thenReturn(Optional.of(existing));
         when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
 
         User result = userService.syncUser(
@@ -99,12 +98,12 @@ class UserServiceTest {
     void syncUser_updatesLastLoginAtForExistingUser() {
         User existing = new User();
         existing.setId(1L);
-        existing.setGoogleId("google-123");
         existing.setEmail("user@example.com");
+        existing.setProvider(AuthProvider.GOOGLE);
+        existing.setProviderUserId("google-123");
 
         when(userRepository.findByProviderAndProviderUserId(AuthProvider.GOOGLE, "google-123"))
-            .thenReturn(Optional.empty());
-        when(userRepository.findByGoogleId("google-123")).thenReturn(Optional.of(existing));
+            .thenReturn(Optional.of(existing));
         when(userRepository.save(any(User.class))).thenAnswer(inv -> inv.getArgument(0));
 
         User result = userService.syncUser(
@@ -135,10 +134,9 @@ class UserServiceTest {
     }
 
     @Test
-    void syncUser_prefersProviderAwareLookupBeforeLegacyGoogleId() {
+    void syncUser_usesProviderAwareLookupOnly() {
         User existing = new User();
         existing.setId(7L);
-        existing.setGoogleId("legacy-google-id");
         existing.setProvider(AuthProvider.GOOGLE);
         existing.setProviderUserId("google-123");
         existing.setEmail("user@example.com");
@@ -193,12 +191,10 @@ class UserServiceTest {
         User recovered = new User();
         recovered.setId(42L);
         recovered.setEmail("user@example.com");
-        recovered.setGoogleId("google-123");
+        recovered.setProvider(AuthProvider.GOOGLE);
+        recovered.setProviderUserId("google-123");
 
         when(userRepository.findByProviderAndProviderUserId(AuthProvider.GOOGLE, "google-123"))
-            .thenReturn(Optional.empty());
-        // First call (legacy fallback in syncUser): empty; second call (recovery): found
-        when(userRepository.findByGoogleId("google-123"))
             .thenReturn(Optional.empty())
             .thenReturn(Optional.of(recovered));
         when(userRepository.save(any(User.class)))
@@ -208,6 +204,7 @@ class UserServiceTest {
 
         assertEquals(42L, result.getId());
         assertEquals("user@example.com", result.getEmail());
+        verify(userRepository, never()).findByGoogleId(any());
     }
 
     @Test
@@ -233,7 +230,6 @@ class UserServiceTest {
         assertEquals(AuthProvider.MICROSOFT, result.getProvider());
         assertEquals("https://login.microsoftonline.com/tenant/v2.0|ms-subject-123", result.getProviderUserId());
         assertEquals(AuthFlow.CLIENT_SIDE, result.getLastLoginFlow());
-        // googleId should not be set for non-Google providers
         assertNull(result.getGoogleId());
     }
 }

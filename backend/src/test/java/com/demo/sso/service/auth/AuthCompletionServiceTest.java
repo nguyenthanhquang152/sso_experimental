@@ -57,7 +57,6 @@ class AuthCompletionServiceTest {
         testUser.setName("Test User");
         testUser.setProvider(AuthProvider.GOOGLE);
         testUser.setProviderUserId("google-sub-123");
-        testUser.setGoogleId("google-sub-123");
     }
 
     // --- completeAuthentication tests ---
