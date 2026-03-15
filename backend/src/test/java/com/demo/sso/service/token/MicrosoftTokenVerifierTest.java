@@ -3,7 +3,7 @@ package com.demo.sso.service.token;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.demo.sso.config.MicrosoftAuthProperties;
+import com.demo.sso.config.properties.MicrosoftAuthProperties;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;

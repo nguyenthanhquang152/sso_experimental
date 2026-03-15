@@ -1,7 +1,7 @@
-package com.demo.sso.config;
+package com.demo.sso.config.filter;
 
 import com.demo.sso.model.AuthProvider;
-import com.demo.sso.config.JwtAuthenticationFilter;
+import com.demo.sso.config.filter.JwtAuthenticationFilter;
 import com.demo.sso.service.model.AuthenticatedUserIdentity;
 import com.demo.sso.service.token.JwtTokenService;
 import jakarta.servlet.FilterChain;

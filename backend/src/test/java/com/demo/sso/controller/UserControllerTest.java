@@ -11,7 +11,7 @@ import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
 import com.demo.sso.service.model.AuthenticatedUserIdentity;
-import com.demo.sso.service.user.UserService;
+import com.demo.sso.service.UserService;
 import java.time.Instant;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;

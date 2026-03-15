@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.demo.sso.config.AuthRolloutProperties;
-import com.demo.sso.config.MicrosoftAuthProperties;
+import com.demo.sso.config.properties.AuthRolloutProperties;
+import com.demo.sso.config.properties.MicrosoftAuthProperties;
 import com.demo.sso.controller.dto.ProviderConfigResponse;
 import java.util.List;
 import org.junit.jupiter.api.Test;

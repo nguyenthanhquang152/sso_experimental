@@ -1,7 +1,7 @@
 package com.demo.sso.service.token;
 
 import com.demo.sso.service.model.AuthenticatedUserIdentity;
-import com.demo.sso.config.AuthRolloutProperties;
+import com.demo.sso.config.properties.AuthRolloutProperties;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
 import io.jsonwebtoken.Claims;

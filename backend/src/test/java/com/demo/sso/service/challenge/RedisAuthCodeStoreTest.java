@@ -1,6 +1,6 @@
 package com.demo.sso.service.challenge;
 
-import com.demo.sso.config.AuthRolloutProperties;
+import com.demo.sso.config.properties.AuthRolloutProperties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

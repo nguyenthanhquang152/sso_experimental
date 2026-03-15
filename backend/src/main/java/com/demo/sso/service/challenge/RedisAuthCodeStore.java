@@ -1,6 +1,6 @@
 package com.demo.sso.service.challenge;
 
-import com.demo.sso.config.AuthRolloutProperties;
+import com.demo.sso.config.properties.AuthRolloutProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

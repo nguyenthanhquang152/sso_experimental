@@ -2,7 +2,7 @@ package com.demo.sso.controller;
 
 import com.demo.sso.controller.dto.UserResponse;
 import com.demo.sso.service.model.AuthenticatedUserIdentity;
-import com.demo.sso.service.user.UserService;
+import com.demo.sso.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

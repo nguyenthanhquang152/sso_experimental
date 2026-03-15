@@ -1,8 +1,9 @@
-package com.demo.sso.config;
+package com.demo.sso.config.filter;
 
+import com.demo.sso.config.properties.AuthRolloutProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
-import com.demo.sso.config.MicrosoftAuthorizationGateFilter;
+import com.demo.sso.config.filter.MicrosoftAuthorizationGateFilter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,9 +1,9 @@
-package com.demo.sso.config;
+package com.demo.sso.config.guard;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import com.demo.sso.config.IdentityContractGuard;
-import com.demo.sso.config.AuthRolloutProperties;
-import com.demo.sso.config.MicrosoftAuthProperties;
+import com.demo.sso.config.guard.IdentityContractGuard;
+import com.demo.sso.config.properties.AuthRolloutProperties;
+import com.demo.sso.config.properties.MicrosoftAuthProperties;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

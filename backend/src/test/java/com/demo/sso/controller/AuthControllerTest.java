@@ -7,7 +7,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
-import com.demo.sso.config.AuthRolloutProperties;
+import com.demo.sso.config.properties.AuthRolloutProperties;
 import com.demo.sso.controller.dto.AuthApiResponse;
 import com.demo.sso.controller.dto.AuthCodeExchangeRequest;
 import com.demo.sso.controller.dto.ErrorResponse;

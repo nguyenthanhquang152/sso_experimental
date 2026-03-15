@@ -1,6 +1,6 @@
 package com.demo.sso.service.token;
 
-import com.demo.sso.config.MicrosoftAuthProperties;
+import com.demo.sso.config.properties.MicrosoftAuthProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;

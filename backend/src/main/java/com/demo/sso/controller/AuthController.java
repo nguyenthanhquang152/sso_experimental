@@ -1,6 +1,6 @@
 package com.demo.sso.controller;
 
-import com.demo.sso.config.AuthRolloutProperties;
+import com.demo.sso.config.properties.AuthRolloutProperties;
 import com.demo.sso.controller.dto.AuthApiResponse;
 import com.demo.sso.controller.dto.AuthCodeExchangeRequest;
 import com.demo.sso.controller.dto.ErrorResponse;
