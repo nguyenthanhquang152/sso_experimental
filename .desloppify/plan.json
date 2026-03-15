@@ -1,31 +1,24 @@
 {
   "version": 8,
   "created": "2026-03-14T18:25:42+00:00",
-  "updated": "2026-03-15T03:47:57+00:00",
+  "updated": "2026-03-15T04:04:00+00:00",
   "queue_order": [
     "workflow::communicate-score",
-    "review::.::holistic::ai_generated_debt::repeated_autowired_comments",
-    "review::.::holistic::api_surface_coherence::ms_gate_filter_raw_map_json",
-    "review::.::holistic::contract_coherence::user_response_null_coercion",
-    "review::.::holistic::cross_module_architecture::rollout_config_hub_fanout",
-    "review::.::holistic::high_level_elegance::provider_config_broad_catch",
-    "review::.::holistic::incomplete_migration::nullable_variant_modeling",
-    "review::.::holistic::incomplete_migration::wide_legacy_surface",
-    "review::.::holistic::initialization_coupling::lazy_jwks_validation",
-    "review::.::holistic::logic_clarity::deferred_decoder_failure",
-    "review::.::holistic::logic_clarity::redundant_blank_after_trim",
-    "review::.::holistic::low_level_elegance::inline_json_in_gate_filter",
-    "review::.::holistic::mid_level_elegance::oauth2_handler_parallel_normalization",
-    "review::.::holistic::naming_quality::storeJwt_return_semantics",
-    "review::.::holistic::package_organization::single_file_guard_subpackage",
-    "review::.::holistic::test_strategy::untested_microsoft_frontend_component",
-    "review::.::holistic::test_strategy::untested_provider_config_hook",
-    "review::.::holistic::type_safety::apifetch_undefined_return",
-    "review::.::holistic::type_safety::claims_nullable_ambiguity",
-    "review::.::holistic::type_safety::nullable_variant_modeling"
+    "workflow::create-plan"
   ],
   "deferred": [],
-  "skipped": {},
+  "skipped": {
+    "orphaned::backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java": {
+      "issue_id": "orphaned::backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java",
+      "kind": "permanent",
+      "reason": null,
+      "note": "Used via same-package reference in RedisAuthCodeStore - no import needed",
+      "attestation": "I have reviewed this triage skip against the code and I am not gaming the score by suppressing a real defect.",
+      "created_at": "2026-03-15T04:04:00+00:00",
+      "review_after": null,
+      "skipped_at_scan": 15
+    }
+  },
   "active_cluster": null,
   "overrides": {
     "unused::backend/src/test/java/com/demo/sso/controller/ControllerCompatibilityIntegrationTest.java::unused_import::15": {
@@ -2214,25 +2207,209 @@
       "superseded_at": "2026-03-15T03:37:45+00:00",
       "remapped_to": null,
       "candidates": []
+    },
+    "review::.::holistic::ai_generated_debt::repeated_autowired_comments": {
+      "original_id": "review::.::holistic::ai_generated_debt::repeated_autowired_comments",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Near-identical @Autowired explanation comment repeated across 4 service classes",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::api_surface_coherence::ms_gate_filter_raw_map_json": {
+      "original_id": "review::.::holistic::api_surface_coherence::ms_gate_filter_raw_map_json",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "MicrosoftAuthorizationGateFilter writes raw Map JSON instead of using shared ErrorResponse DTO",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::contract_coherence::user_response_null_coercion": {
+      "original_id": "review::.::holistic::contract_coherence::user_response_null_coercion",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "UserResponse.from coerces null fields to empty strings, hiding optionality from API consumers",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::cross_module_architecture::rollout_config_hub_fanout": {
+      "original_id": "review::.::holistic::cross_module_architecture::rollout_config_hub_fanout",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "AuthRolloutProperties consumed by 5 classes across 4 packages creates a configuration hub",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::high_level_elegance::provider_config_broad_catch": {
+      "original_id": "review::.::holistic::high_level_elegance::provider_config_broad_catch",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "ProviderConfigController catches bare RuntimeException, masking error categories",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::incomplete_migration::nullable_variant_modeling": {
+      "original_id": "review::.::holistic::incomplete_migration::nullable_variant_modeling",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "AuthenticatedUserIdentity uses nullable fields instead of sealed type for legacy vs V2 variants",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::incomplete_migration::wide_legacy_surface": {
+      "original_id": "review::.::holistic::incomplete_migration::wide_legacy_surface",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Legacy Google identity paths span 6+ files across model, service, and controller layers",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::initialization_coupling::lazy_jwks_validation": {
+      "original_id": "review::.::holistic::initialization_coupling::lazy_jwks_validation",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "MicrosoftTokenVerifier builds JwtDecoder eagerly but JWKS URI errors surface only at first use, not at startup",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::logic_clarity::deferred_decoder_failure": {
+      "original_id": "review::.::holistic::logic_clarity::deferred_decoder_failure",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "MicrosoftTokenVerifier.buildDecoder returns a throwing lambda instead of failing fast when unconfigured",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::logic_clarity::redundant_blank_after_trim": {
+      "original_id": "review::.::holistic::logic_clarity::redundant_blank_after_trim",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "normalizeEmail checks isBlank() after trim() \u2014 trim already removes whitespace, so isBlank is redundant",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::low_level_elegance::inline_json_in_gate_filter": {
+      "original_id": "review::.::holistic::low_level_elegance::inline_json_in_gate_filter",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "MicrosoftAuthorizationGateFilter mixes JSON serialization inline with filter logic on line 54",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::mid_level_elegance::oauth2_handler_parallel_normalization": {
+      "original_id": "review::.::holistic::mid_level_elegance::oauth2_handler_parallel_normalization",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "OAuth2SuccessHandler directly calls ProviderIdentityNormalizer instead of routing through AuthCompletionService convenience methods",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::naming_quality::storeJwt_return_semantics": {
+      "original_id": "review::.::holistic::naming_quality::storeJwt_return_semantics",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "storeJwt() returns an auth code but name implies void store operation",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::package_organization::single_file_guard_subpackage": {
+      "original_id": "review::.::holistic::package_organization::single_file_guard_subpackage",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "guard/ subpackage contains only one file, adding a directory layer with minimal navigability benefit",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::test_strategy::untested_microsoft_frontend_component": {
+      "original_id": "review::.::holistic::test_strategy::untested_microsoft_frontend_component",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "MicrosoftClientSideLogin component has no tests despite handling challenge-response flow with nonce lifecycle",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::test_strategy::untested_provider_config_hook": {
+      "original_id": "review::.::holistic::test_strategy::untested_provider_config_hook",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "useProviderConfig hook has no tests despite controlling which login flows are rendered",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::type_safety::apifetch_undefined_return": {
+      "original_id": "review::.::holistic::type_safety::apifetch_undefined_return",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "apiFetch<T> returns T | undefined, forcing all callers to handle undefined even when 204 responses are unexpected",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::type_safety::claims_nullable_ambiguity": {
+      "original_id": "review::.::holistic::type_safety::claims_nullable_ambiguity",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "MicrosoftIdTokenClaims record allows null on fields that are contextually required (iss, tid, ver) without type-level distinction",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
+    },
+    "review::.::holistic::type_safety::nullable_variant_modeling": {
+      "original_id": "review::.::holistic::type_safety::nullable_variant_modeling",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "AuthenticatedUserIdentity uses nullable fields to model two distinct variants (legacy vs v2) instead of a sealed type hierarchy",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:02:51+00:00",
+      "remapped_to": null,
+      "candidates": []
     }
   },
   "promoted_ids": [],
-  "plan_start_scores": {
-    "strict": 86.8,
-    "overall": 90.8,
-    "objective": 99.9,
-    "verified": 86.4
-  },
+  "plan_start_scores": {},
   "refresh_state": {
-    "lifecycle_phase": "workflow_postflight",
+    "lifecycle_phase": "execute",
     "subjective_review_completed_at_scan_count": 13,
     "pending_import_scores": {
       "timestamp": "2026-03-15T02:05:07+00:00",
       "import_file": ".desloppify/subagents/runs/20260315_010629/holistic_issues_merged.json",
       "normalized_import_file": "/home/nt-quang/Workspaces/personal/sso_experimental/.desloppify/subagents/runs/20260315_010629/holistic_issues_merged.json",
       "packet_sha256": "dd7612a7f073142fcd20d89c7eafe064a7263e09cd7df523b67817d0382874d0"
-    },
-    "postflight_scan_completed_at_scan_count": 14
+    }
   },
   "execution_log": [
     {
@@ -5879,6 +6056,76 @@
       "detail": {
         "scan_count": 14
       }
+    },
+    {
+      "timestamp": "2026-03-15T04:02:51+00:00",
+      "action": "reconcile",
+      "issue_ids": [
+        "review::.::holistic::ai_generated_debt::repeated_autowired_comments",
+        "review::.::holistic::api_surface_coherence::ms_gate_filter_raw_map_json",
+        "review::.::holistic::contract_coherence::user_response_null_coercion",
+        "review::.::holistic::cross_module_architecture::rollout_config_hub_fanout",
+        "review::.::holistic::high_level_elegance::provider_config_broad_catch",
+        "review::.::holistic::incomplete_migration::nullable_variant_modeling",
+        "review::.::holistic::incomplete_migration::wide_legacy_surface",
+        "review::.::holistic::initialization_coupling::lazy_jwks_validation",
+        "review::.::holistic::logic_clarity::deferred_decoder_failure",
+        "review::.::holistic::logic_clarity::redundant_blank_after_trim",
+        "review::.::holistic::low_level_elegance::inline_json_in_gate_filter",
+        "review::.::holistic::mid_level_elegance::oauth2_handler_parallel_normalization",
+        "review::.::holistic::naming_quality::storeJwt_return_semantics",
+        "review::.::holistic::package_organization::single_file_guard_subpackage",
+        "review::.::holistic::test_strategy::untested_microsoft_frontend_component",
+        "review::.::holistic::test_strategy::untested_provider_config_hook",
+        "review::.::holistic::type_safety::apifetch_undefined_return",
+        "review::.::holistic::type_safety::claims_nullable_ambiguity",
+        "review::.::holistic::type_safety::nullable_variant_modeling"
+      ],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "superseded_count": 19,
+        "pruned_count": 0,
+        "resurfaced_count": 0,
+        "clusters_completed_count": 0
+      }
+    },
+    {
+      "timestamp": "2026-03-15T04:02:51+00:00",
+      "action": "sync_communicate_score",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "injected": true
+      }
+    },
+    {
+      "timestamp": "2026-03-15T04:02:51+00:00",
+      "action": "sync_create_plan",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "injected": true
+      }
+    },
+    {
+      "timestamp": "2026-03-15T04:04:00+00:00",
+      "action": "skip",
+      "issue_ids": [
+        "orphaned::backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Used via same-package reference in RedisAuthCodeStore - no import needed",
+      "detail": {
+        "kind": "permanent",
+        "reason": null
+      }
     }
   ],
   "epic_triage_meta": {
@@ -6582,5 +6829,5 @@
   ],
   "uncommitted_issues": [],
   "commit_tracking_branch": null,
-  "scan_count_at_plan_start": 14
+  "previous_plan_start_scores": {}
 }

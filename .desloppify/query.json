@@ -1,30 +1,64 @@
 {
   "command": "show",
-  "query": "subjective",
+  "query": "*",
   "status_filter": "open",
-  "total": 0,
-  "issues": [],
+  "total": 2,
+  "summary": {
+    "by_tier": {
+      "T3": 2
+    },
+    "by_detector": {
+      "orphaned": 1,
+      "unused": 1
+    },
+    "files": 2
+  },
+  "by_file": {
+    "backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java": [
+      {
+        "id": "orphaned::backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java",
+        "tier": 3,
+        "confidence": "medium",
+        "summary": "Orphaned file (21 LOC): zero importers, not an entry point",
+        "detail": {
+          "loc": 21
+        }
+      }
+    ],
+    "backend/src/test/java/com/demo/sso/service/auth/OAuth2SuccessHandlerTest.java": [
+      {
+        "id": "unused::backend/src/test/java/com/demo/sso/service/auth/OAuth2SuccessHandlerTest.java::unused_import::4",
+        "tier": 3,
+        "confidence": "medium",
+        "summary": "Unused import: AuthProvider",
+        "detail": {}
+      }
+    ]
+  },
+  "total_matching": 2,
+  "noise_budget": 10,
+  "noise_global_budget": 0,
   "narrative": {
-    "phase": "refinement",
-    "headline": " (19 review work items \u2014 run `desloppify show review --status open`)",
+    "phase": "stagnation",
+    "headline": "All T1 and T2 items cleared!",
     "dimensions": {
       "lowest_dimensions": [
         {
           "name": "Code quality",
-          "strict": 56.7,
-          "failing": 0,
+          "strict": 56.4,
+          "failing": 1,
           "impact": 0.0
         },
         {
           "name": "Test health",
-          "strict": 70.5,
+          "strict": 71.1,
           "failing": 0,
           "impact": 0.0
         },
         {
           "name": "Stale migration",
           "strict": 82.0,
-          "failing": 2,
+          "failing": 0,
           "impact": 0.0,
           "subjective": true,
           "impact_description": "re-review to improve"
@@ -33,20 +67,25 @@
       "biggest_gap_dimensions": [
         {
           "name": "Code quality",
-          "lenient": 100.0,
-          "strict": 56.7,
-          "gap": 43.3,
+          "lenient": 99.1,
+          "strict": 56.4,
+          "gap": 42.7,
           "wontfix_count": 46
         },
         {
           "name": "Test health",
           "lenient": 100.0,
-          "strict": 70.5,
-          "gap": 29.5,
+          "strict": 71.1,
+          "gap": 28.9,
           "wontfix_count": 8
         }
       ],
       "stagnant_dimensions": [
+        {
+          "name": "Code quality",
+          "strict": 56.4,
+          "stuck_scans": 5
+        },
         {
           "name": "Security",
           "strict": 100.0,
@@ -58,8 +97,8 @@
           "stuck_scans": 5
         },
         {
-          "name": "Test health",
-          "strict": 70.5,
+          "name": "Duplication",
+          "strict": 99.0,
           "stuck_scans": 5
         },
         {
@@ -71,6 +110,17 @@
     },
     "actions": [
       {
+        "type": "reorganize",
+        "detector": "orphaned",
+        "count": 1,
+        "description": "1 orphaned issues \u2014 delete dead files or relocate with `desloppify move`",
+        "command": "desloppify show orphaned --status open",
+        "impact": 0.0,
+        "dimension": "Code quality",
+        "priority": 1,
+        "lane": "restructure"
+      },
+      {
         "type": "refactor",
         "detector": "boilerplate_duplication",
         "count": 1,
@@ -78,40 +128,40 @@
         "command": "desloppify show boilerplate_duplication --status open",
         "impact": 0.0,
         "dimension": "Duplication",
-        "priority": 1,
+        "priority": 2,
         "lane": "refactor_0"
       },
       {
-        "type": "refactor",
-        "detector": "review",
-        "count": 19,
-        "description": "19 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
-        "command": "desloppify show review --status open",
+        "type": "manual_fix",
+        "detector": "unused",
+        "count": 1,
+        "description": "1 unused issues \u2014 inspect with `desloppify next` and fix manually",
+        "command": "desloppify show unused --status open",
         "impact": 0.0,
-        "dimension": "Unknown",
-        "priority": 2,
+        "dimension": "Code quality",
+        "priority": 3,
         "lane": "refactor_1"
       },
       {
         "type": "debt_review",
         "detector": null,
-        "description": "2.6 pts of wontfix debt \u2014 review stale decisions",
+        "description": "2.5 pts of wontfix debt \u2014 review stale decisions",
         "command": "desloppify show --status wontfix",
-        "gap": 2.6,
-        "priority": 3,
+        "gap": 2.5,
+        "priority": 4,
         "lane": "debt_review"
       }
     ],
     "strategy": {
       "fixer_leverage": {
         "auto_fixable_count": 0,
-        "total_count": 58,
+        "total_count": 3,
         "coverage": 0.0,
         "impact_ratio": 0.0,
         "recommendation": "none"
       },
       "lanes": {
-        "refactor_0": {
+        "restructure": {
           "actions": [
             1
           ],
@@ -120,7 +170,7 @@
           "automation": "manual",
           "run_first": false
         },
-        "refactor_1": {
+        "refactor_0": {
           "actions": [
             2
           ],
@@ -129,9 +179,18 @@
           "automation": "manual",
           "run_first": false
         },
-        "debt_review": {
+        "refactor_1": {
           "actions": [
             3
+          ],
+          "file_count": 1,
+          "total_impact": 0.0,
+          "automation": "manual",
+          "run_first": false
+        },
+        "debt_review": {
+          "actions": [
+            4
           ],
           "file_count": 0,
           "total_impact": 0.0,
@@ -140,14 +199,14 @@
         }
       },
       "can_parallelize": false,
-      "hint": "Work through actions in priority order. Rescan after each fix to track progress. Review: 19 issue(s) \u2014 `desloppify show review --status open`."
+      "hint": "Try a different dimension to break the plateau."
     },
     "tools": {
       "fixers": [],
       "move": {
         "available": true,
-        "relevant": false,
-        "reason": null,
+        "relevant": true,
+        "reason": "1 orphaned files",
         "usage": "desloppify move <source> <dest> [--dry-run]"
       },
       "plan": {
@@ -162,18 +221,18 @@
       }
     },
     "debt": {
-      "overall_gap": 2.6,
-      "wontfix_count": 131,
+      "overall_gap": 2.5,
+      "wontfix_count": 140,
       "worst_dimension": "Code quality",
-      "worst_gap": 43.3,
+      "worst_gap": 42.7,
       "trend": "stable"
     },
-    "milestone": null,
+    "milestone": "All T1 and T2 items cleared!",
     "primary_action": {
-      "command": "desloppify show boilerplate_duplication --status open",
-      "description": "1 boilerplate_duplication work items \u2014 extract shared boilerplate into reusable helpers or base classes"
+      "command": "desloppify show orphaned --status open",
+      "description": "1 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
     },
-    "why_now": "Work through actions in priority order. Rescan after each fix to track progress. Review: 19 issue(s) \u2014 `desloppify show review --status open`.",
+    "why_now": "Try a different dimension to break the plateau.",
     "verification_step": {
       "command": "desloppify scan",
       "reason": "revalidate after changes"
@@ -182,7 +241,7 @@
       {
         "type": "wontfix_gap",
         "severity": "high",
-        "message": "Strict/lenient gap is 2.6 pts with 131 wontfix issues"
+        "message": "Strict/lenient gap is 2.5 pts with 140 wontfix issues"
       }
     ],
     "strict_target": {
@@ -195,7 +254,7 @@
     "reminders": [],
     "reminder_history": {
       "zone_classification": 3,
-      "report_scores": 10,
+      "report_scores": 11,
       "review_issues_pending": 3,
       "stagnant_nudge": 3,
       "feedback_nudge": 3,
