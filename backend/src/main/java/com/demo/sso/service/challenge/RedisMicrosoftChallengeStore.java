@@ -30,8 +30,8 @@ public class RedisMicrosoftChallengeStore implements MicrosoftChallengeStore {
             redisTemplate.delete(challengeKey(sessionId, previousChallengeId));
         }
 
-        String challengeId = randomValue();
-        String nonce = randomValue();
+        String challengeId = generateSecureToken();
+        String nonce = generateSecureToken();
         redisTemplate.opsForValue().set(challengeKey(sessionId, challengeId), nonce, CHALLENGE_TTL);
         redisTemplate.opsForValue().set(activeChallengeKey(sessionId), challengeId, CHALLENGE_TTL);
         return new MicrosoftChallenge(challengeId, nonce);
@@ -61,9 +61,9 @@ public class RedisMicrosoftChallengeStore implements MicrosoftChallengeStore {
         return ACTIVE_CHALLENGE_PREFIX + sessionId;
     }
 
-    private static String randomValue() {
-        byte[] bytes = new byte[32];
-        SECURE_RANDOM.nextBytes(bytes);
-        return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+    private static String generateSecureToken() {
+        byte[] tokenBytes = new byte[32];
+        SECURE_RANDOM.nextBytes(tokenBytes);
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(tokenBytes);
     }
 }

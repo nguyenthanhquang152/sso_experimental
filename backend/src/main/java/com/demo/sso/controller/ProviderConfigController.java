@@ -37,10 +37,28 @@ public class ProviderConfigController {
 
     @GetMapping("/providers")
     public ResponseEntity<ProviderConfigResponse> getProviders() {
-        ProviderConfigResponse response = new ProviderConfigResponse(
-            buildGoogleConfig(),
-            buildMicrosoftConfig()
-        );
+        ProviderConfigResponse.GoogleProviderConfig googleConfig;
+        try {
+            googleConfig = buildGoogleConfig();
+        } catch (Exception e) {
+            logger.error("Failed to build Google provider config, returning disabled fallback", e);
+            googleConfig = new ProviderConfigResponse.GoogleProviderConfig(false, false, "");
+        }
+
+        ProviderConfigResponse.MicrosoftProviderConfig microsoftConfig;
+        try {
+            microsoftConfig = buildMicrosoftConfig();
+        } catch (Exception e) {
+            logger.error("Failed to build Microsoft provider config, returning disabled fallback", e);
+            microsoftConfig = new ProviderConfigResponse.MicrosoftProviderConfig(false, false, null, null, List.of(), null);
+        }
+
+        if (!googleConfig.serverSideEnabled() && !googleConfig.clientSideEnabled()
+                && !microsoftConfig.serverSideEnabled() && !microsoftConfig.clientSideEnabled()) {
+            logger.warn("All provider authentication flows are disabled — no login method is available");
+        }
+
+        ProviderConfigResponse response = new ProviderConfigResponse(googleConfig, microsoftConfig);
         return ResponseEntity.ok()
             .cacheControl(CacheControl.noStore())
             .body(response);
