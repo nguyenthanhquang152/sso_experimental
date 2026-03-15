@@ -1,6 +1,7 @@
 package com.demo.sso.service.auth;
 
 import com.demo.sso.model.AuthFlow;
+import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.model.AuthProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

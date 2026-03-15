@@ -4,6 +4,7 @@ import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.User;
 import com.demo.sso.service.user.UserService;
 import com.demo.sso.service.challenge.AuthCodeStore;
+import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.JwtTokenService;
 import com.demo.sso.service.token.MicrosoftIdTokenClaims;
@@ -52,8 +53,7 @@ public class AuthCompletionService {
 
     /** Normalizes Google claims, finds/creates user, and returns a JWT. */
     public String completeGoogleAuthentication(VerifiedGoogleIdentity google, AuthFlow flow) {
-        NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(
-            google.subject(), google.email(), google.name(), google.pictureUrl(), flow);
+        NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(google, flow);
         return completeAuthentication(identity);
     }
 

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.demo.sso.model.AuthFlow;
+import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import java.util.Map;

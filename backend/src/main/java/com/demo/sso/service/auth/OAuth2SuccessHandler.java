@@ -1,6 +1,8 @@
 package com.demo.sso.service.auth;
 
 import com.demo.sso.model.AuthFlow;
+import com.demo.sso.service.model.NormalizedIdentity;
+import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -77,12 +79,13 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         }
 
         try {
-            return providerIdentityNormalizer.normalizeGoogleClaims(
+            VerifiedGoogleIdentity google = new VerifiedGoogleIdentity(
                 oAuth2User.getAttribute("sub"),
                 oAuth2User.getAttribute("email"),
+                true,
                 oAuth2User.getAttribute("name"),
-                oAuth2User.getAttribute("picture"),
-                AuthFlow.SERVER_SIDE);
+                oAuth2User.getAttribute("picture"));
+            return providerIdentityNormalizer.normalizeGoogleClaims(google, AuthFlow.SERVER_SIDE);
         } catch (IllegalArgumentException e) {
             throw new OAuth2IdentityException("missing_attributes", "missing sub or email attribute");
         }

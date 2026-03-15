@@ -1,7 +1,9 @@
 package com.demo.sso.service.auth;
 
-import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import com.demo.sso.model.AuthFlow;
+import com.demo.sso.service.model.NormalizedIdentity;
+import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
+import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import java.util.Locale;
 import org.springframework.stereotype.Service;
 
@@ -11,16 +13,12 @@ public class ProviderIdentityNormalizer {
     /**
      * @throws IllegalArgumentException if googleId or email is blank, or if email fails format validation
      */
-    public NormalizedIdentity normalizeGoogleClaims(
-            String googleId,
-            String email,
-            String name,
-            String pictureUrl,
-            AuthFlow loginFlow) {
-        if (isBlank(googleId) || isBlank(email)) {
+    public NormalizedIdentity normalizeGoogleClaims(VerifiedGoogleIdentity google, AuthFlow loginFlow) {
+        if (isBlank(google.subject()) || isBlank(google.email())) {
             throw new IllegalArgumentException("Google identity is missing required claims");
         }
-        return NormalizedIdentity.google(googleId, normalizeEmail(email), name, pictureUrl, loginFlow);
+        return NormalizedIdentity.google(
+            google.subject(), normalizeEmail(google.email()), google.name(), google.pictureUrl(), loginFlow);
     }
 
     /**
@@ -77,7 +75,7 @@ public class ProviderIdentityNormalizer {
     private static String normalizeEmail(String email) {
         String normalized = email.trim().toLowerCase(Locale.ROOT);
         int atIndex = normalized.indexOf('@');
-        boolean hasExactlyOneAt = normalized.indexOf('@') == normalized.lastIndexOf('@') && normalized.indexOf('@') >= 0;
+        boolean hasExactlyOneAt = atIndex >= 0 && atIndex == normalized.lastIndexOf('@');
         boolean hasNoSpaces = !normalized.contains(" ");
         boolean hasNonEmptyLocalAndDomain = atIndex > 0 && atIndex < normalized.length() - 1;
         if (normalized.isBlank() || !hasExactlyOneAt || !hasNoSpaces || !hasNonEmptyLocalAndDomain) {

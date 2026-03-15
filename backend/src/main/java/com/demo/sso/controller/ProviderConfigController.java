@@ -88,14 +88,7 @@ public class ProviderConfigController {
         boolean serverSideEnabled = rolloutProperties.getMicrosoft().isServerSideEnabled() && serverSideConfigured;
         boolean clientSideEnabled = rolloutProperties.getMicrosoft().isClientSideEnabled() && clientSideConfigured;
 
-        if (!clientSideConfigured && rolloutProperties.getMicrosoft().isClientSideEnabled()) {
-            logger.warn("Microsoft client-side config missing despite rollout flag being enabled");
-        }
-        if (!serverSideConfigured && rolloutProperties.getMicrosoft().isServerSideEnabled()) {
-            logger.warn("Microsoft server-side config missing despite rollout flag being enabled");
-        }
-
-        return new ProviderConfigResponse.MicrosoftProviderConfig(
+        ProviderConfigResponse.MicrosoftProviderConfig config = new ProviderConfigResponse.MicrosoftProviderConfig(
             serverSideEnabled,
             clientSideEnabled,
             clientSideEnabled ? microsoftAuthProperties.getClientId() : null,
@@ -103,5 +96,14 @@ public class ProviderConfigController {
             clientSideEnabled ? List.copyOf(microsoftAuthProperties.getScopes()) : List.of(),
             clientSideEnabled ? frontendUrl : null
         );
+
+        if (!clientSideConfigured && rolloutProperties.getMicrosoft().isClientSideEnabled()) {
+            logger.warn("Microsoft client-side config missing despite rollout flag being enabled");
+        }
+        if (!serverSideConfigured && rolloutProperties.getMicrosoft().isServerSideEnabled()) {
+            logger.warn("Microsoft server-side config missing despite rollout flag being enabled");
+        }
+
+        return config;
     }
 }

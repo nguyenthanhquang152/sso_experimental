@@ -107,7 +107,7 @@ public class AuthController {
             return microsoftClientSideDisabledResponse();
         }
 
-        String sessionId = currentChallengeSessionId(request).orElseGet(() -> createChallengeSessionCookie(response));
+        String sessionId = resolveOrCreateChallengeSession(request, response);
         MicrosoftChallengeStore.MicrosoftChallenge challenge = microsoftChallengeStore.issueChallenge(sessionId);
 
         return ResponseEntity.ok()
@@ -192,6 +192,10 @@ public class AuthController {
                 .map(Cookie::getValue)
                 .filter(v -> v != null && !v.isBlank())
                 .findFirst();
+    }
+
+    private String resolveOrCreateChallengeSession(HttpServletRequest request, HttpServletResponse response) {
+        return currentChallengeSessionId(request).orElseGet(() -> createChallengeSessionCookie(response));
     }
 
     private String createChallengeSessionCookie(HttpServletResponse response) {

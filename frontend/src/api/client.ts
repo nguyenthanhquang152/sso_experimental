@@ -53,7 +53,7 @@ export function getErrorMessage(error: unknown, fallbackMessage: string): string
  * Note: Returns `undefined` cast to `T` for 204 (No Content) responses.
  * Callers expecting 204 should check for undefined explicitly.
  */
-export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
+export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T | undefined> {
   const token = localStorage.getItem('jwt');
 
   const headers: HeadersInit = {
@@ -81,7 +81,7 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
   }
 
   if (response.status === 204) {
-    return undefined as T;
+    return undefined;
   }
 
   return response.json();

@@ -1,4 +1,4 @@
-package com.demo.sso.service.auth;
+package com.demo.sso.service.model;
 
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
