@@ -1,5 +1,7 @@
 package com.demo.sso.controller.dto;
 
+import com.demo.sso.model.AuthFlow;
+import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -12,9 +14,9 @@ public record UserResponse(
         String email,
         String name,
         String pictureUrl,
-        String provider,
+        AuthProvider provider,
         String providerUserId,
-        String lastLoginFlow,
+        AuthFlow lastLoginFlow,
         String createdAt,
         String lastLoginAt
 ) {
@@ -25,9 +27,9 @@ public record UserResponse(
                 user.getEmail(),
                 user.getName(),
                 user.getPictureUrl(),
-                user.getProvider().name(),
+                user.getProvider(),
                 user.getProviderUserId(),
-                user.getLastLoginFlow() != null ? user.getLastLoginFlow().name() : null,
+                user.getLastLoginFlow(),
                 user.getCreatedAt() != null ? user.getCreatedAt().toString() : null,
                 user.getLastLoginAt() != null ? user.getLastLoginAt().toString() : null
         );

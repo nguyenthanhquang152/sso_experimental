@@ -30,9 +30,9 @@ class UserResponseTest {
         assertEquals("alice@example.com", response.email());
         assertEquals("Alice", response.name());
         assertEquals("https://example.com/photo.jpg", response.pictureUrl());
-        assertEquals("GOOGLE", response.provider());
+        assertEquals(AuthProvider.GOOGLE, response.provider());
         assertEquals("google-sub-123", response.providerUserId());
-        assertEquals("CLIENT_SIDE", response.lastLoginFlow());
+        assertEquals(AuthFlow.CLIENT_SIDE, response.lastLoginFlow());
         assertEquals("2024-01-15T10:30:00Z", response.createdAt());
         assertEquals("2024-06-01T08:00:00Z", response.lastLoginAt());
     }

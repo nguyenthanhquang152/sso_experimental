@@ -2,6 +2,7 @@ package com.demo.sso.service.auth;
 
 import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.model.AuthFlow;
+import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,11 +27,14 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     private static final Logger logger = LoggerFactory.getLogger(OAuth2SuccessHandler.class);
 
     private final AuthCompletionService authCompletionService;
+    private final ProviderIdentityNormalizer providerIdentityNormalizer;
     private final String frontendUrl;
 
     public OAuth2SuccessHandler(AuthCompletionService authCompletionService,
+                                 ProviderIdentityNormalizer providerIdentityNormalizer,
                                  @Value("${app.frontend-url}") String frontendUrl) {
         this.authCompletionService = authCompletionService;
+        this.providerIdentityNormalizer = providerIdentityNormalizer;
         this.frontendUrl = frontendUrl;
     }
 
@@ -63,7 +67,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         if ("microsoft".equalsIgnoreCase(registrationId)) {
             try {
                 MicrosoftIdTokenClaims claims = MicrosoftIdTokenClaims.fromMap(oAuth2User.getAttributes());
-                return authCompletionService.completeMicrosoftAuthenticationWithCode(claims, AuthFlow.SERVER_SIDE);
+                NormalizedIdentity identity = providerIdentityNormalizer.normalizeMicrosoftClaims(claims, AuthFlow.SERVER_SIDE);
+                return authCompletionService.completeAuthenticationWithCode(identity);
             } catch (IllegalArgumentException | InvalidIdentityException e) {
                 throw new OAuth2IdentityException("missing_attributes", "invalid identity claims", e);
             }
@@ -80,7 +85,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         try {
             VerifiedGoogleIdentity google = VerifiedGoogleIdentity.fromOAuth2User(oAuth2User);
-            return authCompletionService.completeGoogleAuthenticationWithCode(google, AuthFlow.SERVER_SIDE);
+            NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(google, AuthFlow.SERVER_SIDE);
+            return authCompletionService.completeAuthenticationWithCode(identity);
         } catch (IllegalArgumentException | InvalidIdentityException e) {
             throw new OAuth2IdentityException("missing_attributes", "missing sub or email attribute", e);
         }

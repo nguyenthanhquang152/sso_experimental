@@ -2,6 +2,7 @@ package com.demo.sso.service.auth;
 
 import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.model.AuthFlow;
+import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ import static org.mockito.Mockito.eq;
 class OAuth2SuccessHandlerTest {
 
     @Mock private AuthCompletionService authCompletionService;
+    @Mock private ProviderIdentityNormalizer providerIdentityNormalizer;
     @Mock private HttpServletRequest request;
     @Mock private HttpServletResponse response;
     @Mock private OAuth2AuthenticationToken authentication;
@@ -39,7 +41,7 @@ class OAuth2SuccessHandlerTest {
 
     @BeforeEach
     void setUp() {
-        handler = new OAuth2SuccessHandler(authCompletionService, "http://localhost:8000");
+        handler = new OAuth2SuccessHandler(authCompletionService, providerIdentityNormalizer, "http://localhost:8000");
     }
 
     private void setupVerifiedOAuth2User(String sub, String email, String name, String picture) {
@@ -60,14 +62,19 @@ class OAuth2SuccessHandlerTest {
     void onAuthenticationSuccess_completesGoogleAuthAndRedirects() throws IOException {
         setupVerifiedOAuth2User("google-123", "user@example.com", "Test User", "http://pic.url");
 
-        when(authCompletionService.completeGoogleAuthenticationWithCode(
+        NormalizedIdentity identity = NormalizedIdentity.google(
+            "google-123", "user@example.com", "Test User", "http://pic.url", AuthFlow.SERVER_SIDE);
+        when(providerIdentityNormalizer.normalizeGoogleClaims(
             any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
+            .thenReturn(identity);
+        when(authCompletionService.completeAuthenticationWithCode(identity))
             .thenReturn("auth-code-123");
 
         handler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(authCompletionService).completeGoogleAuthenticationWithCode(
+        verify(providerIdentityNormalizer).normalizeGoogleClaims(
             any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE));
+        verify(authCompletionService).completeAuthenticationWithCode(identity);
         verify(response).sendRedirect("http://localhost:8000/?code=auth-code-123");
     }
 
@@ -75,20 +82,23 @@ class OAuth2SuccessHandlerTest {
     void onAuthenticationSuccess_savesUserAsServerSide() throws IOException {
         setupVerifiedOAuth2User("g-id", "test@test.com", "Name", null);
 
-        when(authCompletionService.completeGoogleAuthenticationWithCode(
+        NormalizedIdentity identity = NormalizedIdentity.google(
+            "g-id", "test@test.com", "Name", null, AuthFlow.SERVER_SIDE);
+        when(providerIdentityNormalizer.normalizeGoogleClaims(
             any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
+            .thenReturn(identity);
+        when(authCompletionService.completeAuthenticationWithCode(identity))
             .thenReturn("code");
 
         handler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(authCompletionService).completeGoogleAuthenticationWithCode(
-            any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE));
+        verify(authCompletionService).completeAuthenticationWithCode(identity);
     }
 
     @Test
     void onAuthenticationSuccess_redirectsToConfiguredFrontendUrl() throws IOException {
         OAuth2SuccessHandler customHandler = new OAuth2SuccessHandler(
-            authCompletionService, "https://myapp.com");
+            authCompletionService, providerIdentityNormalizer, "https://myapp.com");
 
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
         when(authentication.getAuthorizedClientRegistrationId()).thenReturn("google");
@@ -96,8 +106,12 @@ class OAuth2SuccessHandlerTest {
         when(oAuth2User.getAttribute("sub")).thenReturn("g");
         when(oAuth2User.getAttribute("email")).thenReturn("e@e.com");
 
-        when(authCompletionService.completeGoogleAuthenticationWithCode(
+        NormalizedIdentity identity = NormalizedIdentity.google(
+            "g", "e@e.com", null, null, AuthFlow.SERVER_SIDE);
+        when(providerIdentityNormalizer.normalizeGoogleClaims(
             any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
+            .thenReturn(identity);
+        when(authCompletionService.completeAuthenticationWithCode(identity))
             .thenReturn("code-xyz");
 
         customHandler.onAuthenticationSuccess(request, response, authentication);
@@ -137,7 +151,7 @@ class OAuth2SuccessHandlerTest {
         when(oAuth2User.getAttribute("sub")).thenReturn(null);
         when(oAuth2User.getAttribute("email")).thenReturn("test@test.com");
 
-        when(authCompletionService.completeGoogleAuthenticationWithCode(
+        when(providerIdentityNormalizer.normalizeGoogleClaims(
             any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
             .thenThrow(new InvalidIdentityException("Google identity is missing required claims"));
 
@@ -154,7 +168,7 @@ class OAuth2SuccessHandlerTest {
         when(oAuth2User.getAttribute("sub")).thenReturn("google-123");
         when(oAuth2User.getAttribute("email")).thenReturn(null);
 
-        when(authCompletionService.completeGoogleAuthenticationWithCode(
+        when(providerIdentityNormalizer.normalizeGoogleClaims(
             any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
             .thenThrow(new InvalidIdentityException("Google identity is missing required claims"));
 
@@ -167,14 +181,17 @@ class OAuth2SuccessHandlerTest {
     void onAuthenticationSuccess_delegatesAuthCompletionToService() throws IOException {
         setupVerifiedOAuth2User("google-123", "user@example.com", "Test User", "http://pic.url");
 
-        when(authCompletionService.completeGoogleAuthenticationWithCode(
+        NormalizedIdentity identity = NormalizedIdentity.google(
+            "google-123", "user@example.com", "Test User", "http://pic.url", AuthFlow.SERVER_SIDE);
+        when(providerIdentityNormalizer.normalizeGoogleClaims(
             any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
+            .thenReturn(identity);
+        when(authCompletionService.completeAuthenticationWithCode(identity))
             .thenReturn("auth-code-123");
 
         handler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(authCompletionService).completeGoogleAuthenticationWithCode(
-            any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE));
+        verify(authCompletionService).completeAuthenticationWithCode(identity);
     }
 
     @Test
@@ -195,14 +212,19 @@ class OAuth2SuccessHandlerTest {
             "microsoft"
         );
 
-        when(authCompletionService.completeMicrosoftAuthenticationWithCode(
+        NormalizedIdentity identity = NormalizedIdentity.microsoft(
+            "ms-oid", "employee@example.com", "Microsoft Employee", null, AuthFlow.SERVER_SIDE);
+        when(providerIdentityNormalizer.normalizeMicrosoftClaims(
             any(MicrosoftIdTokenClaims.class), eq(AuthFlow.SERVER_SIDE)))
+            .thenReturn(identity);
+        when(authCompletionService.completeAuthenticationWithCode(identity))
             .thenReturn("ms-auth-code");
 
         handler.onAuthenticationSuccess(request, response, microsoftAuthentication);
 
-        verify(authCompletionService).completeMicrosoftAuthenticationWithCode(
+        verify(providerIdentityNormalizer).normalizeMicrosoftClaims(
             any(MicrosoftIdTokenClaims.class), eq(AuthFlow.SERVER_SIDE));
+        verify(authCompletionService).completeAuthenticationWithCode(identity);
         verify(response).sendRedirect("http://localhost:8000/?code=ms-auth-code");
     }
 }

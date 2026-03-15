@@ -6,16 +6,12 @@ import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
 import com.demo.sso.service.UserService;
 import com.demo.sso.service.challenge.AuthCodeStore;
-import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.JwtTokenService;
-import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -45,7 +41,7 @@ class AuthCompletionServiceTest {
 
     @BeforeEach
     void setUp() {
-        service = new AuthCompletionService(userService, jwtTokenService, authCodeStore, new ProviderIdentityNormalizer());
+        service = new AuthCompletionService(userService, jwtTokenService, authCodeStore);
 
         googleIdentity = NormalizedIdentity.google(
                 "google-sub-123", "user@gmail.com", "Test User",
@@ -154,49 +150,5 @@ class AuthCompletionServiceTest {
 
         assertThrows(RuntimeException.class,
                 () -> service.completeAuthenticationWithCode(googleIdentity));
-    }
-
-    // --- completeGoogleAuthentication tests ---
-
-    @Test
-    void completeGoogleAuthentication_normalizesAndCompletesAuthentication() {
-        when(userService.syncUser(any(NormalizedIdentity.class))).thenReturn(testUser);
-        when(jwtTokenService.generateToken(testUser)).thenReturn("google-jwt");
-
-        VerifiedGoogleIdentity google = new VerifiedGoogleIdentity(
-            "google-sub-123", "user@gmail.com", true, "Test User", "https://example.com/pic.jpg");
-        String jwt = service.completeGoogleAuthentication(google, AuthFlow.CLIENT_SIDE);
-
-        assertEquals("google-jwt", jwt);
-        verify(userService).syncUser(any(NormalizedIdentity.class));
-    }
-
-    // --- completeMicrosoftAuthentication tests ---
-
-    @Test
-    void completeMicrosoftAuthentication_normalizesAndCompletesAuthentication() {
-        User msUser = new User();
-        msUser.setId(2L);
-        msUser.setEmail("user@outlook.com");
-        msUser.setProvider(AuthProvider.MICROSOFT);
-        msUser.setProviderUserId("ms-oid-456");
-
-        when(userService.syncUser(any(NormalizedIdentity.class))).thenReturn(msUser);
-        when(jwtTokenService.generateToken(msUser)).thenReturn("ms-jwt");
-
-        MicrosoftIdTokenClaims claims = new MicrosoftIdTokenClaims(
-            "https://login.microsoftonline.com/tid/v2.0",
-            "ms-sub",
-            "tid",
-            "user@outlook.com",
-            null, null,
-            "MS User",
-            null, null, "2.0", "nonce",
-            List.of("client-id"));
-
-        String jwt = service.completeMicrosoftAuthentication(claims, AuthFlow.CLIENT_SIDE);
-
-        assertEquals("ms-jwt", jwt);
-        verify(userService).syncUser(any(NormalizedIdentity.class));
     }
 }

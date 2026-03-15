@@ -1,13 +1,10 @@
 package com.demo.sso.service.auth;
 
-import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.User;
 import com.demo.sso.service.UserService;
 import com.demo.sso.service.challenge.AuthCodeStore;
 import com.demo.sso.service.model.NormalizedIdentity;
-import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.JwtTokenService;
-import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,16 +21,13 @@ public class AuthCompletionService {
     private final UserService userService;
     private final JwtTokenService jwtTokenService;
     private final AuthCodeStore authCodeStore;
-    private final ProviderIdentityNormalizer providerIdentityNormalizer;
 
     public AuthCompletionService(UserService userService,
                                   JwtTokenService jwtTokenService,
-                                  AuthCodeStore authCodeStore,
-                                  ProviderIdentityNormalizer providerIdentityNormalizer) {
+                                  AuthCodeStore authCodeStore) {
         this.userService = userService;
         this.jwtTokenService = jwtTokenService;
         this.authCodeStore = authCodeStore;
-        this.providerIdentityNormalizer = providerIdentityNormalizer;
     }
 
     /** For client-side flows: syncs user state and returns a JWT directly. */
@@ -49,29 +43,5 @@ public class AuthCompletionService {
     public String completeAuthenticationWithCode(NormalizedIdentity identity) {
         String jwt = completeAuthentication(identity);
         return authCodeStore.createAuthCode(jwt);
-    }
-
-    /** Normalizes Google claims, syncs user state, and returns a JWT. */
-    public String completeGoogleAuthentication(VerifiedGoogleIdentity google, AuthFlow flow) {
-        NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(google, flow);
-        return completeAuthentication(identity);
-    }
-
-    /** Normalizes Microsoft claims, syncs user state, and returns a JWT. */
-    public String completeMicrosoftAuthentication(MicrosoftIdTokenClaims claims, AuthFlow flow) {
-        NormalizedIdentity identity = providerIdentityNormalizer.normalizeMicrosoftClaims(claims, flow);
-        return completeAuthentication(identity);
-    }
-
-    /** Normalizes Google claims, syncs user state, stores JWT, and returns an auth code. */
-    public String completeGoogleAuthenticationWithCode(VerifiedGoogleIdentity google, AuthFlow flow) {
-        NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(google, flow);
-        return completeAuthenticationWithCode(identity);
-    }
-
-    /** Normalizes Microsoft claims, syncs user state, stores JWT, and returns an auth code. */
-    public String completeMicrosoftAuthenticationWithCode(MicrosoftIdTokenClaims claims, AuthFlow flow) {
-        NormalizedIdentity identity = providerIdentityNormalizer.normalizeMicrosoftClaims(claims, flow);
-        return completeAuthenticationWithCode(identity);
     }
 }

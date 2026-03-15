@@ -57,8 +57,9 @@ public class MicrosoftAuthorizationGateFilter extends OncePerRequestFilter {
 
         if (CALLBACK_MATCHER.matches(request)) {
             SecurityContextHolder.clearContext();
-            if (request.getSession(false) != null) {
-                request.getSession(false).invalidate();
+            var existingSession = request.getSession(false);
+            if (existingSession != null) {
+                existingSession.invalidate();
             }
             response.sendRedirect(frontendUrl + "/?error=provider_disabled&provider=microsoft&flow=server_side");
             return;

@@ -17,8 +17,10 @@ import com.demo.sso.controller.dto.TokenResponse;
 import com.demo.sso.exception.ExpiredAuthCodeException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.auth.AuthCompletionService;
+import com.demo.sso.service.auth.ProviderIdentityNormalizer;
 import com.demo.sso.service.challenge.AuthCodeStore;
 import com.demo.sso.service.challenge.MicrosoftChallengeStore;
+import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.MicrosoftTokenVerifier;
@@ -41,6 +43,9 @@ class AuthControllerTest {
     private AuthCompletionService authCompletionService;
 
     @Mock
+    private ProviderIdentityNormalizer providerIdentityNormalizer;
+
+    @Mock
     private AuthCodeStore authCodeStore;
 
     @Mock
@@ -57,6 +62,7 @@ class AuthControllerTest {
         controller = new AuthController(
                 googleTokenVerifier,
                 authCompletionService,
+                providerIdentityNormalizer,
                 authCodeStore,
                 microsoftChallengeStore,
                 microsoftTokenVerifier,
@@ -128,7 +134,12 @@ class AuthControllerTest {
         VerifiedGoogleIdentity identity = new VerifiedGoogleIdentity(
                 "google-sub-123", "alice@gmail.com", true, "Alice", "https://photo.url");
         when(googleTokenVerifier.verify("valid-id-token")).thenReturn(identity);
-        when(authCompletionService.completeGoogleAuthentication(eq(identity), eq(AuthFlow.CLIENT_SIDE)))
+
+        NormalizedIdentity normalizedIdentity = NormalizedIdentity.google(
+                "google-sub-123", "alice@gmail.com", "Alice", "https://photo.url", AuthFlow.CLIENT_SIDE);
+        when(providerIdentityNormalizer.normalizeGoogleClaims(eq(identity), eq(AuthFlow.CLIENT_SIDE)))
+                .thenReturn(normalizedIdentity);
+        when(authCompletionService.completeAuthentication(normalizedIdentity))
                 .thenReturn("jwt-google-token");
 
         ResponseEntity<AuthApiResponse> response = controller.verifyGoogleToken(
@@ -191,7 +202,7 @@ class AuthControllerTest {
         rollout.getGoogle().setClientSideEnabled(false);
 
         AuthController disabledController = new AuthController(
-                googleTokenVerifier, authCompletionService, authCodeStore,
+                googleTokenVerifier, authCompletionService, providerIdentityNormalizer, authCodeStore,
                 microsoftChallengeStore, microsoftTokenVerifier, rollout, "");
 
         ResponseEntity<AuthApiResponse> response = disabledController.verifyGoogleToken(
