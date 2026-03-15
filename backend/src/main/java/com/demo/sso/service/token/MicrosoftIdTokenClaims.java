@@ -65,6 +65,12 @@ public record MicrosoftIdTokenClaims(
 
     private static String stringClaim(Map<String, Object> claims, String key) {
         Object value = claims.get(key);
-        return value == null ? null : String.valueOf(value);
+        if (value == null) {
+            return null;
+        }
+        if (value instanceof String s) {
+            return s;
+        }
+        return String.valueOf(value);
     }
 }

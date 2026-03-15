@@ -51,7 +51,10 @@ public class GoogleTokenVerifier {
                 (String) payload.get("picture"));
     }
 
-    /** Provider-neutral representation of a verified Google identity. */
+    /**
+     * Provider-neutral representation of a verified Google identity.
+     * {@code name} and {@code pictureUrl} may be null if the user hasn't set them.
+     */
     public record VerifiedGoogleIdentity(
             String subject,
             String email,

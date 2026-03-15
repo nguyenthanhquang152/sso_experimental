@@ -91,11 +91,7 @@ public class AuthController {
             }
 
             String jwt = authCompletionService.completeGoogleAuthentication(
-                google.subject(),
-                google.email(),
-                google.name(),
-                google.pictureUrl(),
-                AuthFlow.CLIENT_SIDE);
+                google, AuthFlow.CLIENT_SIDE);
 
             return ResponseEntity.ok(new TokenResponse(jwt));
         } catch (GeneralSecurityException | IOException | IllegalArgumentException e) {
@@ -158,6 +154,7 @@ public class AuthController {
         }
     }
 
+    /** Exchanges a single-use auth code (from server-side OAuth2 redirect) for a JWT. */
     @PostMapping("/exchange")
     public ResponseEntity<AuthApiResponse> exchangeCode(@RequestBody AuthCodeExchangeRequest request) {
         String code = request == null ? null : request.code();
@@ -169,7 +166,7 @@ public class AuthController {
             String jwt = authCodeStore.exchangeCode(code);
             return ResponseEntity.ok(new TokenResponse(jwt));
         } catch (IllegalArgumentException e) {
-            logger.debug("Auth code exchange failed: invalid or expired code");
+            logger.warn("Auth code exchange failed: invalid or expired code");
             return badRequest("Invalid or expired code");
         }
     }

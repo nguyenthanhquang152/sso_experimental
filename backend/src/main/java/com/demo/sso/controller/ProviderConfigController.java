@@ -37,52 +37,53 @@ public class ProviderConfigController {
 
     @GetMapping("/providers")
     public ResponseEntity<ProviderConfigResponse> getProviders() {
-        boolean googleConfigured = !googleClientId.isBlank();
-        boolean googleServerSideEnabled = googleConfigured
-            && rolloutProperties.getGoogle().isServerSideEnabled();
-        boolean googleClientSideEnabled = googleConfigured
-            && rolloutProperties.getGoogle().isClientSideEnabled();
-        boolean microsoftClientSideConfigured = microsoftAuthProperties.isClientSideConfigured();
-        boolean microsoftServerSideConfigured = microsoftAuthProperties.isServerSideConfigured();
-        boolean microsoftServerSideEnabled = rolloutProperties.getMicrosoft().isServerSideEnabled()
-            && microsoftServerSideConfigured;
-        boolean microsoftClientSideEnabled = rolloutProperties.getMicrosoft().isClientSideEnabled()
-            && microsoftClientSideConfigured;
-
-        if (googleConfigured && !googleClientSideEnabled) {
-            logger.warn("Google client-side login suppressed by rollout flag");
-        }
-        if (googleConfigured && !googleServerSideEnabled) {
-            logger.warn("Google server-side login suppressed by rollout flag");
-        }
-        if (!googleConfigured) {
-            logger.warn("Google provider not configured: client ID is missing");
-        }
-        if (!microsoftClientSideConfigured && rolloutProperties.getMicrosoft().isClientSideEnabled()) {
-            logger.warn("Microsoft client-side config missing despite rollout flag being enabled");
-        }
-        if (!microsoftServerSideConfigured && rolloutProperties.getMicrosoft().isServerSideEnabled()) {
-            logger.warn("Microsoft server-side config missing despite rollout flag being enabled");
-        }
-
         ProviderConfigResponse response = new ProviderConfigResponse(
-            new ProviderConfigResponse.GoogleProviderConfig(
-                googleServerSideEnabled,
-                googleClientSideEnabled,
-                googleClientId
-            ),
-            new ProviderConfigResponse.MicrosoftProviderConfig(
-                microsoftServerSideEnabled,
-                microsoftClientSideEnabled,
-                microsoftClientSideEnabled ? microsoftAuthProperties.getClientId() : null,
-                microsoftClientSideEnabled ? microsoftAuthProperties.getAuthority() : null,
-                microsoftClientSideEnabled ? List.copyOf(microsoftAuthProperties.getScopes()) : List.of(),
-                microsoftClientSideEnabled ? frontendUrl : null
-            )
+            buildGoogleConfig(),
+            buildMicrosoftConfig()
         );
-
         return ResponseEntity.ok()
             .cacheControl(CacheControl.noStore())
             .body(response);
+    }
+
+    private ProviderConfigResponse.GoogleProviderConfig buildGoogleConfig() {
+        boolean configured = !googleClientId.isBlank();
+        boolean serverSideEnabled = configured && rolloutProperties.getGoogle().isServerSideEnabled();
+        boolean clientSideEnabled = configured && rolloutProperties.getGoogle().isClientSideEnabled();
+
+        if (configured && !clientSideEnabled) {
+            logger.warn("Google client-side login suppressed by rollout flag");
+        }
+        if (configured && !serverSideEnabled) {
+            logger.warn("Google server-side login suppressed by rollout flag");
+        }
+        if (!configured) {
+            logger.warn("Google provider not configured: client ID is missing");
+        }
+
+        return new ProviderConfigResponse.GoogleProviderConfig(serverSideEnabled, clientSideEnabled, googleClientId);
+    }
+
+    private ProviderConfigResponse.MicrosoftProviderConfig buildMicrosoftConfig() {
+        boolean clientSideConfigured = microsoftAuthProperties.isClientSideConfigured();
+        boolean serverSideConfigured = microsoftAuthProperties.isServerSideConfigured();
+        boolean serverSideEnabled = rolloutProperties.getMicrosoft().isServerSideEnabled() && serverSideConfigured;
+        boolean clientSideEnabled = rolloutProperties.getMicrosoft().isClientSideEnabled() && clientSideConfigured;
+
+        if (!clientSideConfigured && rolloutProperties.getMicrosoft().isClientSideEnabled()) {
+            logger.warn("Microsoft client-side config missing despite rollout flag being enabled");
+        }
+        if (!serverSideConfigured && rolloutProperties.getMicrosoft().isServerSideEnabled()) {
+            logger.warn("Microsoft server-side config missing despite rollout flag being enabled");
+        }
+
+        return new ProviderConfigResponse.MicrosoftProviderConfig(
+            serverSideEnabled,
+            clientSideEnabled,
+            clientSideEnabled ? microsoftAuthProperties.getClientId() : null,
+            clientSideEnabled ? microsoftAuthProperties.getAuthority() : null,
+            clientSideEnabled ? List.copyOf(microsoftAuthProperties.getScopes()) : List.of(),
+            clientSideEnabled ? frontendUrl : null
+        );
     }
 }

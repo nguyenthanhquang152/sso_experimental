@@ -3,8 +3,9 @@ package com.demo.sso.service.auth;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
-import com.demo.sso.service.UserService;
+import com.demo.sso.service.user.UserService;
 import com.demo.sso.service.challenge.AuthCodeStore;
+import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.JwtTokenService;
 import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import org.junit.jupiter.api.BeforeEach;
@@ -156,8 +157,9 @@ class AuthCompletionServiceTest {
         when(userService.findOrCreateUser(any(NormalizedIdentity.class))).thenReturn(testUser);
         when(jwtTokenService.generateToken(testUser)).thenReturn("google-jwt");
 
-        String jwt = service.completeGoogleAuthentication(
-            "google-sub-123", "user@gmail.com", "Test User", "https://example.com/pic.jpg", AuthFlow.CLIENT_SIDE);
+        VerifiedGoogleIdentity google = new VerifiedGoogleIdentity(
+            "google-sub-123", "user@gmail.com", true, "Test User", "https://example.com/pic.jpg");
+        String jwt = service.completeGoogleAuthentication(google, AuthFlow.CLIENT_SIDE);
 
         assertEquals("google-jwt", jwt);
         verify(userService).findOrCreateUser(any(NormalizedIdentity.class));
