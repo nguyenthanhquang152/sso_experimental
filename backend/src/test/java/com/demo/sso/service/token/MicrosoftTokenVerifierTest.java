@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.demo.sso.config.properties.MicrosoftAuthProperties;
+import com.demo.sso.exception.InvalidTokenException;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,7 @@ class MicrosoftTokenVerifierTest {
 
     @Test
     void verifyIdToken_rejectsNonceMismatch() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(InvalidTokenException.class,
             () -> verifier.verifyIdToken("valid-token", "different-nonce"));
     }
 
@@ -54,7 +55,7 @@ class MicrosoftTokenVerifierTest {
             "preferred_username", "user@example.com"
         )), microsoftProperties());
 
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(InvalidTokenException.class,
             () -> verifier.verifyIdToken("valid-token", "expected-nonce"));
     }
 

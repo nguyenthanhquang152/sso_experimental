@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.demo.sso.config.TestAuthCodeStoreConfig;
+import com.demo.sso.exception.InvalidTokenException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.repository.UserRepository;
@@ -164,7 +165,7 @@ class MicrosoftClientSideIntegrationTest {
         );
 
         when(microsoftTokenVerifier.verifyIdToken(anyString(), anyString()))
-            .thenThrow(new IllegalArgumentException("Verifier should not be called for superseded challenges"));
+            .thenThrow(new InvalidTokenException("Verifier should not be called for superseded challenges"));
 
         mockMvc.perform(post("/auth/microsoft/verify")
             .cookie(firstChallenge.getResponse().getCookie("ms_challenge_session"))

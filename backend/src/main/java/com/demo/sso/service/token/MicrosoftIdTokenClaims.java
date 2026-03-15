@@ -1,5 +1,6 @@
 package com.demo.sso.service.token;
 
+import com.demo.sso.exception.InvalidTokenException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,7 @@ public record MicrosoftIdTokenClaims(
             extractAudiences(claims.get("aud"))
         );
         if (result.sub() == null || result.sub().isBlank()) {
-            throw new IllegalArgumentException("Microsoft ID token must contain a 'sub' claim");
+            throw new InvalidTokenException("Microsoft ID token must contain a 'sub' claim");
         }
         return result;
     }

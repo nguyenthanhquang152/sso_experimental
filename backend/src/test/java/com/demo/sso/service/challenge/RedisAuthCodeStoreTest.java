@@ -1,7 +1,7 @@
 package com.demo.sso.service.challenge;
 
 import com.demo.sso.config.properties.AuthRolloutProperties;
-import com.demo.sso.exception.ExpiredAuthCodeException;
+import com.demo.sso.exception.InvalidAuthCodeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -77,7 +77,7 @@ class RedisAuthCodeStoreTest {
     void exchangeCode_throwsForUnknownCode() {
         when(valueOps.getAndDelete("authcode:nonexistent")).thenReturn(null);
 
-        assertThrows(ExpiredAuthCodeException.class, () -> store.exchangeCode("nonexistent"));
+        assertThrows(InvalidAuthCodeException.class, () -> store.exchangeCode("nonexistent"));
     }
 
     @Test

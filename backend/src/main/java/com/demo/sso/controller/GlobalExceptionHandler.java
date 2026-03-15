@@ -1,7 +1,7 @@
 package com.demo.sso.controller;
 
 import com.demo.sso.controller.dto.ErrorResponse;
-import com.demo.sso.exception.ExpiredAuthCodeException;
+import com.demo.sso.exception.InvalidAuthCodeException;
 import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.exception.InvalidTokenException;
 import org.slf4j.Logger;
@@ -42,9 +42,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(new ErrorResponse("Invalid identity"));
     }
 
-    @ExceptionHandler(ExpiredAuthCodeException.class)
-    public ResponseEntity<ErrorResponse> handleExpiredAuthCode(ExpiredAuthCodeException e) {
-        logger.warn("Expired auth code: {}", e.getMessage());
+    @ExceptionHandler(InvalidAuthCodeException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidAuthCode(InvalidAuthCodeException e) {
+        logger.warn("Invalid auth code: {}", e.getMessage());
         return ResponseEntity.status(410).body(new ErrorResponse("Invalid or expired authorization code"));
     }
 

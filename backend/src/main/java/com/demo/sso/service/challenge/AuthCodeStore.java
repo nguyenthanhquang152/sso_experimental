@@ -10,7 +10,7 @@ public interface AuthCodeStore {
     String createAuthCode(String jwt);
 
     /**
-     * @throws IllegalArgumentException if the code is invalid, expired, or already consumed
+     * @throws com.demo.sso.exception.InvalidAuthCodeException if the code is invalid, expired, or already consumed
      */
     String exchangeCode(String code);
 }

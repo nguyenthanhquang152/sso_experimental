@@ -1,6 +1,7 @@
 package com.demo.sso.service.token;
 
 import com.demo.sso.config.properties.MicrosoftAuthProperties;
+import com.demo.sso.exception.InvalidTokenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -38,29 +39,29 @@ public class MicrosoftTokenVerifier {
 
     private void validateAudience(MicrosoftIdTokenClaims claims) {
         if (!claims.hasAudience(properties.getClientId())) {
-            throw new IllegalArgumentException("Microsoft token audience does not match configured client id");
+            throw new InvalidTokenException("Microsoft token audience does not match configured client id");
         }
     }
 
     private static void validateIssuer(MicrosoftIdTokenClaims claims) {
         String expectedIssuer = "https://login.microsoftonline.com/" + claims.tid() + "/v2.0";
         if (!expectedIssuer.equals(claims.iss())) {
-            throw new IllegalArgumentException("Microsoft token issuer does not match tenant id");
+            throw new InvalidTokenException("Microsoft token issuer does not match tenant id");
         }
     }
 
     private static void validateVersion(MicrosoftIdTokenClaims claims) {
         if (!"2.0".equals(claims.ver())) {
-            throw new IllegalArgumentException("Only Microsoft v2.0 ID tokens are supported");
+            throw new InvalidTokenException("Only Microsoft v2.0 ID tokens are supported");
         }
     }
 
     private static void validateNonce(MicrosoftIdTokenClaims claims, String expectedNonce) {
         if (expectedNonce == null || expectedNonce.isBlank()) {
-            throw new IllegalArgumentException("expectedNonce must not be null or blank — nonce validation cannot be skipped");
+            throw new InvalidTokenException("expectedNonce must not be null or blank — nonce validation cannot be skipped");
         }
         if (!expectedNonce.equals(claims.nonce())) {
-            throw new IllegalArgumentException("Microsoft token nonce does not match issued challenge");
+            throw new InvalidTokenException("Microsoft token nonce does not match issued challenge");
         }
     }
 
