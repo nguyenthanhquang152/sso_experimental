@@ -1,4 +1,4 @@
-package com.demo.sso.service.token;
+package com.demo.sso.service.model;
 
 import com.demo.sso.exception.InvalidTokenException;
 import java.util.Collection;

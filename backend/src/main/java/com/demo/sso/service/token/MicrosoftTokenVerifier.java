@@ -2,9 +2,11 @@ package com.demo.sso.service.token;
 
 import com.demo.sso.config.properties.MicrosoftAuthProperties;
 import com.demo.sso.exception.InvalidTokenException;
+import com.demo.sso.service.model.MicrosoftIdTokenClaims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +32,15 @@ public class MicrosoftTokenVerifier {
     /**
      * Verifies a Microsoft ID token and extracts claims.
      *
+     * <p>Unlike {@link GoogleTokenVerifier#verifyIdToken}, this method uses Spring Security's
+     * {@link NimbusJwtDecoder} which throws unchecked {@link JwtException} on decode failures
+     * rather than checked crypto/IO exceptions.
+     *
      * @param credential the raw ID token string
-     * @param expectedNonce the expected nonce value for replay protection, or null to skip nonce validation
+     * @param expectedNonce the expected nonce value for replay protection (must not be null or blank)
      * @return the verified token claims
-     * @throws com.demo.sso.exception.InvalidTokenException if audience, issuer, version, or nonce validation fails
-     * @throws org.springframework.security.oauth2.jwt.JwtException if the token cannot be decoded
+     * @throws InvalidTokenException if audience, issuer, version, or nonce validation fails
+     * @throws org.springframework.security.oauth2.jwt.JwtException if JWT parsing or signature validation fails
      */
     public MicrosoftIdTokenClaims verifyIdToken(String credential, String expectedNonce) {
         Jwt jwt = jwtDecoder.decode(credential);

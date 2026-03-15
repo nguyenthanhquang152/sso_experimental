@@ -1,7 +1,6 @@
 package com.demo.sso.controller;
 
 import com.demo.sso.config.properties.AuthRolloutProperties;
-import com.demo.sso.config.properties.AuthRolloutProperties;
 import com.demo.sso.controller.dto.AuthCodeExchangeRequest;
 import com.demo.sso.controller.dto.GoogleVerifyRequest;
 import com.demo.sso.controller.dto.LogoutResponse;
@@ -92,15 +91,15 @@ public class AuthController {
         }
 
         try {
+            // Step 1: Verify — validate Google ID token via SDK
             VerifiedGoogleIdentity google = googleTokenVerifier.verifyIdToken(credential);
 
-            if (!google.emailVerified()) {
-                return ResponseEntity.badRequest()
-                    .body(new ErrorResponse("Email not verified by Google"));
-            }
-
+            // Step 2: Normalize — map provider-specific claims to unified identity
+            //         (includes email verification check)
             NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(
                 google, AuthFlow.CLIENT_SIDE);
+
+            // Step 3: Complete — sync user and mint JWT
             String jwt = authCompletionService.completeAuthentication(identity);
 
             return ResponseEntity.ok(new TokenResponse(jwt));
@@ -147,11 +146,16 @@ public class AuthController {
         }
 
         try {
+            // Step 1: Verify — validate Microsoft ID token and nonce
             MicrosoftIdTokenClaims claims = microsoftTokenVerifier.verifyIdToken(
                 request.credential(),
                 expectedNonce.get());
+
+            // Step 2: Normalize — map provider-specific claims to unified identity
             NormalizedIdentity identity = providerIdentityNormalizer.normalizeMicrosoftClaims(
                 claims, AuthFlow.CLIENT_SIDE);
+
+            // Step 3: Complete — sync user and mint JWT
             String jwt = authCompletionService.completeAuthentication(identity);
             return ResponseEntity.ok(new TokenResponse(jwt));
         } catch (InvalidTokenException | InvalidIdentityException | JwtException e) {

@@ -1,6 +1,4 @@
-package com.demo.sso.service;
-
-import com.demo.sso.service.UserService;
+package com.demo.sso.service.auth;
 import com.demo.sso.service.model.AuthenticatedUserIdentity;
 import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.model.AuthFlow;
@@ -55,7 +53,7 @@ class UserServiceTest {
         User result = userService.syncUser(
             NormalizedIdentity.google("google-123", "user@example.com", "John", "http://pic.url", AuthFlow.CLIENT_SIDE));
 
-        assertEquals("google-123", result.getGoogleId());
+        assertNull(result.getGoogleId(), "google_id should no longer be populated for new users");
         assertEquals("user@example.com", result.getEmail());
         assertEquals("John", result.getName());
         assertEquals("http://pic.url", result.getPictureUrl());
@@ -65,7 +63,7 @@ class UserServiceTest {
 
         ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
         verify(userRepository).save(captor.capture());
-        assertEquals("google-123", captor.getValue().getGoogleId());
+        assertNull(captor.getValue().getGoogleId(), "google_id should no longer be populated for new users");
         assertEquals(AuthProvider.GOOGLE, captor.getValue().getProvider());
         assertEquals("google-123", captor.getValue().getProviderUserId());
         assertEquals(AuthFlow.CLIENT_SIDE, captor.getValue().getLastLoginFlow());

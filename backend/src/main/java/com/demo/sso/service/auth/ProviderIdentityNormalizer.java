@@ -4,7 +4,7 @@ import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
-import com.demo.sso.service.token.MicrosoftIdTokenClaims;
+import com.demo.sso.service.model.MicrosoftIdTokenClaims;
 import java.net.URI;
 import java.util.Locale;
 import org.springframework.stereotype.Service;
@@ -13,11 +13,15 @@ import org.springframework.stereotype.Service;
 public class ProviderIdentityNormalizer {
 
     /**
-     * @throws InvalidIdentityException if googleId or email is blank, or if email fails format validation
+     * @throws InvalidIdentityException if subject or email is blank, if email is unverified,
+     *         or if email fails format validation
      */
     public NormalizedIdentity normalizeGoogleClaims(VerifiedGoogleIdentity google, AuthFlow loginFlow) {
         if (isBlank(google.subject()) || isBlank(google.email())) {
             throw new InvalidIdentityException("Google identity is missing required claims");
+        }
+        if (!google.emailVerified()) {
+            throw new InvalidIdentityException("Google email not verified");
         }
         return NormalizedIdentity.google(
             google.subject(), normalizeEmail(google.email()), google.name(), google.pictureUrl(), loginFlow);

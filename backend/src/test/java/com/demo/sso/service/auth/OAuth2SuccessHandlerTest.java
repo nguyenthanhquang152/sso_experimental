@@ -4,7 +4,7 @@ import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
-import com.demo.sso.service.token.MicrosoftIdTokenClaims;
+import com.demo.sso.service.model.MicrosoftIdTokenClaims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -124,10 +124,16 @@ class OAuth2SuccessHandlerTest {
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
         when(authentication.getAuthorizedClientRegistrationId()).thenReturn("google");
         when(oAuth2User.getAttribute("email_verified")).thenReturn(false);
+        when(oAuth2User.getAttribute("sub")).thenReturn("google-sub");
+        when(oAuth2User.getAttribute("email")).thenReturn("unverified@gmail.com");
+
+        when(providerIdentityNormalizer.normalizeGoogleClaims(
+            any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
+            .thenThrow(new InvalidIdentityException("Google email not verified"));
 
         handler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(response).sendRedirect("http://localhost:8000/?error=email_not_verified");
+        verify(response).sendRedirect("http://localhost:8000/?error=missing_attributes");
         verifyNoInteractions(authCompletionService);
     }
 
@@ -136,10 +142,16 @@ class OAuth2SuccessHandlerTest {
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
         when(authentication.getAuthorizedClientRegistrationId()).thenReturn("google");
         when(oAuth2User.getAttribute("email_verified")).thenReturn(null);
+        when(oAuth2User.getAttribute("sub")).thenReturn("google-sub");
+        when(oAuth2User.getAttribute("email")).thenReturn("test@gmail.com");
+
+        when(providerIdentityNormalizer.normalizeGoogleClaims(
+            any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
+            .thenThrow(new InvalidIdentityException("Google email not verified"));
 
         handler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(response).sendRedirect("http://localhost:8000/?error=email_not_verified");
+        verify(response).sendRedirect("http://localhost:8000/?error=missing_attributes");
         verifyNoInteractions(authCompletionService);
     }
 

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.demo.sso.config.properties.MicrosoftAuthProperties;
 import com.demo.sso.exception.InvalidTokenException;
+import com.demo.sso.service.model.MicrosoftIdTokenClaims;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;

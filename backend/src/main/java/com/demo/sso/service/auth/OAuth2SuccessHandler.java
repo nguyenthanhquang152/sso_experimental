@@ -5,7 +5,7 @@ import com.demo.sso.exception.SsoException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
-import com.demo.sso.service.token.MicrosoftIdTokenClaims;
+import com.demo.sso.service.model.MicrosoftIdTokenClaims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -74,17 +74,12 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                 throw new OAuth2IdentityException("missing_attributes", "invalid identity claims", e);
             }
         } else if ("google".equalsIgnoreCase(registrationId)) {
-            Boolean emailVerified = oAuth2User.getAttribute("email_verified");
-            if (!Boolean.TRUE.equals(emailVerified)) {
-                throw new OAuth2IdentityException("email_not_verified", "email not verified");
-            }
-
             try {
                 VerifiedGoogleIdentity google = VerifiedGoogleIdentity.fromOAuth2User(oAuth2User);
                 NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(google, AuthFlow.SERVER_SIDE);
                 return authCompletionService.completeAuthenticationWithCode(identity);
             } catch (IllegalArgumentException | InvalidIdentityException e) {
-                throw new OAuth2IdentityException("missing_attributes", "missing sub or email attribute", e);
+                throw new OAuth2IdentityException("missing_attributes", "invalid identity claims", e);
             }
         } else {
             throw new OAuth2IdentityException("unsupported_provider", "Unsupported provider: " + registrationId);

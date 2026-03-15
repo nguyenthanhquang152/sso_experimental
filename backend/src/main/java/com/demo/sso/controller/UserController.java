@@ -2,7 +2,7 @@ package com.demo.sso.controller;
 
 import com.demo.sso.controller.dto.UserResponse;
 import com.demo.sso.service.model.AuthenticatedUserIdentity;
-import com.demo.sso.service.UserService;
+import com.demo.sso.service.auth.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +42,7 @@ public class UserController {
         if (authentication.getPrincipal() instanceof AuthenticatedUserIdentity current) {
             identity = current;
         } else {
-            // Legacy fallback — see method Javadoc for removal criteria
+            // Legacy fallback: remove when all JWTs minted with V2 format have expired
             logger.warn("Legacy identity fallback: principal type={}", authentication.getPrincipal().getClass().getSimpleName());
             identity = AuthenticatedUserIdentity.legacy(authentication.getName());
         }

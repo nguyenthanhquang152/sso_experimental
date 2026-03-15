@@ -22,7 +22,7 @@ import com.demo.sso.model.AuthProvider;
 import com.demo.sso.repository.UserRepository;
 import com.demo.sso.service.token.GoogleTokenVerifier;
 import com.demo.sso.service.token.JwtTokenService;
-import com.demo.sso.service.token.MicrosoftIdTokenClaims;
+import com.demo.sso.service.model.MicrosoftIdTokenClaims;
 import com.demo.sso.service.token.MicrosoftTokenVerifier;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -8,12 +8,12 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import com.demo.sso.config.properties.AuthRolloutProperties;
-import com.demo.sso.controller.dto.AuthApiResponse;
 import com.demo.sso.controller.dto.AuthCodeExchangeRequest;
-import com.demo.sso.dto.ErrorResponse;
 import com.demo.sso.controller.dto.GoogleVerifyRequest;
 import com.demo.sso.controller.dto.LogoutResponse;
 import com.demo.sso.controller.dto.TokenResponse;
+import com.demo.sso.dto.AuthApiResponse;
+import com.demo.sso.dto.ErrorResponse;
 import com.demo.sso.exception.InvalidAuthCodeException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.auth.AuthCompletionService;
@@ -188,13 +188,15 @@ class AuthControllerTest {
         VerifiedGoogleIdentity identity = new VerifiedGoogleIdentity(
                 "google-sub-456", "unverified@gmail.com", false, "Bob", null);
         when(googleTokenVerifier.verifyIdToken("unverified-token")).thenReturn(identity);
+        when(providerIdentityNormalizer.normalizeGoogleClaims(eq(identity), eq(AuthFlow.CLIENT_SIDE)))
+                .thenThrow(new com.demo.sso.exception.InvalidIdentityException("Google email not verified"));
 
         ResponseEntity<AuthApiResponse> response = controller.verifyGoogleToken(
                 new GoogleVerifyRequest("unverified-token"));
 
         assertEquals(400, response.getStatusCode().value());
         assertInstanceOf(ErrorResponse.class, response.getBody());
-        assertEquals("Email not verified by Google", ((ErrorResponse) response.getBody()).message());
+        assertEquals("Invalid Google credential", ((ErrorResponse) response.getBody()).message());
     }
 
     @Test
