@@ -25,10 +25,10 @@ public record UserResponse(
                 user.getEmail(),
                 user.getName() != null ? user.getName() : "",
                 user.getPictureUrl() != null ? user.getPictureUrl() : "",
-                user.getProvider() != null ? user.getProvider().name() : "",
+                user.getProvider().name(),
                 user.getProviderUserId() != null ? user.getProviderUserId() : "",
-                user.getLastLoginFlow() != null ? user.getLastLoginFlow().name() : "",
-                user.getCreatedAt().toString(),
+                user.getLastLoginFlow() != null ? user.getLastLoginFlow().name() : null,
+                user.getCreatedAt() != null ? user.getCreatedAt().toString() : "",
                 user.getLastLoginAt() != null ? user.getLastLoginAt().toString() : ""
         );
     }

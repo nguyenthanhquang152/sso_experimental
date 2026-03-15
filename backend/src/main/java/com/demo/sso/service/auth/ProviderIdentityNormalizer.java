@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProviderIdentityNormalizer {
 
+    /**
+     * @throws IllegalArgumentException if googleId or email is blank, or if email fails format validation
+     */
     public NormalizedIdentity normalizeGoogleClaims(
             String googleId,
             String email,
@@ -22,6 +25,9 @@ public class ProviderIdentityNormalizer {
 
     /**
      * Normalizes typed Microsoft identity claims into a {@link NormalizedIdentity}.
+     *
+     * @throws IllegalArgumentException if iss or sub is blank, if the identity is a guest/external account,
+     *         if no usable email-like claim is found, or if the email fails format validation
      */
     public NormalizedIdentity normalizeMicrosoftClaims(MicrosoftIdTokenClaims claims, AuthFlow loginFlow) {
         if (isBlank(claims.iss()) || isBlank(claims.sub())) {
@@ -71,7 +77,7 @@ public class ProviderIdentityNormalizer {
     private static String normalizeEmail(String email) {
         String normalized = email.trim().toLowerCase(Locale.ROOT);
         int atIndex = normalized.indexOf('@');
-        boolean hasExactlyOneAt = normalized.chars().filter(ch -> ch == '@').count() == 1;
+        boolean hasExactlyOneAt = normalized.indexOf('@') == normalized.lastIndexOf('@') && normalized.indexOf('@') >= 0;
         boolean hasNoSpaces = !normalized.contains(" ");
         boolean hasNonEmptyLocalAndDomain = atIndex > 0 && atIndex < normalized.length() - 1;
         if (normalized.isBlank() || !hasExactlyOneAt || !hasNoSpaces || !hasNonEmptyLocalAndDomain) {
