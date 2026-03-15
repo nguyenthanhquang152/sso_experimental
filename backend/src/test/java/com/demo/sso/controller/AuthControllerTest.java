@@ -14,7 +14,7 @@ import com.demo.sso.controller.dto.ErrorResponse;
 import com.demo.sso.controller.dto.GoogleVerifyRequest;
 import com.demo.sso.controller.dto.LogoutResponse;
 import com.demo.sso.controller.dto.TokenResponse;
-import com.demo.sso.exception.ExpiredAuthCodeException;
+import com.demo.sso.exception.InvalidAuthCodeException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.auth.AuthCompletionService;
 import com.demo.sso.service.auth.ProviderIdentityNormalizer;
@@ -24,6 +24,7 @@ import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.MicrosoftTokenVerifier;
+import com.demo.sso.exception.InvalidTokenException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import org.junit.jupiter.api.BeforeEach;
@@ -117,7 +118,7 @@ class AuthControllerTest {
     @Test
     void exchangeReturnsBadRequestForInvalidOrExpiredCode() {
         when(authCodeStore.exchangeCode("expired-code"))
-                .thenThrow(new ExpiredAuthCodeException("expired"));
+                .thenThrow(new InvalidAuthCodeException("expired"));
 
         ResponseEntity<AuthApiResponse> response = controller.exchangeCode(
                 new AuthCodeExchangeRequest("expired-code"));
@@ -133,7 +134,7 @@ class AuthControllerTest {
     void googleVerifyReturnsTokenForValidCredential() throws GeneralSecurityException, IOException {
         VerifiedGoogleIdentity identity = new VerifiedGoogleIdentity(
                 "google-sub-123", "alice@gmail.com", true, "Alice", "https://photo.url");
-        when(googleTokenVerifier.verify("valid-id-token")).thenReturn(identity);
+        when(googleTokenVerifier.verifyIdToken("valid-id-token")).thenReturn(identity);
 
         NormalizedIdentity normalizedIdentity = NormalizedIdentity.google(
                 "google-sub-123", "alice@gmail.com", "Alice", "https://photo.url", AuthFlow.CLIENT_SIDE);
@@ -171,8 +172,8 @@ class AuthControllerTest {
 
     @Test
     void googleVerifyReturnsBadRequestForInvalidToken() throws GeneralSecurityException, IOException {
-        when(googleTokenVerifier.verify("bad-token"))
-                .thenThrow(new IllegalArgumentException("Invalid Google ID token"));
+        when(googleTokenVerifier.verifyIdToken("bad-token"))
+                .thenThrow(new InvalidTokenException("Invalid Google ID token"));
 
         ResponseEntity<AuthApiResponse> response = controller.verifyGoogleToken(
                 new GoogleVerifyRequest("bad-token"));
@@ -186,7 +187,7 @@ class AuthControllerTest {
     void googleVerifyReturnsBadRequestForUnverifiedEmail() throws GeneralSecurityException, IOException {
         VerifiedGoogleIdentity identity = new VerifiedGoogleIdentity(
                 "google-sub-456", "unverified@gmail.com", false, "Bob", null);
-        when(googleTokenVerifier.verify("unverified-token")).thenReturn(identity);
+        when(googleTokenVerifier.verifyIdToken("unverified-token")).thenReturn(identity);
 
         ResponseEntity<AuthApiResponse> response = controller.verifyGoogleToken(
                 new GoogleVerifyRequest("unverified-token"));
@@ -214,7 +215,7 @@ class AuthControllerTest {
 
     @Test
     void googleVerifyReturnsBadRequestOnGeneralSecurityException() throws GeneralSecurityException, IOException {
-        when(googleTokenVerifier.verify("crypto-fail"))
+        when(googleTokenVerifier.verifyIdToken("crypto-fail"))
                 .thenThrow(new GeneralSecurityException("crypto error"));
 
         ResponseEntity<AuthApiResponse> response = controller.verifyGoogleToken(

@@ -9,8 +9,9 @@ import com.demo.sso.controller.dto.LogoutResponse;
 import com.demo.sso.controller.dto.MicrosoftChallengeResponse;
 import com.demo.sso.controller.dto.MicrosoftVerifyRequest;
 import com.demo.sso.controller.dto.TokenResponse;
-import com.demo.sso.exception.ExpiredAuthCodeException;
+import com.demo.sso.exception.InvalidAuthCodeException;
 import com.demo.sso.exception.InvalidIdentityException;
+import com.demo.sso.exception.InvalidTokenException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.auth.AuthCompletionService;
 import com.demo.sso.service.auth.ProviderIdentityNormalizer;
@@ -36,6 +37,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseCookie;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -89,7 +91,7 @@ public class AuthController {
         }
 
         try {
-            VerifiedGoogleIdentity google = googleTokenVerifier.verify(credential);
+            VerifiedGoogleIdentity google = googleTokenVerifier.verifyIdToken(credential);
 
             if (!google.emailVerified()) {
                 return ResponseEntity.badRequest()
@@ -101,7 +103,7 @@ public class AuthController {
             String jwt = authCompletionService.completeAuthentication(identity);
 
             return ResponseEntity.ok(new TokenResponse(jwt));
-        } catch (GeneralSecurityException | IOException | IllegalArgumentException | InvalidIdentityException e) {
+        } catch (GeneralSecurityException | IOException | InvalidTokenException | InvalidIdentityException e) {
             logger.warn("Google token verification failed: {}", e.getMessage());
             return badRequest("Invalid Google credential");
         }
@@ -151,7 +153,7 @@ public class AuthController {
                 claims, AuthFlow.CLIENT_SIDE);
             String jwt = authCompletionService.completeAuthentication(identity);
             return ResponseEntity.ok(new TokenResponse(jwt));
-        } catch (IllegalArgumentException | InvalidIdentityException e) {
+        } catch (InvalidTokenException | InvalidIdentityException | JwtException e) {
             logger.warn("Microsoft token verification failed: {}", e.getMessage());
             return badRequest("Invalid Microsoft credential");
         }
@@ -167,7 +169,7 @@ public class AuthController {
         try {
             String jwt = authCodeStore.exchangeCode(code);
             return ResponseEntity.ok(new TokenResponse(jwt));
-        } catch (IllegalArgumentException | ExpiredAuthCodeException e) {
+        } catch (InvalidAuthCodeException e) {
             logger.warn("Auth code exchange failed: {}", e.getMessage());
             return badRequest("Invalid or expired code");
         }

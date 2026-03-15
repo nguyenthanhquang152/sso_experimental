@@ -153,8 +153,8 @@ class ControllerIntegrationTest {
 
         @Test
         void returnsBadRequestWithInvalidGoogleToken() throws Exception {
-            when(googleTokenVerifier.verify("fake-google-id-token"))
-                .thenThrow(new IllegalArgumentException("Invalid Google credential"));
+            when(googleTokenVerifier.verifyIdToken("fake-google-id-token"))
+                .thenThrow(new com.demo.sso.exception.InvalidTokenException("Invalid Google credential"));
 
             mockMvc.perform(post("/auth/google/verify")
                     .contentType(MediaType.APPLICATION_JSON)
@@ -168,7 +168,7 @@ class ControllerIntegrationTest {
             VerifiedGoogleIdentity identity = new VerifiedGoogleIdentity(
                 "google-123", "user@example.com", true, "Google User", "http://example.com/google.png");
 
-            when(googleTokenVerifier.verify("valid-google-id-token")).thenReturn(identity);
+            when(googleTokenVerifier.verifyIdToken("valid-google-id-token")).thenReturn(identity);
 
             MvcResult result = mockMvc.perform(post("/auth/google/verify")
                     .contentType(MediaType.APPLICATION_JSON)

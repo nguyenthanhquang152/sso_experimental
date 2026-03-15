@@ -39,7 +39,7 @@ public class ProviderIdentityNormalizer {
             throw new InvalidIdentityException("External or guest Microsoft identities are not supported");
         }
 
-        String email = firstPresent(claims.email(), claims.preferredUsername(), claims.upn());
+        String email = firstNonBlank(claims.email(), claims.preferredUsername(), claims.upn());
 
         if (isBlank(email)) {
             throw new InvalidIdentityException("Microsoft identity is missing a usable email-like claim");
@@ -59,7 +59,7 @@ public class ProviderIdentityNormalizer {
         );
     }
 
-    private static String firstPresent(String... candidates) {
+    private static String firstNonBlank(String... candidates) {
         for (String candidate : candidates) {
             if (!isBlank(candidate)) {
                 return candidate;

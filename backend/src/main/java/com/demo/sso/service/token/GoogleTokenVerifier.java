@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.demo.sso.exception.InvalidTokenException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
@@ -40,15 +41,15 @@ public class GoogleTokenVerifier {
      *
      * @param idTokenString the raw ID token from the client
      * @return verified identity claims
-     * @throws IllegalArgumentException if the token is invalid
+     * @throws InvalidTokenException if the token is invalid
      * @throws GeneralSecurityException on crypto errors
      * @throws IOException on network errors
      */
-    public VerifiedGoogleIdentity verify(String idTokenString)
+    public VerifiedGoogleIdentity verifyIdToken(String idTokenString)
             throws GeneralSecurityException, IOException {
         GoogleIdToken idToken = verifier.verify(idTokenString);
         if (idToken == null) {
-            throw new IllegalArgumentException("Invalid Google ID token");
+            throw new InvalidTokenException("Invalid Google ID token");
         }
         GoogleIdToken.Payload payload = idToken.getPayload();
         return new VerifiedGoogleIdentity(

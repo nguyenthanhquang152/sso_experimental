@@ -1,6 +1,7 @@
 package com.demo.sso.service.auth;
 
 import com.demo.sso.exception.InvalidIdentityException;
+import com.demo.sso.exception.InvalidTokenException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
@@ -72,23 +73,21 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
             } catch (IllegalArgumentException | InvalidIdentityException e) {
                 throw new OAuth2IdentityException("missing_attributes", "invalid identity claims", e);
             }
-        }
+        } else if ("google".equalsIgnoreCase(registrationId)) {
+            Boolean emailVerified = oAuth2User.getAttribute("email_verified");
+            if (!Boolean.TRUE.equals(emailVerified)) {
+                throw new OAuth2IdentityException("email_not_verified", "email not verified");
+            }
 
-        if (!"google".equalsIgnoreCase(registrationId)) {
-            throw new IllegalArgumentException("Unknown OAuth2 provider: " + registrationId);
-        }
-
-        Boolean emailVerified = oAuth2User.getAttribute("email_verified");
-        if (!Boolean.TRUE.equals(emailVerified)) {
-            throw new OAuth2IdentityException("email_not_verified", "email not verified");
-        }
-
-        try {
-            VerifiedGoogleIdentity google = VerifiedGoogleIdentity.fromOAuth2User(oAuth2User);
-            NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(google, AuthFlow.SERVER_SIDE);
-            return authCompletionService.completeAuthenticationWithCode(identity);
-        } catch (IllegalArgumentException | InvalidIdentityException e) {
-            throw new OAuth2IdentityException("missing_attributes", "missing sub or email attribute", e);
+            try {
+                VerifiedGoogleIdentity google = VerifiedGoogleIdentity.fromOAuth2User(oAuth2User);
+                NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(google, AuthFlow.SERVER_SIDE);
+                return authCompletionService.completeAuthenticationWithCode(identity);
+            } catch (IllegalArgumentException | InvalidIdentityException e) {
+                throw new OAuth2IdentityException("missing_attributes", "missing sub or email attribute", e);
+            }
+        } else {
+            throw new InvalidTokenException("Unsupported provider: " + registrationId);
         }
     }
 

@@ -49,7 +49,7 @@ class GoogleTokenVerifierTest {
 
         // Act & Assert
         assertThrows(NullPointerException.class, () -> {
-            verifier.verify(nullToken);
+            verifier.verifyIdToken(nullToken);
         }, "Verifying null token should throw NullPointerException");
     }
 
@@ -60,7 +60,7 @@ class GoogleTokenVerifierTest {
 
         // Act & Assert
         assertThrows(Exception.class, () -> {
-            verifier.verify(emptyToken);
+            verifier.verifyIdToken(emptyToken);
         }, "Verifying empty token should throw exception");
     }
 
@@ -71,16 +71,17 @@ class GoogleTokenVerifierTest {
 
         // Act & Assert
         Exception exception = assertThrows(Exception.class, () -> {
-            verifier.verify(invalidToken);
+            verifier.verifyIdToken(invalidToken);
         }, "Verifying invalid token should throw exception");
 
-        // The actual exception could be IllegalArgumentException or IOException
+        // The actual exception could be InvalidTokenException, IllegalArgumentException or IOException
         // depending on how the Google library processes the invalid token
         assertTrue(
+            exception instanceof com.demo.sso.exception.InvalidTokenException ||
             exception instanceof IllegalArgumentException || 
             exception instanceof IOException ||
             exception instanceof GeneralSecurityException,
-            "Exception should be IllegalArgumentException, IOException, or GeneralSecurityException"
+            "Exception should be InvalidTokenException, IllegalArgumentException, IOException, or GeneralSecurityException"
         );
     }
 
@@ -91,7 +92,7 @@ class GoogleTokenVerifierTest {
 
         // Act & Assert
         assertThrows(Exception.class, () -> {
-            verifier.verify(malformedJwt);
+            verifier.verifyIdToken(malformedJwt);
         }, "Malformed JWT should throw exception during verification");
     }
 
@@ -103,10 +104,11 @@ class GoogleTokenVerifierTest {
 
         // Act & Assert
         Exception exception = assertThrows(Exception.class, () -> {
-            verifier.verify(expiredToken);
+            verifier.verifyIdToken(expiredToken);
         }, "Expired token should throw exception");
 
         assertTrue(
+            exception instanceof com.demo.sso.exception.InvalidTokenException ||
             exception instanceof IllegalArgumentException ||
             exception instanceof IOException ||
             exception instanceof GeneralSecurityException,
@@ -122,7 +124,7 @@ class GoogleTokenVerifierTest {
 
         // Act & Assert
         assertThrows(Exception.class, () -> {
-            verifier.verify(problematicToken);
+            verifier.verifyIdToken(problematicToken);
         }, "Should handle IOException during verification");
     }
 
@@ -162,7 +164,7 @@ class GoogleTokenVerifierTest {
         GoogleTokenVerifier verifierWithMock = new GoogleTokenVerifier(mockInternalVerifier);
 
         // Act
-        VerifiedGoogleIdentity identity = verifierWithMock.verify("valid-token-string");
+        VerifiedGoogleIdentity identity = verifierWithMock.verifyIdToken("valid-token-string");
 
         // Assert
         assertNotNull(identity, "Identity should not be null for a valid token");
@@ -191,7 +193,7 @@ class GoogleTokenVerifierTest {
         GoogleTokenVerifier verifierWithMock = new GoogleTokenVerifier(mockInternalVerifier);
 
         // Act
-        VerifiedGoogleIdentity identity = verifierWithMock.verify("minimal-token");
+        VerifiedGoogleIdentity identity = verifierWithMock.verifyIdToken("minimal-token");
 
         // Assert
         assertEquals("987654321", identity.subject());
@@ -202,7 +204,7 @@ class GoogleTokenVerifierTest {
     }
 
     @Test
-    void testVerifyReturnsNullToken_throwsIllegalArgumentException() throws Exception {
+    void testVerifyReturnsNullToken_throwsInvalidTokenException() throws Exception {
         // Arrange: when Google verifier returns null, our wrapper should throw
         GoogleIdTokenVerifier mockInternalVerifier = mock(GoogleIdTokenVerifier.class);
         when(mockInternalVerifier.verify("unverifiable-token")).thenReturn(null);
@@ -210,8 +212,9 @@ class GoogleTokenVerifierTest {
         GoogleTokenVerifier verifierWithMock = new GoogleTokenVerifier(mockInternalVerifier);
 
         // Act & Assert
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
-                () -> verifierWithMock.verify("unverifiable-token"));
+        com.demo.sso.exception.InvalidTokenException ex = assertThrows(
+                com.demo.sso.exception.InvalidTokenException.class,
+                () -> verifierWithMock.verifyIdToken("unverifiable-token"));
         assertEquals("Invalid Google ID token", ex.getMessage());
     }
 }

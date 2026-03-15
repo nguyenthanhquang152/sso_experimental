@@ -91,7 +91,7 @@ class ControllerCompatibilityIntegrationTest {
     void googleVerifyReturnsV2TokenDuringCompatibilityMode() throws Exception {
         VerifiedGoogleIdentity identity = new VerifiedGoogleIdentity(
             "google-123", "user@example.com", true, "Google User", "http://example.com/google.png");
-        when(googleTokenVerifier.verify("valid-google-id-token")).thenReturn(identity);
+        when(googleTokenVerifier.verifyIdToken("valid-google-id-token")).thenReturn(identity);
 
         MvcResult result = mockMvc.perform(post("/auth/google/verify")
                 .contentType(MediaType.APPLICATION_JSON)
