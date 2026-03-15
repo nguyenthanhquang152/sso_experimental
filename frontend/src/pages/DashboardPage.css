@@ -1,0 +1,93 @@
+.dashboard-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.dashboard-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 24px;
+  margin-top: 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.dashboard-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dashboard-avatar-fallback {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e3f2fd;
+  color: #1565c0;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.dashboard-user-name {
+  margin: 0;
+}
+
+.dashboard-user-email {
+  margin: 4px 0;
+  color: #666;
+}
+
+.dashboard-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.login-method-badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.login-method-badge--server-side {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.login-method-badge--client-side {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.dashboard-logout-btn {
+  margin-top: 24px;
+  padding: 10px 24px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.dashboard-logout-btn:hover {
+  background-color: #d32f2f;
+}
+
+.dashboard-loading {
+  padding: 40px;
+  text-align: center;
+}

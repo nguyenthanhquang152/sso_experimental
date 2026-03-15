@@ -1,0 +1,16 @@
+.home-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.home-subtitle {
+  color: #666;
+  margin-bottom: 32px;
+}
+
+.home-login-grid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}

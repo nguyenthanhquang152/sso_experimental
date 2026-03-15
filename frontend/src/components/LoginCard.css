@@ -1,0 +1,30 @@
+.login-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  flex: 1 1 320px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  background: #fff;
+}
+
+.login-card__accent {
+  width: 48px;
+  height: 4px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.login-card__description {
+  color: #666;
+  font-size: 14px;
+  min-height: 48px;
+}
+
+.login-card__body {
+  margin-top: 20px;
+}
+
+.login-card__footer {
+  margin-top: 12px;
+}

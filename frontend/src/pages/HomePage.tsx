@@ -6,6 +6,7 @@ import { MicrosoftClientSideLogin } from '../components/MicrosoftClientSideLogin
 import { useAuth } from '../hooks/useAuth';
 import { apiFetch } from '../api/client';
 import type { ProviderConfig } from '../types/auth';
+import './HomePage.css';
 
 interface HomePageProps {
   providerConfig: ProviderConfig;
@@ -49,12 +50,12 @@ export function HomePage({ providerConfig }: HomePageProps) {
   };
 
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 20px' }}>
+    <div className="home-container">
       <h1>SSO Demo</h1>
-      <p style={{ color: '#666', marginBottom: '32px' }}>
+      <p className="home-subtitle">
         Choose a provider and flow to sign in.
       </p>
-      <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+      <div className="home-login-grid">
         {providerConfig.google.serverSideEnabled ? (
           <ServerSideLogin
             providerName="Google"
