@@ -5,8 +5,8 @@
   "total": 10,
   "summary": {
     "by_tier": {
-      "T1": 2,
-      "T2": 8
+      "T1": 5,
+      "T2": 5
     },
     "by_detector": {
       "review": 10
@@ -16,246 +16,256 @@
   "by_file": {
     ".": [
       {
-        "id": "review::.::holistic::low_level_elegance::double_get_session_call",
+        "id": "review::.::holistic::contract_coherence::create_auth_code_missing_validation",
         "tier": 1,
         "confidence": "high",
-        "summary": "MicrosoftAuthorizationGateFilter calls getSession(false) twice in callback branch",
+        "summary": "AuthCodeStore.createAuthCode documents @throws IllegalArgumentException for null/blank jwt but implementations don't validate",
         "detail": {
           "holistic": true,
-          "dimension": "low_level_elegance",
+          "dimension": "contract_coherence",
           "related_files": [
-            "backend/src/main/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilter.java"
+            "backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java",
+            "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
           ],
           "evidence": [
-            "Lines 60-62: request.getSession(false) is called to null-check, then called again to invalidate, rather than capturing the result in a local variable"
+            "AuthCodeStore interface line 10: /** @throws IllegalArgumentException if jwt is null or blank */",
+            "RedisAuthCodeStore.createAuthCode (line 60-63) stores jwt directly via redisTemplate without null/blank check",
+            "InMemoryAuthCodeStore.createAuthCode (TestAuthCodeStoreConfig line 36-40) also stores jwt without validation"
           ],
-          "suggestion": "Capture session in a local variable: var session = request.getSession(false); if (session != null) session.invalidate();",
+          "suggestion": "Add validation at the start of both createAuthCode implementations: if (jwt == null || jwt.isBlank()) throw new IllegalArgumentException(\"jwt must not be null or blank\"); \u2014 or add a default method in the interface itself to centralize the precondition check.",
           "reasoning": "",
-          "summary_hash": "85a50c2b"
+          "summary_hash": "658772c6"
         }
       },
       {
-        "id": "review::.::holistic::type_safety::user_response_string_enum_fields",
+        "id": "review::.::holistic::convention_outlier::mixed_autowired_annotation",
         "tier": 1,
         "confidence": "high",
-        "summary": "UserResponse stores provider and lastLoginFlow as String instead of their enum types",
-        "detail": {
-          "holistic": true,
-          "dimension": "type_safety",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java"
-          ],
-          "evidence": [
-            "Lines 15, 17: record fields 'String provider' and 'String lastLoginFlow' lose enum type safety. Line 28-30: 'user.getProvider().name()' and 'user.getLastLoginFlow().name()' explicitly convert enums to strings. Jackson serializes enums as their name() by default, so the enum types could be used directly"
-          ],
-          "suggestion": "Change record fields to use enum types: 'AuthProvider provider, AuthFlow lastLoginFlow' and pass enum values directly: 'user.getProvider(), user.getLastLoginFlow()'. Jackson will serialize them as strings automatically",
-          "reasoning": "",
-          "summary_hash": "ccd38b39"
-        }
-      },
-      {
-        "id": "review::.::holistic::ai_generated_debt::completion_service_convenience_wrappers",
-        "tier": 2,
-        "confidence": "medium",
-        "summary": "AuthCompletionService has 4 thin convenience methods that just normalize then delegate",
-        "detail": {
-          "holistic": true,
-          "dimension": "ai_generated_debt",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/service/auth/AuthCompletionService.java"
-          ],
-          "evidence": [
-            "Lines 55-57: completeGoogleAuthentication normalizes via providerIdentityNormalizer then calls completeAuthentication \u2014 two calls could be inlined at caller",
-            "Lines 61-63: completeMicrosoftAuthentication follows identical normalize+delegate pattern",
-            "Lines 67-69 and 73-75: WithCode variants repeat the same pattern with completeAuthenticationWithCode",
-            "Each wrapper has a restating Javadoc comment (lines 54, 60, 66, 72) that echoes the method name"
-          ],
-          "suggestion": "Inline the normalize+complete calls at the 4 call sites (AuthController and OAuth2SuccessHandler) and remove the convenience methods. This eliminates the indirection layer and the restating Javadoc. The two core methods (completeAuthentication, completeAuthenticationWithCode) remain as the service's public API.",
-          "reasoning": "",
-          "summary_hash": "716be566"
-        }
-      },
-      {
-        "id": "review::.::holistic::ai_generated_debt::restating_javadoc_trivial_methods",
-        "tier": 2,
-        "confidence": "medium",
-        "summary": "Restating Javadoc on self-documenting methods adds noise without insight",
-        "detail": {
-          "holistic": true,
-          "dimension": "ai_generated_debt",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/controller/AuthController.java",
-            "backend/src/main/java/com/demo/sso/model/AuthFlow.java"
-          ],
-          "evidence": [
-            "AuthController line 179: '/** Extracts the challenge session ID from the request cookie. */' on extractChallengeSessionId \u2014 name says exactly this",
-            "AuthController line 152: '/** Exchanges a single-use auth code... */' on exchangeCode endpoint \u2014 name + @PostMapping path are sufficient",
-            "AuthFlow lines 7-13: 6-line Javadoc on a 10-line fromValue parser \u2014 @param and @throws restate what valueOf + nullcheck already express"
-          ],
-          "suggestion": "Remove Javadoc from extractChallengeSessionId (line 179) and exchangeCode (line 152) where method name is self-documenting. Trim AuthFlow.fromValue Javadoc to just the @throws tag (non-obvious behavior).",
-          "reasoning": "",
-          "summary_hash": "36acdb73"
-        }
-      },
-      {
-        "id": "review::.::holistic::api_surface_coherence::provider_config_outside_sealed",
-        "tier": 2,
-        "confidence": "medium",
-        "summary": "ProviderConfigResponse is not part of the sealed AuthApiResponse hierarchy despite being served from the same /auth base path",
-        "detail": {
-          "holistic": true,
-          "dimension": "api_surface_coherence",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/controller/dto/ProviderConfigResponse.java",
-            "backend/src/main/java/com/demo/sso/controller/dto/AuthApiResponse.java",
-            "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
-          ],
-          "evidence": [
-            "ProviderConfigController is @RequestMapping(\"/auth\") and returns ResponseEntity<ProviderConfigResponse>, while AuthController also @RequestMapping(\"/auth\") returns ResponseEntity<AuthApiResponse>",
-            "AuthApiResponse sealed interface permits only ErrorResponse, LogoutResponse, MicrosoftChallengeResponse, TokenResponse \u2014 ProviderConfigResponse is a standalone record"
-          ],
-          "suggestion": "Either include ProviderConfigResponse in the AuthApiResponse sealed hierarchy, or move ProviderConfigController to a distinct base path (e.g., /config/providers) to make the API surface boundary explicit. The sealed hierarchy already captures the auth action responses well; config is arguably a different concern.",
-          "reasoning": "",
-          "summary_hash": "b0dafddd"
-        }
-      },
-      {
-        "id": "review::.::holistic::authorization_consistency::broad_auth_wildcard_permitall",
-        "tier": 2,
-        "confidence": "medium",
-        "summary": "The /auth/** permitAll wildcard automatically makes any future endpoint under /auth/ publicly accessible",
-        "detail": {
-          "holistic": true,
-          "dimension": "authorization_consistency",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/config/SecurityConfig.java"
-          ],
-          "evidence": [
-            "SecurityConfig.java:59-63 \u2014 .requestMatchers(\"/auth/**\").permitAll() covers all current and future /auth/ endpoints",
-            "Currently all /auth endpoints are correctly public (verify, challenge, exchange, logout, providers), but the wildcard pattern means a developer adding e.g., /auth/admin would inherit public access"
-          ],
-          "suggestion": "Consider enumerating specific public paths instead of using the wildcard, or add a comment documenting the intent that all /auth/ endpoints are designed to be public. Given the small number of endpoints, explicit listing would be safer: .requestMatchers(\"/auth/google/verify\", \"/auth/microsoft/**\", \"/auth/exchange\", \"/auth/logout\", \"/auth/providers\").permitAll()",
-          "reasoning": "",
-          "summary_hash": "39b86156"
-        }
-      },
-      {
-        "id": "review::.::holistic::convention_outlier::google_disabled_response_inline",
-        "tier": 2,
-        "confidence": "medium",
-        "summary": "AuthController Google disabled response uses inline construction while Microsoft uses extracted helper",
+        "summary": "@Autowired used on 4 single-constructor classes while 11+ omit it, creating inconsistent DI annotation style",
         "detail": {
           "holistic": true,
           "dimension": "convention_outlier",
           "related_files": [
-            "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+            "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java",
+            "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java",
+            "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
+            "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
           ],
           "evidence": [
-            "Line 76-77: Google disabled returns inline ResponseEntity.status(503).body(new ErrorResponse(\"Google client-side login is disabled\"))",
-            "Line 106: Microsoft disabled returns microsoftClientSideDisabledResponse() via extracted private helper (line 214-216)",
-            "Both are 503 responses with provider-specific messages \u2014 same behavioral intent, different construction patterns"
+            "GoogleTokenVerifier line 27: @Autowired on single-constructor class",
+            "MicrosoftTokenVerifier line 20: @Autowired on single-constructor class",
+            "JwtTokenService line 36: @Autowired on single-constructor class",
+            "RedisAuthCodeStore line 49: @Autowired on single-constructor class",
+            "AuthCompletionService, UserService, ProviderConfigController, UserController, OAuth2SuccessHandler, IdentityContractGuard, JwtAuthenticationFilter, MicrosoftAuthorizationGateFilter, RedisMicrosoftChallengeStore, SecurityConfig, ProviderIdentityNormalizer \u2014 all omit @Autowired on single constructors"
           ],
-          "suggestion": "Extract a parameterized helper like providerClientSideDisabledResponse(String provider) or create a matching googleClientSideDisabledResponse() to align with the Microsoft pattern",
+          "suggestion": "Remove @Autowired from the 4 annotated single-constructor classes to match the majority pattern. Spring 4.3+ implicit injection makes them unnecessary.",
           "reasoning": "",
-          "summary_hash": "d439641f"
+          "summary_hash": "9771b673"
         }
       },
       {
-        "id": "review::.::holistic::cross_module_architecture::migration_dual_paths_blur_boundaries",
-        "tier": 2,
-        "confidence": "medium",
-        "summary": "Legacy migration branches create secondary lookup/write paths across UserService and RedisAuthCodeStore",
+        "id": "review::.::holistic::cross_module_architecture::error_response_downward_import",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "Config-layer classes import ErrorResponse from controller.dto, creating a downward dependency",
         "detail": {
           "holistic": true,
           "dimension": "cross_module_architecture",
           "related_files": [
-            "backend/src/main/java/com/demo/sso/service/UserService.java",
-            "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
+            "backend/src/main/java/com/demo/sso/config/SecurityConfig.java",
+            "backend/src/main/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilter.java",
+            "backend/src/main/java/com/demo/sso/controller/dto/ErrorResponse.java"
           ],
           "evidence": [
-            "UserService.syncUser() has google_id fallback on lines 51-54 creating a secondary lookup path",
-            "RedisAuthCodeStore.exchangeCode() uses dual key prefix routing (LEGACY_KEY_PREFIX vs V2_KEY_PREFIX) with a compatibility fallback that checks both",
-            "UserService.createNewUser() conditionally sets google_id for Google users (line 73), and recoverFromConcurrentCreation() has provider-specific recovery branches"
+            "SecurityConfig.java:5 imports com.demo.sso.controller.dto.ErrorResponse \u2014 config depends on controller",
+            "MicrosoftAuthorizationGateFilter.java:4 imports com.demo.sso.controller.dto.ErrorResponse \u2014 config.filter depends on controller.dto",
+            "ErrorResponse is a trivial record (1 field) used only for JSON serialization in handleUnauthorized() and the gate filter's 503 response"
           ],
-          "suggestion": "These paths are well-documented with removal criteria. Track migration completion (all Google users re-authenticated post-V3) to enable cleanup. Consider adding a startup log message showing current migration mode to make the active code path explicit.",
+          "suggestion": "Move ErrorResponse to a shared package (e.g., com.demo.sso.dto or com.demo.sso.model.dto) accessible to both config and controller layers, or inline the JSON construction in the two config-layer usages: response.getWriter().write(objectMapper.writeValueAsString(Map.of(\"error\", message)))",
           "reasoning": "",
-          "summary_hash": "b061d0ab"
+          "summary_hash": "4d4fb34f"
         }
       },
       {
-        "id": "review::.::holistic::design_coherence::provider_config_dense_conditionals",
-        "tier": 2,
-        "confidence": "medium",
-        "summary": "buildMicrosoftConfig has dense conditional logic with repeated null checks on microsoftRollout",
-        "detail": {
-          "holistic": true,
-          "dimension": "design_coherence",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
-          ],
-          "evidence": [
-            "Lines 70-81: microsoftRollout != null is checked 4 times across the method \u2014 once each for serverSideEnabled, clientSideEnabled, and two warning conditions. The repeated null guard pattern obscures the core logic of mapping rollout flags to config values."
-          ],
-          "suggestion": "Extract an early-return guard at the top of the method: if microsoftRollout is null, return a fully-disabled config immediately. This eliminates 4 redundant null checks and makes the happy path clearer.",
-          "reasoning": "",
-          "summary_hash": "de6fa11c"
-        }
-      },
-      {
-        "id": "review::.::holistic::error_consistency::challenge_vs_code_store_strategy",
-        "tier": 2,
-        "confidence": "medium",
-        "summary": "Sibling store interfaces use different error strategies: AuthCodeStore throws on failure, MicrosoftChallengeStore returns Optional",
+        "id": "review::.::holistic::error_consistency::authcodestore_contract_gap",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "AuthCodeStore.createAuthCode documents @throws IllegalArgumentException for null/blank jwt but RedisAuthCodeStore doesn't enforce it",
         "detail": {
           "holistic": true,
           "dimension": "error_consistency",
           "related_files": [
             "backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java",
-            "backend/src/main/java/com/demo/sso/service/challenge/MicrosoftChallengeStore.java"
+            "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
           ],
           "evidence": [
-            "AuthCodeStore.exchangeCode() javadoc: '@throws IllegalArgumentException if the code is invalid, expired, or already consumed'",
-            "MicrosoftChallengeStore.consumeNonce() javadoc: 'Returns empty if session is expired or challengeId doesn't match'",
-            "Both handle the same semantic operation (single-use token consumption) with different failure signaling strategies",
-            "AuthController compensates: lines 134-137 check expectedNonce.isEmpty() for challenge store vs lines 160-166 catch IllegalArgumentException for code store"
+            "AuthCodeStore line 10: javadoc '@throws IllegalArgumentException if jwt is null or blank'",
+            "RedisAuthCodeStore.createAuthCode lines 60-63: generates code and writes to Redis without any null/blank validation of the jwt parameter"
           ],
-          "suggestion": "Align the strategies: either both throw on invalid/expired tokens (with the controller catching), or both return Optional (with the controller checking). The Optional pattern is more appropriate for 'not found' semantics.",
+          "suggestion": "Add a guard at the top of RedisAuthCodeStore.createAuthCode: if (jwt == null || jwt.isBlank()) throw new IllegalArgumentException(\"jwt must not be null or blank\"). Alternatively, remove the @throws from the interface if validation is not intended.",
           "reasoning": "",
-          "summary_hash": "9ddf578d"
+          "summary_hash": "84c21369"
+        }
+      },
+      {
+        "id": "review::.::holistic::incomplete_migration::deprecated_accessors_missing_annotation",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "User.getGoogleId() and setGoogleId() lack @Deprecated annotation despite field being deprecated",
+        "detail": {
+          "holistic": true,
+          "dimension": "incomplete_migration",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/model/User.java"
+          ],
+          "evidence": [
+            "User.java line 54: @Deprecated on googleId field, but lines 92-93: getGoogleId()/setGoogleId() have no @Deprecated",
+            "In Java, field-level @Deprecated does not propagate to accessor methods \u2014 callers using user.getGoogleId() get no compiler warning",
+            "UserService.createNewUser() line 74 calls user.setGoogleId() without any deprecation warning; JwtTokenService.generateToken() line 107 calls user.getGoogleId() without warning"
+          ],
+          "suggestion": "Add @Deprecated annotation to getGoogleId() and setGoogleId() methods to ensure callers receive compiler deprecation warnings during the migration period",
+          "reasoning": "",
+          "summary_hash": "de228b57"
+        }
+      },
+      {
+        "id": "review::.::holistic::api_surface_coherence::frontend_hook_error_type_divergence",
+        "tier": 2,
+        "confidence": "medium",
+        "summary": "useAuth returns error as string|null while useProviderConfig returns Error|null \u2014 inconsistent error types across hooks",
+        "detail": {
+          "holistic": true,
+          "dimension": "api_surface_coherence",
+          "related_files": [
+            "frontend/src/hooks/useAuth.ts",
+            "frontend/src/hooks/useProviderConfig.ts"
+          ],
+          "evidence": [
+            "useAuth (line 26): useState<string | null>(null) \u2014 error state is string|null",
+            "useProviderConfig (line 14): useState<Error | null>(null) \u2014 error state is Error|null",
+            "Consumers must check error type differently depending on which hook they use"
+          ],
+          "suggestion": "Align both hooks to return the same error type. Recommend Error|null for both, since useProviderConfig already wraps non-Error values. In useAuth, wrap string errors: setError(new Error(message)) and update the type to Error|null.",
+          "reasoning": "",
+          "summary_hash": "9369647a"
+        }
+      },
+      {
+        "id": "review::.::holistic::authorization_consistency::csrf_path_constants_not_shared",
+        "tier": 2,
+        "confidence": "medium",
+        "summary": "CSRF exempt paths in SecurityConfig are maintained as separate constants from controller @RequestMapping \u2014 parallel maintenance risk",
+        "detail": {
+          "holistic": true,
+          "dimension": "authorization_consistency",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/config/SecurityConfig.java",
+            "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+          ],
+          "evidence": [
+            "SecurityConfig lines 25-28 define AUTH_GOOGLE_VERIFY_PATH, AUTH_MICROSOFT_PATH, AUTH_EXCHANGE_PATH, AUTH_LOGOUT_PATH as private constants",
+            "AuthController uses @PostMapping annotations with path fragments ('/google/verify', '/microsoft/challenge', etc.) under @RequestMapping('/auth')",
+            "If a controller path changes without updating SecurityConfig's CSRF exemptions, CSRF protection would silently re-engage on auth POST endpoints, breaking them"
+          ],
+          "suggestion": "Extract shared path constants into AuthPaths class or use a wildcard CSRF exemption for /auth/** (since all /auth endpoints are already permitAll and stateless JWT-based, CSRF protection is unnecessary for the entire /auth namespace). The wildcard approach is simpler and eliminates the parallel maintenance problem entirely.",
+          "reasoning": "",
+          "summary_hash": "ce59d1af"
+        }
+      },
+      {
+        "id": "review::.::holistic::contract_coherence::microsoft_verifier_missing_throws_doc",
+        "tier": 2,
+        "confidence": "medium",
+        "summary": "MicrosoftTokenVerifier.verifyIdToken lacks @throws documentation despite throwing InvalidTokenException and propagating JwtException",
+        "detail": {
+          "holistic": true,
+          "dimension": "contract_coherence",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java"
+          ],
+          "evidence": [
+            "MicrosoftTokenVerifier.verifyIdToken (line 30) has no Javadoc at all",
+            "Method throws InvalidTokenException from validateAudience, validateIssuer, validateVersion, validateNonce (lines 40-66)",
+            "Method propagates JwtException from jwtDecoder.decode(credential) on line 31",
+            "Caller AuthController.verifyMicrosoftToken correctly catches both InvalidTokenException and JwtException (line 156), indicating awareness of the undocumented contract"
+          ],
+          "suggestion": "Add Javadoc to verifyIdToken documenting: @throws InvalidTokenException if audience, issuer, version, or nonce validation fails; @throws org.springframework.security.oauth2.jwt.JwtException if the token cannot be decoded or signature validation fails",
+          "reasoning": "",
+          "summary_hash": "4e604120"
+        }
+      },
+      {
+        "id": "review::.::holistic::error_consistency::oauth2_handler_uncaught_exceptions",
+        "tier": 2,
+        "confidence": "medium",
+        "summary": "OAuth2SuccessHandler throws InvalidTokenException and IllegalArgumentException that escape the try-catch boundary, bypassing the redirect error pattern",
+        "detail": {
+          "holistic": true,
+          "dimension": "error_consistency",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java"
+          ],
+          "evidence": [
+            "Line 64: throw new IllegalArgumentException('Expected OAuth2AuthenticationToken') \u2014 thrown inside authenticateAndCreateCode but not caught by line 50's catch(OAuth2IdentityException)",
+            "Line 90: throw new InvalidTokenException('Unsupported provider: ' + registrationId) \u2014 also escapes the OAuth2IdentityException catch block",
+            "Lines 50-53: only OAuth2IdentityException is caught, redirecting with error code \u2014 other exceptions propagate to Spring Security's error handling, likely producing a 500 page instead of a user-friendly redirect"
+          ],
+          "suggestion": "Wrap the unsupported-provider and unexpected-auth-type cases in OAuth2IdentityException so they follow the same redirect-with-error-code pattern as identity validation failures. E.g., throw new OAuth2IdentityException(\"unsupported_provider\", \"Unsupported provider: \" + registrationId)",
+          "reasoning": "",
+          "summary_hash": "5279bea9"
+        }
+      },
+      {
+        "id": "review::.::holistic::low_level_elegance::dense_microsoft_config_constructor",
+        "tier": 2,
+        "confidence": "medium",
+        "summary": "buildMicrosoftConfig packs 6 ternary-per-field arguments into one constructor call",
+        "detail": {
+          "holistic": true,
+          "dimension": "low_level_elegance",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+          ],
+          "evidence": [
+            "Lines 83-89: new MicrosoftProviderConfig(serverSideEnabled, clientSideEnabled, clientSideEnabled ? ... : null, clientSideEnabled ? ... : null, clientSideEnabled ? ... : List.of(), clientSideEnabled ? ... : null) \u2014 4 of 6 args repeat the same ternary guard on clientSideEnabled"
+          ],
+          "suggestion": "Extract the clientSideEnabled check once and use local variables for the conditional fields, or add a static factory MicrosoftProviderConfig.clientSideDisabled(serverSideEnabled) to eliminate the repeated ternary pattern.",
+          "reasoning": "",
+          "summary_hash": "a452d996"
         }
       }
     ]
   },
-  "total_matching": 25,
+  "total_matching": 15,
   "hidden": {
     "by_detector": {
-      "review": 15
+      "review": 5
     },
-    "total": 15
+    "total": 5
   },
   "noise_budget": 10,
   "noise_global_budget": 0,
   "narrative": {
-    "phase": "stagnation",
-    "headline": "Score plateaued at 87.3 for 5 scans. Code quality (55.6%) is where the breakthrough is. 152 wontfix items may also be worth revisiting. (25 review work items \u2014 run `desloppify show review --status open`)",
+    "phase": "refinement",
+    "headline": " (15 review work items \u2014 run `desloppify show review --status open`)",
     "dimensions": {
       "lowest_dimensions": [
         {
           "name": "Code quality",
-          "strict": 55.6,
-          "failing": 0,
+          "strict": 54.8,
+          "failing": 1,
           "impact": 0.0
         },
         {
           "name": "Test health",
-          "strict": 71.5,
+          "strict": 71.3,
           "failing": 0,
           "impact": 0.0
         },
         {
-          "name": "Error consistency",
-          "strict": 81.0,
-          "failing": 1,
+          "name": "API coherence",
+          "strict": 86.5,
+          "failing": 2,
           "impact": 0.0,
           "subjective": true,
           "impact_description": "re-review to improve"
@@ -264,16 +274,16 @@
       "biggest_gap_dimensions": [
         {
           "name": "Code quality",
-          "lenient": 100.0,
-          "strict": 55.6,
-          "gap": 44.4,
+          "lenient": 99.1,
+          "strict": 54.8,
+          "gap": 44.3,
           "wontfix_count": 51
         },
         {
           "name": "Test health",
           "lenient": 100.0,
-          "strict": 71.5,
-          "gap": 28.5,
+          "strict": 71.3,
+          "gap": 28.7,
           "wontfix_count": 9
         }
       ],
@@ -290,62 +300,53 @@
         },
         {
           "name": "Duplication",
-          "strict": 99.1,
+          "strict": 99.0,
           "stuck_scans": 5
         },
         {
           "name": "Test health",
-          "strict": 71.5,
-          "stuck_scans": 5
-        },
-        {
-          "name": "AI generated debt",
-          "strict": 87.5,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Contracts",
-          "strict": 89.5,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Cross-module arch",
-          "strict": 88.0,
+          "strict": 71.3,
           "stuck_scans": 5
         },
         {
           "name": "Design coherence",
-          "strict": 88.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "High elegance",
           "strict": 89.0,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Stale migration",
-          "strict": 82.0,
           "stuck_scans": 5
         },
         {
           "name": "Init coupling",
-          "strict": 89.0,
+          "strict": 92.0,
+          "stuck_scans": 5
+        },
+        {
+          "name": "Logic clarity",
+          "strict": 91.0,
           "stuck_scans": 5
         },
         {
           "name": "Mid elegance",
-          "strict": 88.0,
+          "strict": 89.5,
           "stuck_scans": 5
         },
         {
-          "name": "Naming quality",
-          "strict": 89.5,
+          "name": "Type safety",
+          "strict": 90.0,
           "stuck_scans": 5
         }
       ]
     },
     "actions": [
+      {
+        "type": "reorganize",
+        "detector": "orphaned",
+        "count": 1,
+        "description": "1 orphaned issues \u2014 delete dead files or relocate with `desloppify move`",
+        "command": "desloppify show orphaned --status open",
+        "impact": 0.0,
+        "dimension": "Code quality",
+        "priority": 1,
+        "lane": "restructure"
+      },
       {
         "type": "refactor",
         "detector": "boilerplate_duplication",
@@ -354,40 +355,51 @@
         "command": "desloppify show boilerplate_duplication --status open",
         "impact": 0.0,
         "dimension": "Duplication",
-        "priority": 1,
+        "priority": 2,
         "lane": "refactor_0"
       },
       {
         "type": "refactor",
         "detector": "review",
-        "count": 25,
-        "description": "25 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
+        "count": 15,
+        "description": "15 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
         "command": "desloppify show review --status open",
         "impact": 0.0,
         "dimension": "Unknown",
-        "priority": 2,
+        "priority": 3,
         "lane": "refactor_1"
+      },
+      {
+        "type": "manual_fix",
+        "detector": "stale_wontfix",
+        "count": 37,
+        "description": "37 stale_wontfix work items \u2014 re-evaluate old wontfix decisions \u2014 fix, document, or escalate",
+        "command": "desloppify show stale_wontfix --status open",
+        "impact": 0.0,
+        "dimension": "Unknown",
+        "priority": 4,
+        "lane": "refactor_0"
       },
       {
         "type": "debt_review",
         "detector": null,
-        "description": "2.6 pts of wontfix debt \u2014 review stale decisions",
+        "description": "2.5 pts of wontfix debt \u2014 review stale decisions",
         "command": "desloppify show --status wontfix",
-        "gap": 2.6,
-        "priority": 3,
+        "gap": 2.5,
+        "priority": 5,
         "lane": "debt_review"
       }
     ],
     "strategy": {
       "fixer_leverage": {
         "auto_fixable_count": 0,
-        "total_count": 76,
+        "total_count": 84,
         "coverage": 0.0,
         "impact_ratio": 0.0,
         "recommendation": "none"
       },
       "lanes": {
-        "refactor_0": {
+        "restructure": {
           "actions": [
             1
           ],
@@ -396,9 +408,19 @@
           "automation": "manual",
           "run_first": false
         },
+        "refactor_0": {
+          "actions": [
+            2,
+            4
+          ],
+          "file_count": 34,
+          "total_impact": 0.0,
+          "automation": "manual",
+          "run_first": false
+        },
         "refactor_1": {
           "actions": [
-            2
+            3
           ],
           "file_count": 1,
           "total_impact": 0.0,
@@ -407,7 +429,7 @@
         },
         "debt_review": {
           "actions": [
-            3
+            5
           ],
           "file_count": 0,
           "total_impact": 0.0,
@@ -416,14 +438,14 @@
         }
       },
       "can_parallelize": false,
-      "hint": "Try a different dimension to break the plateau. Review: 25 issue(s) \u2014 `desloppify show review --status open`."
+      "hint": "Work through actions in priority order. Rescan after each fix to track progress. Review: 15 issue(s) \u2014 `desloppify show review --status open`."
     },
     "tools": {
       "fixers": [],
       "move": {
         "available": true,
-        "relevant": false,
-        "reason": null,
+        "relevant": true,
+        "reason": "1 orphaned files",
         "usage": "desloppify move <source> <dest> [--dry-run]"
       },
       "plan": {
@@ -438,18 +460,18 @@
       }
     },
     "debt": {
-      "overall_gap": 2.6,
-      "wontfix_count": 152,
+      "overall_gap": 2.5,
+      "wontfix_count": 169,
       "worst_dimension": "Code quality",
-      "worst_gap": 44.4,
+      "worst_gap": 44.3,
       "trend": "stable"
     },
     "milestone": null,
     "primary_action": {
-      "command": "desloppify show boilerplate_duplication --status open",
-      "description": "1 boilerplate_duplication work items \u2014 extract shared boilerplate into reusable helpers or base classes"
+      "command": "desloppify show orphaned --status open",
+      "description": "1 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
     },
-    "why_now": "Try a different dimension to break the plateau. Review: 25 issue(s) \u2014 `desloppify show review --status open`.",
+    "why_now": "Work through actions in priority order. Rescan after each fix to track progress. Review: 15 issue(s) \u2014 `desloppify show review --status open`.",
     "verification_step": {
       "command": "desloppify scan",
       "reason": "revalidate after changes"
@@ -458,20 +480,20 @@
       {
         "type": "wontfix_gap",
         "severity": "high",
-        "message": "Strict/lenient gap is 2.6 pts with 152 wontfix issues"
+        "message": "Strict/lenient gap is 2.5 pts with 169 wontfix issues"
       }
     ],
     "strict_target": {
       "target": 95.0,
-      "current": 87.3,
-      "gap": 7.7,
+      "current": 88.1,
+      "gap": 6.9,
       "state": "below",
       "warning": null
     },
     "reminders": [],
     "reminder_history": {
       "zone_classification": 3,
-      "report_scores": 16,
+      "report_scores": 21,
       "review_issues_pending": 3,
       "stagnant_nudge": 3,
       "feedback_nudge": 3,

@@ -58,6 +58,9 @@ public class RedisAuthCodeStore implements AuthCodeStore {
 
     @Override
     public String createAuthCode(String jwt) {
+        if (jwt == null || jwt.isBlank()) {
+            throw new IllegalArgumentException("jwt must not be null or blank");
+        }
         String code = SecureCodeGenerator.generate();
         redisTemplate.opsForValue().set(currentWritePrefix() + code, jwt, CODE_TTL);
         return code;

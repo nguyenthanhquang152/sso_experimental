@@ -27,6 +27,15 @@ public class MicrosoftTokenVerifier {
         this.properties = properties;
     }
 
+    /**
+     * Verifies a Microsoft ID token and extracts claims.
+     *
+     * @param credential the raw ID token string
+     * @param expectedNonce the expected nonce value for replay protection, or null to skip nonce validation
+     * @return the verified token claims
+     * @throws com.demo.sso.exception.InvalidTokenException if audience, issuer, version, or nonce validation fails
+     * @throws org.springframework.security.oauth2.jwt.JwtException if the token cannot be decoded
+     */
     public MicrosoftIdTokenClaims verifyIdToken(String credential, String expectedNonce) {
         Jwt jwt = jwtDecoder.decode(credential);
         MicrosoftIdTokenClaims claims = MicrosoftIdTokenClaims.fromMap(jwt.getClaims());

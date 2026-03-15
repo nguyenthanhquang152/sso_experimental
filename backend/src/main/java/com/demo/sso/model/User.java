@@ -89,7 +89,9 @@ public class User {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
+    @Deprecated
     public String getGoogleId() { return googleId; }
+    @Deprecated
     public void setGoogleId(String googleId) { this.googleId = googleId; }
 
     public String getEmail() { return email; }

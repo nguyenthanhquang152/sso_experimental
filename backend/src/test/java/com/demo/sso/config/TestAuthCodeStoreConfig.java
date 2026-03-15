@@ -33,6 +33,9 @@ public class TestAuthCodeStoreConfig {
 
         @Override
         public String createAuthCode(String jwt) {
+            if (jwt == null || jwt.isBlank()) {
+                throw new IllegalArgumentException("jwt must not be null or blank");
+            }
             evictExpired();
             String code = SecureCodeGenerator.generate();
             store.put(code, new CodeEntry(jwt, System.currentTimeMillis()));
