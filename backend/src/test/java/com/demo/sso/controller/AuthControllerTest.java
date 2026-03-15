@@ -28,7 +28,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.http.ResponseEntity;
 
 @ExtendWith(MockitoExtension.class)
@@ -47,7 +46,7 @@ class AuthControllerTest {
     private MicrosoftChallengeStore microsoftChallengeStore;
 
     @Mock
-    private ObjectProvider<MicrosoftTokenVerifier> microsoftTokenVerifierProvider;
+    private MicrosoftTokenVerifier microsoftTokenVerifier;
 
     private AuthController controller;
 
@@ -59,7 +58,7 @@ class AuthControllerTest {
                 authCompletionService,
                 authCodeStore,
                 microsoftChallengeStore,
-                microsoftTokenVerifierProvider,
+                microsoftTokenVerifier,
                 rollout,
                 "");
     }
@@ -192,7 +191,7 @@ class AuthControllerTest {
 
         AuthController disabledController = new AuthController(
                 googleTokenVerifier, authCompletionService, authCodeStore,
-                microsoftChallengeStore, microsoftTokenVerifierProvider, rollout, "");
+                microsoftChallengeStore, microsoftTokenVerifier, rollout, "");
 
         ResponseEntity<AuthApiResponse> response = disabledController.verifyGoogleToken(
                 new GoogleVerifyRequest("any-token"));

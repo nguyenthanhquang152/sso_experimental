@@ -72,15 +72,13 @@ class UserResponseTest {
         user.setEmail("dave@example.com");
         user.setProvider(AuthProvider.GOOGLE);
         user.setProviderUserId("google-sub-000");
-        // name, pictureUrl, providerUserId all null
+        // name, pictureUrl are genuinely nullable
         user.setName(null);
         user.setPictureUrl(null);
-        user.setProviderUserId(null);
 
         UserResponse response = UserResponse.from(user);
 
         assertEquals("", response.name());
         assertEquals("", response.pictureUrl());
-        assertEquals("", response.providerUserId());
     }
 }

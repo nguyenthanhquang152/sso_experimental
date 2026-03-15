@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.List;
 
 /**
- * Runtime provider configuration returned by {@code GET /auth/providers}.
  * Must stay in sync with the frontend {@code ProviderConfig} TypeScript type.
  */
 public record ProviderConfigResponse(

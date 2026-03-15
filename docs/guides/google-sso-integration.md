@@ -159,7 +159,7 @@ Browser                     Backend                        Google
 
 **File:** `backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java`
 
-Extends `OncePerRequestFilter`. Extracts the `Authorization: Bearer <token>` header, validates the JWT via `JwtTokenService.isTokenValid()`, and sets a `UsernamePasswordAuthenticationToken` in `SecurityContextHolder` with the user's email as principal and `ROLE_USER` authority.
+Extends `OncePerRequestFilter`. Extracts the `Authorization: Bearer <token>` header, validates the JWT via `JwtTokenService.validateAndExtract()`, and sets a `UsernamePasswordAuthenticationToken` in `SecurityContextHolder` with the user's email as principal and `ROLE_USER` authority.
 
 ### JWT Token Service
 
@@ -169,10 +169,10 @@ Uses **jjwt 0.12.6** (HMAC-SHA). Key behaviors:
 
 | Method | Description |
 |---|---|
-| `generateToken(email, googleId)` | Creates JWT with `sub=email`, `googleId` claim, `iss=sso-demo-backend`, `aud=sso-demo-api`, random `jti`, and configurable expiration (default 24h) |
+| `generateToken(user)` | Creates JWT with claims based on the configured `JwtMintMode` (legacy or V2) |
 | `parseToken(token)` | Parses and validates signature, issuer, audience; returns `Claims` |
-| `getEmailFromToken(token)` | Extracts the `sub` claim |
-| `isTokenValid(token)` | Returns `true` if parsing succeeds, `false` for any `JwtException` |
+| `parseAuthenticatedUser(token)` | Parses and returns an `AuthenticatedUserIdentity` with version dispatch |
+| `validateAndExtract(token)` | Validates and extracts identity in a single parse; returns `Optional` |
 
 The constructor validates the secret: minimum 32 characters, rejects placeholder values like `"default"` or `"change-me"`.
 

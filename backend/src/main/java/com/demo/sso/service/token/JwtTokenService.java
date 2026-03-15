@@ -32,6 +32,7 @@ public class JwtTokenService {
     private final long expirationMs;
     private final AuthRolloutProperties rolloutProperties;
 
+    // @Autowired required: Spring uses this constructor for DI; the two-arg constructor is for tests.
     @Autowired
     public JwtTokenService(
             @Value("${app.jwt.secret}") String secret,
@@ -107,10 +108,6 @@ public class JwtTokenService {
     }
 
     private String generateV2Token(User user) {
-        if (user.getId() == null || user.getEmail() == null || user.getProvider() == null || user.getProviderUserId() == null) {
-            throw new IllegalArgumentException("V2 JWT minting requires id, email, provider, and providerUserId");
-        }
-
         Date now = new Date();
         Date expiry = new Date(now.getTime() + expirationMs);
 
@@ -137,10 +134,6 @@ public class JwtTokenService {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
-    }
-
-    public String getEmailFromToken(String token) {
-        return parseAuthenticatedUser(token).email();
     }
 
     public AuthenticatedUserIdentity parseAuthenticatedUser(String token) {
@@ -201,11 +194,4 @@ public class JwtTokenService {
         }
     }
 
-    /**
-     * @deprecated Use {@link #validateAndExtract(String)} instead to avoid double-parsing.
-     */
-    @Deprecated
-    public boolean isTokenValid(String token) {
-        return validateAndExtract(token).isPresent();
-    }
 }

@@ -1,9 +1,8 @@
 {
   "version": 8,
   "created": "2026-03-14T18:25:42+00:00",
-  "updated": "2026-03-15T03:07:22+00:00",
+  "updated": "2026-03-15T03:21:16+00:00",
   "queue_order": [
-    "workflow::communicate-score",
     "review::.::holistic::ai_generated_debt::duplicate_javadoc_generateToken",
     "review::.::holistic::ai_generated_debt::partial_restate_provider_config_javadoc",
     "review::.::holistic::ai_generated_debt::passthrough_getEmailFromToken",
@@ -1643,12 +1642,7 @@
     }
   },
   "promoted_ids": [],
-  "plan_start_scores": {
-    "strict": 83.6,
-    "overall": 87.3,
-    "objective": 100.0,
-    "verified": 88.3
-  },
+  "plan_start_scores": {},
   "refresh_state": {
     "lifecycle_phase": "workflow_postflight",
     "subjective_review_completed_at_scan_count": 9,
@@ -4927,6 +4921,20 @@
         "sync_status": "synced",
         "sync_message": null
       }
+    },
+    {
+      "timestamp": "2026-03-15T03:21:16+00:00",
+      "action": "reconcile",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "superseded_count": 0,
+        "pruned_count": 0,
+        "resurfaced_count": 0,
+        "clusters_completed_count": 0
+      }
     }
   ],
   "epic_triage_meta": {
@@ -5629,6 +5637,5 @@
     }
   ],
   "uncommitted_issues": [],
-  "commit_tracking_branch": null,
-  "scan_count_at_plan_start": 8
+  "commit_tracking_branch": null
 }

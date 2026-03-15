@@ -35,9 +35,9 @@ class JwtTokenServiceTest {
     }
 
     @Test
-    void getEmailFromToken_returnsCorrectEmail() {
+    void parseAuthenticatedUser_returnsCorrectEmail() {
         String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
-        String email = jwtTokenService.getEmailFromToken(token);
+        String email = jwtTokenService.parseAuthenticatedUser(token).email();
         assertEquals("user@example.com", email);
     }
 

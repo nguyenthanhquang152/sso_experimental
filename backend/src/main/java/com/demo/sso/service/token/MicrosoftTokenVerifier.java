@@ -16,6 +16,7 @@ public class MicrosoftTokenVerifier {
     private final JwtDecoder jwtDecoder;
     private final MicrosoftAuthProperties properties;
 
+    // @Autowired required: Spring uses this constructor for DI; the two-arg constructor is for tests.
     @Autowired
     public MicrosoftTokenVerifier(MicrosoftAuthProperties properties) {
         this(buildDecoder(properties), properties);

@@ -69,14 +69,10 @@ public class ProviderConfigController {
         boolean serverSideEnabled = configured && rolloutProperties.getGoogle().isServerSideEnabled();
         boolean clientSideEnabled = configured && rolloutProperties.getGoogle().isClientSideEnabled();
 
-        if (configured && !clientSideEnabled) {
-            logger.debug("Google client-side login suppressed by rollout flag");
-        }
-        if (configured && !serverSideEnabled) {
-            logger.debug("Google server-side login suppressed by rollout flag");
-        }
         if (!configured) {
             logger.debug("Google provider not configured: client ID is missing");
+        } else if (!clientSideEnabled && !serverSideEnabled) {
+            logger.debug("Google login suppressed by rollout flags (both client-side and server-side)");
         }
 
         return new ProviderConfigResponse.GoogleProviderConfig(serverSideEnabled, clientSideEnabled, googleClientId);

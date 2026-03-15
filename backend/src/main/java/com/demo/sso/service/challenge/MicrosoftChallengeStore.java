@@ -20,6 +20,5 @@ public interface MicrosoftChallengeStore {
      */
     Optional<String> consumeNonce(String sessionId, String challengeId);
 
-    /** Immutable value object representing a newly issued challenge. */
     record MicrosoftChallenge(String challengeId, String nonce) {}
 }

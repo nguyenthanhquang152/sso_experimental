@@ -48,6 +48,7 @@ public class RedisAuthCodeStore implements AuthCodeStore {
     private final StringRedisTemplate redisTemplate;
     private final AuthRolloutProperties rolloutProperties;
 
+    // @Autowired required: Spring uses this constructor for DI; the single-arg constructor is for tests.
     @Autowired
     public RedisAuthCodeStore(StringRedisTemplate redisTemplate, AuthRolloutProperties rolloutProperties) {
         this.redisTemplate = redisTemplate;
@@ -88,7 +89,6 @@ public class RedisAuthCodeStore implements AuthCodeStore {
     }
 
     private String exchangeWithCompatFallback(String code) {
-        // Legacy first for backward compatibility, then v2 for forward compatibility
         String legacyJwt = redisTemplate.opsForValue().getAndDelete(LEGACY_KEY_PREFIX + code);
         if (legacyJwt != null) {
             return legacyJwt;

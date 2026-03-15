@@ -28,7 +28,6 @@ import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.CacheControl;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +47,7 @@ public class AuthController {
     private final AuthCompletionService authCompletionService;
     private final AuthCodeStore authCodeStore;
     private final MicrosoftChallengeStore microsoftChallengeStore;
-    private final ObjectProvider<MicrosoftTokenVerifier> microsoftTokenVerifierProvider;
+    private final MicrosoftTokenVerifier microsoftTokenVerifier;
     private final AuthRolloutProperties rolloutProperties;
     private final String servletContextPath;
 
@@ -59,14 +58,14 @@ public class AuthController {
                            AuthCompletionService authCompletionService,
                            AuthCodeStore authCodeStore,
                            MicrosoftChallengeStore microsoftChallengeStore,
-                           ObjectProvider<MicrosoftTokenVerifier> microsoftTokenVerifierProvider,
+                           MicrosoftTokenVerifier microsoftTokenVerifier,
                            AuthRolloutProperties rolloutProperties,
                            @Value("${server.servlet.context-path:}") String servletContextPath) {
         this.googleTokenVerifier = googleTokenVerifier;
         this.authCompletionService = authCompletionService;
         this.authCodeStore = authCodeStore;
         this.microsoftChallengeStore = microsoftChallengeStore;
-        this.microsoftTokenVerifierProvider = microsoftTokenVerifierProvider;
+        this.microsoftTokenVerifier = microsoftTokenVerifier;
         this.rolloutProperties = rolloutProperties;
         this.servletContextPath = servletContextPath == null ? "" : servletContextPath;
     }
@@ -96,7 +95,7 @@ public class AuthController {
 
             return ResponseEntity.ok(new TokenResponse(jwt));
         } catch (GeneralSecurityException | IOException | IllegalArgumentException e) {
-            logger.warn("Google token verification failed: invalid credential");
+            logger.warn("Google token verification failed: {}", e.getMessage());
             return badRequest("Invalid Google credential");
         }
     }
@@ -123,11 +122,6 @@ public class AuthController {
             return microsoftClientSideDisabledResponse();
         }
 
-        MicrosoftTokenVerifier microsoftTokenVerifier = microsoftTokenVerifierProvider.getIfAvailable();
-        if (microsoftTokenVerifier == null) {
-            return microsoftClientSideDisabledResponse();
-        }
-
         if (!isMicrosoftVerifyRequestValid(request)) {
             return badRequest("Missing credential or challengeId");
         }
@@ -150,7 +144,7 @@ public class AuthController {
                 claims, AuthFlow.CLIENT_SIDE);
             return ResponseEntity.ok(new TokenResponse(jwt));
         } catch (IllegalArgumentException e) {
-            logger.warn("Microsoft token verification failed: invalid credential");
+            logger.warn("Microsoft token verification failed: {}", e.getMessage());
             return badRequest("Invalid Microsoft credential");
         }
     }
@@ -167,7 +161,7 @@ public class AuthController {
             String jwt = authCodeStore.exchangeCode(code);
             return ResponseEntity.ok(new TokenResponse(jwt));
         } catch (IllegalArgumentException e) {
-            logger.warn("Auth code exchange failed: invalid or expired code");
+            logger.warn("Auth code exchange failed: {}", e.getMessage());
             return badRequest("Invalid or expired code");
         }
     }
