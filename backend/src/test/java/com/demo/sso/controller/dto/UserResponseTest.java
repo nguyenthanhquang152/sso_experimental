@@ -1,6 +1,7 @@
 package com.demo.sso.controller.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
@@ -47,12 +48,12 @@ class UserResponseTest {
 
         UserResponse response = UserResponse.from(user);
 
-        assertEquals("", response.createdAt());
-        assertEquals("", response.lastLoginAt());
+        assertNull(response.createdAt());
+        assertNull(response.lastLoginAt());
     }
 
     @Test
-    void nullLastLoginFlowReturnsEmptyString() {
+    void nullLastLoginFlowReturnsNull() {
         User user = new User();
         user.setId(3L);
         user.setEmail("carol@example.com");
@@ -62,11 +63,11 @@ class UserResponseTest {
 
         UserResponse response = UserResponse.from(user);
 
-        assertEquals("", response.lastLoginFlow());
+        assertNull(response.lastLoginFlow());
     }
 
     @Test
-    void nullOptionalFieldsDefaultToEmptyStrings() {
+    void nullOptionalFieldsAreOmittedAsNull() {
         User user = new User();
         user.setId(4L);
         user.setEmail("dave@example.com");
@@ -78,7 +79,7 @@ class UserResponseTest {
 
         UserResponse response = UserResponse.from(user);
 
-        assertEquals("", response.name());
-        assertEquals("", response.pictureUrl());
+        assertNull(response.name());
+        assertNull(response.pictureUrl());
     }
 }

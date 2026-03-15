@@ -22,7 +22,6 @@ public class GoogleTokenVerifier {
 
     private final GoogleIdTokenVerifier verifier;
 
-    // @Autowired required: Spring uses this constructor for DI; the two-arg constructor is for tests.
     @Autowired
     public GoogleTokenVerifier(@Value("${app.google-client-id}") String clientId) {
         this(new GoogleIdTokenVerifier.Builder(

@@ -1,124 +1,29 @@
 {
   "command": "show",
-  "query": "*",
+  "query": "subjective",
   "status_filter": "open",
-  "total": 7,
-  "summary": {
-    "by_tier": {
-      "T3": 7
-    },
-    "by_detector": {
-      "orphaned": 6,
-      "test_coverage": 1
-    },
-    "files": 6
-  },
-  "by_file": {
-    "backend/src/main/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilter.java": [
-      {
-        "id": "orphaned::backend/src/main/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilter.java",
-        "tier": 3,
-        "confidence": "medium",
-        "summary": "Orphaned file (69 LOC): zero importers, not an entry point",
-        "detail": {
-          "loc": 69
-        }
-      },
-      {
-        "id": "test_coverage::backend/src/main/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilter.java::over_mocked::MicrosoftAuthorizationGateFilterTest.java",
-        "tier": 3,
-        "confidence": "low",
-        "summary": "Over-mocked tests: MicrosoftAuthorizationGateFilterTest.java has 47 mocks vs 36 assertions",
-        "detail": {
-          "kind": "over_mocked",
-          "test_file": "backend/src/test/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilterTest.java",
-          "mocks": 47,
-          "assertions": 36,
-          "loc_weight": 8.306623862918075
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/config/filter/JwtAuthenticationFilter.java": [
-      {
-        "id": "orphaned::backend/src/main/java/com/demo/sso/config/filter/JwtAuthenticationFilter.java",
-        "tier": 3,
-        "confidence": "medium",
-        "summary": "Orphaned file (65 LOC): zero importers, not an entry point",
-        "detail": {
-          "loc": 65
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/config/guard/IdentityContractGuard.java": [
-      {
-        "id": "orphaned::backend/src/main/java/com/demo/sso/config/guard/IdentityContractGuard.java",
-        "tier": 3,
-        "confidence": "medium",
-        "summary": "Orphaned file (53 LOC): zero importers, not an entry point",
-        "detail": {
-          "loc": 53
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/config/properties/AuthRolloutProperties.java": [
-      {
-        "id": "orphaned::backend/src/main/java/com/demo/sso/config/properties/AuthRolloutProperties.java",
-        "tier": 3,
-        "confidence": "medium",
-        "summary": "Orphaned file (99 LOC): zero importers, not an entry point",
-        "detail": {
-          "loc": 99
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/config/properties/MicrosoftAuthProperties.java": [
-      {
-        "id": "orphaned::backend/src/main/java/com/demo/sso/config/properties/MicrosoftAuthProperties.java",
-        "tier": 3,
-        "confidence": "medium",
-        "summary": "Orphaned file (59 LOC): zero importers, not an entry point",
-        "detail": {
-          "loc": 59
-        }
-      }
-    ],
-    "backend/src/main/java/com/demo/sso/service/UserService.java": [
-      {
-        "id": "orphaned::backend/src/main/java/com/demo/sso/service/UserService.java",
-        "tier": 3,
-        "confidence": "medium",
-        "summary": "Orphaned file (123 LOC): zero importers, not an entry point",
-        "detail": {
-          "loc": 123
-        }
-      }
-    ]
-  },
-  "total_matching": 7,
-  "noise_budget": 10,
-  "noise_global_budget": 0,
+  "total": 0,
+  "issues": [],
   "narrative": {
-    "phase": "middle_grind",
-    "headline": "63 issues open. Code quality (56.1%) needs attention \u2014 run `desloppify next` to start. (55 review work items \u2014 run `desloppify show review --status open`)",
+    "phase": "refinement",
+    "headline": " (19 review work items \u2014 run `desloppify show review --status open`)",
     "dimensions": {
       "lowest_dimensions": [
         {
           "name": "Code quality",
-          "strict": 56.1,
-          "failing": 6,
+          "strict": 56.7,
+          "failing": 0,
           "impact": 0.0
         },
         {
-          "name": "Test strategy",
-          "strict": 62.0,
-          "failing": 3,
-          "impact": 0.0,
-          "subjective": true,
-          "impact_description": "re-review to improve"
+          "name": "Test health",
+          "strict": 70.5,
+          "failing": 0,
+          "impact": 0.0
         },
         {
-          "name": "Auth consistency",
-          "strict": 68.0,
+          "name": "Stale migration",
+          "strict": 82.0,
           "failing": 2,
           "impact": 0.0,
           "subjective": true,
@@ -128,17 +33,17 @@
       "biggest_gap_dimensions": [
         {
           "name": "Code quality",
-          "lenient": 94.4,
-          "strict": 56.1,
-          "gap": 38.3,
-          "wontfix_count": 40
+          "lenient": 100.0,
+          "strict": 56.7,
+          "gap": 43.3,
+          "wontfix_count": 46
         },
         {
           "name": "Test health",
-          "lenient": 96.6,
-          "strict": 70.7,
-          "gap": 25.9,
-          "wontfix_count": 7
+          "lenient": 100.0,
+          "strict": 70.5,
+          "gap": 29.5,
+          "wontfix_count": 8
         }
       ],
       "stagnant_dimensions": [
@@ -153,113 +58,62 @@
           "stuck_scans": 5
         },
         {
-          "name": "Duplication",
-          "strict": 99.5,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Abstraction fit",
-          "strict": 90.8,
-          "stuck_scans": 5
-        },
-        {
-          "name": "Design coherence",
-          "strict": 91.4,
-          "stuck_scans": 5
-        },
-        {
-          "name": "High elegance",
-          "strict": 74.5,
+          "name": "Test health",
+          "strict": 70.5,
           "stuck_scans": 5
         },
         {
           "name": "Stale migration",
           "strict": 82.0,
           "stuck_scans": 5
-        },
-        {
-          "name": "Naming quality",
-          "strict": 87.0,
-          "stuck_scans": 5
         }
       ]
     },
     "actions": [
       {
-        "type": "reorganize",
-        "detector": "orphaned",
-        "count": 6,
-        "description": "6 orphaned issues \u2014 delete dead files or relocate with `desloppify move`",
-        "command": "desloppify show orphaned --status open",
+        "type": "refactor",
+        "detector": "boilerplate_duplication",
+        "count": 1,
+        "description": "1 boilerplate_duplication work items \u2014 extract shared boilerplate into reusable helpers or base classes",
+        "command": "desloppify show boilerplate_duplication --status open",
         "impact": 0.0,
-        "dimension": "Code quality",
+        "dimension": "Duplication",
         "priority": 1,
-        "lane": "restructure"
-      },
-      {
-        "type": "refactor",
-        "detector": "test_coverage",
-        "count": 1,
-        "description": "1 test_coverage work items \u2014 add tests for untested production modules \u2014 prioritize by import count",
-        "command": "desloppify show test_coverage --status open",
-        "impact": 0.0,
-        "dimension": "Test health",
-        "priority": 2,
-        "lane": "test_coverage"
-      },
-      {
-        "type": "refactor",
-        "detector": "signature",
-        "count": 1,
-        "description": "1 signature work items \u2014 consolidate inconsistent function signatures",
-        "command": "desloppify show signature --status open",
-        "impact": 0.0,
-        "dimension": "Unknown",
-        "priority": 3,
         "lane": "refactor_0"
       },
       {
         "type": "refactor",
         "detector": "review",
-        "count": 55,
-        "description": "55 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
+        "count": 19,
+        "description": "19 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
         "command": "desloppify show review --status open",
         "impact": 0.0,
         "dimension": "Unknown",
-        "priority": 4,
+        "priority": 2,
         "lane": "refactor_1"
       },
       {
         "type": "debt_review",
         "detector": null,
-        "description": "2.3 pts of wontfix debt \u2014 review stale decisions",
+        "description": "2.6 pts of wontfix debt \u2014 review stale decisions",
         "command": "desloppify show --status wontfix",
-        "gap": 2.3,
-        "priority": 5,
+        "gap": 2.6,
+        "priority": 3,
         "lane": "debt_review"
       }
     ],
     "strategy": {
       "fixer_leverage": {
         "auto_fixable_count": 0,
-        "total_count": 173,
+        "total_count": 58,
         "coverage": 0.0,
         "impact_ratio": 0.0,
         "recommendation": "none"
       },
       "lanes": {
-        "restructure": {
-          "actions": [
-            1
-          ],
-          "file_count": 6,
-          "total_impact": 0.0,
-          "automation": "manual",
-          "run_first": false
-        },
         "refactor_0": {
           "actions": [
-            3
+            1
           ],
           "file_count": 1,
           "total_impact": 0.0,
@@ -267,15 +121,6 @@
           "run_first": false
         },
         "refactor_1": {
-          "actions": [
-            4
-          ],
-          "file_count": 1,
-          "total_impact": 0.0,
-          "automation": "manual",
-          "run_first": false
-        },
-        "test_coverage": {
           "actions": [
             2
           ],
@@ -286,7 +131,7 @@
         },
         "debt_review": {
           "actions": [
-            5
+            3
           ],
           "file_count": 0,
           "total_impact": 0.0,
@@ -295,14 +140,14 @@
         }
       },
       "can_parallelize": false,
-      "hint": "Work through actions in priority order. Rescan after each fix to track progress. Review: 55 issue(s) \u2014 `desloppify show review --status open`."
+      "hint": "Work through actions in priority order. Rescan after each fix to track progress. Review: 19 issue(s) \u2014 `desloppify show review --status open`."
     },
     "tools": {
       "fixers": [],
       "move": {
         "available": true,
-        "relevant": true,
-        "reason": "6 orphaned files",
+        "relevant": false,
+        "reason": null,
         "usage": "desloppify move <source> <dest> [--dry-run]"
       },
       "plan": {
@@ -317,18 +162,18 @@
       }
     },
     "debt": {
-      "overall_gap": 2.3,
-      "wontfix_count": 96,
+      "overall_gap": 2.6,
+      "wontfix_count": 131,
       "worst_dimension": "Code quality",
-      "worst_gap": 38.3,
-      "trend": "growing"
+      "worst_gap": 43.3,
+      "trend": "stable"
     },
     "milestone": null,
     "primary_action": {
-      "command": "desloppify show orphaned --status open",
-      "description": "6 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
+      "command": "desloppify show boilerplate_duplication --status open",
+      "description": "1 boilerplate_duplication work items \u2014 extract shared boilerplate into reusable helpers or base classes"
     },
-    "why_now": "Work through actions in priority order. Rescan after each fix to track progress. Review: 55 issue(s) \u2014 `desloppify show review --status open`.",
+    "why_now": "Work through actions in priority order. Rescan after each fix to track progress. Review: 19 issue(s) \u2014 `desloppify show review --status open`.",
     "verification_step": {
       "command": "desloppify scan",
       "reason": "revalidate after changes"
@@ -337,20 +182,20 @@
       {
         "type": "wontfix_gap",
         "severity": "high",
-        "message": "Strict/lenient gap is 2.3 pts with 96 wontfix issues"
+        "message": "Strict/lenient gap is 2.6 pts with 131 wontfix issues"
       }
     ],
     "strict_target": {
       "target": 95.0,
-      "current": 79.5,
-      "gap": 15.5,
+      "current": 86.8,
+      "gap": 8.2,
       "state": "below",
       "warning": null
     },
     "reminders": [],
     "reminder_history": {
       "zone_classification": 3,
-      "report_scores": 7,
+      "report_scores": 10,
       "review_issues_pending": 3,
       "stagnant_nudge": 3,
       "feedback_nudge": 3,

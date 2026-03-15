@@ -123,33 +123,33 @@ class AuthCompletionServiceTest {
     void completeAuthenticationWithCode_returnsAuthCode() {
         when(userService.syncUser(microsoftIdentity)).thenReturn(testUser);
         when(jwtTokenService.generateToken(testUser)).thenReturn("jwt-for-code");
-        when(authCodeStore.storeJwt("jwt-for-code")).thenReturn("auth-code-xyz");
+        when(authCodeStore.createAuthCode("jwt-for-code")).thenReturn("auth-code-xyz");
 
         String code = service.completeAuthenticationWithCode(microsoftIdentity);
 
         assertEquals("auth-code-xyz", code);
-        verify(authCodeStore).storeJwt("jwt-for-code");
+        verify(authCodeStore).createAuthCode("jwt-for-code");
     }
 
     @Test
     void completeAuthenticationWithCode_chainsCompleteAuthentication() {
         when(userService.syncUser(googleIdentity)).thenReturn(testUser);
         when(jwtTokenService.generateToken(testUser)).thenReturn("chained-jwt");
-        when(authCodeStore.storeJwt("chained-jwt")).thenReturn("code-123");
+        when(authCodeStore.createAuthCode("chained-jwt")).thenReturn("code-123");
 
         String code = service.completeAuthenticationWithCode(googleIdentity);
 
         assertEquals("code-123", code);
         verify(userService).syncUser(googleIdentity);
         verify(jwtTokenService).generateToken(testUser);
-        verify(authCodeStore).storeJwt("chained-jwt");
+        verify(authCodeStore).createAuthCode("chained-jwt");
     }
 
     @Test
     void completeAuthenticationWithCode_propagatesAuthCodeStoreException() {
         when(userService.syncUser(googleIdentity)).thenReturn(testUser);
         when(jwtTokenService.generateToken(testUser)).thenReturn("jwt-ok");
-        when(authCodeStore.storeJwt("jwt-ok"))
+        when(authCodeStore.createAuthCode("jwt-ok"))
                 .thenThrow(new RuntimeException("Redis unavailable"));
 
         assertThrows(RuntimeException.class,

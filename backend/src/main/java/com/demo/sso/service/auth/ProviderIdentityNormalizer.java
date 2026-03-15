@@ -74,7 +74,7 @@ public class ProviderIdentityNormalizer {
 
     private static String normalizeEmail(String email) {
         String normalized = email.trim().toLowerCase(Locale.ROOT);
-        if (normalized.isBlank()) {
+        if (normalized.isEmpty()) {
             throw new IllegalArgumentException("Email is blank");
         }
         int atIndex = normalized.indexOf('@');

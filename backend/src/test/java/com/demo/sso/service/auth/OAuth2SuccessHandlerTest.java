@@ -1,8 +1,9 @@
 package com.demo.sso.service.auth;
 
 import com.demo.sso.model.AuthFlow;
-import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.model.AuthProvider;
+import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
+import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -10,7 +11,6 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
@@ -21,11 +21,11 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
 
 @ExtendWith(MockitoExtension.class)
 class OAuth2SuccessHandlerTest {
@@ -40,8 +40,7 @@ class OAuth2SuccessHandlerTest {
 
     @BeforeEach
     void setUp() {
-        handler = new OAuth2SuccessHandler(
-            authCompletionService, new ProviderIdentityNormalizer(), "http://localhost:8000");
+        handler = new OAuth2SuccessHandler(authCompletionService, "http://localhost:8000");
     }
 
     private void setupVerifiedOAuth2User(String sub, String email, String name, String picture) {
@@ -58,23 +57,17 @@ class OAuth2SuccessHandlerTest {
     }
 
     @Test
-    void onAuthenticationSuccess_extractsAttributesDualWritesGoogleIdentityAndRedirects() throws IOException {
+    void onAuthenticationSuccess_completesGoogleAuthAndRedirects() throws IOException {
         setupVerifiedOAuth2User("google-123", "user@example.com", "Test User", "http://pic.url");
 
-        ArgumentCaptor<NormalizedIdentity> identityCaptor = ArgumentCaptor.forClass(NormalizedIdentity.class);
-        when(authCompletionService.completeAuthenticationWithCode(any(NormalizedIdentity.class)))
+        when(authCompletionService.completeGoogleAuthenticationWithCode(
+            any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
             .thenReturn("auth-code-123");
 
         handler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(authCompletionService).completeAuthenticationWithCode(identityCaptor.capture());
-        NormalizedIdentity identity = identityCaptor.getValue();
-        assertEquals(AuthProvider.GOOGLE, identity.provider());
-        assertEquals(AuthFlow.SERVER_SIDE, identity.loginFlow());
-        assertEquals("google-123", identity.providerUserId());
-        assertEquals("user@example.com", identity.email());
-        assertEquals("Test User", identity.name());
-        assertEquals("http://pic.url", identity.pictureUrl());
+        verify(authCompletionService).completeGoogleAuthenticationWithCode(
+            any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE));
         verify(response).sendRedirect("http://localhost:8000/?code=auth-code-123");
     }
 
@@ -82,27 +75,28 @@ class OAuth2SuccessHandlerTest {
     void onAuthenticationSuccess_savesUserAsServerSide() throws IOException {
         setupVerifiedOAuth2User("g-id", "test@test.com", "Name", null);
 
-        when(authCompletionService.completeAuthenticationWithCode(any(NormalizedIdentity.class)))
+        when(authCompletionService.completeGoogleAuthenticationWithCode(
+            any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
             .thenReturn("code");
 
         handler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(authCompletionService).completeAuthenticationWithCode(
-            NormalizedIdentity.google("g-id", "test@test.com", "Name", null, AuthFlow.SERVER_SIDE)
-        );
+        verify(authCompletionService).completeGoogleAuthenticationWithCode(
+            any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE));
     }
 
     @Test
     void onAuthenticationSuccess_redirectsToConfiguredFrontendUrl() throws IOException {
         OAuth2SuccessHandler customHandler = new OAuth2SuccessHandler(
-            authCompletionService, new ProviderIdentityNormalizer(), "https://myapp.com");
+            authCompletionService, "https://myapp.com");
 
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
         when(oAuth2User.getAttribute("email_verified")).thenReturn(true);
         when(oAuth2User.getAttribute("sub")).thenReturn("g");
         when(oAuth2User.getAttribute("email")).thenReturn("e@e.com");
 
-        when(authCompletionService.completeAuthenticationWithCode(any(NormalizedIdentity.class)))
+        when(authCompletionService.completeGoogleAuthenticationWithCode(
+            any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
             .thenReturn("code-xyz");
 
         customHandler.onAuthenticationSuccess(request, response, authentication);
@@ -139,10 +133,13 @@ class OAuth2SuccessHandlerTest {
         when(oAuth2User.getAttribute("sub")).thenReturn(null);
         when(oAuth2User.getAttribute("email")).thenReturn("test@test.com");
 
+        when(authCompletionService.completeGoogleAuthenticationWithCode(
+            any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
+            .thenThrow(new IllegalArgumentException("Google identity is missing required claims"));
+
         handler.onAuthenticationSuccess(request, response, authentication);
 
         verify(response).sendRedirect("http://localhost:8000/?error=missing_attributes");
-        verifyNoInteractions(authCompletionService);
     }
 
     @Test
@@ -152,22 +149,27 @@ class OAuth2SuccessHandlerTest {
         when(oAuth2User.getAttribute("sub")).thenReturn("google-123");
         when(oAuth2User.getAttribute("email")).thenReturn(null);
 
+        when(authCompletionService.completeGoogleAuthenticationWithCode(
+            any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
+            .thenThrow(new IllegalArgumentException("Google identity is missing required claims"));
+
         handler.onAuthenticationSuccess(request, response, authentication);
 
         verify(response).sendRedirect("http://localhost:8000/?error=missing_attributes");
-        verifyNoInteractions(authCompletionService);
     }
 
     @Test
     void onAuthenticationSuccess_delegatesAuthCompletionToService() throws IOException {
         setupVerifiedOAuth2User("google-123", "user@example.com", "Test User", "http://pic.url");
 
-        when(authCompletionService.completeAuthenticationWithCode(any(NormalizedIdentity.class)))
+        when(authCompletionService.completeGoogleAuthenticationWithCode(
+            any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE)))
             .thenReturn("auth-code-123");
 
         handler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(authCompletionService).completeAuthenticationWithCode(any(NormalizedIdentity.class));
+        verify(authCompletionService).completeGoogleAuthenticationWithCode(
+            any(VerifiedGoogleIdentity.class), eq(AuthFlow.SERVER_SIDE));
     }
 
     @Test
@@ -188,21 +190,14 @@ class OAuth2SuccessHandlerTest {
             "microsoft"
         );
 
-        ArgumentCaptor<NormalizedIdentity> identityCaptor = ArgumentCaptor.forClass(NormalizedIdentity.class);
-        when(authCompletionService.completeAuthenticationWithCode(any(NormalizedIdentity.class)))
+        when(authCompletionService.completeMicrosoftAuthenticationWithCode(
+            any(MicrosoftIdTokenClaims.class), eq(AuthFlow.SERVER_SIDE)))
             .thenReturn("ms-auth-code");
 
         handler.onAuthenticationSuccess(request, response, microsoftAuthentication);
 
-        verify(authCompletionService).completeAuthenticationWithCode(identityCaptor.capture());
-        NormalizedIdentity identity = identityCaptor.getValue();
-        assertEquals(AuthProvider.MICROSOFT, identity.provider());
-        assertEquals(AuthFlow.SERVER_SIDE, identity.loginFlow());
-        assertEquals(
-            "https://login.microsoftonline.com/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee/v2.0|microsoft-subject",
-            identity.providerUserId());
-        assertEquals("employee@example.com", identity.email());
-        assertEquals("Microsoft Employee", identity.name());
+        verify(authCompletionService).completeMicrosoftAuthenticationWithCode(
+            any(MicrosoftIdTokenClaims.class), eq(AuthFlow.SERVER_SIDE));
         verify(response).sendRedirect("http://localhost:8000/?code=ms-auth-code");
     }
 }

@@ -48,7 +48,7 @@ public class AuthCompletionService {
     /** For server-side flows: syncs user state, mints a JWT, and returns an auth code for exchange. */
     public String completeAuthenticationWithCode(NormalizedIdentity identity) {
         String jwt = completeAuthentication(identity);
-        return authCodeStore.storeJwt(jwt);
+        return authCodeStore.createAuthCode(jwt);
     }
 
     /** Normalizes Google claims, syncs user state, and returns a JWT. */
@@ -61,5 +61,17 @@ public class AuthCompletionService {
     public String completeMicrosoftAuthentication(MicrosoftIdTokenClaims claims, AuthFlow flow) {
         NormalizedIdentity identity = providerIdentityNormalizer.normalizeMicrosoftClaims(claims, flow);
         return completeAuthentication(identity);
+    }
+
+    /** Normalizes Google claims, syncs user state, stores JWT, and returns an auth code. */
+    public String completeGoogleAuthenticationWithCode(VerifiedGoogleIdentity google, AuthFlow flow) {
+        NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(google, flow);
+        return completeAuthenticationWithCode(identity);
+    }
+
+    /** Normalizes Microsoft claims, syncs user state, stores JWT, and returns an auth code. */
+    public String completeMicrosoftAuthenticationWithCode(MicrosoftIdTokenClaims claims, AuthFlow flow) {
+        NormalizedIdentity identity = providerIdentityNormalizer.normalizeMicrosoftClaims(claims, flow);
+        return completeAuthenticationWithCode(identity);
     }
 }

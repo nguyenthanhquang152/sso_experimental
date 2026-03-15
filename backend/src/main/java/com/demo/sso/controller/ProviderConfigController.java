@@ -40,7 +40,7 @@ public class ProviderConfigController {
         ProviderConfigResponse.GoogleProviderConfig googleConfig;
         try {
             googleConfig = buildGoogleConfig();
-        } catch (RuntimeException e) {
+        } catch (IllegalStateException | NullPointerException e) {
             logger.error("Failed to build Google provider config, returning disabled fallback", e);
             googleConfig = new ProviderConfigResponse.GoogleProviderConfig(false, false, "");
         }
@@ -48,7 +48,7 @@ public class ProviderConfigController {
         ProviderConfigResponse.MicrosoftProviderConfig microsoftConfig;
         try {
             microsoftConfig = buildMicrosoftConfig();
-        } catch (RuntimeException e) {
+        } catch (IllegalStateException | NullPointerException | UnsupportedOperationException e) {
             logger.error("Failed to build Microsoft provider config, returning disabled fallback", e);
             microsoftConfig = new ProviderConfigResponse.MicrosoftProviderConfig(false, false, null, null, List.of(), null);
         }

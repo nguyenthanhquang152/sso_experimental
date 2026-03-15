@@ -6,9 +6,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.SecureRandom;
 import java.time.Duration;
-import java.util.Base64;
 
 /**
  * Redis-backed auth-code store with dual key-prefix routing for the legacy→V2 migration.
@@ -41,14 +39,12 @@ import java.util.Base64;
 public class RedisAuthCodeStore implements AuthCodeStore {
 
     private static final Duration CODE_TTL = Duration.ofSeconds(30);
-    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
     private static final String LEGACY_KEY_PREFIX = "authcode:";
     private static final String V2_KEY_PREFIX = "authcode:v2:";
 
     private final StringRedisTemplate redisTemplate;
     private final AuthRolloutProperties rolloutProperties;
 
-    // @Autowired required: Spring uses this constructor for DI; the single-arg constructor is for tests.
     @Autowired
     public RedisAuthCodeStore(StringRedisTemplate redisTemplate, AuthRolloutProperties rolloutProperties) {
         this.redisTemplate = redisTemplate;
@@ -60,11 +56,8 @@ public class RedisAuthCodeStore implements AuthCodeStore {
     }
 
     @Override
-    public String storeJwt(String jwt) {
-        byte[] bytes = new byte[32];
-        SECURE_RANDOM.nextBytes(bytes);
-        String code = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
-
+    public String createAuthCode(String jwt) {
+        String code = SecureCodeGenerator.generate();
         redisTemplate.opsForValue().set(currentWritePrefix() + code, jwt, CODE_TTL);
         return code;
     }

@@ -222,7 +222,7 @@ class ControllerIntegrationTest {
         void returnsTokenForValidCode() throws Exception {
             User user = createTestUser();
             String jwt = jwtTokenService.generateToken(user);
-            String code = authCodeStore.storeJwt(jwt);
+            String code = authCodeStore.createAuthCode(jwt);
 
             mockMvc.perform(post("/auth/exchange")
                     .contentType(MediaType.APPLICATION_JSON)
@@ -233,7 +233,7 @@ class ControllerIntegrationTest {
 
         @Test
         void codeCannotBeReused() throws Exception {
-            String code = authCodeStore.storeJwt("some.jwt");
+            String code = authCodeStore.createAuthCode("some.jwt");
 
             // First use succeeds
             mockMvc.perform(post("/auth/exchange")

@@ -1,6 +1,7 @@
 package com.demo.sso.config.filter;
 
 import com.demo.sso.config.properties.AuthRolloutProperties;
+import com.demo.sso.controller.dto.ErrorResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -8,7 +9,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -51,7 +51,7 @@ public class MicrosoftAuthorizationGateFilter extends OncePerRequestFilter {
         if (AUTHORIZATION_MATCHER.matches(request)) {
             response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
             response.setContentType("application/json");
-            response.getWriter().write(objectMapper.writeValueAsString(Map.of("error", "Microsoft server-side login is disabled")));
+            response.getWriter().write(objectMapper.writeValueAsString(new ErrorResponse("Microsoft server-side login is disabled")));
             return;
         }
 

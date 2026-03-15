@@ -7,7 +7,7 @@ package com.demo.sso.service.challenge;
 public interface AuthCodeStore {
 
     /** @throws IllegalArgumentException if jwt is null or blank */
-    String storeJwt(String jwt);
+    String createAuthCode(String jwt);
 
     /**
      * @throws IllegalArgumentException if the code is invalid, expired, or already consumed

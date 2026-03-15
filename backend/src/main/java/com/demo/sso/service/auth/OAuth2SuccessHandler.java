@@ -1,7 +1,6 @@
 package com.demo.sso.service.auth;
 
 import com.demo.sso.model.AuthFlow;
-import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.MicrosoftIdTokenClaims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,14 +25,11 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     private static final Logger logger = LoggerFactory.getLogger(OAuth2SuccessHandler.class);
 
     private final AuthCompletionService authCompletionService;
-    private final ProviderIdentityNormalizer providerIdentityNormalizer;
     private final String frontendUrl;
 
     public OAuth2SuccessHandler(AuthCompletionService authCompletionService,
-                                 ProviderIdentityNormalizer providerIdentityNormalizer,
                                  @Value("${app.frontend-url}") String frontendUrl) {
         this.authCompletionService = authCompletionService;
-        this.providerIdentityNormalizer = providerIdentityNormalizer;
         this.frontendUrl = frontendUrl;
     }
 
@@ -42,22 +38,20 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                                          HttpServletResponse response,
                                          Authentication authentication) throws IOException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        NormalizedIdentity identity;
+        String code;
         try {
-            identity = normalizeIdentity(authentication, oAuth2User);
+            code = completeProviderAuthentication(authentication, oAuth2User);
         } catch (OAuth2IdentityException e) {
             logger.warn("OAuth2 login rejected: {}", e.errorCode());
             response.sendRedirect(frontendUrl + "/?error=" + e.errorCode());
             return;
         }
 
-        String code = authCompletionService.completeAuthenticationWithCode(identity);
-
         String encodedCode = URLEncoder.encode(code, StandardCharsets.UTF_8);
         response.sendRedirect(frontendUrl + "/?code=" + encodedCode);
     }
 
-    private NormalizedIdentity normalizeIdentity(
+    private String completeProviderAuthentication(
             Authentication authentication,
             OAuth2User oAuth2User) {
         String registrationId = authentication instanceof OAuth2AuthenticationToken oauth2AuthenticationToken
@@ -67,7 +61,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         if ("microsoft".equalsIgnoreCase(registrationId)) {
             try {
                 MicrosoftIdTokenClaims claims = MicrosoftIdTokenClaims.fromMap(oAuth2User.getAttributes());
-                return providerIdentityNormalizer.normalizeMicrosoftClaims(claims, AuthFlow.SERVER_SIDE);
+                return authCompletionService.completeMicrosoftAuthenticationWithCode(claims, AuthFlow.SERVER_SIDE);
             } catch (IllegalArgumentException e) {
                 throw new OAuth2IdentityException("missing_attributes", "invalid identity claims");
             }
@@ -80,7 +74,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         try {
             VerifiedGoogleIdentity google = VerifiedGoogleIdentity.fromOAuth2User(oAuth2User);
-            return providerIdentityNormalizer.normalizeGoogleClaims(google, AuthFlow.SERVER_SIDE);
+            return authCompletionService.completeGoogleAuthenticationWithCode(google, AuthFlow.SERVER_SIDE);
         } catch (IllegalArgumentException e) {
             throw new OAuth2IdentityException("missing_attributes", "missing sub or email attribute");
         }

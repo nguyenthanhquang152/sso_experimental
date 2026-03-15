@@ -1,10 +1,12 @@
 package com.demo.sso.controller.dto;
 
 import com.demo.sso.model.User;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
- * Centralizes null-coalescing for optional User fields.
+ * API response for User entity. Null fields are omitted from JSON.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record UserResponse(
         Long id,
         String email,
@@ -18,22 +20,16 @@ public record UserResponse(
 ) {
     /** Maps a {@link User} entity to a {@code UserResponse}. */
     public static UserResponse from(User user) {
-        String name = user.getName() != null ? user.getName() : "";
-        String pictureUrl = user.getPictureUrl() != null ? user.getPictureUrl() : "";
-        String lastLoginFlow = user.getLastLoginFlow() != null ? user.getLastLoginFlow().name() : "";
-        String createdAt = user.getCreatedAt() != null ? user.getCreatedAt().toString() : "";
-        String lastLoginAt = user.getLastLoginAt() != null ? user.getLastLoginAt().toString() : "";
-
         return new UserResponse(
                 user.getId(),
                 user.getEmail(),
-                name,
-                pictureUrl,
+                user.getName(),
+                user.getPictureUrl(),
                 user.getProvider().name(),
                 user.getProviderUserId(),
-                lastLoginFlow,
-                createdAt,
-                lastLoginAt
+                user.getLastLoginFlow() != null ? user.getLastLoginFlow().name() : null,
+                user.getCreatedAt() != null ? user.getCreatedAt().toString() : null,
+                user.getLastLoginAt() != null ? user.getLastLoginAt().toString() : null
         );
     }
 }

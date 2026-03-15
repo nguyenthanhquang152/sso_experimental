@@ -41,15 +41,15 @@ class RedisAuthCodeStoreTest {
     }
 
     @Test
-    void storeJwt_returnsNonEmptyCode() {
-        String code = store.storeJwt("some.jwt.token");
+    void createAuthCode_returnsNonEmptyCode() {
+        String code = store.createAuthCode("some.jwt.token");
         assertNotNull(code);
         assertFalse(code.isBlank());
     }
 
     @Test
-    void storeJwt_setsValueInRedisWithTtl() {
-        store.storeJwt("my.jwt.token");
+    void createAuthCode_setsValueInRedisWithTtl() {
+        store.createAuthCode("my.jwt.token");
 
         ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<String> valueCaptor = ArgumentCaptor.forClass(String.class);
@@ -80,20 +80,20 @@ class RedisAuthCodeStoreTest {
     }
 
     @Test
-    void storeJwt_generatesUniqueCodes() {
-        String code1 = store.storeJwt("jwt1");
-        String code2 = store.storeJwt("jwt2");
+    void createAuthCode_generatesUniqueCodes() {
+        String code1 = store.createAuthCode("jwt1");
+        String code2 = store.createAuthCode("jwt2");
         assertNotEquals(code1, code2);
     }
 
     @Test
-    void storeJwt_usesV2NamespaceWhenMintModeIsV2() {
+    void createAuthCode_usesV2NamespaceWhenMintModeIsV2() {
         RedisAuthCodeStore v2Store = new RedisAuthCodeStore(
             redisTemplate,
             rolloutProperties(AuthRolloutProperties.IdentityContractMode.COMPATIBILITY, AuthRolloutProperties.JwtMintMode.V2)
         );
 
-        v2Store.storeJwt("v2.jwt.token");
+        v2Store.createAuthCode("v2.jwt.token");
 
         ArgumentCaptor<String> keyCaptor = ArgumentCaptor.forClass(String.class);
         verify(valueOps).set(keyCaptor.capture(), eq("v2.jwt.token"), eq(Duration.ofSeconds(30)));

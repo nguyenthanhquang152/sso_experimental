@@ -2,12 +2,11 @@ package com.demo.sso.config;
 
 import com.demo.sso.service.challenge.AuthCodeStore;
 import com.demo.sso.service.challenge.MicrosoftChallengeStore;
+import com.demo.sso.service.challenge.SecureCodeGenerator;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 
-import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -29,15 +28,12 @@ public class TestAuthCodeStoreConfig {
     static class InMemoryAuthCodeStore implements AuthCodeStore {
 
         private static final long CODE_TTL_MS = 30_000;
-        private static final SecureRandom SECURE_RANDOM = new SecureRandom();
         private final ConcurrentHashMap<String, CodeEntry> store = new ConcurrentHashMap<>();
 
         @Override
-        public String storeJwt(String jwt) {
+        public String createAuthCode(String jwt) {
             evictExpired();
-            byte[] bytes = new byte[32];
-            SECURE_RANDOM.nextBytes(bytes);
-            String code = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+            String code = SecureCodeGenerator.generate();
             store.put(code, new CodeEntry(jwt, System.currentTimeMillis()));
             return code;
         }
@@ -62,7 +58,6 @@ public class TestAuthCodeStoreConfig {
     static class InMemoryMicrosoftChallengeStore implements MicrosoftChallengeStore {
 
         private static final long CHALLENGE_TTL_MS = 5 * 60_000;
-        private static final SecureRandom SECURE_RANDOM = new SecureRandom();
         private final ConcurrentHashMap<String, ChallengeEntry> store = new ConcurrentHashMap<>();
         private final ConcurrentHashMap<String, String> activeChallenges = new ConcurrentHashMap<>();
 
@@ -74,8 +69,8 @@ public class TestAuthCodeStoreConfig {
                 store.remove(sessionId + ":" + previousChallengeId);
             }
 
-            String challengeId = randomValue();
-            String nonce = randomValue();
+            String challengeId = SecureCodeGenerator.generate();
+            String nonce = SecureCodeGenerator.generate();
             store.put(sessionId + ":" + challengeId, new ChallengeEntry(nonce, System.currentTimeMillis()));
             activeChallenges.put(sessionId, challengeId);
             return new MicrosoftChallenge(challengeId, nonce);
@@ -112,12 +107,6 @@ public class TestAuthCodeStoreConfig {
                 }
                 return expired;
             });
-        }
-
-        private static String randomValue() {
-            byte[] bytes = new byte[32];
-            SECURE_RANDOM.nextBytes(bytes);
-            return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
         }
 
         private record ChallengeEntry(String nonce, long createdAt) {}

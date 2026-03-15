@@ -32,7 +32,6 @@ public class JwtTokenService {
     private final long expirationMs;
     private final AuthRolloutProperties rolloutProperties;
 
-    // @Autowired required: Spring uses this constructor for DI; the two-arg constructor is for tests.
     @Autowired
     public JwtTokenService(
             @Value("${app.jwt.secret}") String secret,
