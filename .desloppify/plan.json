@@ -1,13 +1,8 @@
 {
   "version": 8,
   "created": "2026-03-14T18:25:42+00:00",
-  "updated": "2026-03-15T02:06:40+00:00",
+  "updated": "2026-03-15T02:25:32+00:00",
   "queue_order": [
-    "workflow::import-scores",
-    "triage::organize",
-    "triage::enrich",
-    "triage::sense-check",
-    "triage::commit",
     "review::.::holistic::abstraction_fitness::authenticated_identity_nullable_modeling",
     "review::.::holistic::abstraction_fitness::rollout_mode_leaks_into_store_layer",
     "review::.::holistic::ai_generated_debt::authenticated_identity_javadoc_weight",
@@ -159,8 +154,8 @@
     "test_coverage::backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java::over_mocked::SecurityConfigTest.java": {
       "issue_id": "test_coverage::backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java::over_mocked::SecurityConfigTest.java",
       "created_at": "2026-03-14T18:25:42+00:00",
-      "cluster": "auto/test_coverage",
-      "updated_at": "2026-03-14T18:25:42+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "test_coverage::backend/src/main/java/com/demo/sso/config/SecurityConfig.java::over_mocked::SecurityConfigTest.java": {
       "issue_id": "test_coverage::backend/src/main/java/com/demo/sso/config/SecurityConfig.java::over_mocked::SecurityConfigTest.java",
@@ -231,8 +226,8 @@
     "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard": {
       "issue_id": "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
       "created_at": "2026-03-14T20:18:41+00:00",
-      "cluster": "false-positives",
-      "updated_at": "2026-03-14T20:18:41+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "review::.::holistic::logic_clarity::provider_config_google_null_check_is_redundant": {
       "issue_id": "review::.::holistic::logic_clarity::provider_config_google_null_check_is_redundant",
@@ -387,80 +382,80 @@
     "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation": {
       "issue_id": "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
       "created_at": "2026-03-14T20:19:45+00:00",
-      "cluster": "elegance-fixes",
-      "updated_at": "2026-03-14T20:19:45+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "review::.::holistic::low_level_elegance::implicit_redirect_null_contract": {
       "issue_id": "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
       "created_at": "2026-03-14T20:19:45+00:00",
-      "cluster": "elegance-fixes",
-      "updated_at": "2026-03-14T20:19:45+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split": {
       "issue_id": "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
       "created_at": "2026-03-14T20:19:45+00:00",
-      "cluster": "elegance-fixes",
-      "updated_at": "2026-03-14T20:19:45+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri": {
       "issue_id": "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri",
       "created_at": "2026-03-14T20:19:45+00:00",
-      "cluster": "elegance-fixes",
-      "updated_at": "2026-03-14T20:19:45+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped": {
       "issue_id": "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped",
       "created_at": "2026-03-14T20:19:45+00:00",
-      "cluster": "elegance-fixes",
-      "updated_at": "2026-03-14T20:19:45+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "review::.::holistic::type_safety::microsoft_claims_use_untyped_map_coercion": {
       "issue_id": "review::.::holistic::type_safety::microsoft_claims_use_untyped_map_coercion",
       "created_at": "2026-03-14T20:19:54+00:00",
-      "cluster": "misc-fixes",
-      "updated_at": "2026-03-14T20:19:54+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "review::.::holistic::ai_generated_debt::auth_failure_raw_logging": {
       "issue_id": "review::.::holistic::ai_generated_debt::auth_failure_raw_logging",
       "created_at": "2026-03-14T20:19:54+00:00",
-      "cluster": "misc-fixes",
-      "updated_at": "2026-03-14T20:19:54+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "review::.::holistic::test_strategy::security_config_test_asserts_mock_choreography": {
       "issue_id": "review::.::holistic::test_strategy::security_config_test_asserts_mock_choreography",
       "created_at": "2026-03-14T20:19:54+00:00",
-      "cluster": "misc-fixes",
-      "updated_at": "2026-03-14T20:19:54+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "review::.::holistic::high_level_elegance::stale_repo_contract_docs": {
       "issue_id": "review::.::holistic::high_level_elegance::stale_repo_contract_docs",
       "created_at": "2026-03-14T20:19:54+00:00",
-      "cluster": "misc-fixes",
-      "updated_at": "2026-03-14T20:19:54+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "review::.::holistic::cross_module_architecture::auth_edge_orchestration_hub": {
       "issue_id": "review::.::holistic::cross_module_architecture::auth_edge_orchestration_hub",
       "created_at": "2026-03-14T20:20:16+00:00",
-      "cluster": "architecture-refactor",
-      "updated_at": "2026-03-14T20:20:16+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "review::.::holistic::cross_module_architecture::provider_config_contract_drift": {
       "issue_id": "review::.::holistic::cross_module_architecture::provider_config_contract_drift",
       "created_at": "2026-03-14T20:20:16+00:00",
-      "cluster": "architecture-refactor",
-      "updated_at": "2026-03-14T20:20:16+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "review::.::holistic::high_level_elegance::provider_feature_scattered_by_layer": {
       "issue_id": "review::.::holistic::high_level_elegance::provider_feature_scattered_by_layer",
       "created_at": "2026-03-14T20:20:16+00:00",
-      "cluster": "architecture-refactor",
-      "updated_at": "2026-03-14T20:20:16+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     },
     "review::.::holistic::package_organization::service_package_catch_all": {
       "issue_id": "review::.::holistic::package_organization::service_package_catch_all",
       "created_at": "2026-03-14T20:20:16+00:00",
-      "cluster": "architecture-refactor",
-      "updated_at": "2026-03-14T20:20:16+00:00"
+      "cluster": null,
+      "updated_at": "2026-03-15T02:25:32+00:00"
     }
   },
   "clusters": {
@@ -482,7 +477,6 @@
       "name": "auto/test_coverage",
       "description": "Fix 2 test coverage issues",
       "issue_ids": [
-        "test_coverage::backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java::over_mocked::SecurityConfigTest.java",
         "test_coverage::backend/src/main/java/com/demo/sso/config/SecurityConfig.java::over_mocked::SecurityConfigTest.java"
       ],
       "created_at": "2026-03-14T18:25:42+00:00",
@@ -538,6 +532,7 @@
       "name": "false-positives",
       "description": "Findings already fixed in codebase - resolve immediately",
       "issue_ids": [
+        "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
         "review::.::holistic::logic_clarity::provider_config_google_null_check_is_redundant",
         "review::.::holistic::api_surface_coherence::auth_controller_wildcard_responses",
         "review::.::holistic::convention_outlier::auth_controller_ad_hoc_payloads",
@@ -546,8 +541,7 @@
         "review::.::holistic::error_consistency::frontend_status_only_api_errors",
         "review::.::holistic::error_consistency::silent_auth_code_exchange_failure",
         "review::.::holistic::convention_outlier::provider_config_anonymous_contract",
-        "review::.::holistic::error_consistency::client_side_provider_errors_diverge",
-        "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard"
+        "review::.::holistic::error_consistency::client_side_provider_errors_diverge"
       ],
       "created_at": "2026-03-14T20:18:36+00:00",
       "updated_at": "2026-03-14T20:22:51+00:00",
@@ -936,15 +930,644 @@
       "superseded_at": "2026-03-14T19:23:06+00:00",
       "remapped_to": null,
       "candidates": []
+    },
+    "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union": {
+      "original_id": "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "AuthenticatedUserIdentity mixes legacy and v2 identities in one nullable record",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::ai_generated_debt::auth_failure_raw_logging": {
+      "original_id": "review::.::holistic::ai_generated_debt::auth_failure_raw_logging",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Expected auth failures still dump raw errors and code fragments to logs",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard": {
+      "original_id": "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "ProviderConfigController null-checks googleClientId after normalizing it non-null",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::api_surface_coherence::auth_controller_wildcard_responses": {
+      "original_id": "review::.::holistic::api_surface_coherence::auth_controller_wildcard_responses",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "`AuthController` hides endpoint contracts behind wildcard response types",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads": {
+      "original_id": "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "`JwtTokenService.generateToken` overloads hide which token schema a caller receives",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels": {
+      "original_id": "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Provider verification APIs expose three different contract layers for the same job",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::authorization_consistency::google_disable_policy_not_enforced_on_public_auth_routes": {
+      "original_id": "review::.::holistic::authorization_consistency::google_disable_policy_not_enforced_on_public_auth_routes",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Google disabled-state enforcement is weaker than Microsoft's on sibling public auth routes",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::contract_coherence::authflow_factory_silently_discards_invalid_login_method": {
+      "original_id": "review::.::holistic::contract_coherence::authflow_factory_silently_discards_invalid_login_method",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Login-flow parsing silently turns invalid caller input into missing flow metadata",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::contract_coherence::microsoft_challenge_reissue_does_not_replace_prior_challenge": {
+      "original_id": "review::.::holistic::contract_coherence::microsoft_challenge_reissue_does_not_replace_prior_challenge",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Microsoft challenge issuance promises replacement, but older challenges remain valid",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::contract_coherence::oauth2_success_handler_uses_null_as_hidden_failure_contract": {
+      "original_id": "review::.::holistic::contract_coherence::oauth2_success_handler_uses_null_as_hidden_failure_contract",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "OAuth2 success normalization advertises an identity return but uses null as failure signaling",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::convention_outlier::auth_controller_ad_hoc_payloads": {
+      "original_id": "review::.::holistic::convention_outlier::auth_controller_ad_hoc_payloads",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "AuthController mixes anonymous map payloads with typed DTO-style endpoints",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::convention_outlier::provider_config_anonymous_contract": {
+      "original_id": "review::.::holistic::convention_outlier::provider_config_anonymous_contract",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "ProviderConfigController publishes a stringly typed nested map contract",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::cross_module_architecture::auth_edge_orchestration_hub": {
+      "original_id": "review::.::holistic::cross_module_architecture::auth_edge_orchestration_hub",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Authentication completion is duplicated across web entrypoints instead of living behind one application-service boundary.",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::cross_module_architecture::provider_config_contract_drift": {
+      "original_id": "review::.::holistic::cross_module_architecture::provider_config_contract_drift",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "The documented runtime provider-config boundary has drifted into a backend/frontend-specific loose shape.",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow": {
+      "original_id": "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Google verification ties the auth flow to the broad google-api-client library",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::error_consistency::client_side_provider_errors_diverge": {
+      "original_id": "review::.::holistic::error_consistency::client_side_provider_errors_diverge",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Google and Microsoft client-side login cards expose failures with different strategies.",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::error_consistency::frontend_status_only_api_errors": {
+      "original_id": "review::.::holistic::error_consistency::frontend_status_only_api_errors",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "The shared frontend API client discards backend error messages and throws status-only errors.",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel": {
+      "original_id": "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Invalid legacy login-method values are silently converted to null instead of treated as errors.",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::error_consistency::silent_auth_code_exchange_failure": {
+      "original_id": "review::.::holistic::error_consistency::silent_auth_code_exchange_failure",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "The homepage silently swallows auth-code exchange failures at the login boundary.",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::high_level_elegance::provider_feature_scattered_by_layer": {
+      "original_id": "review::.::holistic::high_level_elegance::provider_feature_scattered_by_layer",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Provider ownership is scattered across framework layers instead of a clear feature slice",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::high_level_elegance::stale_repo_contract_docs": {
+      "original_id": "review::.::holistic::high_level_elegance::stale_repo_contract_docs",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Top-level docs no longer describe the application that actually runs",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives": {
+      "original_id": "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "A Google-shaped `findOrCreateUser` overload remains after production callers moved to `NormalizedIdentity`.",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers": {
+      "original_id": "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "The legacy `google_id` compatibility column is still populated for non-Google identities.",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap": {
+      "original_id": "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Old `loginMethod` and new `lastLoginFlow` contracts still coexist for the same concept.",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::logic_clarity::microsoft_nonce_check_can_be_silently_skipped": {
+      "original_id": "review::.::holistic::logic_clarity::microsoft_nonce_check_can_be_silently_skipped",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "`validateNonce` becomes a no-op when `expectedNonce` is null",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::logic_clarity::provider_config_google_null_check_is_redundant": {
+      "original_id": "review::.::holistic::logic_clarity::provider_config_google_null_check_is_redundant",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "`ProviderConfigController` keeps a dead null branch after normalizing `googleClientId`",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation": {
+      "original_id": "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Microsoft issuer and tenant checks are duplicated across verifier and normalizer",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::low_level_elegance::implicit_redirect_null_contract": {
+      "original_id": "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "OAuth2 identity normalization hides redirect side effects behind a null sentinel",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split": {
+      "original_id": "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Microsoft flow availability is recomputed separately at multiple boundaries",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri": {
+      "original_id": "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Microsoft client-side auth config stops short of the actual redirect target",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped": {
+      "original_id": "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Backend redirect errors for server-side auth are never consumed by the homepage",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity": {
+      "original_id": "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Google-specific names still label provider-neutral identity data across core auth APIs",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::naming_quality::login_method_label_actually_stores_flow": {
+      "original_id": "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "`loginMethod` is named like an auth method but stores client/server flow values",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level": {
+      "original_id": "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "`isConfigured()` obscures whether Microsoft auth is client-side or server-side ready",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::package_organization::service_package_catch_all": {
+      "original_id": "review::.::holistic::package_organization::service_package_catch_all",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "The flat `service/` package has become a catch-all for multiple auth concerns",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::test_strategy::security_config_test_asserts_mock_choreography": {
+      "original_id": "review::.::holistic::test_strategy::security_config_test_asserts_mock_choreography",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "SecurityConfig tests are tightly coupled to Spring builder internals instead of security behavior",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::type_safety::auth_flow_legacy_string_contract": {
+      "original_id": "review::.::holistic::type_safety::auth_flow_legacy_string_contract",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Auth flow parsing still uses raw strings and `null` even though `AuthFlow` is the codebase enum",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::type_safety::challenge_store_hidden_nullable_return": {
+      "original_id": "review::.::holistic::type_safety::challenge_store_hidden_nullable_return",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "`MicrosoftChallengeStore.consumeNonce` hides a nullable result behind a plain `String` return type",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "review::.::holistic::type_safety::microsoft_claims_use_untyped_map_coercion": {
+      "original_id": "review::.::holistic::type_safety::microsoft_claims_use_untyped_map_coercion",
+      "original_detector": "review",
+      "original_file": ".",
+      "original_summary": "Microsoft claim validation relies on `Map<String,Object>` and string coercion instead of typed claims",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": [
+        "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
+        "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
+        "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+        "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary"
+      ]
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java::over_mocked::SecurityConfigTest.java": {
+      "original_id": "test_coverage::backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java::over_mocked::SecurityConfigTest.java",
+      "original_detector": "test_coverage",
+      "original_file": "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java",
+      "original_summary": "Over-mocked tests: SecurityConfigTest.java has 25 mocks vs 22 assertions",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T02:25:32+00:00",
+      "remapped_to": null,
+      "candidates": []
     }
   },
   "promoted_ids": [],
-  "plan_start_scores": {
-    "strict": 84.2,
-    "overall": 84.2,
-    "objective": 87.7,
-    "verified": 87.7
-  },
+  "plan_start_scores": {},
   "refresh_state": {
     "lifecycle_phase": "review_initial",
     "subjective_review_completed_at_scan_count": 2,
@@ -3449,6 +4072,286 @@
       "actor": "user",
       "note": "service.model now hosts both NormalizedIdentity and AuthenticatedUserIdentity as the shared identity boundary",
       "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:15:40+00:00",
+      "action": "commit_record",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::deprecated_isTokenValid_in_tests",
+        "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+        "review::.::holistic::incomplete_migration::dual_authcode_key_prefix_routing"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Resolved review findings: deprecated tests, migration docs, design coherence",
+      "detail": {
+        "sha": "6b4261108373",
+        "branch": "desloppify/code-health"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:23:16+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::apifetch_undefined_cast"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Changed apiFetch return type from Promise<T> to Promise<T | undefined> and added null checks in all callers",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:23:21+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::type_safety::apifetch_undefined_as_t"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Removed unsafe 'undefined as T' cast, return type now properly reflects undefined possibility",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:23:26+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::findorcreate_hidden_mutation"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Renamed findOrCreateUser to syncUser across service, tests and callers to make mutation explicit",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:23:31+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::generatetoken_undocumented_throw"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Added complete Javadoc to generateToken including @throws for V2 mode preconditions",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:23:36+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::contract_coherence::exception_handler_leaks_messages"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Replaced raw exception message with generic 'Invalid request' in GlobalExceptionHandler",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:23:41+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::type_safety::google_payload_unchecked_cast"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Added instanceof type checks before casting Google payload name and picture values",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:23:46+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::raw_json_bypass_auth_entry_point"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Injected ObjectMapper and used ErrorResponse DTO for auth entry point JSON serialization",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:23:51+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::inconsistent_response_field_names"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Renamed ErrorResponse field to message with @JsonProperty for consistent accessor naming",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:23:55+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::error_consistency::provider_config_broad_catch"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Changed catch(Exception) to catch(RuntimeException) in ProviderConfigController endpoint methods",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:24:00+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::error_consistency::validate_and_extract_context_loss"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Added exception class name context to JWT validation failure log message in validateAndExtract",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:24:05+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::error_consistency::use_provider_config_silent_swallow"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Added error state tracking and console.warn logging to useProviderConfig hook error handler",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:25:32+00:00",
+      "action": "cluster_done",
+      "issue_ids": [],
+      "cluster_name": "false-positives",
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "reason": "cluster members no longer actionable in state"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:25:32+00:00",
+      "action": "cluster_done",
+      "issue_ids": [],
+      "cluster_name": "contract-guards",
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "reason": "cluster members no longer actionable in state"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:25:32+00:00",
+      "action": "cluster_done",
+      "issue_ids": [],
+      "cluster_name": "legacy-migration",
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "reason": "cluster members no longer actionable in state"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:25:32+00:00",
+      "action": "cluster_done",
+      "issue_ids": [],
+      "cluster_name": "abstraction-alignment",
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "reason": "cluster members no longer actionable in state"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:25:32+00:00",
+      "action": "cluster_done",
+      "issue_ids": [],
+      "cluster_name": "naming-fixes",
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "reason": "cluster members no longer actionable in state"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:25:32+00:00",
+      "action": "cluster_done",
+      "issue_ids": [],
+      "cluster_name": "elegance-fixes",
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "reason": "cluster members no longer actionable in state"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:25:32+00:00",
+      "action": "cluster_done",
+      "issue_ids": [],
+      "cluster_name": "misc-fixes",
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "reason": "cluster members no longer actionable in state"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:25:32+00:00",
+      "action": "cluster_done",
+      "issue_ids": [],
+      "cluster_name": "architecture-refactor",
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "reason": "cluster members no longer actionable in state"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:25:32+00:00",
+      "action": "reconcile",
+      "issue_ids": [
+        "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
+        "review::.::holistic::ai_generated_debt::auth_failure_raw_logging",
+        "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
+        "review::.::holistic::api_surface_coherence::auth_controller_wildcard_responses",
+        "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads",
+        "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
+        "review::.::holistic::authorization_consistency::google_disable_policy_not_enforced_on_public_auth_routes",
+        "review::.::holistic::contract_coherence::authflow_factory_silently_discards_invalid_login_method",
+        "review::.::holistic::contract_coherence::microsoft_challenge_reissue_does_not_replace_prior_challenge",
+        "review::.::holistic::contract_coherence::oauth2_success_handler_uses_null_as_hidden_failure_contract",
+        "review::.::holistic::convention_outlier::auth_controller_ad_hoc_payloads",
+        "review::.::holistic::convention_outlier::provider_config_anonymous_contract",
+        "review::.::holistic::cross_module_architecture::auth_edge_orchestration_hub",
+        "review::.::holistic::cross_module_architecture::provider_config_contract_drift",
+        "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
+        "review::.::holistic::error_consistency::client_side_provider_errors_diverge",
+        "review::.::holistic::error_consistency::frontend_status_only_api_errors",
+        "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel",
+        "review::.::holistic::error_consistency::silent_auth_code_exchange_failure",
+        "review::.::holistic::high_level_elegance::provider_feature_scattered_by_layer",
+        "review::.::holistic::high_level_elegance::stale_repo_contract_docs",
+        "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives",
+        "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers",
+        "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap",
+        "review::.::holistic::logic_clarity::microsoft_nonce_check_can_be_silently_skipped",
+        "review::.::holistic::logic_clarity::provider_config_google_null_check_is_redundant",
+        "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
+        "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
+        "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
+        "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri",
+        "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped",
+        "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
+        "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
+        "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level",
+        "review::.::holistic::package_organization::service_package_catch_all",
+        "review::.::holistic::test_strategy::security_config_test_asserts_mock_choreography",
+        "review::.::holistic::type_safety::auth_flow_legacy_string_contract",
+        "review::.::holistic::type_safety::challenge_store_hidden_nullable_return",
+        "review::.::holistic::type_safety::microsoft_claims_use_untyped_map_coercion",
+        "test_coverage::backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java::over_mocked::SecurityConfigTest.java"
+      ],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "superseded_count": 40,
+        "pruned_count": 0,
+        "resurfaced_count": 0,
+        "clusters_completed_count": 8
+      }
     }
   ],
   "epic_triage_meta": {
@@ -4130,13 +5033,20 @@
       "recorded_at": "2026-03-14T21:00:57+00:00",
       "note": "Naming fixes: legacyGoogleId rename, isConfigured deprecation",
       "cluster_name": null
+    },
+    {
+      "sha": "6b4261108373",
+      "branch": "desloppify/code-health",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::deprecated_isTokenValid_in_tests",
+        "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+        "review::.::holistic::incomplete_migration::dual_authcode_key_prefix_routing"
+      ],
+      "recorded_at": "2026-03-15T02:15:40+00:00",
+      "note": "Resolved review findings: deprecated tests, migration docs, design coherence",
+      "cluster_name": null
     }
   ],
-  "uncommitted_issues": [
-    "review::.::holistic::incomplete_migration::deprecated_isTokenValid_in_tests",
-    "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
-    "review::.::holistic::incomplete_migration::dual_authcode_key_prefix_routing"
-  ],
-  "commit_tracking_branch": null,
-  "scan_count_at_plan_start": 4
+  "uncommitted_issues": [],
+  "commit_tracking_branch": null
 }

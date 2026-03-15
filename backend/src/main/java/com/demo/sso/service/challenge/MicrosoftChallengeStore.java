@@ -11,25 +11,12 @@ import java.util.Optional;
  */
 public interface MicrosoftChallengeStore {
 
-    /**
-     * Issues a new nonce-based challenge for the given session.
-     *
-     * <p>Replaces any existing challenge for the session. The caller is responsible
-     * for persisting the returned {@code challengeId} and presenting it back during
-     * verification.
-     *
-     * @return a new {@link MicrosoftChallenge} containing the challenge ID and nonce to embed in the MSAL request
-     */
+    /** Replaces any existing challenge for the session. */
     MicrosoftChallenge issueChallenge(String sessionId);
 
     /**
-     * Consumes and returns the nonce associated with a challenge, then invalidates it (single-use).
-     *
-     * <p>Returns {@link Optional#empty()} if the session does not exist, has expired, or the
-     * {@code challengeId} does not match the expected active challenge. The caller must treat
-     * an empty result as an invalid or replayed challenge.
-     *
-     * @return the nonce to verify against the Microsoft ID token, or {@link Optional#empty()} if invalid/expired
+     * Consumes the nonce (single-use). Returns empty if session is expired
+     * or challengeId doesn't match.
      */
     Optional<String> consumeNonce(String sessionId, String challengeId);
 

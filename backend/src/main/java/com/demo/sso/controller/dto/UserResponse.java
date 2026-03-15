@@ -4,8 +4,7 @@ import com.demo.sso.model.User;
 
 /**
  * Typed response record for the /user/me endpoint.
- * Provides compile-time safety for field names and types,
- * and centralizes null-coalescing for optional User fields.
+ * Centralizes null-coalescing for optional User fields.
  */
 public record UserResponse(
         Long id,
@@ -18,14 +17,14 @@ public record UserResponse(
         String createdAt,
         String lastLoginAt
 ) {
-    /** Factory method that maps a {@link User} entity to a {@code UserResponse}. */
+    /** Maps a {@link User} entity to a {@code UserResponse}. */
     public static UserResponse from(User user) {
         return new UserResponse(
                 user.getId(),
                 user.getEmail(),
                 user.getName() != null ? user.getName() : "",
                 user.getPictureUrl() != null ? user.getPictureUrl() : "",
-                user.getProvider().name(),
+                user.getProvider() != null ? user.getProvider().name() : "",
                 user.getProviderUserId() != null ? user.getProviderUserId() : "",
                 user.getLastLoginFlow() != null ? user.getLastLoginFlow().name() : null,
                 user.getCreatedAt() != null ? user.getCreatedAt().toString() : "",

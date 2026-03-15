@@ -72,11 +72,14 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
 
   if (!response.ok) {
     const body = await readErrorBody(response);
-    const message = isRecord(body) && typeof body.error === 'string'
-      ? body.error
-      : typeof body === 'string' && body.trim()
-        ? body
-        : `API error: ${response.status}`;
+    let message: string;
+    if (isRecord(body) && typeof body.error === 'string') {
+      message = body.error;
+    } else if (typeof body === 'string' && body.trim()) {
+      message = body;
+    } else {
+      message = `API error: ${response.status}`;
+    }
     throw new ApiError(message, response.status, body);
   }
 

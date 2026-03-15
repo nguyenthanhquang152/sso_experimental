@@ -6,18 +6,10 @@ package com.demo.sso.service.challenge;
  */
 public interface AuthCodeStore {
 
-    /**
-     * Generates a cryptographically random, single-use authorization code
-     * bound to the given JWT, valid for a short TTL.
-     *
-     * @return a single-use code that can be exchanged via {@link #exchangeCode(String)}
-     */
+    /** @throws IllegalArgumentException if jwt is null or blank */
     String storeJwt(String jwt);
 
     /**
-     * Exchanges a code for the stored JWT.
-     * The code is consumed and cannot be reused (single-use guarantee).
-     *
      * @throws IllegalArgumentException if the code is invalid, expired, or already consumed
      */
     String exchangeCode(String code);

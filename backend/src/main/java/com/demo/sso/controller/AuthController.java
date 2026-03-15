@@ -78,7 +78,7 @@ public class AuthController {
                 .body(new ErrorResponse("Google client-side login is disabled"));
         }
 
-        String credential = request == null ? null : request.credential();
+        String credential = request.credential();
         if (credential == null || credential.isBlank()) {
             return badRequest("Missing credential");
         }
@@ -128,7 +128,7 @@ public class AuthController {
             return microsoftClientSideDisabledResponse();
         }
 
-        if (isInvalidMicrosoftVerifyRequest(request)) {
+        if (!isMicrosoftVerifyRequestValid(request)) {
             return badRequest("Missing credential or challengeId");
         }
 
@@ -158,7 +158,7 @@ public class AuthController {
     /** Exchanges a single-use auth code (from server-side OAuth2 redirect) for a JWT. */
     @PostMapping("/exchange")
     public ResponseEntity<AuthApiResponse> exchangeCode(@RequestBody AuthCodeExchangeRequest request) {
-        String code = request == null ? null : request.code();
+        String code = request.code();
         if (code == null || code.isBlank()) {
             return badRequest("Missing code");
         }
@@ -177,10 +177,9 @@ public class AuthController {
         return ResponseEntity.ok(new LogoutResponse("Logged out successfully"));
     }
 
-    private static boolean isInvalidMicrosoftVerifyRequest(MicrosoftVerifyRequest request) {
-        return request == null
-                || request.credential() == null || request.credential().isBlank()
-                || request.challengeId() == null || request.challengeId().isBlank();
+    private static boolean isMicrosoftVerifyRequestValid(MicrosoftVerifyRequest request) {
+        return request.credential() != null && !request.credential().isBlank()
+                && request.challengeId() != null && !request.challengeId().isBlank();
     }
 
     private Optional<String> currentChallengeSessionId(HttpServletRequest request) {

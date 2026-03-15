@@ -1,19 +1,19 @@
 {
   "version": 3,
   "created": "2026-03-14T18:25:37+00:00",
-  "last_scan": "2026-03-15T02:05:07+00:00",
-  "scan_count": 5,
-  "overall_score": 84.2,
-  "objective_score": 87.7,
-  "strict_score": 84.2,
-  "verified_strict_score": 87.7,
+  "last_scan": "2026-03-15T02:25:32+00:00",
+  "scan_count": 6,
+  "overall_score": 84.4,
+  "objective_score": 88.4,
+  "strict_score": 83.6,
+  "verified_strict_score": 88.4,
   "stats": {
-    "total": 146,
-    "auto_resolved": 0,
+    "total": 165,
+    "auto_resolved": 13,
     "deferred": 3,
     "false_positive": 0,
     "fixed": 53,
-    "open": 90,
+    "open": 96,
     "triaged_out": 0,
     "wontfix": 0,
     "by_tier": {
@@ -36,11 +36,11 @@
         "wontfix": 0
       },
       "3": {
-        "auto_resolved": 0,
+        "auto_resolved": 13,
         "deferred": 0,
         "false_positive": 0,
         "fixed": 11,
-        "open": 35,
+        "open": 41,
         "triaged_out": 0,
         "wontfix": 0
       },
@@ -83,7 +83,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified_at": "2026-03-15T02:25:32+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -114,7 +114,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified_at": "2026-03-15T02:25:32+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -145,7 +145,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified_at": "2026-03-15T02:25:32+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -176,7 +176,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified_at": "2026-03-15T02:25:32+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -207,7 +207,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified_at": "2026-03-15T02:25:32+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -238,7 +238,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified_at": "2026-03-15T02:25:32+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -269,7 +269,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified_at": "2026-03-15T02:25:32+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -300,7 +300,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified_at": "2026-03-15T02:25:32+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -331,7 +331,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified_at": "2026-03-15T02:25:32+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -362,7 +362,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified_at": "2026-03-15T02:25:32+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -393,7 +393,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified_at": "2026-03-15T02:25:32+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -408,7 +408,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -431,7 +431,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -449,14 +449,14 @@
       "file": "backend/src/main/java/com/demo/sso/controller/AuthController.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (232 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (228 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 232
+        "loc": 228
       },
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -478,11 +478,11 @@
       "detail": {
         "loc": 172
       },
-      "status": "open",
-      "note": null,
+      "status": "auto_resolved",
+      "note": "Auto-resolved: source file no longer exists",
       "first_seen": "2026-03-14T18:25:38+00:00",
       "last_seen": "2026-03-14T20:06:08+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:25:32+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
@@ -503,11 +503,11 @@
       "detail": {
         "loc": 111
       },
-      "status": "open",
-      "note": null,
+      "status": "auto_resolved",
+      "note": "Auto-resolved: source file no longer exists",
       "first_seen": "2026-03-14T18:25:38+00:00",
       "last_seen": "2026-03-14T20:06:08+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:25:32+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
@@ -528,11 +528,11 @@
       "detail": {
         "loc": 103
       },
-      "status": "open",
-      "note": null,
+      "status": "auto_resolved",
+      "note": "Auto-resolved: source file no longer exists",
       "first_seen": "2026-03-14T18:25:38+00:00",
       "last_seen": "2026-03-14T20:06:08+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:25:32+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
@@ -553,11 +553,11 @@
       "detail": {
         "loc": 101
       },
-      "status": "open",
-      "note": null,
+      "status": "auto_resolved",
+      "note": "Auto-resolved: source file no longer exists",
       "first_seen": "2026-03-14T18:25:38+00:00",
       "last_seen": "2026-03-14T20:06:08+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:25:32+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
@@ -574,14 +574,14 @@
       "file": "backend/src/main/java/com/demo/sso/model/User.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (98 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (118 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 98
+        "loc": 118
       },
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -603,11 +603,11 @@
       "detail": {
         "loc": 98
       },
-      "status": "open",
-      "note": null,
+      "status": "auto_resolved",
+      "note": "Auto-resolved: source file no longer exists",
       "first_seen": "2026-03-14T18:25:38+00:00",
       "last_seen": "2026-03-14T20:06:08+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:25:32+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
@@ -628,11 +628,11 @@
       "detail": {
         "loc": 76
       },
-      "status": "open",
-      "note": null,
+      "status": "auto_resolved",
+      "note": "Auto-resolved: source file no longer exists",
       "first_seen": "2026-03-14T18:25:38+00:00",
       "last_seen": "2026-03-14T20:06:08+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:25:32+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
@@ -649,14 +649,14 @@
       "file": "backend/src/main/java/com/demo/sso/config/AuthRolloutProperties.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (73 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (99 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 73
+        "loc": 99
       },
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -674,14 +674,14 @@
       "file": "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (60 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (109 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 60
+        "loc": 109
       },
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -699,14 +699,14 @@
       "file": "backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (63 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (59 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 63
+        "loc": 59
       },
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -724,14 +724,14 @@
       "file": "backend/src/main/java/com/demo/sso/config/SecurityConfig.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (62 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (72 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 62
+        "loc": 72
       },
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -749,14 +749,14 @@
       "file": "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (51 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (62 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 51
+        "loc": 62
       },
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -781,7 +781,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -799,14 +799,14 @@
       "file": "backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (49 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (65 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 49
+        "loc": 65
       },
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -828,11 +828,11 @@
       "detail": {
         "loc": 69
       },
-      "status": "open",
-      "note": null,
+      "status": "auto_resolved",
+      "note": "Auto-resolved: source file no longer exists",
       "first_seen": "2026-03-14T18:25:38+00:00",
       "last_seen": "2026-03-14T20:06:08+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:25:32+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
@@ -853,11 +853,11 @@
       "detail": {
         "loc": 41
       },
-      "status": "open",
-      "note": null,
+      "status": "auto_resolved",
+      "note": "Auto-resolved: source file no longer exists",
       "first_seen": "2026-03-14T18:25:38+00:00",
       "last_seen": "2026-03-14T20:06:08+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:25:32+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
@@ -874,14 +874,14 @@
       "file": "backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (37 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (35 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 37
+        "loc": 35
       },
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -903,11 +903,11 @@
       "detail": {
         "loc": 34
       },
-      "status": "open",
-      "note": null,
+      "status": "auto_resolved",
+      "note": "Auto-resolved: source file no longer exists",
       "first_seen": "2026-03-14T18:25:38+00:00",
       "last_seen": "2026-03-14T20:06:08+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:25:32+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
@@ -928,11 +928,11 @@
       "detail": {
         "loc": 34
       },
-      "status": "open",
-      "note": null,
+      "status": "auto_resolved",
+      "note": "Auto-resolved: source file no longer exists",
       "first_seen": "2026-03-14T18:25:38+00:00",
       "last_seen": "2026-03-14T20:06:08+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:25:32+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
@@ -949,14 +949,14 @@
       "file": "backend/src/main/java/com/demo/sso/controller/UserController.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (32 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (54 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 32
+        "loc": 54
       },
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -978,11 +978,11 @@
       "detail": {
         "loc": 31
       },
-      "status": "open",
-      "note": null,
+      "status": "auto_resolved",
+      "note": "Auto-resolved: source file no longer exists",
       "first_seen": "2026-03-14T18:25:38+00:00",
       "last_seen": "2026-03-14T20:06:08+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:25:32+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
@@ -1003,11 +1003,11 @@
       "detail": {
         "loc": 23
       },
-      "status": "open",
-      "note": null,
+      "status": "auto_resolved",
+      "note": "Auto-resolved: source file no longer exists",
       "first_seen": "2026-03-14T18:25:38+00:00",
       "last_seen": "2026-03-14T20:06:08+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:25:32+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
@@ -1024,14 +1024,14 @@
       "file": "backend/src/main/java/com/demo/sso/model/AuthFlow.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (18 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (25 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 18
+        "loc": 25
       },
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1056,7 +1056,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1081,7 +1081,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1107,11 +1107,11 @@
         "assertions": 22,
         "loc_weight": 10.14889156509222
       },
-      "status": "open",
-      "note": null,
+      "status": "auto_resolved",
+      "note": "Auto-resolved: source file no longer exists",
       "first_seen": "2026-03-14T18:25:38+00:00",
       "last_seen": "2026-03-14T20:06:08+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:25:32+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
@@ -1165,7 +1165,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1190,7 +1190,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1215,7 +1215,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1240,7 +1240,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1265,7 +1265,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1290,7 +1290,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1315,7 +1315,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1340,7 +1340,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1365,7 +1365,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1390,7 +1390,7 @@
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -3261,14 +3261,14 @@
       "file": "backend/src/main/java/com/demo/sso/controller/dto/ProviderConfigResponse.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (24 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (44 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 24
+        "loc": 44
       },
       "status": "open",
       "note": null,
       "first_seen": "2026-03-14T19:22:59+00:00",
-      "last_seen": "2026-03-14T20:06:08+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -5154,6 +5154,510 @@
       "suppressed": false,
       "suppressed_at": null,
       "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (214 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 214
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/user/UserService.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/user/UserService.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/user/UserService.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (123 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 123
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (107 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 107
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (106 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 106
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (90 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 90
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (87 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 87
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (76 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 76
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (72 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 72
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (69 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 69
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (67 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 67
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/auth/AuthCompletionService.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/auth/AuthCompletionService.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/auth/AuthCompletionService.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (65 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 65
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/challenge/MicrosoftChallengeStore.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/challenge/MicrosoftChallengeStore.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/challenge/MicrosoftChallengeStore.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (38 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 38
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/controller/GlobalExceptionHandler.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/controller/GlobalExceptionHandler.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/controller/GlobalExceptionHandler.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (32 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 32
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/model/NormalizedIdentity.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/model/NormalizedIdentity.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/model/NormalizedIdentity.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (31 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 31
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java": {
+      "id": "orphaned::backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java",
+      "detector": "orphaned",
+      "file": "backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Orphaned file (24 LOC): zero importers, not an entry point",
+      "detail": {
+        "loc": 24
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java::over_mocked::MicrosoftAuthorizationGateFilterTest.java": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java::over_mocked::MicrosoftAuthorizationGateFilterTest.java",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
+      "tier": 3,
+      "confidence": "low",
+      "summary": "Over-mocked tests: MicrosoftAuthorizationGateFilterTest.java has 47 mocks vs 36 assertions",
+      "detail": {
+        "kind": "over_mocked",
+        "test_file": "backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java",
+        "mocks": 47,
+        "assertions": 36,
+        "loc_weight": 7.874007874011811
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/controller/UserController.java::over_mocked::UserControllerTest.java": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/controller/UserController.java::over_mocked::UserControllerTest.java",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/controller/UserController.java",
+      "tier": 3,
+      "confidence": "low",
+      "summary": "Over-mocked tests: UserControllerTest.java has 17 mocks vs 13 assertions",
+      "detail": {
+        "kind": "over_mocked",
+        "test_file": "backend/src/test/java/com/demo/sso/controller/UserControllerTest.java",
+        "mocks": 17,
+        "assertions": 13,
+        "loc_weight": 7.3484692283495345
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "test_coverage::backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java::over_mocked::OAuth2SuccessHandlerTest.java": {
+      "id": "test_coverage::backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java::over_mocked::OAuth2SuccessHandlerTest.java",
+      "detector": "test_coverage",
+      "file": "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java",
+      "tier": 3,
+      "confidence": "low",
+      "summary": "Over-mocked tests: OAuth2SuccessHandlerTest.java has 36 mocks vs 27 assertions",
+      "detail": {
+        "kind": "over_mocked",
+        "test_file": "backend/src/test/java/com/demo/sso/service/auth/OAuth2SuccessHandlerTest.java",
+        "mocks": 36,
+        "assertions": 27,
+        "loc_weight": 10.344080432788601
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:28+00:00",
+      "last_seen": "2026-03-15T02:25:28+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "boilerplate_duplication::backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java::56f2bd3eb963552a": {
+      "id": "boilerplate_duplication::backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java::56f2bd3eb963552a",
+      "detector": "boilerplate_duplication",
+      "file": "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java",
+      "tier": 3,
+      "confidence": "medium",
+      "summary": "Boilerplate block repeated across 2 files (window 7 lines): backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java:1, backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java:1",
+      "detail": {
+        "distinct_files": 2,
+        "window_size": 7,
+        "locations": [
+          {
+            "file": "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java",
+            "line": 1
+          },
+          {
+            "file": "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java",
+            "line": 1
+          }
+        ],
+        "sample": [
+          "package com.demo.sso.service.auth;",
+          "",
+          "import com.demo.sso.model.AuthFlow;",
+          "import com.demo.sso.service.model.NormalizedIdentity;"
+        ]
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:25:32+00:00",
+      "last_seen": "2026-03-15T02:25:32+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "mechanical_defect",
+      "issue_kind": "mechanical_defect",
+      "origin": "scan",
+      "lang": "java",
+      "zone": "production",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
     }
   },
   "scan_coverage": {
@@ -5194,7 +5698,7 @@
           "reason": "tool_failed_unparsed_output"
         }
       ],
-      "updated_at": "2026-03-14T20:06:08+00:00"
+      "updated_at": "2026-03-15T02:25:32+00:00"
     }
   },
   "score_confidence": {
@@ -5218,8 +5722,8 @@
     "source": "scan"
   },
   "subjective_integrity": {
-    "status": "disabled",
-    "target_score": null,
+    "status": "pass",
+    "target_score": 95.0,
     "matched_count": 0,
     "matched_dimensions": [],
     "reset_dimensions": []
@@ -5244,10 +5748,7 @@
         "Delegation Density": 97.0,
         "Definition Directness": 95.0,
         "Type Discipline": 84.0
-      },
-      "needs_review_refresh": true,
-      "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:55:15+00:00"
+      }
     },
     "ai_generated_debt": {
       "score": 90.8,
@@ -5257,34 +5758,22 @@
     "api_surface_coherence": {
       "score": 81.0,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:51:41+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00"
     },
     "authorization_consistency": {
       "score": 88.0,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:36:17+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00"
     },
     "contract_coherence": {
       "score": 84.6,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:35:50+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00"
     },
     "convention_outlier": {
       "score": 84.0,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:31:02+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00"
     },
     "cross_module_architecture": {
       "score": 83.0,
@@ -5294,10 +5783,7 @@
     "dependency_health": {
       "score": 91.0,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:52:08+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00"
     },
     "design_coherence": {
       "score": 91.4,
@@ -5307,10 +5793,7 @@
     "error_consistency": {
       "score": 77.4,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:47:53+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00"
     },
     "high_level_elegance": {
       "score": 74.0,
@@ -5320,26 +5803,17 @@
     "incomplete_migration": {
       "score": 82.0,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-15T02:06:30+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00"
     },
     "initialization_coupling": {
       "score": 88.6,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "review_issue_deferred",
-      "stale_since": "2026-03-14T20:21:19+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00"
     },
     "logic_clarity": {
       "score": 91.0,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:36:47+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00"
     },
     "low_level_elegance": {
       "score": 89.0,
@@ -5354,10 +5828,7 @@
     "naming_quality": {
       "score": 87.0,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T21:00:44+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00"
     },
     "package_organization": {
       "score": 83.0,
@@ -5367,18 +5838,12 @@
     "test_strategy": {
       "score": 83.0,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "review_issue_deferred",
-      "stale_since": "2026-03-14T20:21:31+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00"
     },
     "type_safety": {
       "score": 78.4,
       "source": "holistic",
-      "assessed_at": "2026-03-14T19:10:42+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:47:07+00:00"
+      "assessed_at": "2026-03-14T19:10:42+00:00"
     }
   },
   "scan_history": [
@@ -6026,6 +6491,135 @@
           "strict": 78.4
         }
       }
+    },
+    {
+      "timestamp": "2026-03-15T02:25:32+00:00",
+      "lang": "java",
+      "strict_score": 83.6,
+      "verified_strict_score": 88.4,
+      "objective_score": 88.4,
+      "overall_score": 84.4,
+      "open": 96,
+      "diff_new": 19,
+      "diff_resolved": 24,
+      "ignored": 0,
+      "raw_issues": 46,
+      "suppressed_pct": 0.0,
+      "ignore_patterns": 0,
+      "subjective_integrity": {
+        "status": "pass",
+        "matched_count": 0,
+        "reset_count": 0,
+        "target_score": 95.0
+      },
+      "score_confidence": {
+        "status": "reduced",
+        "confidence": 0.0,
+        "detector_count": 1,
+        "dimension_count": 0
+      },
+      "dimension_scores": {
+        "Code quality": {
+          "score": 70.4,
+          "strict": 58.6
+        },
+        "Security": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "File health": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "Duplication": {
+          "score": 99.5,
+          "strict": 99.5
+        },
+        "Test health": {
+          "score": 78.5,
+          "strict": 74.4
+        },
+        "Abstraction fit": {
+          "score": 90.8,
+          "strict": 90.8
+        },
+        "AI generated debt": {
+          "score": 90.8,
+          "strict": 90.8
+        },
+        "API coherence": {
+          "score": 81.0,
+          "strict": 81.0
+        },
+        "Auth consistency": {
+          "score": 88.0,
+          "strict": 88.0
+        },
+        "Contracts": {
+          "score": 84.6,
+          "strict": 84.6
+        },
+        "Convention drift": {
+          "score": 84.0,
+          "strict": 84.0
+        },
+        "Cross-module arch": {
+          "score": 83.0,
+          "strict": 83.0
+        },
+        "Dep health": {
+          "score": 91.0,
+          "strict": 91.0
+        },
+        "Design coherence": {
+          "score": 91.4,
+          "strict": 91.4
+        },
+        "Error consistency": {
+          "score": 77.4,
+          "strict": 77.4
+        },
+        "High elegance": {
+          "score": 74.0,
+          "strict": 74.0
+        },
+        "Stale migration": {
+          "score": 82.0,
+          "strict": 82.0
+        },
+        "Init coupling": {
+          "score": 88.6,
+          "strict": 88.6
+        },
+        "Logic clarity": {
+          "score": 91.0,
+          "strict": 91.0
+        },
+        "Low elegance": {
+          "score": 89.0,
+          "strict": 89.0
+        },
+        "Mid elegance": {
+          "score": 81.0,
+          "strict": 81.0
+        },
+        "Naming quality": {
+          "score": 87.0,
+          "strict": 87.0
+        },
+        "Structure nav": {
+          "score": 83.0,
+          "strict": 83.0
+        },
+        "Test strategy": {
+          "score": 83.0,
+          "strict": 83.0
+        },
+        "Type safety": {
+          "score": 78.4,
+          "strict": 78.4
+        }
+      }
     }
   ],
   "lang_capabilities": {
@@ -6035,54 +6629,53 @@
     }
   },
   "zone_distribution": {
-    "production": 36,
-    "test": 21
+    "production": 39,
+    "test": 26
   },
   "tool_hash": "ff028490caf6",
-  "scan_path": null,
+  "scan_path": ".",
   "scan_completeness": {
     "java": "full"
   },
   "potentials": {
     "java": {
-      "structural": 36,
-      "flat_dirs": 23,
+      "structural": 39,
+      "flat_dirs": 32,
       "signature": 2,
-      "security": 36,
+      "security": 39,
       "single_use": 0,
-      "cycles": 36,
-      "orphaned": 36,
-      "test_coverage": 205,
-      "boilerplate_duplication": 0,
-      "dupes": 106,
-      "stale_wontfix": 0,
-      "review": 10
+      "cycles": 39,
+      "orphaned": 39,
+      "test_coverage": 247,
+      "boilerplate_duplication": 2,
+      "dupes": 130,
+      "stale_wontfix": 0
     }
   },
   "codebase_metrics": {
     "java": {
-      "total_files": 57,
-      "total_loc": 5145,
-      "total_directories": 13
+      "total_files": 65,
+      "total_loc": 6320,
+      "total_directories": 21
     }
   },
   "dimension_scores": {
     "Code quality": {
-      "score": 68.0,
-      "strict": 68.0,
-      "verified_strict_score": 68.0,
-      "checks": 59,
-      "failing": 27,
+      "score": 70.4,
+      "strict": 58.6,
+      "verified_strict_score": 70.4,
+      "checks": 71,
+      "failing": 30,
       "tier": 3,
       "detectors": {
         "orphaned": {
-          "potential": 36,
-          "pass_rate": 0.47500000000000026,
-          "failing": 27,
-          "weighted_failures": 18.89999999999999
+          "potential": 39,
+          "pass_rate": 0.4615384615384618,
+          "failing": 30,
+          "weighted_failures": 20.99999999999999
         },
         "flat_dirs": {
-          "potential": 23,
+          "potential": 32,
           "pass_rate": 1.0,
           "failing": 0,
           "weighted_failures": 0.0
@@ -6093,18 +6686,18 @@
       "score": 100.0,
       "strict": 100.0,
       "verified_strict_score": 100.0,
-      "checks": 72,
+      "checks": 78,
       "failing": 0,
       "tier": 4,
       "detectors": {
         "cycles": {
-          "potential": 36,
+          "potential": 39,
           "pass_rate": 1.0,
           "failing": 0,
           "weighted_failures": 0.0
         },
         "security": {
-          "potential": 36,
+          "potential": 39,
           "pass_rate": 1.0,
           "failing": 0,
           "weighted_failures": 0.0
@@ -6115,12 +6708,12 @@
       "score": 100.0,
       "strict": 100.0,
       "verified_strict_score": 100.0,
-      "checks": 36,
+      "checks": 39,
       "failing": 0,
       "tier": 3,
       "detectors": {
         "structural": {
-          "potential": 36,
+          "potential": 39,
           "pass_rate": 1.0,
           "failing": 0,
           "weighted_failures": 0.0
@@ -6128,34 +6721,40 @@
       }
     },
     "Duplication": {
-      "score": 100.0,
-      "strict": 100.0,
-      "verified_strict_score": 100.0,
-      "checks": 106,
-      "failing": 0,
+      "score": 99.5,
+      "strict": 99.5,
+      "verified_strict_score": 99.5,
+      "checks": 132,
+      "failing": 1,
       "tier": 3,
       "detectors": {
         "dupes": {
-          "potential": 106,
+          "potential": 130,
           "pass_rate": 1.0,
           "failing": 0,
           "weighted_failures": 0.0
+        },
+        "boilerplate_duplication": {
+          "potential": 2,
+          "pass_rate": 0.65,
+          "failing": 1,
+          "weighted_failures": 0.7
         }
       }
     },
     "Test health": {
-      "score": 78.1,
-      "strict": 78.1,
-      "verified_strict_score": 78.1,
-      "checks": 205,
-      "failing": 5,
+      "score": 78.5,
+      "strict": 74.4,
+      "verified_strict_score": 78.5,
+      "checks": 247,
+      "failing": 7,
       "tier": 4,
       "detectors": {
         "test_coverage": {
-          "potential": 205,
-          "pass_rate": 0.78051676863111,
-          "failing": 5,
-          "weighted_failures": 44.99406243062245
+          "potential": 247,
+          "pass_rate": 0.785168991205139,
+          "failing": 7,
+          "weighted_failures": 53.06325917233064
         }
       }
     },
@@ -6597,11 +7196,12 @@
   },
   "reminder_history": {
     "zone_classification": 3,
-    "report_scores": 3,
-    "review_issues_pending": 2,
+    "report_scores": 4,
+    "review_issues_pending": 3,
     "stagnant_nudge": 3,
-    "feedback_nudge": 2,
-    "review_not_run": 2
+    "feedback_nudge": 3,
+    "review_not_run": 3,
+    "wontfix_growing": 1
   },
   "concern_dismissals": {
     "316ea5444438cd00": {

@@ -64,7 +64,6 @@ public class RedisAuthCodeStore implements AuthCodeStore {
         SECURE_RANDOM.nextBytes(bytes);
         String code = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
 
-        // Write prefix depends on JWT mint mode: V2 mints use v2 key prefix, legacy uses legacy prefix
         redisTemplate.opsForValue().set(currentWritePrefix() + code, jwt, CODE_TTL);
         return code;
     }
@@ -98,7 +97,6 @@ public class RedisAuthCodeStore implements AuthCodeStore {
     }
 
     private String currentWritePrefix() {
-        // Write prefix depends on JWT mint mode: V2 mints use v2 key prefix, legacy uses legacy prefix
         return rolloutProperties.getJwtMintMode() == AuthRolloutProperties.JwtMintMode.V2
             ? V2_KEY_PREFIX
             : LEGACY_KEY_PREFIX;

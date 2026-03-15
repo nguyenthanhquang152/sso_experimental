@@ -4,32 +4,13 @@ import com.demo.sso.model.AuthProvider;
 import java.security.Principal;
 
 /**
- * Represents the identity claims extracted from an authenticated JWT.
+ * Identity claims extracted from an authenticated JWT. Uses nullable fields
+ * to model legacy (v1) and V2 identity contracts. Use {@link #isLegacy()}
+ * to determine the variant; construct via factory methods only.
  *
- * <p>This record uses nullable fields to model two mutually exclusive identity
- * contract versions. Exactly one of the following invariants holds:
- * <ul>
- *   <li><b>Legacy (v1)</b>: {@code contractVersion == null}, subject=email,
- *       contains a {@code legacyProviderKey} claim (typically the Google ID).
- *       Fields {@code userId}, {@code provider}, {@code providerUserId} are null.
- *       Created exclusively via {@link #legacy(String, String)}.
- *   <li><b>V2</b>: {@code contractVersion == 2}, subject=userId, contains
- *       provider-neutral identity claims. The {@code legacyProviderKey} field is null.
- *       Created exclusively via {@link #v2(Long, String, AuthProvider, String)}.
- * </ul>
- *
- * <p>Use {@link #isLegacy()} to determine which variant an instance represents.
- * Do not construct directly — always use the factory methods above.
- *
- * <h3>Why nullable fields instead of a sealed interface?</h3>
- * <p>This is a migration artifact. The nullable-variant approach was chosen for
- * backward compatibility during the legacy→V2 rollout. Once
- * {@code IdentityContractMode.V2_ONLY} is deployed and the legacy variant is
- * removed, this record should be refactored to a sealed interface with
- * {@code LegacyIdentity} and {@code V2Identity} subtypes to make the contract
- * version a type-level guarantee.
+ * @see #legacy(String, String)
+ * @see #v2(Long, String, AuthProvider, String)
  */
-// Future: refactor to sealed interface once V2_ONLY is deployed.
 public record AuthenticatedUserIdentity(
         Long userId,
         String email,

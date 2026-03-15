@@ -1,5 +1,6 @@
 package com.demo.sso.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import com.demo.sso.config.MicrosoftAuthorizationGateFilter;
 import jakarta.servlet.ServletException;
@@ -42,7 +43,7 @@ class MicrosoftAuthorizationGateFilterTest {
     @BeforeEach
     void setUp() throws IOException {
         rolloutProperties = new AuthRolloutProperties();
-        filter = new MicrosoftAuthorizationGateFilter(rolloutProperties, frontendUrl);
+        filter = new MicrosoftAuthorizationGateFilter(rolloutProperties, frontendUrl, new ObjectMapper());
         
         request = mock(HttpServletRequest.class);
         response = mock(HttpServletResponse.class);
@@ -231,7 +232,7 @@ class MicrosoftAuthorizationGateFilterTest {
         // Arrange
         String customFrontendUrl = "https://app.example.com";
         MicrosoftAuthorizationGateFilter customFilter = 
-            new MicrosoftAuthorizationGateFilter(rolloutProperties, customFrontendUrl);
+            new MicrosoftAuthorizationGateFilter(rolloutProperties, customFrontendUrl, new ObjectMapper());
         
         rolloutProperties.getMicrosoft().setServerSideEnabled(false);
         when(request.getRequestURI()).thenReturn("/login/oauth2/code/microsoft");

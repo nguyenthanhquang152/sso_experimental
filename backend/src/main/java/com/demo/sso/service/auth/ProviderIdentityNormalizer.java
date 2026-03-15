@@ -37,7 +37,7 @@ public class ProviderIdentityNormalizer {
             throw new IllegalArgumentException("External or guest Microsoft identities are not supported");
         }
 
-        String email = firstNonBlank(claims.email(), claims.preferredUsername(), claims.upn());
+        String email = resolveDisplayName(claims.email(), claims.preferredUsername(), claims.upn());
 
         if (isBlank(email)) {
             throw new IllegalArgumentException("Microsoft identity is missing a usable email-like claim");
@@ -57,7 +57,7 @@ public class ProviderIdentityNormalizer {
         );
     }
 
-    private static String firstNonBlank(String... candidates) {
+    private static String resolveDisplayName(String... candidates) {
         for (String candidate : candidates) {
             if (!isBlank(candidate)) {
                 return candidate;
@@ -74,11 +74,17 @@ public class ProviderIdentityNormalizer {
 
     private static String normalizeEmail(String email) {
         String normalized = email.trim().toLowerCase(Locale.ROOT);
+        if (normalized.isBlank()) {
+            throw new IllegalArgumentException("Email claim is not a usable email-like identifier");
+        }
         int atIndex = normalized.indexOf('@');
-        boolean hasExactlyOneAt = atIndex >= 0 && atIndex == normalized.lastIndexOf('@');
-        boolean hasNoSpaces = !normalized.contains(" ");
-        boolean hasNonEmptyLocalAndDomain = atIndex > 0 && atIndex < normalized.length() - 1;
-        if (normalized.isBlank() || !hasExactlyOneAt || !hasNoSpaces || !hasNonEmptyLocalAndDomain) {
+        if (atIndex < 0 || atIndex != normalized.lastIndexOf('@')) {
+            throw new IllegalArgumentException("Email claim is not a usable email-like identifier");
+        }
+        if (normalized.contains(" ")) {
+            throw new IllegalArgumentException("Email claim is not a usable email-like identifier");
+        }
+        if (atIndex == 0 || atIndex == normalized.length() - 1) {
             throw new IllegalArgumentException("Email claim is not a usable email-like identifier");
         }
         return normalized;

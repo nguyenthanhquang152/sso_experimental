@@ -70,13 +70,13 @@ public class ProviderConfigController {
         boolean clientSideEnabled = configured && rolloutProperties.getGoogle().isClientSideEnabled();
 
         if (configured && !clientSideEnabled) {
-            logger.warn("Google client-side login suppressed by rollout flag");
+            logger.debug("Google client-side login suppressed by rollout flag");
         }
         if (configured && !serverSideEnabled) {
-            logger.warn("Google server-side login suppressed by rollout flag");
+            logger.debug("Google server-side login suppressed by rollout flag");
         }
         if (!configured) {
-            logger.warn("Google provider not configured: client ID is missing");
+            logger.debug("Google provider not configured: client ID is missing");
         }
 
         return new ProviderConfigResponse.GoogleProviderConfig(serverSideEnabled, clientSideEnabled, googleClientId);
@@ -88,15 +88,6 @@ public class ProviderConfigController {
         boolean serverSideEnabled = rolloutProperties.getMicrosoft().isServerSideEnabled() && serverSideConfigured;
         boolean clientSideEnabled = rolloutProperties.getMicrosoft().isClientSideEnabled() && clientSideConfigured;
 
-        ProviderConfigResponse.MicrosoftProviderConfig config = new ProviderConfigResponse.MicrosoftProviderConfig(
-            serverSideEnabled,
-            clientSideEnabled,
-            clientSideEnabled ? microsoftAuthProperties.getClientId() : null,
-            clientSideEnabled ? microsoftAuthProperties.getAuthority() : null,
-            clientSideEnabled ? List.copyOf(microsoftAuthProperties.getScopes()) : List.of(),
-            clientSideEnabled ? frontendUrl : null
-        );
-
         if (!clientSideConfigured && rolloutProperties.getMicrosoft().isClientSideEnabled()) {
             logger.warn("Microsoft client-side config missing despite rollout flag being enabled");
         }
@@ -104,6 +95,13 @@ public class ProviderConfigController {
             logger.warn("Microsoft server-side config missing despite rollout flag being enabled");
         }
 
-        return config;
+        return new ProviderConfigResponse.MicrosoftProviderConfig(
+            serverSideEnabled,
+            clientSideEnabled,
+            clientSideEnabled ? microsoftAuthProperties.getClientId() : null,
+            clientSideEnabled ? microsoftAuthProperties.getAuthority() : null,
+            clientSideEnabled ? List.copyOf(microsoftAuthProperties.getScopes()) : List.of(),
+            clientSideEnabled ? frontendUrl : null
+        );
     }
 }

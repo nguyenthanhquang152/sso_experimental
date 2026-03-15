@@ -109,15 +109,6 @@ class AuthControllerTest {
     }
 
     @Test
-    void exchangeReturnsBadRequestForNullRequest() {
-        ResponseEntity<AuthApiResponse> response = controller.exchangeCode(null);
-
-        assertEquals(400, response.getStatusCode().value());
-        assertInstanceOf(ErrorResponse.class, response.getBody());
-        assertEquals("Missing code", ((ErrorResponse) response.getBody()).message());
-    }
-
-    @Test
     void exchangeReturnsBadRequestForInvalidOrExpiredCode() {
         when(authCodeStore.exchangeCode("expired-code"))
                 .thenThrow(new IllegalArgumentException("expired"));
@@ -162,14 +153,6 @@ class AuthControllerTest {
     void googleVerifyReturnsBadRequestForBlankCredential() {
         ResponseEntity<AuthApiResponse> response = controller.verifyGoogleToken(
                 new GoogleVerifyRequest("  "));
-
-        assertEquals(400, response.getStatusCode().value());
-        assertInstanceOf(ErrorResponse.class, response.getBody());
-    }
-
-    @Test
-    void googleVerifyReturnsBadRequestForNullRequest() {
-        ResponseEntity<AuthApiResponse> response = controller.verifyGoogleToken(null);
 
         assertEquals(400, response.getStatusCode().value());
         assertInstanceOf(ErrorResponse.class, response.getBody());
