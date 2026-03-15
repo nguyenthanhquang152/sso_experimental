@@ -1,6 +1,5 @@
 package com.demo.sso.service.token;
 
-import com.demo.sso.service.token.GoogleTokenVerifier;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
