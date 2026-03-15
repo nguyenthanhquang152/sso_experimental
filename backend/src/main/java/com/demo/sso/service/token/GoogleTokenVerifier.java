@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 /**
  * Verifies Google ID tokens and returns a provider-neutral {@link VerifiedGoogleIdentity}.
@@ -68,5 +69,15 @@ public class GoogleTokenVerifier {
             boolean emailVerified,
             String name,
             String pictureUrl) {
+
+        /** Creates a VerifiedGoogleIdentity from server-side OAuth2 user attributes. */
+        public static VerifiedGoogleIdentity fromOAuth2User(OAuth2User user) {
+            return new VerifiedGoogleIdentity(
+                    user.getAttribute("sub"),
+                    user.getAttribute("email"),
+                    Boolean.TRUE.equals(user.getAttribute("email_verified")),
+                    user.getAttribute("name"),
+                    user.getAttribute("picture"));
+        }
     }
 }

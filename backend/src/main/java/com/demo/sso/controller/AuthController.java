@@ -132,7 +132,7 @@ public class AuthController {
             return badRequest("Missing credential or challengeId");
         }
 
-        String sessionId = currentChallengeSessionId(httpRequest).orElse(null);
+        String sessionId = extractChallengeSessionId(httpRequest).orElse(null);
         if (sessionId == null) {
             return badRequest("Invalid or expired Microsoft challenge");
         }
@@ -182,7 +182,8 @@ public class AuthController {
                 && request.challengeId() != null && !request.challengeId().isBlank();
     }
 
-    private Optional<String> currentChallengeSessionId(HttpServletRequest request) {
+    /** Extracts the challenge session ID from the request cookie. */
+    private Optional<String> extractChallengeSessionId(HttpServletRequest request) {
         if (request.getCookies() == null) {
             return Optional.empty();
         }
@@ -194,7 +195,7 @@ public class AuthController {
     }
 
     private String resolveOrCreateChallengeSession(HttpServletRequest request, HttpServletResponse response) {
-        return currentChallengeSessionId(request).orElseGet(() -> createChallengeSessionCookie(response));
+        return extractChallengeSessionId(request).orElseGet(() -> createChallengeSessionCookie(response));
     }
 
     private String createChallengeSessionCookie(HttpServletResponse response) {

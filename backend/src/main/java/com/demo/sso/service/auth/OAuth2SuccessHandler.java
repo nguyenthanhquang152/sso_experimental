@@ -79,12 +79,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         }
 
         try {
-            VerifiedGoogleIdentity google = new VerifiedGoogleIdentity(
-                oAuth2User.getAttribute("sub"),
-                oAuth2User.getAttribute("email"),
-                true,
-                oAuth2User.getAttribute("name"),
-                oAuth2User.getAttribute("picture"));
+            VerifiedGoogleIdentity google = VerifiedGoogleIdentity.fromOAuth2User(oAuth2User);
             return providerIdentityNormalizer.normalizeGoogleClaims(google, AuthFlow.SERVER_SIDE);
         } catch (IllegalArgumentException e) {
             throw new OAuth2IdentityException("missing_attributes", "missing sub or email attribute");
