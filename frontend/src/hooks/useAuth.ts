@@ -1,14 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
-import { apiFetch } from '../api/client';
+import { apiFetch, ApiError } from '../api/client';
+import type { AuthProvider, AuthFlow } from '../types/auth';
 
 interface UserProfile {
   id: number;
   email: string;
   name: string;
   pictureUrl: string;
-  provider: string;
+  provider: AuthProvider;
   providerUserId: string;
-  lastLoginFlow: string;
+  lastLoginFlow: AuthFlow | null;
   createdAt: string;
   lastLoginAt: string;
 }
@@ -41,8 +42,13 @@ export function useAuth() {
     apiFetch<UserProfile>('/user/me')
       .then(setUser)
       .catch((err) => {
-        console.warn('Failed to fetch user profile:', err instanceof Error ? err.message : err);
-        logout();
+        if (err instanceof ApiError && err.status === 401) {
+          console.warn('Session expired, logging out');
+          logout();
+        } else {
+          console.warn('Failed to fetch user profile:', err instanceof Error ? err.message : err);
+          setUser(null);
+        }
       });
   }, [token, logout]);
 

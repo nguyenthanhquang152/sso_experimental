@@ -18,7 +18,6 @@ public interface MicrosoftChallengeStore {
      * for persisting the returned {@code challengeId} and presenting it back during
      * verification.
      *
-     * @param sessionId the opaque browser session identifier from the challenge cookie
      * @return a new {@link MicrosoftChallenge} containing the challenge ID and nonce to embed in the MSAL request
      */
     MicrosoftChallenge issueChallenge(String sessionId);
@@ -26,13 +25,11 @@ public interface MicrosoftChallengeStore {
     /**
      * Consumes and returns the nonce associated with a challenge, then invalidates it (single-use).
      *
-    * <p>Returns {@link Optional#empty()} if the session does not exist, has expired, or the
-    * {@code challengeId} does not match the expected active challenge. The caller must treat
-    * an empty result as an invalid or replayed challenge.
+     * <p>Returns {@link Optional#empty()} if the session does not exist, has expired, or the
+     * {@code challengeId} does not match the expected active challenge. The caller must treat
+     * an empty result as an invalid or replayed challenge.
      *
-     * @param sessionId   the opaque browser session identifier
-     * @param challengeId the challenge ID returned by {@link #issueChallenge(String)}
-    * @return the nonce to verify against the Microsoft ID token, or {@link Optional#empty()} if invalid/expired
+     * @return the nonce to verify against the Microsoft ID token, or {@link Optional#empty()} if invalid/expired
      */
     Optional<String> consumeNonce(String sessionId, String challengeId);
 

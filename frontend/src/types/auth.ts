@@ -1,3 +1,9 @@
+/** Matches backend AuthProvider enum values. */
+export type AuthProvider = 'GOOGLE' | 'MICROSOFT';
+
+/** Matches backend AuthFlow enum values. */
+export type AuthFlow = 'SERVER_SIDE' | 'CLIENT_SIDE';
+
 const fallbackGoogleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID?.trim();
 
 /**

@@ -47,6 +47,12 @@ export function getErrorMessage(error: unknown, fallbackMessage: string): string
   return fallbackMessage;
 }
 
+/**
+ * Type-safe HTTP client for the backend API.
+ *
+ * Note: Returns `undefined` cast to `T` for 204 (No Content) responses.
+ * Callers expecting 204 should check for undefined explicitly.
+ */
 export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = localStorage.getItem('jwt');
 
