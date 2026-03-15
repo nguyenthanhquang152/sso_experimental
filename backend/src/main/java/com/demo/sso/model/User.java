@@ -26,7 +26,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "google_id", unique = true, nullable = true)
+    @Column(name = "google_id", nullable = true)
     private String googleId;
 
     @Column(nullable = false)
@@ -36,9 +36,6 @@ public class User {
 
     @Column(name = "picture_url")
     private String pictureUrl;
-
-    @Column(name = "login_method", length = 20)
-    private String loginMethod;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 32, nullable = false)
@@ -77,13 +74,6 @@ public class User {
 
     public String getPictureUrl() { return pictureUrl; }
     public void setPictureUrl(String pictureUrl) { this.pictureUrl = pictureUrl; }
-
-    /** @deprecated Use {@link #getLastLoginFlow()} instead. Kept for DB column backward compatibility. */
-    @Deprecated
-    public String getLoginMethod() { return loginMethod; }
-    /** @deprecated Use {@link #setLastLoginFlow(AuthFlow)} instead. */
-    @Deprecated
-    public void setLoginMethod(String loginMethod) { this.loginMethod = loginMethod; }
 
     public AuthProvider getProvider() { return provider; }
     public void setProvider(AuthProvider provider) { this.provider = provider; }

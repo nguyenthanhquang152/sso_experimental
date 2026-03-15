@@ -38,37 +38,41 @@ public class RedisAuthCodeStore implements AuthCodeStore {
         SECURE_RANDOM.nextBytes(bytes);
         String code = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
 
+        // Write prefix depends on JWT mint mode: V2 mints use v2 key prefix, legacy uses legacy prefix
         redisTemplate.opsForValue().set(currentWritePrefix() + code, jwt, CODE_TTL);
         return code;
     }
 
+    // Lookup order: V2_ONLY mode checks only v2 keys. LEGACY_ONLY checks only legacy keys.
+    // COMPATIBILITY mode checks legacy first (backward compat), then v2 (forward compat).
     @Override
     public String exchangeCode(String code) {
-        // GETDEL: atomically get and delete — guarantees single-use
-        if (rolloutProperties.getIdentityContractMode() == AuthRolloutProperties.IdentityContractMode.V2_ONLY) {
-            String jwt = redisTemplate.opsForValue().getAndDelete(V2_KEY_PREFIX + code);
-            if (jwt == null) {
-                throw new IllegalArgumentException("Invalid or expired authorization code");
-            }
-            return jwt;
-        }
+        return switch (rolloutProperties.getIdentityContractMode()) {
+            case V2_ONLY -> exchangeOrThrow(V2_KEY_PREFIX + code);
+            case LEGACY_ONLY -> exchangeOrThrow(LEGACY_KEY_PREFIX + code);
+            case COMPATIBILITY -> exchangeWithCompatFallback(code);
+        };
+    }
 
+    private String exchangeOrThrow(String key) {
+        String jwt = redisTemplate.opsForValue().getAndDelete(key);
+        if (jwt == null) {
+            throw new IllegalArgumentException("Invalid or expired authorization code");
+        }
+        return jwt;
+    }
+
+    private String exchangeWithCompatFallback(String code) {
+        // Legacy first for backward compatibility, then v2 for forward compatibility
         String legacyJwt = redisTemplate.opsForValue().getAndDelete(LEGACY_KEY_PREFIX + code);
         if (legacyJwt != null) {
             return legacyJwt;
         }
-
-        if (rolloutProperties.getIdentityContractMode().acceptsV2()) {
-            String v2Jwt = redisTemplate.opsForValue().getAndDelete(V2_KEY_PREFIX + code);
-            if (v2Jwt != null) {
-                return v2Jwt;
-            }
-        }
-
-        throw new IllegalArgumentException("Invalid or expired authorization code");
+        return exchangeOrThrow(V2_KEY_PREFIX + code);
     }
 
     private String currentWritePrefix() {
+        // Write prefix depends on JWT mint mode: V2 mints use v2 key prefix, legacy uses legacy prefix
         return rolloutProperties.getJwtMintMode() == AuthRolloutProperties.JwtMintMode.V2
             ? V2_KEY_PREFIX
             : LEGACY_KEY_PREFIX;
