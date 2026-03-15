@@ -1,7 +1,7 @@
 package com.demo.sso.service.auth;
 
 import com.demo.sso.exception.InvalidIdentityException;
-import com.demo.sso.exception.InvalidTokenException;
+import com.demo.sso.exception.SsoException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
@@ -61,7 +61,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
             Authentication authentication,
             OAuth2User oAuth2User) {
         if (!(authentication instanceof OAuth2AuthenticationToken oauth2Token)) {
-            throw new IllegalArgumentException("Expected OAuth2AuthenticationToken");
+            throw new OAuth2IdentityException("unexpected_auth_type", "Expected OAuth2AuthenticationToken");
         }
         String registrationId = oauth2Token.getAuthorizedClientRegistrationId();
 
@@ -87,12 +87,12 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                 throw new OAuth2IdentityException("missing_attributes", "missing sub or email attribute", e);
             }
         } else {
-            throw new InvalidTokenException("Unsupported provider: " + registrationId);
+            throw new OAuth2IdentityException("unsupported_provider", "Unsupported provider: " + registrationId);
         }
     }
 
     /** Thrown when OAuth2 identity claims fail validation. */
-    static final class OAuth2IdentityException extends RuntimeException {
+    static final class OAuth2IdentityException extends SsoException {
         private final String errorCode;
 
         OAuth2IdentityException(String errorCode, String message) {
