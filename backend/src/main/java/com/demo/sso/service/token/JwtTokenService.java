@@ -1,6 +1,6 @@
 package com.demo.sso.service.token;
 
-import com.demo.sso.service.auth.AuthenticatedUserIdentity;
+import com.demo.sso.service.model.AuthenticatedUserIdentity;
 import com.demo.sso.config.AuthRolloutProperties;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -42,6 +43,7 @@ public class JwtTokenService {
         this.rolloutProperties = rolloutProperties;
     }
 
+    /** Test-only constructor; defaults to {@link AuthRolloutProperties.IdentityContractMode#LEGACY_ONLY}. */
     public JwtTokenService(String secret, long expirationMs) {
         this(secret, expirationMs, new AuthRolloutProperties());
     }
@@ -167,13 +169,25 @@ public class JwtTokenService {
         }
     }
 
-    public boolean isTokenValid(String token) {
+    /**
+     * Validates the token and extracts the authenticated user identity in a single parse.
+     *
+     * @return the identity if the token is valid, or empty if validation fails
+     */
+    public Optional<AuthenticatedUserIdentity> validateAndExtract(String token) {
         try {
-            parseAuthenticatedUser(token);
-            return true;
+            return Optional.of(parseAuthenticatedUser(token));
         } catch (JwtException | IllegalArgumentException e) {
-            logger.debug("JWT validation failed");
-            return false;
+            logger.warn("JWT validation failed: {}", e.getMessage());
+            return Optional.empty();
         }
+    }
+
+    /**
+     * @deprecated Use {@link #validateAndExtract(String)} instead to avoid double-parsing.
+     */
+    @Deprecated
+    public boolean isTokenValid(String token) {
+        return validateAndExtract(token).isPresent();
     }
 }

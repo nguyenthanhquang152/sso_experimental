@@ -1,6 +1,6 @@
 package com.demo.sso.config;
 
-import com.demo.sso.service.auth.AuthenticatedUserIdentity;
+import com.demo.sso.service.model.AuthenticatedUserIdentity;
 import com.demo.sso.service.token.JwtTokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -16,6 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -36,21 +37,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String header = request.getHeader("Authorization");
 
-        if (header != null && header.startsWith("Bearer ")) {
-            String token = header.substring(7);
-
-            if (!token.isBlank()) {
-                if (jwtTokenService.isTokenValid(token)) {
-                    AuthenticatedUserIdentity identity = jwtTokenService.parseAuthenticatedUser(token);
-                    var auth = new UsernamePasswordAuthenticationToken(
-                            identity, null,
-                            List.of(new SimpleGrantedAuthority("ROLE_USER")));
-                    SecurityContextHolder.getContext().setAuthentication(auth);
-                } else {
-                    logger.warn("Invalid JWT token presented on {}", request.getRequestURI());
-                }
-            }
+        if (header == null || !header.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
         }
+
+        String token = header.substring(7);
+        if (token.isBlank()) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        Optional<AuthenticatedUserIdentity> identity = jwtTokenService.validateAndExtract(token);
+        if (identity.isEmpty()) {
+            logger.warn("Invalid JWT token presented on {}", request.getRequestURI());
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        var auth = new UsernamePasswordAuthenticationToken(
+                identity.get(), null,
+                List.of(new SimpleGrantedAuthority("ROLE_USER")));
+        SecurityContextHolder.getContext().setAuthentication(auth);
 
         filterChain.doFilter(request, response);
     }

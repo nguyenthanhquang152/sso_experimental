@@ -2,7 +2,7 @@ package com.demo.sso.config;
 
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.config.JwtAuthenticationFilter;
-import com.demo.sso.service.auth.AuthenticatedUserIdentity;
+import com.demo.sso.service.model.AuthenticatedUserIdentity;
 import com.demo.sso.service.token.JwtTokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -69,15 +70,13 @@ class JwtAuthenticationFilterTest {
         );
 
         when(request.getHeader("Authorization")).thenReturn(headerValue);
-        when(jwtTokenService.isTokenValid(token)).thenReturn(true);
-        when(jwtTokenService.parseAuthenticatedUser(token)).thenReturn(identity);
+        when(jwtTokenService.validateAndExtract(token)).thenReturn(Optional.of(identity));
 
         // Act
         filter.doFilterInternal(request, response, filterChain);
 
         // Assert
-        verify(jwtTokenService).isTokenValid(token);
-        verify(jwtTokenService).parseAuthenticatedUser(token);
+        verify(jwtTokenService).validateAndExtract(token);
         verify(filterChain).doFilter(request, response);
 
         // Verify authentication was set in SecurityContext
@@ -96,14 +95,14 @@ class JwtAuthenticationFilterTest {
         String headerValue = "Bearer " + token;
 
         when(request.getHeader("Authorization")).thenReturn(headerValue);
-        when(jwtTokenService.isTokenValid(token)).thenReturn(false);
+        when(request.getRequestURI()).thenReturn("/api/test");
+        when(jwtTokenService.validateAndExtract(token)).thenReturn(Optional.empty());
 
         // Act
         filter.doFilterInternal(request, response, filterChain);
 
         // Assert
-        verify(jwtTokenService).isTokenValid(token);
-        verify(jwtTokenService, never()).parseAuthenticatedUser(anyString());
+        verify(jwtTokenService).validateAndExtract(token);
         verify(filterChain).doFilter(request, response);
 
         // Verify authentication was NOT set
@@ -120,7 +119,7 @@ class JwtAuthenticationFilterTest {
         filter.doFilterInternal(request, response, filterChain);
 
         // Assert
-        verify(jwtTokenService, never()).isTokenValid(anyString());
+        verify(jwtTokenService, never()).validateAndExtract(anyString());
         verify(jwtTokenService, never()).parseAuthenticatedUser(anyString());
         verify(filterChain).doFilter(request, response);
 
@@ -138,7 +137,7 @@ class JwtAuthenticationFilterTest {
         filter.doFilterInternal(request, response, filterChain);
 
         // Assert
-        verify(jwtTokenService, never()).isTokenValid(anyString());
+        verify(jwtTokenService, never()).validateAndExtract(anyString());
         verify(filterChain).doFilter(request, response);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -154,7 +153,7 @@ class JwtAuthenticationFilterTest {
         filter.doFilterInternal(request, response, filterChain);
 
         // Assert
-        verify(jwtTokenService, never()).isTokenValid(anyString());
+        verify(jwtTokenService, never()).validateAndExtract(anyString());
         verify(filterChain).doFilter(request, response);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -170,7 +169,7 @@ class JwtAuthenticationFilterTest {
         filter.doFilterInternal(request, response, filterChain);
 
         // Assert
-        verify(jwtTokenService, never()).isTokenValid(anyString());
+        verify(jwtTokenService, never()).validateAndExtract(anyString());
         verify(filterChain).doFilter(request, response);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -186,7 +185,7 @@ class JwtAuthenticationFilterTest {
         filter.doFilterInternal(request, response, filterChain);
 
         // Assert
-        verify(jwtTokenService, never()).isTokenValid(anyString());
+        verify(jwtTokenService, never()).validateAndExtract(anyString());
         verify(filterChain).doFilter(request, response);
     }
 
@@ -199,7 +198,7 @@ class JwtAuthenticationFilterTest {
         filter.doFilterInternal(request, response, filterChain);
 
         // Assert
-        verify(jwtTokenService, never()).isTokenValid(anyString());
+        verify(jwtTokenService, never()).validateAndExtract(anyString());
         verify(filterChain).doFilter(request, response);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -216,8 +215,7 @@ class JwtAuthenticationFilterTest {
             1L, "user@example.com", AuthProvider.GOOGLE, "google-123"
         );
         when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
-        when(jwtTokenService.isTokenValid(token)).thenReturn(true);
-        when(jwtTokenService.parseAuthenticatedUser(token)).thenReturn(identity);
+        when(jwtTokenService.validateAndExtract(token)).thenReturn(Optional.of(identity));
 
         filter.doFilterInternal(request, response, filterChain);
         verify(filterChain, times(1)).doFilter(request, response);
@@ -240,8 +238,7 @@ class JwtAuthenticationFilterTest {
         );
 
         when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
-        when(jwtTokenService.isTokenValid(token)).thenReturn(true);
-        when(jwtTokenService.parseAuthenticatedUser(token)).thenReturn(identity);
+        when(jwtTokenService.validateAndExtract(token)).thenReturn(Optional.of(identity));
 
         // Act
         filter.doFilterInternal(request, response, filterChain);
@@ -260,7 +257,7 @@ class JwtAuthenticationFilterTest {
         // Arrange - token service throws exception during validation
         String token = "problematic.token";
         when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
-        when(jwtTokenService.isTokenValid(token)).thenThrow(new RuntimeException("Token validation error"));
+        when(jwtTokenService.validateAndExtract(token)).thenThrow(new RuntimeException("Token validation error"));
 
         // Act & Assert
         assertThrows(RuntimeException.class, () -> {
@@ -281,7 +278,8 @@ class JwtAuthenticationFilterTest {
 
         String invalidToken = "invalid.token";
         when(request.getHeader("Authorization")).thenReturn("Bearer " + invalidToken);
-        when(jwtTokenService.isTokenValid(invalidToken)).thenReturn(false);
+        when(request.getRequestURI()).thenReturn("/api/test");
+        when(jwtTokenService.validateAndExtract(invalidToken)).thenReturn(Optional.empty());
 
         // Act
         filter.doFilterInternal(request, response, filterChain);
