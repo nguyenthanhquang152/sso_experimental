@@ -81,6 +81,15 @@ public class JwtTokenService {
                 .compact();
     }
 
+    /**
+     * Mints a JWT for the given user, dispatching to legacy or V2 format based on
+     * {@link AuthRolloutProperties#getJwtMintMode()}.
+     *
+     * <p><b>Migration note:</b> the legacy branch calls {@link #generateLegacyToken}
+     * which is deprecated for direct use but is still the correct mint path when
+     * {@code JwtMintMode.LEGACY} is active. Once all deployments switch to
+     * {@code JwtMintMode.V2}, this dispatch and the legacy method can be removed.
+     */
     public String generateToken(User user) {
         if (rolloutProperties.getJwtMintMode() == AuthRolloutProperties.JwtMintMode.V2) {
             return generateV2Token(user);

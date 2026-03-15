@@ -12,6 +12,26 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.time.Instant;
 
+/**
+ * Persistent user entity.
+ *
+ * <h3>Legacy column retention (migration in progress)</h3>
+ * <ul>
+ *   <li>{@code google_id} — Superseded by the provider-neutral {@code provider} +
+ *       {@code provider_user_id} pair. Retained because the migration backfill
+ *       (V3 Flyway script) copies {@code google_id} into {@code provider_user_id},
+ *       but existing rows written before the migration may still be looked up by
+ *       {@code google_id} in {@link com.demo.sso.service.user.UserService#findOrCreateUser}.
+ *       <b>Can be dropped</b> once all Google users have logged in at least once
+ *       after the V3 migration (so their {@code provider_user_id} is populated)
+ *       and the {@code findByGoogleId} fallback path is removed.
+ *   <li>{@code login_method} (SQL column) — Renamed to {@code last_login_flow} in
+ *       the V3 migration. The old column is retained in the database schema for
+ *       rollback safety but is no longer mapped by JPA.
+ *       <b>Can be dropped</b> via a future migration once rollback to pre-V3 is
+ *       no longer needed.
+ * </ul>
+ */
 @Entity
 @Table(
     name = "users",
@@ -26,6 +46,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * @deprecated Legacy column — use {@code provider} + {@code providerUserId} instead.
+     *             Retained for backward-compatible lookup during migration.
+     *             See class-level Javadoc for removal criteria.
+     */
+    @Deprecated
     @Column(name = "google_id", nullable = true)
     private String googleId;
 

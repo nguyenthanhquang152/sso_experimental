@@ -23,12 +23,26 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * Returns the current user's profile.
+     *
+     * <p>The {@code else} branch is a <b>legacy identity fallback</b> that constructs
+     * a legacy identity from the raw principal name when the JWT filter has not yet
+     * set an {@link AuthenticatedUserIdentity} as the principal. This can happen
+     * during the migration if an older JWT (without contract-version claims) is
+     * presented.
+     *
+     * <p><b>Removal:</b> once {@code IdentityContractMode.V2_ONLY} is deployed and
+     * all outstanding legacy JWTs have expired, this branch becomes unreachable and
+     * can be replaced with a direct cast (or an error response).
+     */
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getCurrentUser(Authentication authentication) {
         AuthenticatedUserIdentity identity;
         if (authentication.getPrincipal() instanceof AuthenticatedUserIdentity current) {
             identity = current;
         } else {
+            // Legacy fallback — see method Javadoc for removal criteria
             logger.warn("Legacy identity fallback: principal type={}", authentication.getPrincipal().getClass().getSimpleName());
             identity = AuthenticatedUserIdentity.legacy(authentication.getName(), null);
         }

@@ -1,288 +1,26 @@
 {
-  "command": "next",
-  "items": [
-    {
-      "id": "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
-      "confidence": "medium",
-      "detector": "review",
-      "file": ".",
-      "summary": "Microsoft issuer and tenant checks are duplicated across verifier and normalizer",
-      "detail": {
-        "holistic": true,
-        "dimension": "low_level_elegance",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/MicrosoftTokenVerifier.java",
-          "backend/src/main/java/com/demo/sso/service/ProviderIdentityNormalizer.java"
-        ],
-        "evidence": [
-          "`MicrosoftTokenVerifier.validateIssuer` reconstructs `https://login.microsoftonline.com/{tid}/v2.0` from the token and throws when `iss` does not match it.",
-          "`ProviderIdentityNormalizer.normalizeMicrosoftClaims` repeats the same `iss`/`tid`/expected-issuer validation before it starts mapping the claims into a `NormalizedIdentity`.",
-          "A reader has to reconcile the same low-level invariant in two neighboring classes instead of finding one authoritative validation point for Microsoft claim shape."
-        ],
-        "suggestion": "Move the shared issuer/tenant validation into one helper or keep it solely in `MicrosoftTokenVerifier`, leaving `ProviderIdentityNormalizer` focused on mapping already-validated claims into domain identity data.",
-        "reasoning": "",
-        "summary_hash": "a0215024"
-      },
-      "status": "open",
-      "kind": "issue",
-      "primary_command": "desloppify plan resolve \"review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation\" --note \"<what you did>\" --confirm",
-      "queue_position": 1,
-      "plan_cluster": {
-        "name": "elegance-fixes",
-        "description": "Reduce duplication and improve elegance",
-        "total_items": 5,
-        "action_steps": [
-          {
-            "title": "Remove duplicated Microsoft claim validation",
-            "effort": "medium"
-          },
-          {
-            "title": "Make OAuth2SuccessHandler redirect explicit",
-            "effort": "small"
-          },
-          {
-            "title": "Consolidate Microsoft enablement policy",
-            "effort": "small"
-          },
-          {
-            "title": "Add redirectUri to provider config",
-            "effort": "trivial"
-          },
-          {
-            "title": "Add OAuth2 failure handler",
-            "effort": "small"
-          }
-        ]
-      }
-    },
-    {
-      "id": "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
-      "confidence": "medium",
-      "detector": "review",
-      "file": ".",
-      "summary": "OAuth2 identity normalization hides redirect side effects behind a null sentinel",
-      "detail": {
-        "holistic": true,
-        "dimension": "low_level_elegance",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java"
-        ],
-        "evidence": [
-          "`onAuthenticationSuccess` calls `normalizeIdentity(authentication, oAuth2User, response)` and immediately returns when the helper yields `null`.",
-          "`normalizeIdentity(...)` sends redirects on its failure paths (`?error=missing_attributes`, `?error=email_not_verified`) and then returns `null`, so the caller has to know that `null` means the HTTP response has already been committed."
-        ],
-        "suggestion": "Keep the redirect side effects in `onAuthenticationSuccess` and make `normalizeIdentity` either return a `NormalizedIdentity` or throw for invalid claims; that removes the implicit `null means response handled` protocol from the local control flow.",
-        "reasoning": "",
-        "summary_hash": "b36008e0"
-      },
-      "status": "open",
-      "kind": "issue",
-      "primary_command": "desloppify plan resolve \"review::.::holistic::low_level_elegance::implicit_redirect_null_contract\" --note \"<what you did>\" --confirm",
-      "queue_position": 2,
-      "plan_cluster": {
-        "name": "elegance-fixes",
-        "description": "Reduce duplication and improve elegance",
-        "total_items": 5,
-        "action_steps": [
-          {
-            "title": "Remove duplicated Microsoft claim validation",
-            "effort": "medium"
-          },
-          {
-            "title": "Make OAuth2SuccessHandler redirect explicit",
-            "effort": "small"
-          },
-          {
-            "title": "Consolidate Microsoft enablement policy",
-            "effort": "small"
-          },
-          {
-            "title": "Add redirectUri to provider config",
-            "effort": "trivial"
-          },
-          {
-            "title": "Add OAuth2 failure handler",
-            "effort": "small"
-          }
-        ]
-      }
-    },
-    {
-      "id": "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
-      "confidence": "medium",
-      "detector": "review",
-      "file": ".",
-      "summary": "Microsoft flow availability is recomputed separately at multiple boundaries",
-      "detail": {
-        "holistic": true,
-        "dimension": "mid_level_elegance",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java",
-          "backend/src/main/java/com/demo/sso/controller/AuthController.java",
-          "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
-          "backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java",
-          "backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java"
-        ],
-        "evidence": [
-          "`ProviderConfigController` decides Microsoft availability by combining rollout flags with `isClientSideConfigured()` and `isServerSideConfigured()`.",
-          "`AuthController` separately checks `rolloutProperties.getMicrosoft().isClientSideEnabled()` before challenge/verify and also treats `ObjectProvider<MicrosoftTokenVerifier>` absence as another disablement path.",
-          "`MicrosoftAuthorizationGateFilter` and `IdentityContractGuard` each repeat their own Microsoft enablement/configuration checks, so rollout semantics live in several boundary classes."
-        ],
-        "suggestion": "Move Microsoft availability decisions into one shared policy on the existing config layer (for example canonical `isClientSideAvailable()` / `isServerSideAvailable()` helpers) and have the controller, filter, guard, and provider-config endpoint consume that shared verdict instead of re-deriving it.",
-        "reasoning": "",
-        "summary_hash": "966c22d6"
-      },
-      "status": "open",
-      "kind": "issue",
-      "primary_command": "desloppify plan resolve \"review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split\" --note \"<what you did>\" --confirm",
-      "queue_position": 3,
-      "plan_cluster": {
-        "name": "elegance-fixes",
-        "description": "Reduce duplication and improve elegance",
-        "total_items": 5,
-        "action_steps": [
-          {
-            "title": "Remove duplicated Microsoft claim validation",
-            "effort": "medium"
-          },
-          {
-            "title": "Make OAuth2SuccessHandler redirect explicit",
-            "effort": "small"
-          },
-          {
-            "title": "Consolidate Microsoft enablement policy",
-            "effort": "small"
-          },
-          {
-            "title": "Add redirectUri to provider config",
-            "effort": "trivial"
-          },
-          {
-            "title": "Add OAuth2 failure handler",
-            "effort": "small"
-          }
-        ]
-      }
-    },
-    {
-      "id": "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri",
-      "confidence": "high",
-      "detector": "review",
-      "file": ".",
-      "summary": "Microsoft client-side auth config stops short of the actual redirect target",
-      "detail": {
-        "holistic": true,
-        "dimension": "mid_level_elegance",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java",
-          "backend/src/main/java/com/demo/sso/controller/dto/ProviderConfigResponse.java",
-          "frontend/src/types/auth.ts",
-          "frontend/src/components/MicrosoftClientSideLogin.tsx"
-        ],
-        "evidence": [
-          "`ProviderConfigController.getProviders()` exposes Microsoft `clientId`, `authority`, and `scopes`, but `ProviderConfigResponse.MicrosoftProviderConfig` has no redirect URI field.",
-          "`frontend/src/types/auth.ts` mirrors that contract exactly, so the frontend has no backend-owned redirect target to consume.",
-          "`MicrosoftClientSideLogin` creates MSAL with `redirectUri: window.location.origin`, making the callback URL depend on the serving origin instead of the published provider configuration."
-        ],
-        "suggestion": "Extend the `/auth/providers` Microsoft contract to publish the redirect URI (or an equivalent backend-owned callback descriptor) and have `MicrosoftClientSideLogin` consume that shared value so every environment derives the same MSAL configuration from one seam.",
-        "reasoning": "",
-        "summary_hash": "a31edb04"
-      },
-      "status": "open",
-      "kind": "issue",
-      "primary_command": "desloppify plan resolve \"review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri\" --note \"<what you did>\" --confirm",
-      "queue_position": 4,
-      "plan_cluster": {
-        "name": "elegance-fixes",
-        "description": "Reduce duplication and improve elegance",
-        "total_items": 5,
-        "action_steps": [
-          {
-            "title": "Remove duplicated Microsoft claim validation",
-            "effort": "medium"
-          },
-          {
-            "title": "Make OAuth2SuccessHandler redirect explicit",
-            "effort": "small"
-          },
-          {
-            "title": "Consolidate Microsoft enablement policy",
-            "effort": "small"
-          },
-          {
-            "title": "Add redirectUri to provider config",
-            "effort": "trivial"
-          },
-          {
-            "title": "Add OAuth2 failure handler",
-            "effort": "small"
-          }
-        ]
-      }
-    },
-    {
-      "id": "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped",
-      "confidence": "high",
-      "detector": "review",
-      "file": ".",
-      "summary": "Backend redirect errors for server-side auth are never consumed by the homepage",
-      "detail": {
-        "holistic": true,
-        "dimension": "mid_level_elegance",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/OAuth2SuccessHandler.java",
-          "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
-          "frontend/src/pages/HomePage.tsx"
-        ],
-        "evidence": [
-          "`OAuth2SuccessHandler` redirects failed OAuth logins to `/?error=email_not_verified` and `/?error=missing_attributes`.",
-          "`MicrosoftAuthorizationGateFilter` redirects disabled Microsoft callbacks to `/?error=provider_disabled&provider=microsoft&flow=server_side`.",
-          "`HomePage` only reads `searchParams.get('code')`; there is no frontend handling for `error`, `provider`, or `flow`, so those backend outcomes never become a user-visible auth result."
-        ],
-        "suggestion": "Define one shared server-side auth result contract: either parse and display the backend's error query parameters in `HomePage` or funnel both success and failure redirects through a single helper so the frontend handles auth callback outcomes in one place.",
-        "reasoning": "",
-        "summary_hash": "fca79a56"
-      },
-      "status": "open",
-      "kind": "issue",
-      "primary_command": "desloppify plan resolve \"review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped\" --note \"<what you did>\" --confirm",
-      "queue_position": 5,
-      "plan_cluster": {
-        "name": "elegance-fixes",
-        "description": "Reduce duplication and improve elegance",
-        "total_items": 5,
-        "action_steps": [
-          {
-            "title": "Remove duplicated Microsoft claim validation",
-            "effort": "medium"
-          },
-          {
-            "title": "Make OAuth2SuccessHandler redirect explicit",
-            "effort": "small"
-          },
-          {
-            "title": "Consolidate Microsoft enablement policy",
-            "effort": "small"
-          },
-          {
-            "title": "Add redirectUri to provider config",
-            "effort": "trivial"
-          },
-          {
-            "title": "Add OAuth2 failure handler",
-            "effort": "small"
-          }
-        ]
-      }
-    }
+  "command": "resolve",
+  "patterns": [
+    "dual_authcode_key_prefix_routing"
   ],
-  "queue": {
-    "total": 5,
-    "mode": "execution"
-  },
+  "status": "fixed",
+  "resolved": [
+    "review::.::holistic::incomplete_migration::dual_authcode_key_prefix_routing"
+  ],
+  "count": 1,
+  "next_command": "desloppify next",
+  "overall_score": 84.2,
+  "objective_score": 87.7,
+  "strict_score": 84.2,
+  "verified_strict_score": 87.7,
+  "prev_overall_score": 84.2,
+  "prev_objective_score": 87.7,
+  "prev_strict_score": 84.2,
+  "prev_verified_strict_score": 87.7,
+  "attestation": "I have actually Added comprehensive class-level Javadoc explaining dual prefix migration and I am not gaming the score.",
   "narrative": {
-    "phase": "early_momentum",
-    "headline": "Score 84.2/100 with 58 issues open. Keep the momentum going. (14 review work items \u2014 run `desloppify show review --status open`)",
+    "phase": "stagnation",
+    "headline": "Score plateaued at 84.2 for 5 scans. Code quality (68.0%) is where the breakthrough is. (46 review work items \u2014 run `desloppify show review --status open`)",
     "dimensions": {
       "lowest_dimensions": [
         {
@@ -294,7 +32,7 @@
         {
           "name": "High elegance",
           "strict": 74.0,
-          "failing": 2,
+          "failing": 1,
           "impact": 0.0,
           "subjective": true,
           "impact_description": "re-review to improve"
@@ -302,7 +40,7 @@
         {
           "name": "Error consistency",
           "strict": 77.4,
-          "failing": 0,
+          "failing": 3,
           "impact": 0.0,
           "subjective": true,
           "impact_description": "re-review to improve"
@@ -313,17 +51,17 @@
         {
           "name": "Security",
           "strict": 100.0,
-          "stuck_scans": 4
+          "stuck_scans": 5
         },
         {
           "name": "File health",
           "strict": 100.0,
-          "stuck_scans": 4
+          "stuck_scans": 5
         },
         {
           "name": "Duplication",
           "strict": 100.0,
-          "stuck_scans": 4
+          "stuck_scans": 5
         }
       ]
     },
@@ -343,15 +81,11 @@
         "type": "refactor",
         "detector": "test_coverage",
         "count": 5,
-        "description": "5 test_coverage issues in 1 cluster(s) \u2014 run `desloppify next`",
-        "command": "desloppify next",
+        "description": "5 test_coverage work items \u2014 add tests for untested production modules \u2014 prioritize by import count",
+        "command": "desloppify show test_coverage --status open",
         "impact": 0.0,
         "dimension": "Test health",
         "priority": 2,
-        "clusters": [
-          "auto/test_coverage"
-        ],
-        "cluster_count": 1,
         "lane": "test_coverage"
       },
       {
@@ -368,8 +102,8 @@
       {
         "type": "refactor",
         "detector": "review",
-        "count": 14,
-        "description": "14 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
+        "count": 46,
+        "description": "46 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
         "command": "desloppify show review --status open",
         "impact": 0.0,
         "dimension": "Unknown",
@@ -380,22 +114,18 @@
         "type": "manual_fix",
         "detector": "stale_exclude",
         "count": 10,
-        "description": "10 stale_exclude issues in 1 cluster(s) \u2014 run `desloppify next`",
-        "command": "desloppify next",
+        "description": "10 stale_exclude work items \u2014 remove stale exclusion or verify it's still needed",
+        "command": "desloppify show stale_exclude --status open",
         "impact": 0.0,
         "dimension": "Code quality",
         "priority": 5,
-        "clusters": [
-          "auto/stale_exclude"
-        ],
-        "cluster_count": 1,
         "lane": "refactor_2"
       }
     ],
     "strategy": {
       "fixer_leverage": {
         "auto_fixable_count": 0,
-        "total_count": 86,
+        "total_count": 182,
         "coverage": 0.0,
         "impact_ratio": 0.0,
         "recommendation": "none"
@@ -448,7 +178,7 @@
         }
       },
       "can_parallelize": true,
-      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 14 issue(s) \u2014 `desloppify show review --status open`."
+      "hint": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 46 issue(s) \u2014 `desloppify show review --status open`."
     },
     "tools": {
       "fixers": [],
@@ -481,7 +211,7 @@
       "command": "desloppify show orphaned --status open",
       "description": "27 orphaned issues \u2014 delete dead files or relocate with `desloppify move`"
     },
-    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 14 issue(s) \u2014 `desloppify show review --status open`.",
+    "why_now": "5 independent workstreams, safe to parallelize. Rescan after each phase to verify. Review: 46 issue(s) \u2014 `desloppify show review --status open`.",
     "verification_step": {
       "command": "desloppify scan",
       "reason": "revalidate after changes"
@@ -496,8 +226,22 @@
     },
     "reminders": [
       {
+        "type": "rereview_needed",
+        "message": "Subjective results may be stale after resolve. Re-run `desloppify review --prepare` to refresh, or reset with `desloppify scan --reset-subjective` before a clean rerun.",
+        "command": "desloppify review --prepare",
+        "priority": 1,
+        "severity": "high"
+      },
+      {
+        "type": "rescan_needed",
+        "message": "Rescan to verify \u2014 cascading effects may create new issues.",
+        "command": "desloppify scan",
+        "priority": 1,
+        "severity": "high"
+      },
+      {
         "type": "review_issues_pending",
-        "message": "14 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
+        "message": "46 review work item(s) need investigation. Run `desloppify show review --status open` to see the work queue.",
         "command": "desloppify show review --status open",
         "priority": 1,
         "severity": "high"
@@ -516,529 +260,11 @@
       "review_issues_pending": 3,
       "stagnant_nudge": 3,
       "feedback_nudge": 2,
-      "review_not_run": 3
+      "review_not_run": 3,
+      "rereview_needed": 1,
+      "rescan_needed": 1
     }
   },
-  "agent_notes": [
-    "Do NOT use `desloppify plan skip` unless the user explicitly asks you to skip an item.",
-    "If you cannot fix an item, report it and move to the next one.",
-    "For cluster items: if the autofix_hint finds 0 results, drill into individual issues with the primary_command."
-  ],
-  "plan": {
-    "active": true,
-    "focus": null,
-    "clusters": [
-      {
-        "name": "auto/unused",
-        "description": "Remove 11 unused issues",
-        "item_count": 0
-      },
-      {
-        "name": "auto/test_coverage",
-        "description": "Fix 2 test coverage issues",
-        "item_count": 2
-      },
-      {
-        "name": "auto/stale_exclude",
-        "description": "Fix 10 stale exclude issues",
-        "item_count": 10
-      },
-      {
-        "name": "auto/initial-review",
-        "description": "Initial review of 20 unscored subjective dimensions",
-        "item_count": 0
-      },
-      {
-        "name": "false-positives",
-        "description": "Findings already fixed in codebase - resolve immediately",
-        "item_count": 10
-      },
-      {
-        "name": "contract-guards",
-        "description": "Missing contract guards and validation",
-        "item_count": 4
-      },
-      {
-        "name": "legacy-migration",
-        "description": "Legacy migration debt cleanup",
-        "item_count": 6
-      },
-      {
-        "name": "abstraction-alignment",
-        "description": "Align provider verifier abstractions",
-        "item_count": 3
-      },
-      {
-        "name": "naming-fixes",
-        "description": "Rename for clarity",
-        "item_count": 3
-      },
-      {
-        "name": "elegance-fixes",
-        "description": "Reduce duplication and improve elegance",
-        "item_count": 5
-      },
-      {
-        "name": "misc-fixes",
-        "description": "Type safety, logging, testing, docs",
-        "item_count": 4
-      },
-      {
-        "name": "architecture-refactor",
-        "description": "Large T4 architectural refactors - lower priority",
-        "item_count": 4
-      }
-    ],
-    "total_ordered": 18,
-    "total_skipped": 3,
-    "plan_overrides_narrative": true
-  },
-  "overall_score": 84.2,
-  "objective_score": 87.7,
-  "strict_score": 84.2,
-  "scorecard_dimensions": [
-    {
-      "name": "File health",
-      "score": 100.0,
-      "strict": 100.0,
-      "checks": 36,
-      "failing": 0,
-      "tier": 3,
-      "subjective": false
-    },
-    {
-      "name": "AI generated debt",
-      "score": 90.8,
-      "strict": 90.8,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "ai_generated_debt"
-      ]
-    },
-    {
-      "name": "API coherence",
-      "score": 81.0,
-      "strict": 81.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "api_surface_coherence"
-      ]
-    },
-    {
-      "name": "Abstraction fit",
-      "score": 90.8,
-      "strict": 90.8,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "abstraction_fitness"
-      ]
-    },
-    {
-      "name": "Auth consistency",
-      "score": 88.0,
-      "strict": 88.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "authorization_consistency"
-      ]
-    },
-    {
-      "name": "Code quality",
-      "score": 68.0,
-      "strict": 68.0,
-      "checks": 59,
-      "failing": 27,
-      "tier": 3,
-      "subjective": false
-    },
-    {
-      "name": "Convention drift",
-      "score": 84.0,
-      "strict": 84.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "convention_outlier"
-      ]
-    },
-    {
-      "name": "Cross-module arch",
-      "score": 83.0,
-      "strict": 83.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "cross_module_architecture"
-      ]
-    },
-    {
-      "name": "Dep health",
-      "score": 91.0,
-      "strict": 91.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "dependency_health"
-      ]
-    },
-    {
-      "name": "Design coherence",
-      "score": 91.4,
-      "strict": 91.4,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "design_coherence"
-      ]
-    },
-    {
-      "name": "Duplication",
-      "score": 100.0,
-      "strict": 100.0,
-      "checks": 106,
-      "failing": 0,
-      "tier": 3,
-      "subjective": false
-    },
-    {
-      "name": "Elegance",
-      "score": 81.3,
-      "strict": 81.3,
-      "checks": 30,
-      "failing": 7,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "high_level_elegance",
-        "low_level_elegance",
-        "mid_level_elegance"
-      ]
-    },
-    {
-      "name": "Error consistency",
-      "score": 77.4,
-      "strict": 77.4,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "error_consistency"
-      ]
-    },
-    {
-      "name": "Init coupling",
-      "score": 88.6,
-      "strict": 88.6,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "initialization_coupling"
-      ]
-    },
-    {
-      "name": "Naming quality",
-      "score": 87.0,
-      "strict": 87.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "naming_quality"
-      ]
-    },
-    {
-      "name": "Security",
-      "score": 100.0,
-      "strict": 100.0,
-      "checks": 72,
-      "failing": 0,
-      "tier": 4,
-      "subjective": false
-    },
-    {
-      "name": "Stale migration",
-      "score": 82.0,
-      "strict": 82.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "incomplete_migration"
-      ]
-    },
-    {
-      "name": "Structure nav",
-      "score": 83.0,
-      "strict": 83.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "package_organization"
-      ]
-    },
-    {
-      "name": "Test health",
-      "score": 78.1,
-      "strict": 78.1,
-      "checks": 205,
-      "failing": 5,
-      "tier": 4,
-      "subjective": false
-    },
-    {
-      "name": "Test strategy",
-      "score": 83.0,
-      "strict": 83.0,
-      "checks": 10,
-      "failing": 3,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "test_strategy"
-      ]
-    }
-  ],
-  "subjective_measures": [
-    {
-      "name": "AI generated debt",
-      "score": 90.8,
-      "strict": 90.8,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "ai_generated_debt"
-      ]
-    },
-    {
-      "name": "API coherence",
-      "score": 81.0,
-      "strict": 81.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "api_surface_coherence"
-      ]
-    },
-    {
-      "name": "Abstraction fit",
-      "score": 90.8,
-      "strict": 90.8,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "abstraction_fitness"
-      ]
-    },
-    {
-      "name": "Auth consistency",
-      "score": 88.0,
-      "strict": 88.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "authorization_consistency"
-      ]
-    },
-    {
-      "name": "Convention drift",
-      "score": 84.0,
-      "strict": 84.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "convention_outlier"
-      ]
-    },
-    {
-      "name": "Cross-module arch",
-      "score": 83.0,
-      "strict": 83.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "cross_module_architecture"
-      ]
-    },
-    {
-      "name": "Dep health",
-      "score": 91.0,
-      "strict": 91.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "dependency_health"
-      ]
-    },
-    {
-      "name": "Design coherence",
-      "score": 91.4,
-      "strict": 91.4,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "design_coherence"
-      ]
-    },
-    {
-      "name": "Elegance",
-      "score": 81.3,
-      "strict": 81.3,
-      "checks": 30,
-      "failing": 7,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "high_level_elegance",
-        "low_level_elegance",
-        "mid_level_elegance"
-      ]
-    },
-    {
-      "name": "Error consistency",
-      "score": 77.4,
-      "strict": 77.4,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "error_consistency"
-      ]
-    },
-    {
-      "name": "Init coupling",
-      "score": 88.6,
-      "strict": 88.6,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "initialization_coupling"
-      ]
-    },
-    {
-      "name": "Naming quality",
-      "score": 87.0,
-      "strict": 87.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "naming_quality"
-      ]
-    },
-    {
-      "name": "Stale migration",
-      "score": 82.0,
-      "strict": 82.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "incomplete_migration"
-      ]
-    },
-    {
-      "name": "Structure nav",
-      "score": 83.0,
-      "strict": 83.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "package_organization"
-      ]
-    },
-    {
-      "name": "Test strategy",
-      "score": 83.0,
-      "strict": 83.0,
-      "checks": 10,
-      "failing": 3,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "test_strategy"
-      ]
-    }
-  ],
   "config": {
     "target_strict_score": 95,
     "review_max_age_days": 30,

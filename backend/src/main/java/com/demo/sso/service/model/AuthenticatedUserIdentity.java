@@ -20,9 +20,16 @@ import java.security.Principal;
  *
  * <p>Use {@link #isLegacy()} to determine which variant an instance represents.
  * Do not construct directly — always use the factory methods above.
+ *
+ * <h3>Why nullable fields instead of a sealed interface?</h3>
+ * <p>This is a migration artifact. The nullable-variant approach was chosen for
+ * backward compatibility during the legacy→V2 rollout. Once
+ * {@code IdentityContractMode.V2_ONLY} is deployed and the legacy variant is
+ * removed, this record should be refactored to a sealed interface with
+ * {@code LegacyIdentity} and {@code V2Identity} subtypes to make the contract
+ * version a type-level guarantee.
  */
-// Future: consider refactoring to a sealed interface with LegacyIdentity and V2Identity
-// record implementations to make the contract version a type-level guarantee.
+// Future: refactor to sealed interface once V2_ONLY is deployed.
 public record AuthenticatedUserIdentity(
         Long userId,
         String email,

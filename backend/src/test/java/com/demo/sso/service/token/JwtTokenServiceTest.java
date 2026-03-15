@@ -59,37 +59,37 @@ class JwtTokenServiceTest {
     }
 
     @Test
-    void isTokenValid_returnsTrueForValidToken() {
+    void validateAndExtract_returnsPresentForValidToken() {
         String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
-        assertTrue(jwtTokenService.isTokenValid(token));
+        assertTrue(jwtTokenService.validateAndExtract(token).isPresent());
     }
 
     @Test
-    void isTokenValid_returnsFalseForGarbageToken() {
-        assertFalse(jwtTokenService.isTokenValid("not.a.valid.jwt.token"));
+    void validateAndExtract_returnsEmptyForGarbageToken() {
+        assertTrue(jwtTokenService.validateAndExtract("not.a.valid.jwt.token").isEmpty());
     }
 
     @Test
-    void isTokenValid_returnsFalseForTamperedToken() {
+    void validateAndExtract_returnsEmptyForTamperedToken() {
         String token = jwtTokenService.generateLegacyToken("user@example.com", "google-123");
         String tampered = token.substring(0, token.length() - 1) + "X";
-        assertFalse(jwtTokenService.isTokenValid(tampered));
+        assertTrue(jwtTokenService.validateAndExtract(tampered).isEmpty());
     }
 
     @Test
-    void isTokenValid_returnsFalseForExpiredToken() {
+    void validateAndExtract_returnsEmptyForExpiredToken() {
         JwtTokenService expiredService = new JwtTokenService(
             "test-secret-key-that-is-at-least-32-characters-long-for-hmac", 0);
         String token = expiredService.generateLegacyToken("user@example.com", "google-123");
-        assertFalse(expiredService.isTokenValid(token));
+        assertTrue(expiredService.validateAndExtract(token).isEmpty());
     }
 
     @Test
-    void isTokenValid_returnsFalseForTokenSignedWithDifferentKey() {
+    void validateAndExtract_returnsEmptyForTokenSignedWithDifferentKey() {
         JwtTokenService otherService = new JwtTokenService(
             "another-secret-key-that-is-at-least-32-characters-long!!", 86400000);
         String tokenFromOther = otherService.generateLegacyToken("user@example.com", "google-123");
-        assertFalse(jwtTokenService.isTokenValid(tokenFromOther));
+        assertTrue(jwtTokenService.validateAndExtract(tokenFromOther).isEmpty());
     }
 
     @Test
@@ -157,7 +157,7 @@ class JwtTokenServiceTest {
     }
 
     @Test
-    void isTokenValid_rejectsLegacyTokenWhenContractIsV2Only() {
+    void validateAndExtract_rejectsLegacyTokenWhenContractIsV2Only() {
         JwtTokenService legacyService = new JwtTokenService(
             "test-secret-key-that-is-at-least-32-characters-long-for-hmac",
             86400000,
@@ -171,7 +171,7 @@ class JwtTokenServiceTest {
 
         String legacyToken = legacyService.generateLegacyToken("user@example.com", "google-123");
 
-        assertFalse(v2OnlyService.isTokenValid(legacyToken));
+        assertTrue(v2OnlyService.validateAndExtract(legacyToken).isEmpty());
         assertThrows(IllegalArgumentException.class, () -> v2OnlyService.parseAuthenticatedUser(legacyToken));
     }
 

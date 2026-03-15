@@ -1,19 +1,19 @@
 {
   "version": 3,
   "created": "2026-03-14T18:25:37+00:00",
-  "last_scan": "2026-03-14T20:06:08+00:00",
-  "scan_count": 4,
+  "last_scan": "2026-03-15T02:05:07+00:00",
+  "scan_count": 5,
   "overall_score": 84.2,
   "objective_score": 87.7,
   "strict_score": 84.2,
   "verified_strict_score": 87.7,
   "stats": {
-    "total": 97,
+    "total": 146,
     "auto_resolved": 0,
     "deferred": 3,
     "false_positive": 0,
-    "fixed": 35,
-    "open": 59,
+    "fixed": 52,
+    "open": 91,
     "triaged_out": 0,
     "wontfix": 0,
     "by_tier": {
@@ -21,8 +21,8 @@
         "auto_resolved": 0,
         "deferred": 3,
         "false_positive": 0,
-        "fixed": 15,
-        "open": 9,
+        "fixed": 26,
+        "open": 26,
         "triaged_out": 0,
         "wontfix": 0
       },
@@ -30,8 +30,8 @@
         "auto_resolved": 0,
         "deferred": 0,
         "false_positive": 0,
-        "fixed": 9,
-        "open": 6,
+        "fixed": 15,
+        "open": 20,
         "triaged_out": 0,
         "wontfix": 0
       },
@@ -40,7 +40,7 @@
         "deferred": 0,
         "false_positive": 0,
         "fixed": 11,
-        "open": 34,
+        "open": 35,
         "triaged_out": 0,
         "wontfix": 0
       },
@@ -83,7 +83,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-14T20:06:08+00:00",
+        "scan_verified_at": "2026-03-15T02:05:07+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -114,7 +114,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-14T20:06:08+00:00",
+        "scan_verified_at": "2026-03-15T02:05:07+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -145,7 +145,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-14T20:06:08+00:00",
+        "scan_verified_at": "2026-03-15T02:05:07+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -176,7 +176,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-14T20:06:08+00:00",
+        "scan_verified_at": "2026-03-15T02:05:07+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -207,7 +207,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-14T20:06:08+00:00",
+        "scan_verified_at": "2026-03-15T02:05:07+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -238,7 +238,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-14T20:06:08+00:00",
+        "scan_verified_at": "2026-03-15T02:05:07+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -269,7 +269,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-14T20:06:08+00:00",
+        "scan_verified_at": "2026-03-15T02:05:07+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -300,7 +300,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-14T20:06:08+00:00",
+        "scan_verified_at": "2026-03-15T02:05:07+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -331,7 +331,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-14T20:06:08+00:00",
+        "scan_verified_at": "2026-03-15T02:05:07+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -362,7 +362,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-14T20:06:08+00:00",
+        "scan_verified_at": "2026-03-15T02:05:07+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -393,7 +393,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-14T20:06:08+00:00",
+        "scan_verified_at": "2026-03-15T02:05:07+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -1426,11 +1426,11 @@
         "reasoning": "",
         "summary_hash": "195f4dc9"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -1438,7 +1438,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::cross_module_architecture::provider_config_contract_drift": {
       "id": "review::.::holistic::cross_module_architecture::provider_config_contract_drift",
@@ -1465,11 +1471,11 @@
         "reasoning": "",
         "summary_hash": "fce4a2ae"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -1477,7 +1483,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::high_level_elegance::stale_repo_contract_docs": {
       "id": "review::.::holistic::high_level_elegance::stale_repo_contract_docs",
@@ -1506,11 +1518,11 @@
         "reasoning": "",
         "summary_hash": "50df7f34"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -1518,7 +1530,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::high_level_elegance::provider_feature_scattered_by_layer": {
       "id": "review::.::holistic::high_level_elegance::provider_feature_scattered_by_layer",
@@ -1550,11 +1568,11 @@
         "reasoning": "",
         "summary_hash": "e7b7344c"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -1562,7 +1580,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::convention_outlier::auth_controller_ad_hoc_payloads": {
       "id": "review::.::holistic::convention_outlier::auth_controller_ad_hoc_payloads",
@@ -1932,11 +1956,11 @@
         "reasoning": "",
         "summary_hash": "dd8dd968"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "Deprecated isConfigured() on MicrosoftAuthProperties with Javadoc pointing to isClientSideConfigured/isServerSideConfigured. Updated MicrosoftTokenVerifier to call isClientSideConfigured directly.",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-14T21:00:44+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -1944,7 +1968,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "manual",
+        "text": "I have actually Deprecated isConfigured() on MicrosoftAuthProperties with Javadoc pointing to isClientSideConfigured/isServerSideConfigured. Updated MicrosoftTokenVerifier to call isClientSideConfigured directly. and I am not gaming the score.",
+        "attested_at": "2026-03-14T21:00:44+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union": {
       "id": "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
@@ -2058,11 +2088,11 @@
         "reasoning": "",
         "summary_hash": "b36008e0"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -2070,7 +2100,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation": {
       "id": "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
@@ -2095,11 +2131,11 @@
         "reasoning": "",
         "summary_hash": "a0215024"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -2107,7 +2143,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri": {
       "id": "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri",
@@ -2134,11 +2176,11 @@
         "reasoning": "",
         "summary_hash": "a31edb04"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -2146,7 +2188,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped": {
       "id": "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped",
@@ -2172,11 +2220,11 @@
         "reasoning": "",
         "summary_hash": "fca79a56"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -2184,7 +2232,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split": {
       "id": "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
@@ -2212,11 +2266,11 @@
         "reasoning": "",
         "summary_hash": "966c22d6"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -2224,7 +2278,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::test_strategy::browser_oauth_success_paths_untested": {
       "id": "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
@@ -2334,11 +2394,11 @@
         "reasoning": "",
         "summary_hash": "2dfdf2b6"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -2346,7 +2406,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::api_surface_coherence::auth_controller_wildcard_responses": {
       "id": "review::.::holistic::api_surface_coherence::auth_controller_wildcard_responses",
@@ -2552,11 +2618,11 @@
         "reasoning": "",
         "summary_hash": "57be5907"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -2564,7 +2630,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard": {
       "id": "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
@@ -2587,11 +2659,11 @@
         "reasoning": "",
         "summary_hash": "76c8c0e9"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -2599,7 +2671,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap": {
       "id": "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap",
@@ -2771,11 +2849,11 @@
         "reasoning": "",
         "summary_hash": "8e1e54f7"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -2783,7 +2861,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap": {
       "id": "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
@@ -3107,11 +3191,11 @@
         "reasoning": "",
         "summary_hash": "66638833"
       },
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "not reported in latest holistic re-import",
       "first_seen": "2026-03-14T19:10:42+00:00",
       "last_seen": "2026-03-14T19:10:42+00:00",
-      "resolved_at": null,
+      "resolved_at": "2026-03-15T02:05:07+00:00",
       "reopen_count": 0,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
@@ -3119,7 +3203,13 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "agent_import",
+        "text": "not reported in latest holistic re-import",
+        "attested_at": "2026-03-15T02:05:07+00:00",
+        "scan_verified": false
+      }
     },
     "review::.::holistic::type_safety::auth_flow_legacy_string_contract": {
       "id": "review::.::holistic::type_safety::auth_flow_legacy_string_contract",
@@ -3273,6 +3363,1791 @@
       "suppressed": false,
       "suppressed_at": null,
       "suppression_pattern": null
+    },
+    "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency": {
+      "id": "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "NormalizedIdentity in service.auth creates bidirectional package dependency with service.user",
+      "detail": {
+        "holistic": true,
+        "dimension": "cross_module_architecture",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/auth/NormalizedIdentity.java",
+          "backend/src/main/java/com/demo/sso/service/user/UserService.java",
+          "backend/src/main/java/com/demo/sso/service/auth/AuthCompletionService.java",
+          "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java"
+        ],
+        "evidence": [
+          "service.auth.AuthCompletionService imports service.user.UserService (line 5) to call findOrCreateUser()",
+          "service.user.UserService imports service.auth.NormalizedIdentity (line 4) as the parameter type for findOrCreateUser()",
+          "This creates bidirectional coupling: service.auth \u2192 service.user (service dependency) and service.user \u2192 service.auth (data type dependency)",
+          "service.model already exists as a cross-service data type package containing AuthenticatedUserIdentity \u2014 NormalizedIdentity is analogous but does not follow this precedent"
+        ],
+        "suggestion": "Move NormalizedIdentity.java from service.auth to service.model, alongside AuthenticatedUserIdentity. Both are cross-service identity transfer records: AuthenticatedUserIdentity represents post-auth identity from JWT, NormalizedIdentity represents pre-auth identity from provider claims. This eliminates the bidirectional coupling and makes service.user depend only on service.model (not service.auth).",
+        "reasoning": "",
+        "summary_hash": "1c96b4c1"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary": {
+      "id": "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "service.model sub-package holds only AuthenticatedUserIdentity while analogous cross-service types live elsewhere",
+      "detail": {
+        "holistic": true,
+        "dimension": "high_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java",
+          "backend/src/main/java/com/demo/sso/service/auth/NormalizedIdentity.java"
+        ],
+        "evidence": [
+          "service.model contains exactly 1 file (AuthenticatedUserIdentity.java) \u2014 a cross-service identity record consumed by config filters, controllers, and user service",
+          "NormalizedIdentity.java is an analogous cross-service identity record (pre-auth identity from provider claims) but lives in service.auth despite being consumed by service.user.UserService",
+          "The existence of service.model establishes a pattern for shared identity types that is not consistently followed, creating ambiguity about where cross-service data records belong"
+        ],
+        "suggestion": "Consolidate cross-service identity types in service.model: move NormalizedIdentity alongside AuthenticatedUserIdentity. This strengthens the package's role as the shared identity boundary and makes the decomposition self-documenting \u2014 service.model holds types that cross service sub-package boundaries.",
+        "reasoning": "",
+        "summary_hash": "357d9565"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::convention_outlier::autowired_convention_drift": {
+      "id": "review::.::holistic::convention_outlier::autowired_convention_drift",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "Four service classes use explicit @Autowired on constructors while nine sibling beans use implicit constructor injection",
+      "detail": {
+        "holistic": true,
+        "dimension": "convention_outlier",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
+          "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java",
+          "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java",
+          "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
+        ],
+        "evidence": [
+          "JwtTokenService.java:35 has @Autowired on its constructor; GoogleTokenVerifier.java:24 has @Autowired; MicrosoftTokenVerifier.java:19 has @Autowired; RedisAuthCodeStore.java:25 has @Autowired",
+          "Meanwhile AuthController, UserController, ProviderConfigController, SecurityConfig, AuthCompletionService, OAuth2SuccessHandler, UserService, IdentityContractGuard, MicrosoftAuthorizationGateFilter, RedisMicrosoftChallengeStore all use implicit constructor injection without @Autowired",
+          "The historical issue reported this as 'fixed' for 3 services but all 4 still have the annotation"
+        ],
+        "suggestion": "Remove the @Autowired annotations from all four constructors. Since Spring 4.3+ auto-detects single constructors, the annotation is redundant and creates an inconsistency with the 9 other beans that already omit it.",
+        "reasoning": "",
+        "summary_hash": "e26f8a10"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::error_consistency::provider_config_broad_catch": {
+      "id": "review::.::holistic::error_consistency::provider_config_broad_catch",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "ProviderConfigController catches bare Exception for config-building methods, masking programming errors alongside expected config failures",
+      "detail": {
+        "holistic": true,
+        "dimension": "error_consistency",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+        ],
+        "evidence": [
+          "Lines 43 and 50 catch Exception broadly on buildGoogleConfig() and buildMicrosoftConfig(). These methods only throw implicitly (e.g., NPE from null properties, or runtime exceptions from Spring config).",
+          "If a NullPointerException from a coding bug occurs, it is silently caught and the provider is returned as disabled, making the bug invisible to developers and hard to diagnose in production.",
+          "The error is logged, but the catch scope is too broad \u2014 it should catch specific exceptions or at least not catch Error subclasses"
+        ],
+        "suggestion": "Narrow the catch to RuntimeException at minimum, or better yet, identify the specific exceptions these builders can throw and catch only those. Consider letting programming errors (NPE, ClassCast) propagate to the GlobalExceptionHandler.",
+        "reasoning": "",
+        "summary_hash": "35d73f20"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::error_consistency::use_provider_config_silent_swallow": {
+      "id": "review::.::holistic::error_consistency::use_provider_config_silent_swallow",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "useProviderConfig silently discards all fetch errors without logging or user feedback",
+      "detail": {
+        "holistic": true,
+        "dimension": "error_consistency",
+        "related_files": [
+          "frontend/src/hooks/useProviderConfig.ts"
+        ],
+        "evidence": [
+          "Line 22: .catch(() => { ... setProviderConfig(DEFAULT_PROVIDER_CONFIG); }) \u2014 the error argument is not even captured",
+          "Unlike useAuth.ts which distinguishes error types and logs warnings, useProviderConfig discards the error object entirely",
+          "If the /auth/providers endpoint is down or returns malformed JSON, the user sees a silently degraded UI with no indication that the configuration is stale or incomplete"
+        ],
+        "suggestion": "At minimum, add console.warn('Failed to fetch provider config:', err) to preserve diagnostic information. Consider adding an error state so consuming components can indicate when config is from defaults rather than the backend.",
+        "reasoning": "",
+        "summary_hash": "15001f62"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::error_consistency::validate_and_extract_context_loss": {
+      "id": "review::.::holistic::error_consistency::validate_and_extract_context_loss",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "JwtTokenService.validateAndExtract() still returns Optional.empty() discarding the failure reason, despite the historical issue being marked fixed",
+      "detail": {
+        "holistic": true,
+        "dimension": "error_consistency",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
+          "backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java"
+        ],
+        "evidence": [
+          "JwtTokenService.java line 179-183: catch block returns Optional.empty() after logging at warn \u2014 the caller (JwtAuthenticationFilter) cannot distinguish expired token, malformed token, wrong version, or rejected contract mode",
+          "JwtAuthenticationFilter.java line 51: logs 'Invalid JWT token' generically when validateAndExtract returns empty \u2014 this is a second log line for the same event (JwtTokenService already logged at warn), though the historical duplicate-logging issue was marked fixed",
+          "The comment on the method says the historical issue was 'fixed' but the Optional return type inherently loses error context \u2014 a result type with Valid/Invalid(reason) variants would preserve it"
+        ],
+        "suggestion": "Replace Optional<AuthenticatedUserIdentity> with a sealed result type (e.g., sealed interface TokenValidationResult with Valid(identity) and Invalid(reason) variants). This lets JwtAuthenticationFilter log the specific failure reason with request context instead of duplicating a generic warning.",
+        "reasoning": "",
+        "summary_hash": "b7d6711e"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::naming_quality::double_negative_predicate_microsoft_verify": {
+      "id": "review::.::holistic::naming_quality::double_negative_predicate_microsoft_verify",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "isInvalidMicrosoftVerifyRequest uses double-negative logic \u2014 callers read 'if not invalid' instead of 'if valid'",
+      "detail": {
+        "holistic": true,
+        "dimension": "naming_quality",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+        ],
+        "evidence": [
+          "AuthController line uses `if (isInvalidMicrosoftVerifyRequest(request))` which requires double-negative reasoning. The positive form `isValidMicrosoftVerifyRequest` with inverted logic would read more naturally at the call site: `if (!isValidMicrosoftVerifyRequest(request))`"
+        ],
+        "suggestion": "Rename to isValidMicrosoftVerifyRequest and invert the return value, so the call site reads `if (!isValidMicrosoftVerifyRequest(request))` \u2014 a standard guard clause pattern used elsewhere in the codebase.",
+        "reasoning": "",
+        "summary_hash": "051cf7c4"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::naming_quality::firstnonblank_generic_utility_name": {
+      "id": "review::.::holistic::naming_quality::firstnonblank_generic_utility_name",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "firstNonBlank() in ProviderIdentityNormalizer is a generic utility name in domain code where email resolution semantics matter",
+      "detail": {
+        "holistic": true,
+        "dimension": "naming_quality",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java"
+        ],
+        "evidence": [
+          "firstNonBlank(claims.email(), claims.preferredUsername(), claims.upn()) resolves the email claim from Microsoft's priority cascade (email > preferred_username > upn), but the method name 'firstNonBlank' describes the mechanism, not the intent. A reader scanning normalizeMicrosoftClaims must trace into the helper to understand it implements Microsoft's email-resolution priority."
+        ],
+        "suggestion": "Rename to resolveEmailClaim or selectPrimaryEmailClaim to communicate that this implements Microsoft's email claim priority cascade, not just a generic null-coalescing utility.",
+        "reasoning": "",
+        "summary_hash": "b4ba8f55"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::abstraction_fitness::rollout_mode_leaks_into_store_layer": {
+      "id": "review::.::holistic::abstraction_fitness::rollout_mode_leaks_into_store_layer",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "RedisAuthCodeStore queries AuthRolloutProperties per-call to resolve key prefix and lookup order, leaking rollout semantics through the store abstraction boundary",
+      "detail": {
+        "holistic": true,
+        "dimension": "abstraction_fitness",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java",
+          "backend/src/main/java/com/demo/sso/config/AuthRolloutProperties.java"
+        ],
+        "evidence": [
+          "RedisAuthCodeStore.exchangeCode() switches on rolloutProperties.getIdentityContractMode() to decide V2_ONLY vs LEGACY_ONLY vs COMPATIBILITY lookup order \u2014 the store must understand rollout semantics to select its Redis key prefix",
+          "currentWritePrefix() branches on rolloutProperties.getJwtMintMode() \u2014 the write path similarly depends on rollout state",
+          "The AuthCodeStore interface contract (storeJwt/exchangeCode) makes no mention of rollout modes, so the abstraction boundary is honest at the interface level but leaky at the implementation level"
+        ],
+        "suggestion": "Inject a resolved key-prefix strategy (e.g., a small record or enum) at construction time rather than having the store query rollout properties per-call. This would make the migration mode a construction-time decision rather than a runtime branch on every store/exchange operation.",
+        "reasoning": "",
+        "summary_hash": "77bc40ae"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::abstraction_fitness::authenticated_identity_nullable_modeling": {
+      "id": "review::.::holistic::abstraction_fitness::authenticated_identity_nullable_modeling",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "AuthenticatedUserIdentity models two mutually exclusive contract versions via nullable fields instead of a sealed type hierarchy",
+      "detail": {
+        "holistic": true,
+        "dimension": "abstraction_fitness",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java",
+          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
+          "backend/src/main/java/com/demo/sso/service/user/UserService.java"
+        ],
+        "evidence": [
+          "AuthenticatedUserIdentity has 6 fields where userId/provider/providerUserId are null for legacy and legacyProviderKey is null for v2 \u2014 the nullability is structural, not exceptional",
+          "Callers must use isLegacy() to determine which fields are safe to access \u2014 JwtTokenService.parseAuthenticatedUser builds either variant, UserService.findCurrentUser branches on isLegacy()",
+          "The code itself contains a comment: 'Future: consider refactoring to a sealed interface with LegacyIdentity and V2Identity record implementations'",
+          "Previous review issue on this topic was marked 'fixed' but the structural pattern persists \u2014 the fix appears to have been documentation improvement (javadoc and comment), not the type-level refactoring"
+        ],
+        "suggestion": "Refactor to a sealed interface AuthenticatedUserIdentity with LegacyIdentity and V2Identity record implementations. This would make the contract version a compile-time guarantee, eliminate nullable fields, and let callers use pattern matching instead of isLegacy() checks.",
+        "reasoning": "",
+        "summary_hash": "cb94ebb8"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::dependency_health::dual_jwt_libraries": {
+      "id": "review::.::holistic::dependency_health::dual_jwt_libraries",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "Two distinct JWT libraries (jjwt + Spring Security OAuth2 JWT/Nimbus) serve the same conceptual domain",
+      "detail": {
+        "holistic": true,
+        "dimension": "dependency_health",
+        "related_files": [
+          "backend/pom.xml",
+          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
+          "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java"
+        ],
+        "evidence": [
+          "JwtTokenService uses io.jsonwebtoken (jjwt) for application JWT minting and validation. MicrosoftTokenVerifier uses org.springframework.security.oauth2.jwt.NimbusJwtDecoder for Microsoft ID token verification. Both are JWT processing libraries operating within the same service/token package."
+        ],
+        "suggestion": "Consider whether MicrosoftTokenVerifier could use jjwt with manual JWKS fetching, or conversely whether JwtTokenService could use Spring Security's JWT infrastructure. Consolidating to one JWT library would reduce the cognitive load and transitive dependency surface.",
+        "reasoning": "",
+        "summary_hash": "9c19945d"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::dependency_health::heavy_google_api_client": {
+      "id": "review::.::holistic::dependency_health::heavy_google_api_client",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "google-api-client pulls a large transitive tree for only four classes used in GoogleTokenVerifier",
+      "detail": {
+        "holistic": true,
+        "dimension": "dependency_health",
+        "related_files": [
+          "backend/pom.xml",
+          "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java"
+        ],
+        "evidence": [
+          "google-api-client v2.7.2 is declared for GoogleIdTokenVerifier, GoogleIdToken, NetHttpTransport, and GsonFactory \u2014 the entire Google HTTP/OAuth client stack is pulled transitively. The pom.xml TODO documents this concern but notes the lighter google-auth-library-oauth2-http does not provide GoogleIdTokenVerifier."
+        ],
+        "suggestion": "Monitor google-auth-library-oauth2-http for future GoogleIdTokenVerifier support. Alternatively, consider implementing manual Google JWKS-based token verification using the same NimbusJwtDecoder approach used for Microsoft, which would eliminate this dependency entirely.",
+        "reasoning": "",
+        "summary_hash": "a1e0400c"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::low_level_elegance::normalizeEmail_redundant_indexOf": {
+      "id": "review::.::holistic::low_level_elegance::normalizeEmail_redundant_indexOf",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "normalizeEmail() calls indexOf('@') three times when atIndex is already computed on the previous line",
+      "detail": {
+        "holistic": true,
+        "dimension": "low_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java"
+        ],
+        "evidence": [
+          "Line 79 computes `int atIndex = normalized.indexOf('@')`. Line 80 then calls `normalized.indexOf('@')` twice more and `normalized.lastIndexOf('@')` once in the hasExactlyOneAt expression, ignoring the already-computed atIndex variable. The fix is to rewrite as `boolean hasExactlyOneAt = atIndex >= 0 && atIndex == normalized.lastIndexOf('@')`."
+        ],
+        "suggestion": "Replace line 80 with: `boolean hasExactlyOneAt = atIndex >= 0 && atIndex == normalized.lastIndexOf('@');` \u2014 this eliminates two redundant indexOf calls and makes the validation intent clearer.",
+        "reasoning": "",
+        "summary_hash": "8ab21da3"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::low_level_elegance::normalizeEmail_dense_boolean_construction": {
+      "id": "review::.::holistic::low_level_elegance::normalizeEmail_dense_boolean_construction",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "normalizeEmail() builds four named boolean predicates from dense inline expressions before a compound if-check",
+      "detail": {
+        "holistic": true,
+        "dimension": "low_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java"
+        ],
+        "evidence": [
+          "Lines 79-84 compute atIndex, hasExactlyOneAt, hasNoSpaces, hasNonEmptyLocalAndDomain as four sequential boolean variables, then combine them in a single if-condition. The validation intent would be clearer as a sequence of early-return guard clauses, each with a specific error message rather than a generic one."
+        ],
+        "suggestion": "Consider converting to sequential guard clauses: check isBlank first, then validate single '@' presence, then validate no spaces, then validate non-empty local+domain. Each guard can throw with a specific message (e.g. 'email contains spaces', 'email has no @ symbol').",
+        "reasoning": "",
+        "summary_hash": "a195d16a"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::low_level_elegance::buildMicrosoftConfig_interleaved_side_effects": {
+      "id": "review::.::holistic::low_level_elegance::buildMicrosoftConfig_interleaved_side_effects",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "buildMicrosoftConfig() interleaves warning side-effects between pure configuration value computation",
+      "detail": {
+        "holistic": true,
+        "dimension": "low_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+        ],
+        "evidence": [
+          "Lines 85-100 compute clientSideConfigured, serverSideConfigured, serverSideEnabled, clientSideEnabled, then interleave two conditional logger.warn calls before finally constructing the response. The same pattern exists in buildGoogleConfig(). Side effects are mixed into what is otherwise a pure data-mapping function."
+        ],
+        "suggestion": "Group all boolean computations together, then group all diagnostic logging together, then construct and return the response. This separates the pure computation phase from the side-effect phase for clearer intent.",
+        "reasoning": "",
+        "summary_hash": "49cbdc30"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::mid_level_elegance::ms_challenge_inline_orchestration": {
+      "id": "review::.::holistic::mid_level_elegance::ms_challenge_inline_orchestration",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "AuthController.verifyMicrosoftToken mixes cookie extraction, nonce lifecycle, and token verification in one method rather than composing distinct collaborators",
+      "detail": {
+        "holistic": true,
+        "dimension": "mid_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+        ],
+        "evidence": [
+          "verifyMicrosoftToken (~30 LOC) handles: (1) rollout check, (2) verifier availability, (3) request validation, (4) cookie extraction via currentChallengeSessionId, (5) nonce consumption via microsoftChallengeStore.consumeNonce, (6) token verification, (7) auth completion. The cookie-session concern (steps 4-5) is infrastructure-level glue that obscures the orchestration logic.",
+          "issueMicrosoftChallenge similarly handles session-cookie creation inline. The cookie lifecycle management (createChallengeSessionCookie, currentChallengeSessionId) is an infrastructure concern mixed into the controller orchestration layer."
+        ],
+        "suggestion": "Extract a MicrosoftChallengeSessionService that owns the cookie-to-nonce lifecycle. AuthController would call challengeSessionService.resolveNonce(request, challengeId) and receive either a nonce or an error, making the controller read as pure orchestration of collaborators.",
+        "reasoning": "",
+        "summary_hash": "0e75ae06"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::mid_level_elegance::dual_google_claim_handoff_shapes": {
+      "id": "review::.::holistic::mid_level_elegance::dual_google_claim_handoff_shapes",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "Google identity claims reach ProviderIdentityNormalizer via two different shapes: raw OAuth2User.getAttribute() calls vs. typed VerifiedGoogleIdentity record",
+      "detail": {
+        "holistic": true,
+        "dimension": "mid_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java",
+          "backend/src/main/java/com/demo/sso/service/auth/AuthCompletionService.java",
+          "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java"
+        ],
+        "evidence": [
+          "OAuth2SuccessHandler.normalizeIdentity calls oAuth2User.getAttribute('sub'), getAttribute('email'), etc. and passes raw strings to providerIdentityNormalizer.normalizeGoogleClaims(sub, email, name, picture, flow).",
+          "AuthCompletionService.completeGoogleAuthentication receives a VerifiedGoogleIdentity record and calls the same normalizeGoogleClaims with identity.subject(), identity.email() etc.",
+          "The same logical boundary (raw Google claims \u2192 NormalizedIdentity) is crossed via two structurally different handoff shapes, meaning the ProviderIdentityNormalizer interface for Google is a raw-argument bag rather than a typed input."
+        ],
+        "suggestion": "Have OAuth2SuccessHandler construct a VerifiedGoogleIdentity (or a shared GoogleClaims record) from OAuth2User attributes, then call a single normalizeGoogleClaims(GoogleClaims, AuthFlow) method. This unifies the handoff shape to a single typed boundary.",
+        "reasoning": "",
+        "summary_hash": "e44d3c73"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::mid_level_elegance::identity_variant_runtime_branching": {
+      "id": "review::.::holistic::mid_level_elegance::identity_variant_runtime_branching",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "AuthenticatedUserIdentity dual-nullable design forces runtime isLegacy() branching in UserService and UserController instead of type-level dispatch",
+      "detail": {
+        "holistic": true,
+        "dimension": "mid_level_elegance",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java",
+          "backend/src/main/java/com/demo/sso/service/user/UserService.java",
+          "backend/src/main/java/com/demo/sso/controller/UserController.java"
+        ],
+        "evidence": [
+          "UserService.findCurrentUser branches: if (identity.isLegacy()) \u2192 findByEmail, else \u2192 findById. UserController.getCurrentUser branches: if (principal instanceof AuthenticatedUserIdentity) vs legacy fallback construction.",
+          "The record has a comment 'Future: consider refactoring to a sealed interface with LegacyIdentity and V2Identity' acknowledging this as known debt.",
+          "Every consumer at the handoff boundary must perform variant detection manually, creating a predictability cost at integration seams."
+        ],
+        "suggestion": "Refactor to a sealed interface with LegacyIdentity and V2Identity record implementations, enabling pattern matching (switch on sealed type) at consumer boundaries instead of nullable-field branching.",
+        "reasoning": "",
+        "summary_hash": "f850dd9f"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::test_strategy::no_frontend_component_tests": {
+      "id": "review::.::holistic::test_strategy::no_frontend_component_tests",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "No component-level tests exist for any of the 6 frontend React components, leaving business-critical UI logic like auth code exchange and provider-conditional rendering verified only via slower e2e tests",
+      "detail": {
+        "holistic": true,
+        "dimension": "test_strategy",
+        "related_files": [
+          "frontend/src/pages/HomePage.tsx",
+          "frontend/src/pages/DashboardPage.tsx",
+          "frontend/src/components/ClientSideLogin.tsx",
+          "frontend/src/components/MicrosoftClientSideLogin.tsx",
+          "frontend/src/components/ServerSideLogin.tsx",
+          "frontend/src/components/LoginCard.tsx"
+        ],
+        "evidence": [
+          "HomePage.tsx contains critical auth logic: URL code extraction, code exchange via apiFetch, error parameter handling, and conditional rendering based on providerConfig. None of this has component-level tests.",
+          "ClientSideLogin.tsx handles GoogleLogin success/error callbacks and apiFetch to /auth/google/verify. MicrosoftClientSideLogin.tsx handles MSAL popup auth flow. These have no component tests.",
+          "frontend/src/test/ contains only useAuth.test.ts and client.test.ts. frontend/tests/e2e/ has 6 Playwright specs. The gap between unit (hooks/client) and e2e (full browser) has no component-level coverage.",
+          "The vitest.config.ts and test setup infrastructure are ready for component tests but none are written."
+        ],
+        "suggestion": "Add @testing-library/react component tests for HomePage (code exchange flow, error display, provider-conditional rendering) and ClientSideLogin/MicrosoftClientSideLogin (callback handling, error states). These are faster and more targeted than e2e tests for catching regressions.",
+        "reasoning": "",
+        "summary_hash": "2ad4ce66"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::test_strategy::no_filter_order_integration_test": {
+      "id": "review::.::holistic::test_strategy::no_filter_order_integration_test",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "No test explicitly validates the combined filter chain ordering (MicrosoftAuthorizationGateFilter before OAuth2AuthorizationRequestRedirectFilter, JwtAuthenticationFilter before UsernamePasswordAuthenticationFilter) as a contractual assertion",
+      "detail": {
+        "holistic": true,
+        "dimension": "test_strategy",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/config/SecurityConfig.java"
+        ],
+        "evidence": [
+          "SecurityConfig.filterChain() registers filters with addFilterBefore in specific positions. The ordering is critical: MicrosoftAuthorizationGateFilter must run before the OAuth2 redirect to gate disabled providers, and JwtAuthenticationFilter must run before Spring's default auth filter.",
+          "SecurityConfigTest and ControllerIntegrationTest verify endpoint-level behavior but don't assert filter ordering directly. A reorder of the addFilterBefore calls could break the auth flow without any test failing if the behavioral tests don't happen to exercise the exact scenario where ordering matters.",
+          "The previously resolved issue noted the same gap \u2014 while integration tests now cover more scenarios, there is still no explicit filter-order assertion."
+        ],
+        "suggestion": "Add a SecurityConfig integration test that introspects the SecurityFilterChain bean to assert filter ordering, or add a targeted test that exercises a scenario where incorrect ordering would produce a different result (e.g., a Microsoft OAuth2 redirect attempt when Microsoft is disabled should be blocked by the gate filter before reaching the OAuth2 redirect filter).",
+        "reasoning": "",
+        "summary_hash": "c571eb98"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::api_surface_coherence::raw_json_bypass_auth_entry_point": {
+      "id": "review::.::holistic::api_surface_coherence::raw_json_bypass_auth_entry_point",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "SecurityConfig authentication entry point writes raw JSON instead of using ErrorResponse DTO",
+      "detail": {
+        "holistic": true,
+        "dimension": "api_surface_coherence",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/config/SecurityConfig.java"
+        ],
+        "evidence": [
+          "In SecurityConfig.filterChain(), the authenticationEntryPoint lambda writes '{\"error\":\"Unauthorized\"}' as a raw string via response.getWriter().write(), bypassing the ErrorResponse record and Jackson serialization used by all other endpoints"
+        ],
+        "suggestion": "Use an ObjectMapper to serialize an ErrorResponse instance, or delegate to a shared method/bean that produces consistent JSON output matching the DTO hierarchy. This keeps all API responses going through the same serialization path.",
+        "reasoning": "",
+        "summary_hash": "12a0a09a"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::api_surface_coherence::inconsistent_response_field_names": {
+      "id": "review::.::holistic::api_surface_coherence::inconsistent_response_field_names",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "LogoutResponse uses 'message' field while ErrorResponse uses 'error' \u2014 mixed top-level keys in sealed type",
+      "detail": {
+        "holistic": true,
+        "dimension": "api_surface_coherence",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/dto/LogoutResponse.java",
+          "backend/src/main/java/com/demo/sso/controller/dto/ErrorResponse.java",
+          "backend/src/main/java/com/demo/sso/controller/dto/TokenResponse.java"
+        ],
+        "evidence": [
+          "AuthApiResponse is a sealed interface with four implementations: TokenResponse has 'token', ErrorResponse has 'error', LogoutResponse has 'message', MicrosoftChallengeResponse has 'challengeId'+'nonce'. A frontend consumer cannot distinguish response type by the presence of a single key without trying multiple field names or using HTTP status codes."
+        ],
+        "suggestion": "Add a discriminator field (e.g., 'type' or 'status') to AuthApiResponse or adopt a consistent wrapper like {\"data\": ...} for success and {\"error\": ...} for failure, so consumers can reliably determine response type from structure alone.",
+        "reasoning": "",
+        "summary_hash": "38734acd"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::api_surface_coherence::normalizer_parameter_asymmetry": {
+      "id": "review::.::holistic::api_surface_coherence::normalizer_parameter_asymmetry",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "normalizeGoogleClaims takes 5 individual params while normalizeMicrosoftClaims takes a typed record",
+      "detail": {
+        "holistic": true,
+        "dimension": "api_surface_coherence",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java"
+        ],
+        "evidence": [
+          "normalizeGoogleClaims(String googleId, String email, String name, String pictureUrl, AuthFlow loginFlow) takes 5 individual parameters, while normalizeMicrosoftClaims(MicrosoftIdTokenClaims claims, AuthFlow loginFlow) takes a typed record. Both serve the same role in the normalizer's public API \u2014 transforming provider claims to NormalizedIdentity \u2014 but use asymmetric parameter styles."
+        ],
+        "suggestion": "Create a VerifiedGoogleIdentity-style typed record for the Google claims (note: GoogleTokenVerifier.VerifiedGoogleIdentity already exists) and change normalizeGoogleClaims to accept (VerifiedGoogleIdentity, AuthFlow), matching the Microsoft overload's shape. The caller in AuthCompletionService.completeGoogleAuthentication already has a VerifiedGoogleIdentity \u2014 it just destructures it unnecessarily.",
+        "reasoning": "",
+        "summary_hash": "9e460073"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::authorization_consistency::csrf_wildcard_mismatch": {
+      "id": "review::.::holistic::authorization_consistency::csrf_wildcard_mismatch",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "CSRF exclusion uses /auth/microsoft/* (single-segment) while permitAll uses /auth/** (multi-segment)",
+      "detail": {
+        "holistic": true,
+        "dimension": "authorization_consistency",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/config/SecurityConfig.java"
+        ],
+        "evidence": [
+          "In SecurityConfig.filterChain(), CSRF is disabled via ignoringRequestMatchers(\"/auth/google/verify\", \"/auth/microsoft/*\", \"/auth/exchange\", \"/auth/logout\"). The /auth/microsoft/* pattern only matches one path segment (e.g., /auth/microsoft/verify, /auth/microsoft/challenge) while the authorization rule uses /auth/** which matches all depths. This is functionally correct today since Microsoft endpoints are exactly one level deep, but the inconsistent wildcard style (/microsoft/* vs /**) could lead to a gap if a nested endpoint is added."
+        ],
+        "suggestion": "Either enumerate Microsoft endpoints explicitly (matching the Google and Exchange style) for maximum clarity, or use /auth/microsoft/** for consistency with the permitAll pattern. Explicit enumeration is safer: ignoringRequestMatchers(\"/auth/google/verify\", \"/auth/microsoft/challenge\", \"/auth/microsoft/verify\", \"/auth/exchange\", \"/auth/logout\").",
+        "reasoning": "",
+        "summary_hash": "891043e4"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::authorization_consistency::logout_no_server_side_revocation": {
+      "id": "review::.::holistic::authorization_consistency::logout_no_server_side_revocation",
+      "detector": "review",
+      "file": ".",
+      "tier": 3,
+      "confidence": "low",
+      "summary": "POST /auth/logout returns success but performs no server-side JWT invalidation or token blocklisting",
+      "detail": {
+        "holistic": true,
+        "dimension": "authorization_consistency",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+        ],
+        "evidence": [
+          "AuthController.logout() simply returns ResponseEntity.ok(new LogoutResponse(\"Logged out successfully\")) with no server-side action \u2014 no token blocklist check, no Redis expiry, no SecurityContext clearing. The frontend removes the JWT from localStorage, but the token remains cryptographically valid until expiry (86400000ms = 24 hours). A stolen token continues to work even after the user 'logs out'."
+        ],
+        "suggestion": "If full revocation is not needed, add a brief Javadoc comment on the logout method documenting the design decision (stateless JWT, client-side only, no revocation). If revocation is desired, implement a Redis-backed token blocklist and check it in JwtAuthenticationFilter.validateAndExtract(). The documentation approach is the simpler and likely appropriate path for this experimental project.",
+        "reasoning": "",
+        "summary_hash": "78e69326"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::ai_generated_debt::interface_javadoc_bloat": {
+      "id": "review::.::holistic::ai_generated_debt::interface_javadoc_bloat",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "Interface Javadoc restates method signatures without adding insight",
+      "detail": {
+        "holistic": true,
+        "dimension": "ai_generated_debt",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java",
+          "backend/src/main/java/com/demo/sso/service/challenge/MicrosoftChallengeStore.java"
+        ],
+        "evidence": [
+          "AuthCodeStore.storeJwt @return says 'a single-use code that can be exchanged via exchangeCode' \u2014 the method name and interface contract already communicate this.",
+          "MicrosoftChallengeStore.issueChallenge @return says 'a new MicrosoftChallenge containing the challenge ID and nonce' \u2014 this restates the return type.",
+          "MicrosoftChallengeStore.consumeNonce has a 7-line Javadoc block that restates the Optional return semantics that the type signature already conveys."
+        ],
+        "suggestion": "Trim interface Javadoc to WHY commentary only. Remove @return tags that restate the return type. Keep @throws tags where the exception contract is non-obvious.",
+        "reasoning": "",
+        "summary_hash": "f4f1a56c"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::ai_generated_debt::provider_config_warn_noise": {
+      "id": "review::.::holistic::ai_generated_debt::provider_config_warn_noise",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "Warn-level logs on normal disabled-feature-flag configuration states",
+      "detail": {
+        "holistic": true,
+        "dimension": "ai_generated_debt",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+        ],
+        "evidence": [
+          "Lines 73, 76, 79, 92, 95: five logger.warn() calls for routine states like 'Google client-side login suppressed by rollout flag' and 'Google provider not configured: client ID is missing'.",
+          "These fire on every GET /auth/providers call when a provider is intentionally disabled, creating log noise in normal operation."
+        ],
+        "suggestion": "Downgrade to logger.debug() for expected disabled states. Reserve logger.warn() for conditions like 'rollout flag enabled but config missing' which already exists and is appropriate.",
+        "reasoning": "",
+        "summary_hash": "a49692cc"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::ai_generated_debt::duplicate_inline_comment": {
+      "id": "review::.::holistic::ai_generated_debt::duplicate_inline_comment",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "Identical inline comment duplicated verbatim in RedisAuthCodeStore",
+      "detail": {
+        "holistic": true,
+        "dimension": "ai_generated_debt",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
+        ],
+        "evidence": [
+          "Lines 41 and 75 both contain the identical comment '// Write prefix depends on JWT mint mode: V2 mints use v2 key prefix, legacy uses legacy prefix'.",
+          "The comment restates what the code below it clearly shows \u2014 a ternary choosing between V2_KEY_PREFIX and LEGACY_KEY_PREFIX based on JwtMintMode."
+        ],
+        "suggestion": "Remove both inline comments. The method name currentWritePrefix() and the ternary expression are self-documenting.",
+        "reasoning": "",
+        "summary_hash": "7f958cbb"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::ai_generated_debt::dto_javadoc_overhead": {
+      "id": "review::.::holistic::ai_generated_debt::dto_javadoc_overhead",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "ProviderConfigResponse class-level Javadoc restates what the record structure already communicates",
+      "detail": {
+        "holistic": true,
+        "dimension": "ai_generated_debt",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/dto/ProviderConfigResponse.java"
+        ],
+        "evidence": [
+          "The 7-line class-level Javadoc explains this is 'the single source of truth the frontend uses to decide which SSO providers and flows to render' \u2014 useful cross-reference.",
+          "But the nested record MicrosoftProviderConfig has a 5-line Javadoc that restates the @JsonInclude annotation behavior and the nullability contract that the field types already express.",
+          "43% comment ratio on a simple DTO record with 2 nested records."
+        ],
+        "suggestion": "Keep the cross-reference comment about frontend sync. Trim the MicrosoftProviderConfig Javadoc to remove restated nullability rules \u2014 the @JsonInclude annotation and nullable types are self-documenting.",
+        "reasoning": "",
+        "summary_hash": "271881ba"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::ai_generated_debt::authenticated_identity_javadoc_weight": {
+      "id": "review::.::holistic::ai_generated_debt::authenticated_identity_javadoc_weight",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "AuthenticatedUserIdentity has 20-line Javadoc plus stale refactoring comment on a well-constrained record",
+      "detail": {
+        "holistic": true,
+        "dimension": "ai_generated_debt",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java"
+        ],
+        "evidence": [
+          "The record has a 20-line Javadoc block explaining the legacy/v2 invariants. While the WHY is valuable, the HOW (listing which fields are null in each variant) restates what the factory methods enforce.",
+          "Line 24: '// Future: consider refactoring to a sealed interface...' is a stale aspirational comment with no tracking or timeline."
+        ],
+        "suggestion": "Condense the Javadoc to explain the WHY (two contract versions coexist during migration) and remove the field-nullability details that the factory methods already enforce. Convert the '// Future' comment to a tracked issue or remove it.",
+        "reasoning": "",
+        "summary_hash": "f4fcc5c3"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::incomplete_migration::google_id_column_retention": {
+      "id": "review::.::holistic::incomplete_migration::google_id_column_retention",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "Legacy google_id column and findByGoogleId lookup persist alongside provider-neutral identity columns",
+      "detail": {
+        "holistic": true,
+        "dimension": "incomplete_migration",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/model/User.java",
+          "backend/src/main/java/com/demo/sso/repository/UserRepository.java",
+          "backend/src/main/java/com/demo/sso/service/user/UserService.java"
+        ],
+        "evidence": [
+          "User.java line 29-30: google_id column is nullable but still present in the entity.",
+          "UserRepository.java line 10: findByGoogleId query method is still defined and used.",
+          "UserService.findOrCreateUser line 33: fallback lookup by googleId for GOOGLE provider runs alongside the provider-neutral findByProviderAndProviderUserId.",
+          "UserService.createNewUser line 53: still sets googleId on new GOOGLE users.",
+          "UserService.recoverFromConcurrentCreation line 71: Google-specific recovery branch using findByGoogleId."
+        ],
+        "suggestion": "Once all existing users have been backfilled with provider/providerUserId (which V3 migration already did), remove the google_id column, findByGoogleId repository method, and Google-specific branches in UserService. The provider-neutral lookup is sufficient.",
+        "reasoning": "",
+        "summary_hash": "7c5089ba"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::incomplete_migration::deprecated_legacy_token_still_called": {
+      "id": "review::.::holistic::incomplete_migration::deprecated_legacy_token_still_called",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "@Deprecated generateLegacyToken is still called in production via generateToken(User) in LEGACY mode",
+      "detail": {
+        "holistic": true,
+        "dimension": "incomplete_migration",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java"
+        ],
+        "evidence": [
+          "Line 67-82: generateLegacyToken is @Deprecated but generateToken(User) on line 88 calls it when jwtMintMode is not V2.",
+          "The default JwtMintMode is LEGACY (AuthRolloutProperties line 11), so the deprecated path is the DEFAULT production path.",
+          "Tests exercise generateLegacyToken directly in 8+ test methods."
+        ],
+        "suggestion": "When ready to complete the V2 migration, switch the default JwtMintMode to V2 and remove generateLegacyToken. Until then, the @Deprecated annotation is misleading since it is the default code path.",
+        "reasoning": "",
+        "summary_hash": "0f5bd0ef"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::incomplete_migration::deprecated_isTokenValid_in_tests": {
+      "id": "review::.::holistic::incomplete_migration::deprecated_isTokenValid_in_tests",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "@Deprecated isTokenValid has no production callers but 6 test methods still exercise it",
+      "detail": {
+        "holistic": true,
+        "dimension": "incomplete_migration",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
+          "backend/src/test/java/com/demo/sso/service/token/JwtTokenServiceTest.java"
+        ],
+        "evidence": [
+          "Line 189-191: isTokenValid is @Deprecated with guidance to use validateAndExtract instead.",
+          "No production code calls isTokenValid \u2014 all callers use validateAndExtract.",
+          "JwtTokenServiceTest has 6 tests calling isTokenValid (lines 62-92)."
+        ],
+        "suggestion": "Remove isTokenValid and migrate the 6 test methods to use validateAndExtract. The deprecated method has no production callers, so it can be safely removed.",
+        "reasoning": "",
+        "summary_hash": "75a951f1"
+      },
+      "status": "fixed",
+      "note": "Updated tests to use current validateAndExtract API",
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": "2026-03-15T02:05:45+00:00",
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "manual",
+        "text": "I have actually Updated tests to use current validateAndExtract API and I am not gaming the score.",
+        "attested_at": "2026-03-15T02:05:45+00:00",
+        "scan_verified": false
+      }
+    },
+    "review::.::holistic::incomplete_migration::dual_authcode_key_prefix_routing": {
+      "id": "review::.::holistic::incomplete_migration::dual_authcode_key_prefix_routing",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "RedisAuthCodeStore maintains dual key prefix routing for legacy and V2 auth codes",
+      "detail": {
+        "holistic": true,
+        "dimension": "incomplete_migration",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
+        ],
+        "evidence": [
+          "LEGACY_KEY_PREFIX ('authcode:') and V2_KEY_PREFIX ('authcode:v2:') coexist with a switch expression in exchangeCode routing between them based on IdentityContractMode.",
+          "COMPATIBILITY mode checks legacy first, then V2 \u2014 maintaining both key namespaces simultaneously.",
+          "currentWritePrefix() selects between prefixes based on JwtMintMode."
+        ],
+        "suggestion": "Once the migration to V2_ONLY is complete, remove the LEGACY_KEY_PREFIX, the COMPATIBILITY fallback, and the currentWritePrefix method. Use V2_KEY_PREFIX directly.",
+        "reasoning": "",
+        "summary_hash": "0f4829dc"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller": {
+      "id": "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "UserController constructs a legacy identity fallback for unexpected principal types",
+      "detail": {
+        "holistic": true,
+        "dimension": "incomplete_migration",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/UserController.java"
+        ],
+        "evidence": [
+          "Lines 32-33: When authentication.getPrincipal() is not AuthenticatedUserIdentity, a legacy identity is constructed from getName() with null googleId.",
+          "This fallback exists only to handle legacy JWT sessions that predate the V2 filter \u2014 it's a compatibility shim."
+        ],
+        "suggestion": "Once all legacy JWT sessions have expired (controlled by app.jwt.expiration-ms), remove this fallback and require AuthenticatedUserIdentity principal type.",
+        "reasoning": "",
+        "summary_hash": "aa4b1885"
+      },
+      "status": "fixed",
+      "note": "Added Javadoc documenting legacy fallback removal criteria",
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": "2026-03-15T02:06:19+00:00",
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null,
+      "resolution_attestation": {
+        "kind": "manual",
+        "text": "I have actually Added Javadoc documenting legacy fallback removal criteria and I am not gaming the score.",
+        "attested_at": "2026-03-15T02:06:19+00:00",
+        "scan_verified": false
+      }
+    },
+    "review::.::holistic::incomplete_migration::stale_login_method_column": {
+      "id": "review::.::holistic::incomplete_migration::stale_login_method_column",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "login_method column exists in DB schema but is never referenced in Java code",
+      "detail": {
+        "holistic": true,
+        "dimension": "incomplete_migration",
+        "related_files": [
+          "backend/src/main/resources/db/migration/B1__pre_provider_google_schema.sql",
+          "backend/src/main/resources/db/migration/V3__backfill_google_provider_identity.sql"
+        ],
+        "evidence": [
+          "B1 migration creates login_method VARCHAR(20) column.",
+          "V3 migration reads login_method to backfill last_login_flow, but no subsequent migration drops login_method.",
+          "User.java entity has no login_method field \u2014 it was replaced by lastLoginFlow but the old column was never dropped."
+        ],
+        "suggestion": "Add a V6 migration to DROP COLUMN login_method from the users table. It has been fully replaced by last_login_flow.",
+        "reasoning": "",
+        "summary_hash": "2477ce0f"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::incomplete_migration::stale_future_refactoring_comment": {
+      "id": "review::.::holistic::incomplete_migration::stale_future_refactoring_comment",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "Stale '// Future: consider refactoring to a sealed interface' comment with no tracking",
+      "detail": {
+        "holistic": true,
+        "dimension": "incomplete_migration",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java"
+        ],
+        "evidence": [
+          "Line 24: '// Future: consider refactoring to a sealed interface with LegacyIdentity and V2Identity' \u2014 this is a migration TODO with no issue reference, no timeline, and no ownership."
+        ],
+        "suggestion": "Either create a tracked issue for the sealed interface refactoring or remove the comment. Inline future-planning comments without tracking become stale debt.",
+        "reasoning": "",
+        "summary_hash": "22212562"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::package_organization::singleton_service_model_package": {
+      "id": "review::.::holistic::package_organization::singleton_service_model_package",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "service/model/ package contains only AuthenticatedUserIdentity, creating unnecessary navigational indirection",
+      "detail": {
+        "holistic": true,
+        "dimension": "package_organization",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java",
+          "backend/src/main/java/com/demo/sso/service/auth/NormalizedIdentity.java"
+        ],
+        "evidence": [
+          "service/model/ has exactly 1 file (AuthenticatedUserIdentity.java, ~50 LOC)",
+          "AuthenticatedUserIdentity is a cross-cutting identity record used by JwtTokenService (token/), UserController (controller/), JwtAuthenticationFilter (config/), and UserService (user/)",
+          "NormalizedIdentity, a sibling identity record with a similar role (pre-auth identity vs post-auth identity), lives in service/auth/ \u2014 the split between service/model/ and service/auth/ for identity records is not intuitive",
+          "The package name service/model/ is ambiguous with the top-level model/ package which holds JPA entities"
+        ],
+        "suggestion": "Stage 1: Move AuthenticatedUserIdentity.java to service/auth/ alongside NormalizedIdentity.java, since both represent identity concepts at the service boundary. Stage 2: Update imports in JwtTokenService.java, JwtAuthenticationFilter.java, UserController.java, and UserService.java. Stage 3: Delete the now-empty service/model/ directory. Validate with: mvn compile -q",
+        "reasoning": "",
+        "summary_hash": "3dfc46d9"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::design_coherence::nullable_variant_identity": {
+      "id": "review::.::holistic::design_coherence::nullable_variant_identity",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "AuthenticatedUserIdentity models two mutually exclusive identity versions via nullable fields instead of a sealed type hierarchy",
+      "detail": {
+        "holistic": true,
+        "dimension": "design_coherence",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java"
+        ],
+        "evidence": [
+          "Record has 6 fields (userId, email, provider, providerUserId, contractVersion, legacyProviderKey) where 4 are nullable depending on version",
+          "Line 24 comment acknowledges: 'Future: consider refactoring to a sealed interface with LegacyIdentity and V2Identity'",
+          "Callers must use isLegacy() boolean to determine which fields are available, losing type-level guarantees \u2014 e.g., UserService.findCurrentUser (line 97) and JwtTokenService.parseAuthenticatedUser (lines 132-169)"
+        ],
+        "suggestion": "Refactor to a sealed interface with LegacyIdentity and V2Identity record implementations as the existing comment suggests. This would make the contract version a type-level guarantee and eliminate runtime isLegacy() checks.",
+        "reasoning": "",
+        "summary_hash": "e686f153"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::design_coherence::legacy_google_branches_in_userservice": {
+      "id": "review::.::holistic::design_coherence::legacy_google_branches_in_userservice",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "UserService scatters Google-specific legacy fallback logic across findOrCreateUser and createNewUser",
+      "detail": {
+        "holistic": true,
+        "dimension": "design_coherence",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/user/UserService.java"
+        ],
+        "evidence": [
+          "findOrCreateUser (line 32-34): 'if (existing.isEmpty() && identity.provider() == AuthProvider.GOOGLE) { existing = userRepository.findByGoogleId(...) }' \u2014 Google-specific fallback alongside general provider lookup",
+          "createNewUser (line 52-54): 'if (identity.provider() == AuthProvider.GOOGLE) { user.setGoogleId(...) }' \u2014 provider-specific entity field",
+          "recoverFromConcurrentCreation (line 67-73): separate recovery paths for Google vs other providers"
+        ],
+        "suggestion": "Extract Google legacy migration logic into a dedicated migration-aware lookup strategy, or gate it behind the AuthRolloutProperties identity contract mode so it can be removed cleanly when legacy support is dropped.",
+        "reasoning": "",
+        "summary_hash": "34b6d5b7"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::design_coherence::dual_mode_dispatch_scattered": {
+      "id": "review::.::holistic::design_coherence::dual_mode_dispatch_scattered",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "Legacy/V2 mode dispatch is duplicated across JwtTokenService, RedisAuthCodeStore, and JwtAuthenticationFilter",
+      "detail": {
+        "holistic": true,
+        "dimension": "design_coherence",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
+          "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
+        ],
+        "evidence": [
+          "JwtTokenService.generateToken (line 85-89): branches on rolloutProperties.getJwtMintMode() to choose between generateV2Token and generateLegacyToken",
+          "JwtTokenService.parseAuthenticatedUser (lines 132-169): branches on version claim and rolloutProperties.getIdentityContractMode() to decide acceptance",
+          "RedisAuthCodeStore.exchangeCode (lines 49-54): switches on rolloutProperties.getIdentityContractMode() with three branches",
+          "RedisAuthCodeStore.currentWritePrefix (lines 74-78): branches on rolloutProperties.getJwtMintMode()"
+        ],
+        "suggestion": "Consider whether the mode-dependent behavior could be encapsulated behind strategy implementations selected at startup by AuthRolloutProperties, rather than having each service independently consult rollout properties at runtime.",
+        "reasoning": "",
+        "summary_hash": "d0b53822"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::contract_coherence::apifetch_undefined_cast": {
+      "id": "review::.::holistic::contract_coherence::apifetch_undefined_cast",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "apiFetch<T> returns 'undefined as T' for 204 responses, violating its Promise<T> return type",
+      "detail": {
+        "holistic": true,
+        "dimension": "contract_coherence",
+        "related_files": [
+          "frontend/src/api/client.ts"
+        ],
+        "evidence": [
+          "Line 56: function signature is 'async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T>'",
+          "Line 83-84: 'if (response.status === 204) { return undefined as T; }' \u2014 the unsafe cast silently lies about the return type",
+          "Comment on line 53-55 acknowledges the issue: 'Note: Returns undefined cast to T for 204 (No Content) responses. Callers expecting 204 should check for undefined explicitly.'"
+        ],
+        "suggestion": "Change return type to Promise<T | undefined> or create a separate function for endpoints that may return 204. The current approach pushes type-safety responsibility onto callers via comments rather than the type system.",
+        "reasoning": "",
+        "summary_hash": "c4e5b986"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::contract_coherence::findorcreate_hidden_mutation": {
+      "id": "review::.::holistic::contract_coherence::findorcreate_hidden_mutation",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "UserService.findOrCreateUser silently mutates existing user records despite 'findOrCreate' naming",
+      "detail": {
+        "holistic": true,
+        "dimension": "contract_coherence",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/user/UserService.java"
+        ],
+        "evidence": [
+          "Method name is 'findOrCreateUser' suggesting two behaviors: find or create",
+          "Lines 36-38: when user is found, delegates to 'updateExistingUser' which overwrites email, name, pictureUrl, provider identity fields, and lastLoginAt",
+          "The update-on-find behavior is a hidden side effect \u2014 callers (AuthCompletionService line 40) expect find-or-create semantics, not find-update-or-create"
+        ],
+        "suggestion": "Rename to 'findOrCreateAndUpdate' or 'syncUser' to make the mutation behavior explicit. Alternatively, add Javadoc documenting that existing users are always updated with latest identity claims on login.",
+        "reasoning": "",
+        "summary_hash": "8536248e"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::contract_coherence::generatetoken_undocumented_throw": {
+      "id": "review::.::holistic::contract_coherence::generatetoken_undocumented_throw",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "JwtTokenService.generateToken can throw undocumented IllegalArgumentException in V2 mode",
+      "detail": {
+        "holistic": true,
+        "dimension": "contract_coherence",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java"
+        ],
+        "evidence": [
+          "Line 84: public method 'generateToken(User user)' has no Javadoc or @throws annotation",
+          "Line 85-88: delegates to generateV2Token when mint mode is V2, which throws IllegalArgumentException on lines 92-93 if 'user.getId() == null || user.getEmail() == null || user.getProvider() == null || user.getProviderUserId() == null'",
+          "In LEGACY mode the method delegates to generateLegacyToken which does not validate inputs, creating mode-dependent preconditions that are invisible to callers"
+        ],
+        "suggestion": "Add Javadoc to generateToken documenting that it may throw IllegalArgumentException when JWT mint mode is V2 and user entity is missing required fields (id, email, provider, providerUserId).",
+        "reasoning": "",
+        "summary_hash": "8b078d8a"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::contract_coherence::exception_handler_leaks_messages": {
+      "id": "review::.::holistic::contract_coherence::exception_handler_leaks_messages",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "GlobalExceptionHandler surfaces raw IllegalArgumentException messages as 400 response bodies",
+      "detail": {
+        "holistic": true,
+        "dimension": "contract_coherence",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/GlobalExceptionHandler.java"
+        ],
+        "evidence": [
+          "Line 16-18: 'handleIllegalArgument' returns 'new ErrorResponse(e.getMessage())' \u2014 the raw exception message becomes the HTTP response body",
+          "AuthController endpoint methods catch their own IllegalArgumentException cases and return sanitized messages (e.g., 'Invalid Google credential')",
+          "If an uncaught IllegalArgumentException from a deep service layer (e.g., ProviderIdentityNormalizer, JwtTokenService) reaches the handler, its internal message (e.g., 'V2 JWT is missing required identity claims') would be exposed to clients"
+        ],
+        "suggestion": "Return a generic 'Bad request' message in the GlobalExceptionHandler fallback and log the specific exception message at WARN level (already done), rather than forwarding internal exception messages to clients.",
+        "reasoning": "",
+        "summary_hash": "061f91d5"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::logic_clarity::normalize_email_unused_atindex": {
+      "id": "review::.::holistic::logic_clarity::normalize_email_unused_atindex",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "normalizeEmail declares atIndex variable but recomputes indexOf('@') three more times instead of using it",
+      "detail": {
+        "holistic": true,
+        "dimension": "logic_clarity",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java"
+        ],
+        "evidence": [
+          "Line 78: `int atIndex = normalized.indexOf('@');` declares the variable",
+          "Line 79: `boolean hasExactlyOneAt = normalized.indexOf('@') == normalized.lastIndexOf('@') && normalized.indexOf('@') >= 0;` recomputes indexOf('@') three times instead of using atIndex",
+          "The hasExactlyOneAt check also includes `indexOf('@') >= 0` which is redundant with hasNonEmptyLocalAndDomain's `atIndex > 0` check (atIndex > 0 implies atIndex >= 0)"
+        ],
+        "suggestion": "Rewrite hasExactlyOneAt to use the already-computed atIndex: `boolean hasExactlyOneAt = atIndex >= 0 && atIndex == normalized.lastIndexOf('@');` \u2014 this eliminates three redundant indexOf calls and makes the relationship between the checks clearer",
+        "reasoning": "",
+        "summary_hash": "30b3cbcf"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::type_safety::auth_identity_nullable_variant": {
+      "id": "review::.::holistic::type_safety::auth_identity_nullable_variant",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "AuthenticatedUserIdentity models two exclusive contract versions via nullable fields instead of a sealed type hierarchy",
+      "detail": {
+        "holistic": true,
+        "dimension": "type_safety",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java"
+        ],
+        "evidence": [
+          "Fields userId, provider, providerUserId are null for legacy identities; legacyProviderKey is null for v2 identities",
+          "Callers must use isLegacy() check before accessing version-specific fields \u2014 the compiler does not enforce this",
+          "The source code contains a TODO comment: 'consider refactoring to a sealed interface with LegacyIdentity and V2Identity record implementations'",
+          "UserService.findCurrentUser() and JwtTokenService.parseAuthenticatedUser() both branch on isLegacy() \u2014 runtime dispatch that could be type-level dispatch"
+        ],
+        "suggestion": "Refactor to a sealed interface: `sealed interface AuthenticatedUserIdentity permits LegacyIdentity, V2Identity`. LegacyIdentity has non-null email and optional legacyProviderKey. V2Identity has non-null userId, email, provider, and providerUserId. Callers use pattern matching instead of isLegacy() checks.",
+        "reasoning": "",
+        "summary_hash": "520bcc91"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::type_safety::apifetch_undefined_as_t": {
+      "id": "review::.::holistic::type_safety::apifetch_undefined_as_t",
+      "detector": "review",
+      "file": ".",
+      "tier": 1,
+      "confidence": "high",
+      "summary": "apiFetch<T> returns undefined cast to T for 204 responses \u2014 return type does not reflect this possibility",
+      "detail": {
+        "holistic": true,
+        "dimension": "type_safety",
+        "related_files": [
+          "frontend/src/api/client.ts"
+        ],
+        "evidence": [
+          "Line with `return undefined as T` \u2014 the function signature is `Promise<T>` not `Promise<T | undefined>`",
+          "Comment documents the behavior but TypeScript type system does not protect callers",
+          "Any caller expecting a non-undefined T from a 204 endpoint would get a runtime surprise"
+        ],
+        "suggestion": "Change the return type to `Promise<T | undefined>` or provide a separate `apiFetchNoContent` function for endpoints that return 204. This forces callers to handle the undefined case.",
+        "reasoning": "",
+        "summary_hash": "c57e6aac"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
+    },
+    "review::.::holistic::type_safety::google_payload_unchecked_cast": {
+      "id": "review::.::holistic::type_safety::google_payload_unchecked_cast",
+      "detector": "review",
+      "file": ".",
+      "tier": 2,
+      "confidence": "medium",
+      "summary": "GoogleTokenVerifier.verify() uses unchecked (String) casts on Google SDK payload values that may not be strings",
+      "detail": {
+        "holistic": true,
+        "dimension": "type_safety",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java"
+        ],
+        "evidence": [
+          "`(String) payload.get(\"name\")` and `(String) payload.get(\"picture\")` cast Object to String without instanceof check",
+          "Google's Payload.get() returns Object \u2014 if the payload shape changes or contains a non-String value, ClassCastException at runtime",
+          "Contrast with MicrosoftIdTokenClaims.stringClaim() which safely handles non-String values via instanceof and String.valueOf()"
+        ],
+        "suggestion": "Use the same safe-cast pattern as MicrosoftIdTokenClaims.stringClaim(): check `instanceof String s` and fall back to `String.valueOf(value)` for non-null non-String values. This also aligns the two providers' claim extraction patterns.",
+        "reasoning": "",
+        "summary_hash": "d88ea404"
+      },
+      "status": "open",
+      "note": null,
+      "first_seen": "2026-03-15T02:05:07+00:00",
+      "last_seen": "2026-03-15T02:05:07+00:00",
+      "resolved_at": null,
+      "reopen_count": 0,
+      "work_item_kind": "review_defect",
+      "issue_kind": "review_defect",
+      "origin": "review_import",
+      "lang": "java",
+      "suppressed": false,
+      "suppressed_at": null,
+      "suppression_pattern": null
     }
   },
   "scan_coverage": {
@@ -3337,8 +5212,8 @@
     "source": "scan"
   },
   "subjective_integrity": {
-    "status": "pass",
-    "target_score": 95.0,
+    "status": "disabled",
+    "target_score": null,
     "matched_count": 0,
     "matched_dimensions": [],
     "reset_dimensions": []
@@ -3442,7 +5317,7 @@
       "assessed_at": "2026-03-14T19:10:42+00:00",
       "needs_review_refresh": true,
       "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:46:43+00:00"
+      "stale_since": "2026-03-15T02:06:19+00:00"
     },
     "initialization_coupling": {
       "score": 88.6,
@@ -3476,7 +5351,7 @@
       "assessed_at": "2026-03-14T19:10:42+00:00",
       "needs_review_refresh": true,
       "refresh_reason": "review_issue_fixed",
-      "stale_since": "2026-03-14T20:59:29+00:00"
+      "stale_since": "2026-03-14T21:00:44+00:00"
     },
     "package_organization": {
       "score": 83.0,
@@ -4016,6 +5891,135 @@
           "strict": 78.4
         }
       }
+    },
+    {
+      "timestamp": "2026-03-15T02:05:07+00:00",
+      "lang": "java",
+      "strict_score": 84.2,
+      "verified_strict_score": 87.7,
+      "objective_score": 87.7,
+      "overall_score": 84.2,
+      "open": 107,
+      "diff_new": 49,
+      "diff_resolved": 11,
+      "ignored": 0,
+      "raw_issues": 49,
+      "suppressed_pct": 0.0,
+      "ignore_patterns": 0,
+      "subjective_integrity": {
+        "status": "disabled",
+        "matched_count": 0,
+        "reset_count": 0,
+        "target_score": null
+      },
+      "score_confidence": {
+        "status": "reduced",
+        "confidence": 0.0,
+        "detector_count": 1,
+        "dimension_count": 0
+      },
+      "dimension_scores": {
+        "Code quality": {
+          "score": 68.0,
+          "strict": 68.0
+        },
+        "Security": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "File health": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "Duplication": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "Test health": {
+          "score": 78.1,
+          "strict": 78.1
+        },
+        "Abstraction fit": {
+          "score": 90.8,
+          "strict": 90.8
+        },
+        "AI generated debt": {
+          "score": 90.8,
+          "strict": 90.8
+        },
+        "API coherence": {
+          "score": 81.0,
+          "strict": 81.0
+        },
+        "Auth consistency": {
+          "score": 88.0,
+          "strict": 88.0
+        },
+        "Contracts": {
+          "score": 84.6,
+          "strict": 84.6
+        },
+        "Convention drift": {
+          "score": 84.0,
+          "strict": 84.0
+        },
+        "Cross-module arch": {
+          "score": 83.0,
+          "strict": 83.0
+        },
+        "Dep health": {
+          "score": 91.0,
+          "strict": 91.0
+        },
+        "Design coherence": {
+          "score": 91.4,
+          "strict": 91.4
+        },
+        "Error consistency": {
+          "score": 77.4,
+          "strict": 77.4
+        },
+        "High elegance": {
+          "score": 74.0,
+          "strict": 74.0
+        },
+        "Stale migration": {
+          "score": 82.0,
+          "strict": 82.0
+        },
+        "Init coupling": {
+          "score": 88.6,
+          "strict": 88.6
+        },
+        "Logic clarity": {
+          "score": 91.0,
+          "strict": 91.0
+        },
+        "Low elegance": {
+          "score": 89.0,
+          "strict": 89.0
+        },
+        "Mid elegance": {
+          "score": 81.0,
+          "strict": 81.0
+        },
+        "Naming quality": {
+          "score": 87.0,
+          "strict": 87.0
+        },
+        "Structure nav": {
+          "score": 83.0,
+          "strict": 83.0
+        },
+        "Test strategy": {
+          "score": 83.0,
+          "strict": 83.0
+        },
+        "Type safety": {
+          "score": 78.4,
+          "strict": 78.4
+        }
+      }
     }
   ],
   "lang_capabilities": {
@@ -4029,7 +6033,7 @@
     "test": 21
   },
   "tool_hash": "ff028490caf6",
-  "scan_path": ".",
+  "scan_path": null,
   "scan_completeness": {
     "java": "full"
   },
@@ -4045,7 +6049,8 @@
       "test_coverage": 205,
       "boilerplate_duplication": 0,
       "dupes": 106,
-      "stale_wontfix": 0
+      "stale_wontfix": 0,
+      "review": 10
     }
   },
   "codebase_metrics": {
@@ -4153,13 +6158,13 @@
       "strict": 90.8,
       "verified_strict_score": 90.8,
       "checks": 10,
-      "failing": 0,
+      "failing": 2,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.908,
-          "failing": 0,
+          "failing": 2,
           "weighted_failures": 0.92,
           "assessment_score": 90.8,
           "placeholder": false,
@@ -4189,13 +6194,13 @@
       "strict": 90.8,
       "verified_strict_score": 90.8,
       "checks": 10,
-      "failing": 2,
+      "failing": 5,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.908,
-          "failing": 2,
+          "failing": 5,
           "weighted_failures": 0.92,
           "assessment_score": 90.8,
           "placeholder": false,
@@ -4210,13 +6215,13 @@
       "strict": 81.0,
       "verified_strict_score": 81.0,
       "checks": 10,
-      "failing": 0,
+      "failing": 3,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.81,
-          "failing": 0,
+          "failing": 3,
           "weighted_failures": 1.9,
           "assessment_score": 81.0,
           "placeholder": false,
@@ -4231,13 +6236,13 @@
       "strict": 88.0,
       "verified_strict_score": 88.0,
       "checks": 10,
-      "failing": 0,
+      "failing": 2,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.88,
-          "failing": 0,
+          "failing": 2,
           "weighted_failures": 1.2,
           "assessment_score": 88.0,
           "placeholder": false,
@@ -4252,13 +6257,13 @@
       "strict": 84.6,
       "verified_strict_score": 84.6,
       "checks": 10,
-      "failing": 0,
+      "failing": 4,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.846,
-          "failing": 0,
+          "failing": 4,
           "weighted_failures": 1.54,
           "assessment_score": 84.6,
           "placeholder": false,
@@ -4273,13 +6278,13 @@
       "strict": 84.0,
       "verified_strict_score": 84.0,
       "checks": 10,
-      "failing": 0,
+      "failing": 1,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.84,
-          "failing": 0,
+          "failing": 1,
           "weighted_failures": 1.6,
           "assessment_score": 84.0,
           "placeholder": false,
@@ -4294,13 +6299,13 @@
       "strict": 83.0,
       "verified_strict_score": 83.0,
       "checks": 10,
-      "failing": 2,
+      "failing": 1,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.83,
-          "failing": 2,
+          "failing": 1,
           "weighted_failures": 1.7,
           "assessment_score": 83.0,
           "placeholder": false,
@@ -4315,13 +6320,13 @@
       "strict": 91.0,
       "verified_strict_score": 91.0,
       "checks": 10,
-      "failing": 0,
+      "failing": 2,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.91,
-          "failing": 0,
+          "failing": 2,
           "weighted_failures": 0.9,
           "assessment_score": 91.0,
           "placeholder": false,
@@ -4336,13 +6341,13 @@
       "strict": 91.4,
       "verified_strict_score": 91.4,
       "checks": 10,
-      "failing": 0,
+      "failing": 3,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.914,
-          "failing": 0,
+          "failing": 3,
           "weighted_failures": 0.86,
           "assessment_score": 91.4,
           "placeholder": false,
@@ -4357,13 +6362,13 @@
       "strict": 77.4,
       "verified_strict_score": 77.4,
       "checks": 10,
-      "failing": 0,
+      "failing": 3,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.774,
-          "failing": 0,
+          "failing": 3,
           "weighted_failures": 2.26,
           "assessment_score": 77.4,
           "placeholder": false,
@@ -4378,13 +6383,13 @@
       "strict": 74.0,
       "verified_strict_score": 74.0,
       "checks": 10,
-      "failing": 2,
+      "failing": 1,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.74,
-          "failing": 2,
+          "failing": 1,
           "weighted_failures": 2.6,
           "assessment_score": 74.0,
           "placeholder": false,
@@ -4399,13 +6404,13 @@
       "strict": 82.0,
       "verified_strict_score": 82.0,
       "checks": 10,
-      "failing": 0,
+      "failing": 5,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.82,
-          "failing": 0,
+          "failing": 5,
           "weighted_failures": 1.8,
           "assessment_score": 82.0,
           "placeholder": false,
@@ -4441,13 +6446,13 @@
       "strict": 91.0,
       "verified_strict_score": 91.0,
       "checks": 10,
-      "failing": 0,
+      "failing": 1,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.91,
-          "failing": 0,
+          "failing": 1,
           "weighted_failures": 0.9,
           "assessment_score": 91.0,
           "placeholder": false,
@@ -4462,13 +6467,13 @@
       "strict": 89.0,
       "verified_strict_score": 89.0,
       "checks": 10,
-      "failing": 2,
+      "failing": 3,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.89,
-          "failing": 2,
+          "failing": 3,
           "weighted_failures": 1.1,
           "assessment_score": 89.0,
           "placeholder": false,
@@ -4504,13 +6509,13 @@
       "strict": 87.0,
       "verified_strict_score": 87.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 2,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.87,
-          "failing": 1,
+          "failing": 2,
           "weighted_failures": 1.3,
           "assessment_score": 87.0,
           "placeholder": false,
@@ -4546,13 +6551,13 @@
       "strict": 83.0,
       "verified_strict_score": 83.0,
       "checks": 10,
-      "failing": 3,
+      "failing": 4,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.83,
-          "failing": 3,
+          "failing": 4,
           "weighted_failures": 1.7,
           "assessment_score": 83.0,
           "placeholder": false,
@@ -4567,13 +6572,13 @@
       "strict": 78.4,
       "verified_strict_score": 78.4,
       "checks": 10,
-      "failing": 1,
+      "failing": 3,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.784,
-          "failing": 1,
+          "failing": 3,
           "weighted_failures": 2.16,
           "assessment_score": 78.4,
           "placeholder": false,
@@ -4607,9 +6612,9 @@
   "review_cache": {
     "files": {},
     "holistic": {
-      "reviewed_at": "2026-03-14T19:10:42+00:00",
-      "file_count_at_review": 29,
-      "issue_count": 42,
+      "reviewed_at": "2026-03-15T02:05:07+00:00",
+      "file_count_at_review": 39,
+      "issue_count": 49,
       "reviewed_files_count": 0,
       "full_sweep_included": false
     }
@@ -4627,6 +6632,19 @@
       "attest": "",
       "import_file": ".desloppify/subagents/runs/20260314_183014/holistic_issues_merged.json",
       "packet_sha256": "da80b3ddd7b0865bb3c9ce45516da28d3fcd9250da9801b439a43541ad86a6dc"
+    },
+    {
+      "timestamp": "2026-03-15T02:05:07+00:00",
+      "mode": "issues_only",
+      "trusted": false,
+      "reason": "external imports cannot self-attest trust (unsupported runner in provenance: dry-run); run review --run-batches to apply assessments automatically",
+      "override_used": false,
+      "attested_external": false,
+      "provisional": false,
+      "provisional_count": 0,
+      "attest": "",
+      "import_file": ".desloppify/subagents/runs/20260315_010629/holistic_issues_merged.json",
+      "packet_sha256": "dd7612a7f073142fcd20d89c7eafe064a7263e09cd7df523b67817d0382874d0"
     }
   ]
 }

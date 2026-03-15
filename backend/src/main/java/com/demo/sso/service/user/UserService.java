@@ -13,6 +13,25 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Core user lifecycle service: lookup, creation, and update.
+ *
+ * <h3>Legacy Google identity branches (migration artifact)</h3>
+ * <p>Several methods contain {@code AuthProvider.GOOGLE}-specific branches that
+ * fall back to the legacy {@code google_id} column. These exist because users
+ * created before the V3 migration may only be findable via {@code google_id},
+ * not yet via the provider-neutral {@code (provider, provider_user_id)} pair.
+ *
+ * <p>Affected methods:
+ * <ul>
+ *   <li>{@link #findOrCreateUser} — falls back to {@code findByGoogleId}
+ *   <li>{@link #createNewUser} — populates {@code google_id} for new Google users
+ *   <li>{@link #recoverFromConcurrentCreation} — recovers via {@code findByGoogleId}
+ * </ul>
+ *
+ * <p><b>Removal:</b> once all Google users have logged in post-V3 migration and
+ * the {@code google_id} column is dropped, these branches can be removed.
+ */
 @Service
 public class UserService {
 
@@ -29,6 +48,8 @@ public class UserService {
             identity.providerUserId()
         );
 
+        // Legacy migration fallback: pre-V3 Google users may only have google_id populated.
+        // See class-level Javadoc for removal criteria.
         if (existing.isEmpty() && identity.provider() == AuthProvider.GOOGLE) {
             existing = userRepository.findByGoogleId(identity.providerUserId());
         }

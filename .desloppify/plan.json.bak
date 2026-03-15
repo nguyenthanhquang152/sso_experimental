@@ -1,26 +1,59 @@
 {
   "version": 8,
   "created": "2026-03-14T18:25:42+00:00",
-  "updated": "2026-03-14T21:00:44+00:00",
+  "updated": "2026-03-15T02:06:34+00:00",
   "queue_order": [
-    "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
-    "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
-    "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
-    "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri",
-    "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped",
-    "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
+    "workflow::import-scores",
     "triage::organize",
     "triage::enrich",
     "triage::sense-check",
     "triage::commit",
-    "review::.::holistic::ai_generated_debt::auth_failure_raw_logging",
-    "review::.::holistic::cross_module_architecture::auth_edge_orchestration_hub",
-    "review::.::holistic::cross_module_architecture::provider_config_contract_drift",
-    "review::.::holistic::high_level_elegance::provider_feature_scattered_by_layer",
-    "review::.::holistic::high_level_elegance::stale_repo_contract_docs",
-    "review::.::holistic::package_organization::service_package_catch_all",
-    "review::.::holistic::test_strategy::security_config_test_asserts_mock_choreography",
-    "review::.::holistic::type_safety::microsoft_claims_use_untyped_map_coercion"
+    "review::.::holistic::abstraction_fitness::authenticated_identity_nullable_modeling",
+    "review::.::holistic::abstraction_fitness::rollout_mode_leaks_into_store_layer",
+    "review::.::holistic::ai_generated_debt::authenticated_identity_javadoc_weight",
+    "review::.::holistic::ai_generated_debt::dto_javadoc_overhead",
+    "review::.::holistic::ai_generated_debt::duplicate_inline_comment",
+    "review::.::holistic::ai_generated_debt::interface_javadoc_bloat",
+    "review::.::holistic::ai_generated_debt::provider_config_warn_noise",
+    "review::.::holistic::api_surface_coherence::inconsistent_response_field_names",
+    "review::.::holistic::api_surface_coherence::normalizer_parameter_asymmetry",
+    "review::.::holistic::api_surface_coherence::raw_json_bypass_auth_entry_point",
+    "review::.::holistic::authorization_consistency::csrf_wildcard_mismatch",
+    "review::.::holistic::authorization_consistency::logout_no_server_side_revocation",
+    "review::.::holistic::contract_coherence::apifetch_undefined_cast",
+    "review::.::holistic::contract_coherence::exception_handler_leaks_messages",
+    "review::.::holistic::contract_coherence::findorcreate_hidden_mutation",
+    "review::.::holistic::contract_coherence::generatetoken_undocumented_throw",
+    "review::.::holistic::convention_outlier::autowired_convention_drift",
+    "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+    "review::.::holistic::dependency_health::dual_jwt_libraries",
+    "review::.::holistic::dependency_health::heavy_google_api_client",
+    "review::.::holistic::design_coherence::dual_mode_dispatch_scattered",
+    "review::.::holistic::design_coherence::legacy_google_branches_in_userservice",
+    "review::.::holistic::design_coherence::nullable_variant_identity",
+    "review::.::holistic::error_consistency::provider_config_broad_catch",
+    "review::.::holistic::error_consistency::use_provider_config_silent_swallow",
+    "review::.::holistic::error_consistency::validate_and_extract_context_loss",
+    "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary",
+    "review::.::holistic::incomplete_migration::deprecated_legacy_token_still_called",
+    "review::.::holistic::incomplete_migration::google_id_column_retention",
+    "review::.::holistic::incomplete_migration::stale_future_refactoring_comment",
+    "review::.::holistic::incomplete_migration::stale_login_method_column",
+    "review::.::holistic::logic_clarity::normalize_email_unused_atindex",
+    "review::.::holistic::low_level_elegance::buildMicrosoftConfig_interleaved_side_effects",
+    "review::.::holistic::low_level_elegance::normalizeEmail_dense_boolean_construction",
+    "review::.::holistic::low_level_elegance::normalizeEmail_redundant_indexOf",
+    "review::.::holistic::mid_level_elegance::dual_google_claim_handoff_shapes",
+    "review::.::holistic::mid_level_elegance::identity_variant_runtime_branching",
+    "review::.::holistic::mid_level_elegance::ms_challenge_inline_orchestration",
+    "review::.::holistic::naming_quality::double_negative_predicate_microsoft_verify",
+    "review::.::holistic::naming_quality::firstnonblank_generic_utility_name",
+    "review::.::holistic::package_organization::singleton_service_model_package",
+    "review::.::holistic::test_strategy::no_filter_order_integration_test",
+    "review::.::holistic::test_strategy::no_frontend_component_tests",
+    "review::.::holistic::type_safety::apifetch_undefined_as_t",
+    "review::.::holistic::type_safety::auth_identity_nullable_variant",
+    "review::.::holistic::type_safety::google_payload_unchecked_cast"
   ],
   "deferred": [],
   "skipped": {
@@ -505,7 +538,6 @@
       "name": "false-positives",
       "description": "Findings already fixed in codebase - resolve immediately",
       "issue_ids": [
-        "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
         "review::.::holistic::logic_clarity::provider_config_google_null_check_is_redundant",
         "review::.::holistic::api_surface_coherence::auth_controller_wildcard_responses",
         "review::.::holistic::convention_outlier::auth_controller_ad_hoc_payloads",
@@ -514,7 +546,8 @@
         "review::.::holistic::error_consistency::frontend_status_only_api_errors",
         "review::.::holistic::error_consistency::silent_auth_code_exchange_failure",
         "review::.::holistic::convention_outlier::provider_config_anonymous_contract",
-        "review::.::holistic::error_consistency::client_side_provider_errors_diverge"
+        "review::.::holistic::error_consistency::client_side_provider_errors_diverge",
+        "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard"
       ],
       "created_at": "2026-03-14T20:18:36+00:00",
       "updated_at": "2026-03-14T20:22:51+00:00",
@@ -905,14 +938,7 @@
       "candidates": []
     }
   },
-  "promoted_ids": [
-    "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
-    "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
-    "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
-    "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
-    "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri",
-    "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped"
-  ],
+  "promoted_ids": [],
   "plan_start_scores": {
     "strict": 84.2,
     "overall": 84.2,
@@ -922,7 +948,13 @@
   "refresh_state": {
     "lifecycle_phase": "review_initial",
     "subjective_review_completed_at_scan_count": 2,
-    "postflight_scan_completed_at_scan_count": 4
+    "postflight_scan_completed_at_scan_count": 4,
+    "pending_import_scores": {
+      "timestamp": "2026-03-15T02:05:07+00:00",
+      "import_file": ".desloppify/subagents/runs/20260315_010629/holistic_issues_merged.json",
+      "normalized_import_file": "/home/nt-quang/Workspaces/personal/sso_experimental/.desloppify/subagents/runs/20260315_010629/holistic_issues_merged.json",
+      "packet_sha256": "dd7612a7f073142fcd20d89c7eafe064a7263e09cd7df523b67817d0382874d0"
+    }
   },
   "execution_log": [
     {
@@ -2970,6 +3002,442 @@
         "status": "fixed",
         "attestation": "I have actually Deprecated isConfigured() on MicrosoftAuthProperties with Javadoc pointing to isClientSideConfigured/isServerSideConfigured. Updated MicrosoftTokenVerifier to call isClientSideConfigured directly. and I am not gaming the score."
       }
+    },
+    {
+      "timestamp": "2026-03-14T21:00:57+00:00",
+      "action": "commit_record",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
+        "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
+        "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Naming fixes: legacyGoogleId rename, isConfigured deprecation",
+      "detail": {
+        "sha": "355668144511",
+        "branch": "desloppify/code-health"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:01:10+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::normalizer_parameter_asymmetry"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Changed normalizeGoogleClaims to accept VerifiedGoogleIdentity record instead of 5 individual parameters",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:04:04+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::convention_outlier::autowired_convention_drift"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "All 4 beans have 2 constructors requiring Autowired for disambiguation",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:04:05+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::deprecated_isTokenValid_in_tests"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Updated tests to use current validateAndExtract API",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:05:07+00:00",
+      "action": "review_import_sync",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "trigger": "review_import",
+        "new_ids": [
+          "review::.::holistic::abstraction_fitness::authenticated_identity_nullable_modeling",
+          "review::.::holistic::abstraction_fitness::rollout_mode_leaks_into_store_layer",
+          "review::.::holistic::ai_generated_debt::authenticated_identity_javadoc_weight",
+          "review::.::holistic::ai_generated_debt::dto_javadoc_overhead",
+          "review::.::holistic::ai_generated_debt::duplicate_inline_comment",
+          "review::.::holistic::ai_generated_debt::interface_javadoc_bloat",
+          "review::.::holistic::ai_generated_debt::provider_config_warn_noise",
+          "review::.::holistic::api_surface_coherence::inconsistent_response_field_names",
+          "review::.::holistic::api_surface_coherence::normalizer_parameter_asymmetry",
+          "review::.::holistic::api_surface_coherence::raw_json_bypass_auth_entry_point",
+          "review::.::holistic::authorization_consistency::csrf_wildcard_mismatch",
+          "review::.::holistic::authorization_consistency::logout_no_server_side_revocation",
+          "review::.::holistic::contract_coherence::apifetch_undefined_cast",
+          "review::.::holistic::contract_coherence::exception_handler_leaks_messages",
+          "review::.::holistic::contract_coherence::findorcreate_hidden_mutation",
+          "review::.::holistic::contract_coherence::generatetoken_undocumented_throw",
+          "review::.::holistic::convention_outlier::autowired_convention_drift",
+          "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+          "review::.::holistic::dependency_health::dual_jwt_libraries",
+          "review::.::holistic::dependency_health::heavy_google_api_client",
+          "review::.::holistic::design_coherence::dual_mode_dispatch_scattered",
+          "review::.::holistic::design_coherence::legacy_google_branches_in_userservice",
+          "review::.::holistic::design_coherence::nullable_variant_identity",
+          "review::.::holistic::error_consistency::provider_config_broad_catch",
+          "review::.::holistic::error_consistency::use_provider_config_silent_swallow",
+          "review::.::holistic::error_consistency::validate_and_extract_context_loss",
+          "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary",
+          "review::.::holistic::incomplete_migration::deprecated_isTokenValid_in_tests",
+          "review::.::holistic::incomplete_migration::deprecated_legacy_token_still_called",
+          "review::.::holistic::incomplete_migration::dual_authcode_key_prefix_routing",
+          "review::.::holistic::incomplete_migration::google_id_column_retention",
+          "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+          "review::.::holistic::incomplete_migration::stale_future_refactoring_comment",
+          "review::.::holistic::incomplete_migration::stale_login_method_column",
+          "review::.::holistic::logic_clarity::normalize_email_unused_atindex",
+          "review::.::holistic::low_level_elegance::buildMicrosoftConfig_interleaved_side_effects",
+          "review::.::holistic::low_level_elegance::normalizeEmail_dense_boolean_construction",
+          "review::.::holistic::low_level_elegance::normalizeEmail_redundant_indexOf",
+          "review::.::holistic::mid_level_elegance::dual_google_claim_handoff_shapes",
+          "review::.::holistic::mid_level_elegance::identity_variant_runtime_branching",
+          "review::.::holistic::mid_level_elegance::ms_challenge_inline_orchestration",
+          "review::.::holistic::naming_quality::double_negative_predicate_microsoft_verify",
+          "review::.::holistic::naming_quality::firstnonblank_generic_utility_name",
+          "review::.::holistic::package_organization::singleton_service_model_package",
+          "review::.::holistic::test_strategy::no_filter_order_integration_test",
+          "review::.::holistic::test_strategy::no_frontend_component_tests",
+          "review::.::holistic::type_safety::apifetch_undefined_as_t",
+          "review::.::holistic::type_safety::auth_identity_nullable_variant",
+          "review::.::holistic::type_safety::google_payload_unchecked_cast"
+        ],
+        "added_to_queue": [
+          "review::.::holistic::abstraction_fitness::authenticated_identity_nullable_modeling",
+          "review::.::holistic::abstraction_fitness::rollout_mode_leaks_into_store_layer",
+          "review::.::holistic::ai_generated_debt::authenticated_identity_javadoc_weight",
+          "review::.::holistic::ai_generated_debt::dto_javadoc_overhead",
+          "review::.::holistic::ai_generated_debt::duplicate_inline_comment",
+          "review::.::holistic::ai_generated_debt::interface_javadoc_bloat",
+          "review::.::holistic::ai_generated_debt::provider_config_warn_noise",
+          "review::.::holistic::api_surface_coherence::inconsistent_response_field_names",
+          "review::.::holistic::api_surface_coherence::normalizer_parameter_asymmetry",
+          "review::.::holistic::api_surface_coherence::raw_json_bypass_auth_entry_point",
+          "review::.::holistic::authorization_consistency::csrf_wildcard_mismatch",
+          "review::.::holistic::authorization_consistency::logout_no_server_side_revocation",
+          "review::.::holistic::contract_coherence::apifetch_undefined_cast",
+          "review::.::holistic::contract_coherence::exception_handler_leaks_messages",
+          "review::.::holistic::contract_coherence::findorcreate_hidden_mutation",
+          "review::.::holistic::contract_coherence::generatetoken_undocumented_throw",
+          "review::.::holistic::convention_outlier::autowired_convention_drift",
+          "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency",
+          "review::.::holistic::dependency_health::dual_jwt_libraries",
+          "review::.::holistic::dependency_health::heavy_google_api_client",
+          "review::.::holistic::design_coherence::dual_mode_dispatch_scattered",
+          "review::.::holistic::design_coherence::legacy_google_branches_in_userservice",
+          "review::.::holistic::design_coherence::nullable_variant_identity",
+          "review::.::holistic::error_consistency::provider_config_broad_catch",
+          "review::.::holistic::error_consistency::use_provider_config_silent_swallow",
+          "review::.::holistic::error_consistency::validate_and_extract_context_loss",
+          "review::.::holistic::high_level_elegance::service_model_underutilized_shared_boundary",
+          "review::.::holistic::incomplete_migration::deprecated_isTokenValid_in_tests",
+          "review::.::holistic::incomplete_migration::deprecated_legacy_token_still_called",
+          "review::.::holistic::incomplete_migration::dual_authcode_key_prefix_routing",
+          "review::.::holistic::incomplete_migration::google_id_column_retention",
+          "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+          "review::.::holistic::incomplete_migration::stale_future_refactoring_comment",
+          "review::.::holistic::incomplete_migration::stale_login_method_column",
+          "review::.::holistic::logic_clarity::normalize_email_unused_atindex",
+          "review::.::holistic::low_level_elegance::buildMicrosoftConfig_interleaved_side_effects",
+          "review::.::holistic::low_level_elegance::normalizeEmail_dense_boolean_construction",
+          "review::.::holistic::low_level_elegance::normalizeEmail_redundant_indexOf",
+          "review::.::holistic::mid_level_elegance::dual_google_claim_handoff_shapes",
+          "review::.::holistic::mid_level_elegance::identity_variant_runtime_branching",
+          "review::.::holistic::mid_level_elegance::ms_challenge_inline_orchestration",
+          "review::.::holistic::naming_quality::double_negative_predicate_microsoft_verify",
+          "review::.::holistic::naming_quality::firstnonblank_generic_utility_name",
+          "review::.::holistic::package_organization::singleton_service_model_package",
+          "review::.::holistic::test_strategy::no_filter_order_integration_test",
+          "review::.::holistic::test_strategy::no_frontend_component_tests",
+          "review::.::holistic::type_safety::apifetch_undefined_as_t",
+          "review::.::holistic::type_safety::auth_identity_nullable_variant",
+          "review::.::holistic::type_safety::google_payload_unchecked_cast"
+        ],
+        "workflow_injected_ids": [],
+        "triage_injected": false,
+        "triage_injected_ids": [],
+        "triage_deferred": false,
+        "diff_new": 49,
+        "diff_reopened": 0,
+        "diff_auto_resolved": 25,
+        "stale_pruned_from_queue": [
+          "review::.::holistic::ai_generated_debt::auth_failure_raw_logging",
+          "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
+          "review::.::holistic::cross_module_architecture::auth_edge_orchestration_hub",
+          "review::.::holistic::cross_module_architecture::provider_config_contract_drift",
+          "review::.::holistic::high_level_elegance::provider_feature_scattered_by_layer",
+          "review::.::holistic::high_level_elegance::stale_repo_contract_docs",
+          "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
+          "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
+          "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
+          "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri",
+          "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped",
+          "review::.::holistic::package_organization::service_package_catch_all",
+          "review::.::holistic::test_strategy::security_config_test_asserts_mock_choreography",
+          "review::.::holistic::type_safety::microsoft_claims_use_untyped_map_coercion"
+        ],
+        "covered_subjective_pruned_from_queue": [],
+        "covered_subjective": [],
+        "stale_sync_injected": [],
+        "stale_sync_pruned": [],
+        "auto_cluster_changes": 0,
+        "import_scores_injected": [
+          "workflow::import-scores"
+        ],
+        "import_scores_pruned": [],
+        "sync_status": "synced",
+        "sync_message": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:05:12+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::ai_generated_debt::duplicate_inline_comment"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Removed both duplicate inline comments from RedisAuthCodeStore lines 41 and 75 \u2014 the method name currentWritePrefix and ternary are self-documenting",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:05:18+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::ai_generated_debt::interface_javadoc_bloat"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Trimmed verbose per-method Javadoc from AuthCodeStore and MicrosoftChallengeStore interfaces \u2014 kept only throws tags where non-obvious",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:05:25+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::ai_generated_debt::authenticated_identity_javadoc_weight"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Trimmed heavy Javadoc on AuthenticatedUserIdentity record down to essential two-line summary \u2014 removed stale future refactoring comment",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:05:33+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::api_surface_coherence::normalizer_parameter_asymmetry"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Changed normalizeGoogleClaims to accept VerifiedGoogleIdentity record instead of 5 individual params, matching normalizeMicrosoftClaims pattern",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:05:39+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::ai_generated_debt::dto_javadoc_overhead"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Removed excessive Javadoc from UserResponse DTO record \u2014 records are self-documenting and the Javadoc just restated field names",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:05:43+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::logic_clarity::normalize_email_unused_atindex"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Refactored normalizeEmail to use atIndex variable consistently instead of recomputing indexOf three times",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:05:45+00:00",
+      "action": "done",
+      "issue_ids": [
+        "deprecated_isTokenValid_in_tests"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Updated tests to use current validateAndExtract API",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:05:45+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::deprecated_isTokenValid_in_tests"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Updated tests to use current validateAndExtract API",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually Updated tests to use current validateAndExtract API and I am not gaming the score."
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:05:46+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::ai_generated_debt::provider_config_warn_noise"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Downgraded 3 routine disabled-feature-flag log statements from warn to debug in ProviderConfigController \u2014 kept warn for config-missing-despite-enabled states",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:05:53+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::low_level_elegance::normalizeEmail_redundant_indexOf"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Replaced redundant indexOf('@') calls with the declared atIndex variable throughout normalizeEmail",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:05:57+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::convention_outlier::autowired_convention_drift"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Investigated: all 4 beans have two constructors requiring Autowired for Spring disambiguation \u2014 no removal possible without breaking injection",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:06:03+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::low_level_elegance::normalizeEmail_dense_boolean_construction"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Simplified boolean construction in normalizeEmail by using atIndex directly in hasExactlyOneAt check",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:06:10+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::double_negative_predicate_microsoft_verify"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Renamed isInvalidMicrosoftVerifyRequest to isMicrosoftVerifyRequestValid and inverted the boolean logic at the call site to eliminate double-negative predicate",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:06:19+00:00",
+      "action": "done",
+      "issue_ids": [
+        "legacy_identity_fallback_controller"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Added Javadoc documenting legacy fallback removal criteria",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:06:19+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::firstnonblank_generic_utility_name"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Renamed generic utility method firstNonBlank to resolveDisplayEmail in ProviderIdentityNormalizer to reflect its domain-specific purpose of selecting a Microsoft email claim",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:06:19+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Added Javadoc documenting legacy fallback removal criteria",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually Added Javadoc documenting legacy fallback removal criteria and I am not gaming the score."
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:06:23+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::cross_module_architecture::auth_user_bidirectional_package_dependency"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Moved NormalizedIdentity from service.auth to service.model to break bidirectional dependency between auth and user packages",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:06:29+00:00",
+      "action": "done",
+      "issue_ids": [
+        "dual_authcode_key_prefix_routing"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Added comprehensive class-level Javadoc explaining dual prefix migration",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:06:30+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::stale_future_refactoring_comment"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Removed stale future refactoring comment from AuthenticatedUserIdentity suggesting sealed interface migration \u2014 no longer actionable",
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T02:06:30+00:00",
+      "action": "resolve",
+      "issue_ids": [
+        "review::.::holistic::incomplete_migration::dual_authcode_key_prefix_routing"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Added comprehensive class-level Javadoc explaining dual prefix migration",
+      "detail": {
+        "status": "fixed",
+        "attestation": "I have actually Added comprehensive class-level Javadoc explaining dual prefix migration and I am not gaming the score."
+      }
+    },
+    {
+      "timestamp": "2026-03-15T02:06:34+00:00",
+      "action": "done",
+      "issue_ids": [
+        "review::.::holistic::package_organization::singleton_service_model_package"
+      ],
+      "cluster_name": null,
+      "actor": "user",
+      "note": "Enriched service.model package with NormalizedIdentity alongside AuthenticatedUserIdentity as shared identity records",
+      "detail": {}
     }
   ],
   "epic_triage_meta": {
@@ -3338,8 +3806,6 @@
     },
     "active_triage_issue_ids": [
       "review::.::holistic::abstraction_fitness::authenticated_user_identity_nullable_union",
-      "review::.::holistic::ai_generated_debt::auth_failure_raw_logging",
-      "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard",
       "review::.::holistic::api_surface_coherence::auth_controller_wildcard_responses",
       "review::.::holistic::api_surface_coherence::jwt_token_generation_contract_is_hidden_by_overloads",
       "review::.::holistic::api_surface_coherence::provider_verification_mixed_abstraction_levels",
@@ -3349,36 +3815,24 @@
       "review::.::holistic::contract_coherence::oauth2_success_handler_uses_null_as_hidden_failure_contract",
       "review::.::holistic::convention_outlier::auth_controller_ad_hoc_payloads",
       "review::.::holistic::convention_outlier::provider_config_anonymous_contract",
-      "review::.::holistic::cross_module_architecture::auth_edge_orchestration_hub",
-      "review::.::holistic::cross_module_architecture::provider_config_contract_drift",
       "review::.::holistic::dependency_health::google_api_client_leaks_into_auth_flow",
       "review::.::holistic::error_consistency::client_side_provider_errors_diverge",
       "review::.::holistic::error_consistency::frontend_status_only_api_errors",
       "review::.::holistic::error_consistency::legacy_login_flow_uses_null_sentinel",
       "review::.::holistic::error_consistency::silent_auth_code_exchange_failure",
-      "review::.::holistic::high_level_elegance::provider_feature_scattered_by_layer",
-      "review::.::holistic::high_level_elegance::stale_repo_contract_docs",
       "review::.::holistic::incomplete_migration::google_specific_upsert_overload_survives",
       "review::.::holistic::incomplete_migration::legacy_google_id_column_repurposed_for_all_providers",
       "review::.::holistic::incomplete_migration::login_method_and_last_login_flow_overlap",
       "review::.::holistic::initialization_coupling::eager_google_provider_bootstrap",
       "review::.::holistic::logic_clarity::microsoft_nonce_check_can_be_silently_skipped",
       "review::.::holistic::logic_clarity::provider_config_google_null_check_is_redundant",
-      "review::.::holistic::low_level_elegance::duplicated_microsoft_claim_validation",
-      "review::.::holistic::low_level_elegance::implicit_redirect_null_contract",
-      "review::.::holistic::mid_level_elegance::microsoft_enablement_policy_is_split",
-      "review::.::holistic::mid_level_elegance::microsoft_provider_contract_hides_redirect_uri",
-      "review::.::holistic::mid_level_elegance::server_side_auth_errors_are_dropped",
       "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
       "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
       "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level",
-      "review::.::holistic::package_organization::service_package_catch_all",
       "review::.::holistic::test_strategy::browser_oauth_success_paths_untested",
       "review::.::holistic::test_strategy::microsoft_popup_test_depends_on_live_identity_host",
-      "review::.::holistic::test_strategy::security_config_test_asserts_mock_choreography",
       "review::.::holistic::type_safety::auth_flow_legacy_string_contract",
-      "review::.::holistic::type_safety::challenge_store_hidden_nullable_return",
-      "review::.::holistic::type_safety::microsoft_claims_use_untyped_map_coercion"
+      "review::.::holistic::type_safety::challenge_store_hidden_nullable_return"
     ],
     "issue_dispositions": {
       "review::.::holistic::ai_generated_debt::redundant_normalized_null_guard": {
@@ -3653,12 +4107,24 @@
       "recorded_at": "2026-03-14T20:55:28+00:00",
       "note": "Abstraction alignment: Google SDK encapsulation, AuthenticatedUserIdentity validation",
       "cluster_name": null
+    },
+    {
+      "sha": "355668144511",
+      "branch": "desloppify/code-health",
+      "issue_ids": [
+        "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
+        "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
+        "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level"
+      ],
+      "recorded_at": "2026-03-14T21:00:57+00:00",
+      "note": "Naming fixes: legacyGoogleId rename, isConfigured deprecation",
+      "cluster_name": null
     }
   ],
   "uncommitted_issues": [
-    "review::.::holistic::naming_quality::legacy_google_terms_in_provider_neutral_identity",
-    "review::.::holistic::naming_quality::login_method_label_actually_stores_flow",
-    "review::.::holistic::naming_quality::microsoft_is_configured_alias_hides_readiness_level"
+    "review::.::holistic::incomplete_migration::deprecated_isTokenValid_in_tests",
+    "review::.::holistic::incomplete_migration::legacy_identity_fallback_controller",
+    "review::.::holistic::incomplete_migration::dual_authcode_key_prefix_routing"
   ],
   "commit_tracking_branch": null,
   "scan_count_at_plan_start": 4
