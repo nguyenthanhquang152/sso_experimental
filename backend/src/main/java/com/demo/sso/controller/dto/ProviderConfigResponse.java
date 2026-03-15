@@ -1,6 +1,7 @@
 package com.demo.sso.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ public record ProviderConfigResponse(
     public record GoogleProviderConfig(
             boolean serverSideEnabled,
             boolean clientSideEnabled,
-            String clientId) {
+            @Nullable String clientId) {
     }
 
     /**
@@ -24,9 +25,9 @@ public record ProviderConfigResponse(
     public record MicrosoftProviderConfig(
             boolean serverSideEnabled,
             boolean clientSideEnabled,
-            String clientId,
-            String authority,
+            @Nullable String clientId,
+            @Nullable String authority,
             List<String> scopes,
-            String redirectUri) {
+            @Nullable String redirectUri) {
     }
 }

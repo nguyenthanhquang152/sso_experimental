@@ -2,6 +2,7 @@ package com.demo.sso.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.demo.sso.config.properties.AuthRolloutProperties;
@@ -101,7 +102,7 @@ class ProviderConfigControllerTest {
         ResponseEntity<ProviderConfigResponse> response = controller.getProviders();
         ProviderConfigResponse.GoogleProviderConfig google = response.getBody().google();
 
-        assertEquals("", google.clientId());
+        assertNull(google.clientId());
         assertFalse(google.serverSideEnabled());
         assertFalse(google.clientSideEnabled());
     }

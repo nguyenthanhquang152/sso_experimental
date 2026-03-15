@@ -39,11 +39,14 @@ public class GoogleTokenVerifier {
     /**
      * Verifies a Google ID token string and extracts identity claims.
      *
+     * <p>Unlike {@link MicrosoftTokenVerifier#verifyIdToken}, this method delegates to
+     * Google's SDK which declares checked exceptions for crypto and network failures.
+     *
      * @param idTokenString the raw ID token from the client
      * @return verified identity claims
-     * @throws InvalidTokenException if the token is invalid
-     * @throws GeneralSecurityException on crypto errors
-     * @throws IOException on network errors
+     * @throws InvalidTokenException if the token is null after verification (invalid or expired)
+     * @throws GeneralSecurityException if Google's token verification library rejects the token
+     * @throws IOException if network error during token verification
      */
     public VerifiedGoogleIdentity verifyIdToken(String idTokenString)
             throws GeneralSecurityException, IOException {

@@ -33,6 +33,7 @@ import static org.hamcrest.Matchers.blankOrNullString;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -186,9 +187,12 @@ class ControllerIntegrationTest {
 
             var claims = jwtTokenService.parseToken(token);
             assertEquals("user@example.com", claims.getSubject());
-            assertEquals("google-123", claims.get("googleId", String.class));
+            // Legacy JWT format: googleId claim is null for new users since
+            // createNewUser no longer populates the google_id column.
+            assertNull(claims.get("googleId", String.class));
 
-            User savedUser = userRepository.findByGoogleId("google-123").orElseThrow();
+            User savedUser = userRepository.findByProviderAndProviderUserId(
+                AuthProvider.GOOGLE, "google-123").orElseThrow();
             assertEquals(AuthProvider.GOOGLE, savedUser.getProvider());
             assertEquals("google-123", savedUser.getProviderUserId());
             assertEquals(AuthFlow.CLIENT_SIDE, savedUser.getLastLoginFlow());

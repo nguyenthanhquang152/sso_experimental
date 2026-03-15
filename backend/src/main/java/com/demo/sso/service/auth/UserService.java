@@ -1,5 +1,6 @@
 package com.demo.sso.service.auth;
 
+import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.service.model.AuthenticatedUserIdentity;
 import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.model.AuthProvider;
@@ -105,11 +106,13 @@ public class UserService {
     private User recoverFromConcurrentCreation(NormalizedIdentity identity, DataIntegrityViolationException cause) {
         if (identity.provider() != AuthProvider.GOOGLE) {
             return userRepository.findByProviderAndProviderUserId(identity.provider(), identity.providerUserId())
-                .orElseThrow(() -> new IllegalStateException("Concurrent user creation failed", cause));
+                .orElseThrow(() -> new InvalidIdentityException(
+                    "Concurrent user creation recovery failed for provider: " + identity.provider()));
         }
-        // Migration artifact: remove findByGoogleId path when migration complete
+        // Legacy fallback: pre-V3 Google users may only have google_id populated.
         return userRepository.findByGoogleId(identity.providerUserId())
-            .orElseThrow(() -> new IllegalStateException("Concurrent user creation failed", cause));
+            .orElseThrow(() -> new InvalidIdentityException(
+                "Concurrent user creation recovery failed for provider: " + identity.provider()));
     }
 
     private static void applyProviderIdentityFields(User user, NormalizedIdentity identity) {

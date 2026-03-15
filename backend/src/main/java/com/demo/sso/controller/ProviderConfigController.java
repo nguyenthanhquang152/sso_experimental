@@ -3,6 +3,7 @@ package com.demo.sso.controller;
 import com.demo.sso.config.properties.AuthRolloutProperties;
 import com.demo.sso.config.properties.MicrosoftAuthProperties;
 import com.demo.sso.controller.dto.ProviderConfigResponse;
+import jakarta.annotation.Nullable;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,7 @@ public class ProviderConfigController {
 
     private final AuthRolloutProperties rolloutProperties;
     private final MicrosoftAuthProperties microsoftAuthProperties;
-    private final String googleClientId;
+    @Nullable private final String googleClientId;
     private final String frontendUrl;
 
     public ProviderConfigController(
@@ -31,7 +32,7 @@ public class ProviderConfigController {
             @Value("${app.frontend-url}") String frontendUrl) {
         this.rolloutProperties = rolloutProperties;
         this.microsoftAuthProperties = microsoftAuthProperties;
-        this.googleClientId = googleClientId == null ? "" : googleClientId;
+        this.googleClientId = (googleClientId != null && !googleClientId.isBlank()) ? googleClientId : null;
         this.frontendUrl = frontendUrl;
     }
 
@@ -52,7 +53,7 @@ public class ProviderConfigController {
     }
 
     private ProviderConfigResponse.GoogleProviderConfig buildGoogleConfig() {
-        boolean configured = !googleClientId.isBlank();
+        boolean configured = googleClientId != null;
         var googleRollout = rolloutProperties.getGoogle();
         boolean serverSideEnabled = configured && googleRollout.isServerSideEnabled();
         boolean clientSideEnabled = configured && googleRollout.isClientSideEnabled();
