@@ -1,15 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { apiFetch } from '../api/client';
-
-interface UserProfile {
-  id: number;
-  email: string;
-  name: string;
-  pictureUrl: string;
-  loginMethod: string;
-  createdAt: string;
-  lastLoginAt: string;
-}
+import type { UserProfile } from '../types/auth';
 
 export function useAuth() {
   const [token, setToken] = useState<string | null>(() =>

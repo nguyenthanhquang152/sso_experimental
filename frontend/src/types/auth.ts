@@ -14,6 +14,19 @@ export interface MicrosoftProviderConfig {
   scopes: string[];
 }
 
+export interface UserProfile {
+  id: number;
+  email: string;
+  name: string;
+  pictureUrl: string;
+  loginMethod: string;
+  provider: string;
+  providerUserId: string;
+  lastLoginFlow: string;
+  createdAt: string;
+  lastLoginAt: string;
+}
+
 export interface ProviderConfig {
   google: GoogleProviderConfig;
   microsoft: MicrosoftProviderConfig;
