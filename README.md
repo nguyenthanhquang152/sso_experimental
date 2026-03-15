@@ -71,7 +71,7 @@ sso_experimental/
 docker compose up
 ```
 
-Access via Traefik at `http://sso-demo.localhost`
+Access via Traefik at `http://localhost:8000`
 
 ## Authentication Flows
 
@@ -87,10 +87,13 @@ Access via Traefik at `http://sso-demo.localhost`
 | Method | Path | Description |
 |--------|------|-------------|
 | `POST` | `/api/auth/google/verify` | Verify Google ID token (client-side flow) |
+| `POST` | `/api/auth/microsoft/verify` | Verify Microsoft token (client-side flow) |
 | `POST` | `/api/auth/exchange` | Exchange authorization code for JWT |
 | `POST` | `/api/auth/logout` | Logout and invalidate session |
 | `GET`  | `/api/user/me` | Get current user profile |
-| `GET`  | `/api/auth/provider-config` | Get enabled provider configuration |
+| `GET`  | `/api/auth/providers` | Get enabled provider configuration |
+| `GET`  | `/api/oauth2/authorization/google` | Initiate Google server-side flow |
+| `GET`  | `/api/oauth2/authorization/microsoft` | Initiate Microsoft server-side flow |
 
 ## Testing
 
