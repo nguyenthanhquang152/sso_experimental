@@ -400,7 +400,7 @@
           "try_catch": 1
         },
         "auth/": {
-          "throws": 9,
+          "throws": 12,
           "try_catch": 3,
           "returns_null": 1
         },
@@ -462,7 +462,7 @@
         {
           "file": "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
           "max_chain_depth": 6,
-          "chain_count": 12
+          "chain_count": 14
         },
         {
           "file": "backend/src/main/java/com/demo/sso/service/auth/AuthCompletionService.java",
@@ -579,7 +579,7 @@
             "MicrosoftAuthorizationGateFilter.java",
             "SecurityConfig.java"
           ],
-          "total_loc": 407,
+          "total_loc": 412,
           "avg_fan_in": 0.0,
           "avg_fan_out": 0.0,
           "zones": {
@@ -594,7 +594,7 @@
             "ProviderConfigController.java",
             "UserController.java"
           ],
-          "total_loc": 423,
+          "total_loc": 420,
           "avg_fan_in": 0.0,
           "avg_fan_out": 0.0,
           "zones": {
@@ -615,7 +615,7 @@
             "TokenResponse.java",
             "UserResponse.java"
           ],
-          "total_loc": 112,
+          "total_loc": 100,
           "avg_fan_in": 0.0,
           "avg_fan_out": 0.0,
           "zones": {
@@ -643,7 +643,7 @@
             "OAuth2SuccessHandler.java",
             "ProviderIdentityNormalizer.java"
           ],
-          "total_loc": 262,
+          "total_loc": 268,
           "avg_fan_in": 0.0,
           "avg_fan_out": 0.0,
           "zones": {
@@ -658,7 +658,7 @@
             "RedisAuthCodeStore.java",
             "RedisMicrosoftChallengeStore.java"
           ],
-          "total_loc": 237,
+          "total_loc": 214,
           "avg_fan_in": 0.0,
           "avg_fan_out": 0.0,
           "zones": {
@@ -671,7 +671,7 @@
             "AuthenticatedUserIdentity.java",
             "NormalizedIdentity.java"
           ],
-          "total_loc": 98,
+          "total_loc": 79,
           "avg_fan_in": 0.0,
           "avg_fan_out": 0.0,
           "zones": {
@@ -697,7 +697,7 @@
     },
     "codebase_stats": {
       "total_files": 39,
-      "total_loc": 2284
+      "total_loc": 2238
     },
     "authorization": {},
     "ai_debt_signals": {
@@ -705,20 +705,14 @@
         "backend/src/main/java/com/demo/sso/controller/AuthController.java": {
           "guard_density": 4.0
         },
-        "backend/src/main/java/com/demo/sso/controller/dto/ProviderConfigResponse.java": {
-          "comment_ratio": 0.43
-        },
         "backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java": {
-          "comment_ratio": 0.67
+          "comment_ratio": 0.5
         },
         "backend/src/main/java/com/demo/sso/service/challenge/MicrosoftChallengeStore.java": {
-          "comment_ratio": 0.68
-        },
-        "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java": {
-          "comment_ratio": 0.4
+          "comment_ratio": 0.52
         }
       },
-      "codebase_avg_comment_ratio": 0.117
+      "codebase_avg_comment_ratio": 0.097
     },
     "migration_signals": {
       "deprecated_markers": {
@@ -734,7 +728,7 @@
         {
           "file": "backend/src/main/java/com/demo/sso/controller/AuthController.java",
           "kind": "orphaned",
-          "loc": 228
+          "loc": 227
         },
         {
           "file": "backend/src/main/java/com/demo/sso/model/User.java",
@@ -749,7 +743,7 @@
         {
           "file": "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java",
           "kind": "orphaned",
-          "loc": 109
+          "loc": 107
         },
         {
           "file": "backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java",
@@ -764,7 +758,7 @@
         {
           "file": "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
           "kind": "orphaned",
-          "loc": 62
+          "loc": 67
         },
         {
           "file": "backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java",
@@ -779,7 +773,7 @@
         {
           "file": "backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java",
           "kind": "orphaned",
-          "loc": 35
+          "loc": 34
         },
         {
           "file": "backend/src/main/java/com/demo/sso/controller/UserController.java",
@@ -804,7 +798,7 @@
         {
           "file": "backend/src/main/java/com/demo/sso/controller/dto/ProviderConfigResponse.java",
           "kind": "orphaned",
-          "loc": 44
+          "loc": 33
         },
         {
           "file": "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
@@ -824,12 +818,12 @@
         {
           "file": "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java",
           "kind": "orphaned",
-          "loc": 106
+          "loc": 104
         },
         {
           "file": "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java",
           "kind": "orphaned",
-          "loc": 90
+          "loc": 96
         },
         {
           "file": "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java",
@@ -854,7 +848,7 @@
         {
           "file": "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java",
           "kind": "orphaned",
-          "loc": 67
+          "loc": 48
         },
         {
           "file": "backend/src/main/java/com/demo/sso/service/auth/AuthCompletionService.java",
@@ -864,7 +858,7 @@
         {
           "file": "backend/src/main/java/com/demo/sso/service/challenge/MicrosoftChallengeStore.java",
           "kind": "orphaned",
-          "loc": 38
+          "loc": 25
         },
         {
           "file": "backend/src/main/java/com/demo/sso/controller/GlobalExceptionHandler.java",
@@ -879,7 +873,7 @@
         {
           "file": "backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java",
           "kind": "orphaned",
-          "loc": 24
+          "loc": 16
         }
       ],
       "duplicate_clusters": [
@@ -962,11 +956,8 @@
   },
   "review_context": {
     "naming_vocabulary": {
-      "prefixes": {
-        "with": 1,
-        "on": 1
-      },
-      "total_names": 31
+      "prefixes": {},
+      "total_names": 28
     },
     "error_conventions": {
       "throws": 11,
@@ -997,7 +988,7 @@
     "existing_issues": {
       "backend/src/main/java/com/demo/sso/controller/AuthController.java": [
         "signature: 'exchangeCode' has 2 different signatures across 3 files",
-        "orphaned: Orphaned file (228 LOC): zero importers, not an entry point",
+        "orphaned: Orphaned file (227 LOC): zero importers, not an entry point",
         "test_coverage: Untested module (232 LOC, 0 importers)"
       ],
       "backend/src/main/java/com/demo/sso/model/User.java": [
@@ -1007,7 +998,7 @@
         "orphaned: Orphaned file (99 LOC): zero importers, not an entry point"
       ],
       "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java": [
-        "orphaned: Orphaned file (109 LOC): zero importers, not an entry point"
+        "orphaned: Orphaned file (107 LOC): zero importers, not an entry point"
       ],
       "backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java": [
         "orphaned: Orphaned file (59 LOC): zero importers, not an entry point"
@@ -1017,7 +1008,7 @@
         "test_coverage: Over-mocked tests: SecurityConfigTest.java has 25 mocks vs 22 assertions"
       ],
       "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java": [
-        "orphaned: Orphaned file (62 LOC): zero importers, not an entry point",
+        "orphaned: Orphaned file (67 LOC): zero importers, not an entry point",
         "test_coverage: Over-mocked tests: MicrosoftAuthorizationGateFilterTest.java has 47 mocks vs 36 "
       ],
       "backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java": [
@@ -1027,7 +1018,7 @@
         "orphaned: Orphaned file (65 LOC): zero importers, not an entry point"
       ],
       "backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java": [
-        "orphaned: Orphaned file (35 LOC): zero importers, not an entry point",
+        "orphaned: Orphaned file (34 LOC): zero importers, not an entry point",
         "test_coverage: Untested module (37 LOC, 0 importers)"
       ],
       "backend/src/main/java/com/demo/sso/controller/UserController.java": [
@@ -1045,7 +1036,7 @@
         "orphaned: Orphaned file (11 LOC): zero importers, not an entry point"
       ],
       "backend/src/main/java/com/demo/sso/controller/dto/ProviderConfigResponse.java": [
-        "orphaned: Orphaned file (44 LOC): zero importers, not an entry point"
+        "orphaned: Orphaned file (33 LOC): zero importers, not an entry point"
       ],
       "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java": [
         "orphaned: Orphaned file (214 LOC): zero importers, not an entry point"
@@ -1059,10 +1050,10 @@
         "boilerplate_duplication: Boilerplate block repeated across 2 files (window 7 lines): backend/src/main/jav"
       ],
       "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java": [
-        "orphaned: Orphaned file (106 LOC): zero importers, not an entry point"
+        "orphaned: Orphaned file (104 LOC): zero importers, not an entry point"
       ],
       "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java": [
-        "orphaned: Orphaned file (90 LOC): zero importers, not an entry point"
+        "orphaned: Orphaned file (96 LOC): zero importers, not an entry point"
       ],
       "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java": [
         "orphaned: Orphaned file (87 LOC): zero importers, not an entry point"
@@ -1077,13 +1068,13 @@
         "orphaned: Orphaned file (69 LOC): zero importers, not an entry point"
       ],
       "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java": [
-        "orphaned: Orphaned file (67 LOC): zero importers, not an entry point"
+        "orphaned: Orphaned file (48 LOC): zero importers, not an entry point"
       ],
       "backend/src/main/java/com/demo/sso/service/auth/AuthCompletionService.java": [
         "orphaned: Orphaned file (65 LOC): zero importers, not an entry point"
       ],
       "backend/src/main/java/com/demo/sso/service/challenge/MicrosoftChallengeStore.java": [
-        "orphaned: Orphaned file (38 LOC): zero importers, not an entry point"
+        "orphaned: Orphaned file (25 LOC): zero importers, not an entry point"
       ],
       "backend/src/main/java/com/demo/sso/controller/GlobalExceptionHandler.java": [
         "orphaned: Orphaned file (32 LOC): zero importers, not an entry point"
@@ -1092,13 +1083,13 @@
         "orphaned: Orphaned file (31 LOC): zero importers, not an entry point"
       ],
       "backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java": [
-        "orphaned: Orphaned file (24 LOC): zero importers, not an entry point"
+        "orphaned: Orphaned file (16 LOC): zero importers, not an entry point"
       ]
     },
     "codebase_stats": {
       "total_files": 39,
-      "total_loc": 2284,
-      "avg_file_loc": 58
+      "total_loc": 2238,
+      "avg_file_loc": 57
     },
     "sibling_conventions": {},
     "ai_debt_signals": {
@@ -1106,20 +1097,14 @@
         "backend/src/main/java/com/demo/sso/controller/AuthController.java": {
           "guard_density": 4.0
         },
-        "backend/src/main/java/com/demo/sso/controller/dto/ProviderConfigResponse.java": {
-          "comment_ratio": 0.43
-        },
         "backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java": {
-          "comment_ratio": 0.67
+          "comment_ratio": 0.5
         },
         "backend/src/main/java/com/demo/sso/service/challenge/MicrosoftChallengeStore.java": {
-          "comment_ratio": 0.68
-        },
-        "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java": {
-          "comment_ratio": 0.4
+          "comment_ratio": 0.52
         }
       },
-      "codebase_avg_comment_ratio": 0.117
+      "codebase_avg_comment_ratio": 0.097
     },
     "error_strategies": {
       "backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java": "throw",

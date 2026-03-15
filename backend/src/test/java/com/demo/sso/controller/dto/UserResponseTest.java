@@ -1,7 +1,6 @@
 package com.demo.sso.controller.dto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
@@ -53,7 +52,7 @@ class UserResponseTest {
     }
 
     @Test
-    void nullLastLoginFlowReturnsNull() {
+    void nullLastLoginFlowReturnsEmptyString() {
         User user = new User();
         user.setId(3L);
         user.setEmail("carol@example.com");
@@ -63,7 +62,7 @@ class UserResponseTest {
 
         UserResponse response = UserResponse.from(user);
 
-        assertNull(response.lastLoginFlow());
+        assertEquals("", response.lastLoginFlow());
     }
 
     @Test

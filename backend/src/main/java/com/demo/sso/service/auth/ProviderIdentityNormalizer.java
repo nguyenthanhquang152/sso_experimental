@@ -75,17 +75,20 @@ public class ProviderIdentityNormalizer {
     private static String normalizeEmail(String email) {
         String normalized = email.trim().toLowerCase(Locale.ROOT);
         if (normalized.isBlank()) {
-            throw new IllegalArgumentException("Email claim is not a usable email-like identifier");
+            throw new IllegalArgumentException("Email is blank");
         }
         int atIndex = normalized.indexOf('@');
-        if (atIndex < 0 || atIndex != normalized.lastIndexOf('@')) {
-            throw new IllegalArgumentException("Email claim is not a usable email-like identifier");
+        if (atIndex < 0) {
+            throw new IllegalArgumentException("Email contains no '@'");
+        }
+        if (atIndex != normalized.lastIndexOf('@')) {
+            throw new IllegalArgumentException("Email contains multiple '@'");
         }
         if (normalized.contains(" ")) {
             throw new IllegalArgumentException("Email claim is not a usable email-like identifier");
         }
         if (atIndex == 0 || atIndex == normalized.length() - 1) {
-            throw new IllegalArgumentException("Email claim is not a usable email-like identifier");
+            throw new IllegalArgumentException("Email has empty local part or domain");
         }
         return normalized;
     }

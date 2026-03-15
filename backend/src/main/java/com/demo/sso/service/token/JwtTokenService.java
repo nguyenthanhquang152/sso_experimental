@@ -82,21 +82,18 @@ public class JwtTokenService {
     }
 
     /**
-     * Mints a JWT for the given user, dispatching to legacy or V2 format based on
-     * {@link AuthRolloutProperties#getJwtMintMode()}.
-     *
-     * <p><b>Migration note:</b> the legacy branch calls {@link #generateLegacyToken}
-     * which is deprecated for direct use but is still the correct mint path when
-     * {@code JwtMintMode.LEGACY} is active. Once all deployments switch to
-     * {@code JwtMintMode.V2}, this dispatch and the legacy method can be removed.
-     */
-    /**
-     * Generates a signed JWT for the given user.
+     * Generates a signed JWT for the given user, dispatching to legacy or V2 format
+     * based on {@link AuthRolloutProperties#getJwtMintMode()}.
      *
      * <p>The token format depends on the configured {@link AuthRolloutProperties.JwtMintMode}:
      * in {@code V2} mode, the user must have {@code id}, {@code email}, {@code provider},
      * and {@code providerUserId} set; in {@code LEGACY} mode, only {@code email} and
      * {@code googleId} are required.
+     *
+     * <p><b>Migration note:</b> the legacy branch calls {@link #generateLegacyToken}
+     * which is deprecated for direct use but is still the correct mint path when
+     * {@code JwtMintMode.LEGACY} is active. Once all deployments switch to
+     * {@code JwtMintMode.V2}, this dispatch and the legacy method can be removed.
      *
      * @param user the authenticated user to mint a token for
      * @return the signed JWT string

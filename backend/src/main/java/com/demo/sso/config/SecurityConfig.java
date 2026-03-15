@@ -1,9 +1,9 @@
 package com.demo.sso.config;
 
+import com.demo.sso.controller.dto.ErrorResponse;
 import com.demo.sso.service.auth.OAuth2SuccessHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Map;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -38,7 +38,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf
                 .ignoringRequestMatchers(
                     "/auth/google/verify",
-                    "/auth/microsoft/*",
+                    "/auth/microsoft/**",
                     "/auth/exchange",
                     "/auth/logout"
                 )
@@ -61,7 +61,7 @@ public class SecurityConfig {
                 .authenticationEntryPoint((request, response, authException) -> {
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     response.setContentType("application/json");
-                    response.getWriter().write(objectMapper.writeValueAsString(Map.of("error", "Unauthorized")));
+                    response.getWriter().write(objectMapper.writeValueAsString(new ErrorResponse("Unauthorized")));
                 })
             )
             .addFilterBefore(microsoftAuthorizationGateFilter, OAuth2AuthorizationRequestRedirectFilter.class)

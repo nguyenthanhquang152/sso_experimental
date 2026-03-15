@@ -26,7 +26,7 @@ public record UserResponse(
                 user.getPictureUrl() != null ? user.getPictureUrl() : "",
                 user.getProvider() != null ? user.getProvider().name() : "",
                 user.getProviderUserId() != null ? user.getProviderUserId() : "",
-                user.getLastLoginFlow() != null ? user.getLastLoginFlow().name() : null,
+                user.getLastLoginFlow() != null ? user.getLastLoginFlow().name() : "",
                 user.getCreatedAt() != null ? user.getCreatedAt().toString() : "",
                 user.getLastLoginAt() != null ? user.getLastLoginAt().toString() : ""
         );
