@@ -1,6 +1,6 @@
-package com.demo.sso.service;
+package com.demo.sso.service.user;
 
-import com.demo.sso.service.auth.AuthenticatedUserIdentity;
+import com.demo.sso.service.model.AuthenticatedUserIdentity;
 import com.demo.sso.service.auth.NormalizedIdentity;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
@@ -49,7 +49,9 @@ public class UserService {
 
     private User createNewUser(NormalizedIdentity identity) {
         User user = new User();
-        user.setGoogleId(legacyGoogleCompatibilityId(identity));
+        if (identity.provider() == AuthProvider.GOOGLE) {
+            user.setGoogleId(identity.providerUserId());
+        }
         user.setEmail(identity.email());
         user.setName(identity.name());
         user.setPictureUrl(identity.pictureUrl());
@@ -74,14 +76,6 @@ public class UserService {
         user.setProvider(identity.provider());
         user.setProviderUserId(identity.providerUserId());
         user.setLastLoginFlow(identity.loginFlow());
-        user.setGoogleId(legacyGoogleCompatibilityId(identity));
-    }
-
-    private static String legacyGoogleCompatibilityId(NormalizedIdentity identity) {
-        if (identity.provider() == AuthProvider.GOOGLE) {
-            return identity.providerUserId();
-        }
-        return identity.provider().name().toLowerCase() + ":" + identity.providerUserId();
     }
 
     /**

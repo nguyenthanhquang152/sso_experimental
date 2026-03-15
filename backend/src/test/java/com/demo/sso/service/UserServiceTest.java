@@ -1,7 +1,7 @@
 package com.demo.sso.service;
 
-import com.demo.sso.service.UserService;
-import com.demo.sso.service.auth.AuthenticatedUserIdentity;
+import com.demo.sso.service.user.UserService;
+import com.demo.sso.service.model.AuthenticatedUserIdentity;
 import com.demo.sso.service.auth.NormalizedIdentity;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -208,8 +209,7 @@ class UserServiceTest {
         assertEquals(AuthProvider.MICROSOFT, result.getProvider());
         assertEquals("https://login.microsoftonline.com/tenant/v2.0|ms-subject-123", result.getProviderUserId());
         assertEquals(AuthFlow.CLIENT_SIDE, result.getLastLoginFlow());
-        assertEquals(
-            "microsoft:https://login.microsoftonline.com/tenant/v2.0|ms-subject-123",
-            result.getGoogleId());
+        // googleId should not be set for non-Google providers
+        assertNull(result.getGoogleId());
     }
 }

@@ -1,4 +1,4 @@
-package com.demo.sso.service.auth;
+package com.demo.sso.service.model;
 
 import com.demo.sso.model.AuthProvider;
 import java.security.Principal;
@@ -21,6 +21,8 @@ import java.security.Principal;
  * <p>Use {@link #isLegacy()} to determine which variant an instance represents.
  * Do not construct directly — always use the factory methods above.
  */
+// Future: consider refactoring to a sealed interface with LegacyIdentity and V2Identity
+// record implementations to make the contract version a type-level guarantee.
 public record AuthenticatedUserIdentity(
         Long userId,
         String email,
