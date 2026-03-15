@@ -55,19 +55,19 @@
   font-size: 14px;
 }
 
-.login-method-badge {
+.dashboard-badge {
   padding: 2px 8px;
   border-radius: 4px;
   font-weight: bold;
   font-size: 12px;
 }
 
-.login-method-badge--server-side {
+.dashboard-badge-server-side {
   background-color: #e3f2fd;
   color: #1565c0;
 }
 
-.login-method-badge--client-side {
+.dashboard-badge-client-side {
   background-color: #f3e5f5;
   color: #7b1fa2;
 }

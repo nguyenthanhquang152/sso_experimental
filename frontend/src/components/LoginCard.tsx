@@ -13,13 +13,13 @@ export function LoginCard({ title, description, accentColor, children, footer }:
   return (
     <div className="login-card">
       <div
-        className="login-card__accent"
+        className="login-card-accent"
         style={{ backgroundColor: accentColor }}
       />
       <h2>{title}</h2>
-      <p className="login-card__description">{description}</p>
-      <div className="login-card__body">{children}</div>
-      {footer ? <div className="login-card__footer">{footer}</div> : null}
+      <p className="login-card-description">{description}</p>
+      <div className="login-card-body">{children}</div>
+      {footer ? <div className="login-card-footer">{footer}</div> : null}
     </div>
   );
 }

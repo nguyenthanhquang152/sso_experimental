@@ -46,8 +46,8 @@ export function DashboardPage() {
 
   const avatarInitials = getAvatarInitials(user.name, user.email);
   const badgeClass = user.loginMethod === 'SERVER_SIDE'
-    ? 'login-method-badge login-method-badge--server-side'
-    : 'login-method-badge login-method-badge--client-side';
+    ? 'dashboard-badge dashboard-badge-server-side'
+    : 'dashboard-badge dashboard-badge-client-side';
 
   return (
     <div className="dashboard-container">

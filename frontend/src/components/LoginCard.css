@@ -8,23 +8,23 @@
   background: #fff;
 }
 
-.login-card__accent {
+.login-card-accent {
   width: 48px;
   height: 4px;
   border-radius: 999px;
   margin-bottom: 16px;
 }
 
-.login-card__description {
+.login-card-description {
   color: #666;
   font-size: 14px;
   min-height: 48px;
 }
 
-.login-card__body {
+.login-card-body {
   margin-top: 20px;
 }
 
-.login-card__footer {
+.login-card-footer {
   margin-top: 12px;
 }
