@@ -97,6 +97,7 @@ describe('HomePage', () => {
       token: 'existing-jwt',
       user: null,
       loading: false,
+      error: null,
       logout: vi.fn(),
     });
 

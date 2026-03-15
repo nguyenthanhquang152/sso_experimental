@@ -1,1454 +1,590 @@
 {
-  "command": "status",
-  "overall_score": 91.6,
-  "objective_score": 99.9,
-  "strict_score": 87.6,
-  "verified_strict_score": 86.6,
-  "dimension_scores": {
-    "Code quality": {
-      "score": 100.0,
-      "strict": 56.4,
-      "verified_strict_score": 66.4,
-      "checks": 77,
-      "failing": 0,
-      "tier": 3,
-      "detectors": {
-        "orphaned": {
-          "potential": 41,
-          "pass_rate": 1.0,
-          "failing": 0,
-          "weighted_failures": 0.0
-        },
-        "flat_dirs": {
-          "potential": 36,
-          "pass_rate": 1.0,
-          "failing": 0,
-          "weighted_failures": 0.0
-        }
-      }
-    },
-    "Security": {
-      "score": 100.0,
-      "strict": 100.0,
-      "verified_strict_score": 100.0,
-      "checks": 82,
-      "failing": 0,
-      "tier": 4,
-      "detectors": {
-        "cycles": {
-          "potential": 41,
-          "pass_rate": 1.0,
-          "failing": 0,
-          "weighted_failures": 0.0
-        },
-        "security": {
-          "potential": 41,
-          "pass_rate": 1.0,
-          "failing": 0,
-          "weighted_failures": 0.0
-        }
-      }
-    },
-    "File health": {
-      "score": 100.0,
-      "strict": 100.0,
-      "verified_strict_score": 100.0,
-      "checks": 41,
-      "failing": 0,
-      "tier": 3,
-      "detectors": {
-        "structural": {
-          "potential": 41,
-          "pass_rate": 1.0,
-          "failing": 0,
-          "weighted_failures": 0.0
-        }
-      }
-    },
-    "Duplication": {
-      "score": 99.5,
-      "strict": 99.0,
-      "verified_strict_score": 99.0,
-      "checks": 134,
-      "failing": 1,
-      "tier": 3,
-      "detectors": {
-        "dupes": {
-          "potential": 132,
-          "pass_rate": 1.0,
-          "failing": 0,
-          "weighted_failures": 0.0
-        },
-        "boilerplate_duplication": {
-          "potential": 2,
-          "pass_rate": 0.65,
-          "failing": 1,
-          "weighted_failures": 0.7
-        }
-      }
-    },
-    "Test health": {
-      "score": 100.0,
-      "strict": 71.1,
-      "verified_strict_score": 75.2,
-      "checks": 247,
-      "failing": 0,
-      "tier": 4,
-      "detectors": {
-        "test_coverage": {
-          "potential": 247,
-          "pass_rate": 1.0,
-          "failing": 0,
-          "weighted_failures": 0.0
-        }
-      }
-    },
-    "Abstraction fit": {
-      "score": 91.0,
-      "strict": 91.0,
-      "verified_strict_score": 91.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.91,
-          "failing": 1,
-          "weighted_failures": 0.9,
-          "assessment_score": 91.0,
-          "placeholder": false,
-          "dimension_key": "abstraction_fitness",
-          "configured_weight": 8.0,
-          "components": [
-            "Abstraction Leverage",
-            "Indirection Cost",
-            "Interface Honesty",
-            "Delegation Density",
-            "Definition Directness",
-            "Type Discipline"
-          ],
-          "component_scores": {
-            "Abstraction Leverage": 92.0,
-            "Indirection Cost": 90.0,
-            "Interface Honesty": 93.0,
-            "Delegation Density": 95.0,
-            "Definition Directness": 93.0,
-            "Type Discipline": 95.0
-          }
-        }
-      }
-    },
-    "AI generated debt": {
-      "score": 88.0,
-      "strict": 88.0,
-      "verified_strict_score": 88.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.88,
-          "failing": 1,
-          "weighted_failures": 1.2,
-          "assessment_score": 88.0,
-          "placeholder": false,
-          "dimension_key": "ai_generated_debt",
-          "configured_weight": 1.0,
-          "components": []
-        }
-      }
-    },
-    "API coherence": {
-      "score": 90.0,
-      "strict": 90.0,
-      "verified_strict_score": 90.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.9,
-          "failing": 2,
-          "weighted_failures": 1.0,
-          "assessment_score": 90.0,
-          "placeholder": false,
-          "dimension_key": "api_surface_coherence",
-          "configured_weight": 1.0,
-          "components": []
-        }
-      }
-    },
-    "Auth consistency": {
-      "score": 91.0,
-      "strict": 91.0,
-      "verified_strict_score": 91.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.91,
-          "failing": 1,
-          "weighted_failures": 0.9,
-          "assessment_score": 91.0,
-          "placeholder": false,
-          "dimension_key": "authorization_consistency",
-          "configured_weight": 1.0,
-          "components": []
-        }
-      }
-    },
-    "Contracts": {
-      "score": 90.0,
-      "strict": 90.0,
-      "verified_strict_score": 90.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.9,
-          "failing": 1,
-          "weighted_failures": 1.0,
-          "assessment_score": 90.0,
-          "placeholder": false,
-          "dimension_key": "contract_coherence",
-          "configured_weight": 12.0,
-          "components": []
-        }
-      }
-    },
-    "Convention drift": {
-      "score": 89.5,
-      "strict": 89.5,
-      "verified_strict_score": 89.5,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.895,
-          "failing": 1,
-          "weighted_failures": 1.05,
-          "assessment_score": 89.5,
-          "placeholder": false,
-          "dimension_key": "convention_outlier",
-          "configured_weight": 1.0,
-          "components": []
-        }
-      }
-    },
-    "Cross-module arch": {
-      "score": 88.0,
-      "strict": 88.0,
-      "verified_strict_score": 88.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.88,
-          "failing": 1,
-          "weighted_failures": 1.2,
-          "assessment_score": 88.0,
-          "placeholder": false,
-          "dimension_key": "cross_module_architecture",
-          "configured_weight": 1.0,
-          "components": []
-        }
-      }
-    },
-    "Dep health": {
-      "score": 87.0,
-      "strict": 87.0,
-      "verified_strict_score": 87.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.87,
-          "failing": 0,
-          "weighted_failures": 1.3,
-          "assessment_score": 87.0,
-          "placeholder": false,
-          "dimension_key": "dependency_health",
-          "configured_weight": 1.0,
-          "components": []
-        }
-      }
-    },
-    "Design coherence": {
-      "score": 88.0,
-      "strict": 88.0,
-      "verified_strict_score": 88.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.88,
-          "failing": 2,
-          "weighted_failures": 1.2,
-          "assessment_score": 88.0,
-          "placeholder": false,
-          "dimension_key": "design_coherence",
-          "configured_weight": 10.0,
-          "components": []
-        }
-      }
-    },
-    "Error consistency": {
-      "score": 88.0,
-      "strict": 88.0,
-      "verified_strict_score": 88.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.88,
-          "failing": 1,
-          "weighted_failures": 1.2,
-          "assessment_score": 88.0,
-          "placeholder": false,
-          "dimension_key": "error_consistency",
-          "configured_weight": 3.0,
-          "components": []
-        }
-      }
-    },
-    "High elegance": {
-      "score": 89.0,
-      "strict": 89.0,
-      "verified_strict_score": 89.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.89,
-          "failing": 1,
-          "weighted_failures": 1.1,
-          "assessment_score": 89.0,
-          "placeholder": false,
-          "dimension_key": "high_level_elegance",
-          "configured_weight": 22.0,
-          "components": []
-        }
-      }
-    },
-    "Stale migration": {
-      "score": 82.0,
-      "strict": 82.0,
-      "verified_strict_score": 82.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.82,
-          "failing": 2,
-          "weighted_failures": 1.8,
-          "assessment_score": 82.0,
-          "placeholder": false,
-          "dimension_key": "incomplete_migration",
-          "configured_weight": 1.0,
-          "components": []
-        }
-      }
-    },
-    "Init coupling": {
-      "score": 89.0,
-      "strict": 89.0,
-      "verified_strict_score": 89.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.89,
-          "failing": 1,
-          "weighted_failures": 1.1,
-          "assessment_score": 89.0,
-          "placeholder": false,
-          "dimension_key": "initialization_coupling",
-          "configured_weight": 1.0,
-          "components": []
-        }
-      }
-    },
-    "Logic clarity": {
-      "score": 89.0,
-      "strict": 89.0,
-      "verified_strict_score": 89.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.89,
-          "failing": 2,
-          "weighted_failures": 1.1,
-          "assessment_score": 89.0,
-          "placeholder": false,
-          "dimension_key": "logic_clarity",
-          "configured_weight": 6.0,
-          "components": []
-        }
-      }
-    },
-    "Low elegance": {
-      "score": 89.0,
-      "strict": 89.0,
-      "verified_strict_score": 89.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.89,
-          "failing": 2,
-          "weighted_failures": 1.1,
-          "assessment_score": 89.0,
-          "placeholder": false,
-          "dimension_key": "low_level_elegance",
-          "configured_weight": 12.0,
-          "components": []
-        }
-      }
-    },
-    "Mid elegance": {
-      "score": 88.0,
-      "strict": 88.0,
-      "verified_strict_score": 88.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.88,
-          "failing": 2,
-          "weighted_failures": 1.2,
-          "assessment_score": 88.0,
-          "placeholder": false,
-          "dimension_key": "mid_level_elegance",
-          "configured_weight": 22.0,
-          "components": []
-        }
-      }
-    },
-    "Naming quality": {
-      "score": 90.0,
-      "strict": 90.0,
-      "verified_strict_score": 90.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.9,
-          "failing": 1,
-          "weighted_failures": 1.0,
-          "assessment_score": 90.0,
-          "placeholder": false,
-          "dimension_key": "naming_quality",
-          "configured_weight": 2.0,
-          "components": []
-        }
-      }
-    },
-    "Structure nav": {
-      "score": 90.0,
-      "strict": 90.0,
-      "verified_strict_score": 90.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.9,
-          "failing": 0,
-          "weighted_failures": 1.0,
-          "assessment_score": 90.0,
-          "placeholder": false,
-          "dimension_key": "package_organization",
-          "configured_weight": 5.0,
-          "components": []
-        }
-      }
-    },
-    "Test strategy": {
-      "score": 82.0,
-      "strict": 82.0,
-      "verified_strict_score": 82.0,
-      "checks": 10,
-      "failing": 3,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.82,
-          "failing": 3,
-          "weighted_failures": 1.8,
-          "assessment_score": 82.0,
-          "placeholder": false,
-          "dimension_key": "test_strategy",
-          "configured_weight": 1.0,
-          "components": []
-        }
-      }
-    },
-    "Type safety": {
-      "score": 88.0,
-      "strict": 88.0,
-      "verified_strict_score": 88.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "detectors": {
-        "subjective_assessment": {
-          "potential": 10,
-          "pass_rate": 0.88,
-          "failing": 2,
-          "weighted_failures": 1.2,
-          "assessment_score": 88.0,
-          "placeholder": false,
-          "dimension_key": "type_safety",
-          "configured_weight": 12.0,
-          "components": []
-        }
-      }
-    }
-  },
-  "scorecard_dimensions": [
-    {
-      "name": "File health",
-      "score": 100.0,
-      "strict": 100.0,
-      "checks": 41,
-      "failing": 0,
-      "tier": 3,
-      "subjective": false
-    },
-    {
-      "name": "AI generated debt",
-      "score": 88.0,
-      "strict": 88.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "ai_generated_debt"
-      ]
-    },
-    {
-      "name": "API coherence",
-      "score": 90.0,
-      "strict": 90.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "api_surface_coherence"
-      ]
-    },
-    {
-      "name": "Abstraction fit",
-      "score": 91.0,
-      "strict": 91.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "abstraction_fitness"
-      ]
-    },
-    {
-      "name": "Auth consistency",
-      "score": 91.0,
-      "strict": 91.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "authorization_consistency"
-      ]
-    },
-    {
-      "name": "Code quality",
-      "score": 100.0,
-      "strict": 56.4,
-      "checks": 77,
-      "failing": 0,
-      "tier": 3,
-      "subjective": false
-    },
-    {
-      "name": "Convention drift",
-      "score": 89.5,
-      "strict": 89.5,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "convention_outlier"
-      ]
-    },
-    {
-      "name": "Cross-module arch",
-      "score": 88.0,
-      "strict": 88.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "cross_module_architecture"
-      ]
-    },
-    {
-      "name": "Dep health",
-      "score": 87.0,
-      "strict": 87.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "dependency_health"
-      ]
-    },
-    {
-      "name": "Design coherence",
-      "score": 88.0,
-      "strict": 88.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "design_coherence"
-      ]
-    },
-    {
-      "name": "Duplication",
-      "score": 99.5,
-      "strict": 99.0,
-      "checks": 134,
-      "failing": 1,
-      "tier": 3,
-      "subjective": false
-    },
-    {
-      "name": "Elegance",
-      "score": 88.7,
-      "strict": 88.7,
-      "checks": 30,
-      "failing": 5,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "high_level_elegance",
-        "low_level_elegance",
-        "mid_level_elegance"
-      ]
-    },
-    {
-      "name": "Error consistency",
-      "score": 88.0,
-      "strict": 88.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "error_consistency"
-      ]
-    },
-    {
-      "name": "Init coupling",
-      "score": 89.0,
-      "strict": 89.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "initialization_coupling"
-      ]
-    },
-    {
-      "name": "Naming quality",
-      "score": 90.0,
-      "strict": 90.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "naming_quality"
-      ]
-    },
-    {
-      "name": "Security",
-      "score": 100.0,
-      "strict": 100.0,
-      "checks": 82,
-      "failing": 0,
-      "tier": 4,
-      "subjective": false
-    },
-    {
-      "name": "Stale migration",
-      "score": 82.0,
-      "strict": 82.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "incomplete_migration"
-      ]
-    },
-    {
-      "name": "Structure nav",
-      "score": 90.0,
-      "strict": 90.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "package_organization"
-      ]
-    },
-    {
-      "name": "Test health",
-      "score": 100.0,
-      "strict": 71.1,
-      "checks": 247,
-      "failing": 0,
-      "tier": 4,
-      "subjective": false
-    },
-    {
-      "name": "Test strategy",
-      "score": 82.0,
-      "strict": 82.0,
-      "checks": 10,
-      "failing": 3,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "test_strategy"
-      ]
-    }
-  ],
-  "subjective_measures": [
-    {
-      "name": "AI generated debt",
-      "score": 88.0,
-      "strict": 88.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "ai_generated_debt"
-      ]
-    },
-    {
-      "name": "API coherence",
-      "score": 90.0,
-      "strict": 90.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "api_surface_coherence"
-      ]
-    },
-    {
-      "name": "Abstraction fit",
-      "score": 91.0,
-      "strict": 91.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "abstraction_fitness"
-      ]
-    },
-    {
-      "name": "Auth consistency",
-      "score": 91.0,
-      "strict": 91.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "authorization_consistency"
-      ]
-    },
-    {
-      "name": "Convention drift",
-      "score": 89.5,
-      "strict": 89.5,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "convention_outlier"
-      ]
-    },
-    {
-      "name": "Cross-module arch",
-      "score": 88.0,
-      "strict": 88.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "cross_module_architecture"
-      ]
-    },
-    {
-      "name": "Dep health",
-      "score": 87.0,
-      "strict": 87.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "dependency_health"
-      ]
-    },
-    {
-      "name": "Design coherence",
-      "score": 88.0,
-      "strict": 88.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "design_coherence"
-      ]
-    },
-    {
-      "name": "Elegance",
-      "score": 88.7,
-      "strict": 88.7,
-      "checks": 30,
-      "failing": 5,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "high_level_elegance",
-        "low_level_elegance",
-        "mid_level_elegance"
-      ]
-    },
-    {
-      "name": "Error consistency",
-      "score": 88.0,
-      "strict": 88.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "error_consistency"
-      ]
-    },
-    {
-      "name": "Init coupling",
-      "score": 89.0,
-      "strict": 89.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "initialization_coupling"
-      ]
-    },
-    {
-      "name": "Naming quality",
-      "score": 90.0,
-      "strict": 90.0,
-      "checks": 10,
-      "failing": 1,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "naming_quality"
-      ]
-    },
-    {
-      "name": "Stale migration",
-      "score": 82.0,
-      "strict": 82.0,
-      "checks": 10,
-      "failing": 2,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "incomplete_migration"
-      ]
-    },
-    {
-      "name": "Structure nav",
-      "score": 90.0,
-      "strict": 90.0,
-      "checks": 10,
-      "failing": 0,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "package_organization"
-      ]
-    },
-    {
-      "name": "Test strategy",
-      "score": 82.0,
-      "strict": 82.0,
-      "checks": 10,
-      "failing": 3,
-      "tier": 4,
-      "subjective": true,
-      "placeholder": false,
-      "cli_keys": [
-        "test_strategy"
-      ]
-    }
-  ],
-  "stats": {
-    "total": 276,
-    "auto_resolved": 12,
-    "deferred": 0,
-    "false_positive": 0,
-    "fixed": 94,
-    "open": 29,
-    "triaged_out": 0,
-    "wontfix": 141,
+  "command": "show",
+  "query": "*",
+  "status_filter": "wontfix",
+  "total": 38,
+  "summary": {
     "by_tier": {
-      "1": {
-        "auto_resolved": 0,
-        "deferred": 0,
-        "false_positive": 0,
-        "fixed": 48,
-        "open": 7,
-        "triaged_out": 0,
-        "wontfix": 42
+      "T1": 10,
+      "T3": 18,
+      "T4": 10
+    },
+    "by_detector": {
+      "review": 10,
+      "stale_exclude": 10,
+      "orphaned": 10,
+      "test_coverage": 8
+    },
+    "files": 25
+  },
+  "by_file": {
+    ".": [
+      {
+        "id": "review::.::holistic::ai_generated_debt::duplicate_inline_comment",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "Identical inline comment duplicated verbatim in RedisAuthCodeStore",
+        "detail": {
+          "holistic": true,
+          "dimension": "ai_generated_debt",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
+          ],
+          "evidence": [
+            "Lines 41 and 75 both contain the identical comment '// Write prefix depends on JWT mint mode: V2 mints use v2 key prefix, legacy uses legacy prefix'.",
+            "The comment restates what the code below it clearly shows \u2014 a ternary choosing between V2_KEY_PREFIX and LEGACY_KEY_PREFIX based on JwtMintMode."
+          ],
+          "suggestion": "Remove both inline comments. The method name currentWritePrefix() and the ternary expression are self-documenting.",
+          "reasoning": "",
+          "summary_hash": "7f958cbb"
+        }
       },
-      "2": {
-        "auto_resolved": 0,
-        "deferred": 0,
-        "false_positive": 0,
-        "fixed": 33,
-        "open": 20,
-        "triaged_out": 0,
-        "wontfix": 32
+      {
+        "id": "review::.::holistic::ai_generated_debt::interface_javadoc_bloat",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "Interface Javadoc restates method signatures without adding insight",
+        "detail": {
+          "holistic": true,
+          "dimension": "ai_generated_debt",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java",
+            "backend/src/main/java/com/demo/sso/service/challenge/MicrosoftChallengeStore.java"
+          ],
+          "evidence": [
+            "AuthCodeStore.storeJwt @return says 'a single-use code that can be exchanged via exchangeCode' \u2014 the method name and interface contract already communicate this.",
+            "MicrosoftChallengeStore.issueChallenge @return says 'a new MicrosoftChallenge containing the challenge ID and nonce' \u2014 this restates the return type.",
+            "MicrosoftChallengeStore.consumeNonce has a 7-line Javadoc block that restates the Optional return semantics that the type signature already conveys."
+          ],
+          "suggestion": "Trim interface Javadoc to WHY commentary only. Remove @return tags that restate the return type. Keep @throws tags where the exception contract is non-obvious.",
+          "reasoning": "",
+          "summary_hash": "f4f1a56c"
+        }
       },
-      "3": {
-        "auto_resolved": 12,
-        "deferred": 0,
-        "false_positive": 0,
-        "fixed": 13,
-        "open": 2,
-        "triaged_out": 0,
-        "wontfix": 57
+      {
+        "id": "review::.::holistic::ai_generated_debt::provider_config_warn_noise",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "Warn-level logs on normal disabled-feature-flag configuration states",
+        "detail": {
+          "holistic": true,
+          "dimension": "ai_generated_debt",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+          ],
+          "evidence": [
+            "Lines 73, 76, 79, 92, 95: five logger.warn() calls for routine states like 'Google client-side login suppressed by rollout flag' and 'Google provider not configured: client ID is missing'.",
+            "These fire on every GET /auth/providers call when a provider is intentionally disabled, creating log noise in normal operation."
+          ],
+          "suggestion": "Downgrade to logger.debug() for expected disabled states. Reserve logger.warn() for conditions like 'rollout flag enabled but config missing' which already exists and is appropriate.",
+          "reasoning": "",
+          "summary_hash": "a49692cc"
+        }
       },
-      "4": {
-        "auto_resolved": 0,
-        "deferred": 0,
-        "false_positive": 0,
-        "fixed": 0,
-        "open": 0,
-        "triaged_out": 0,
-        "wontfix": 10
+      {
+        "id": "review::.::holistic::api_surface_coherence::normalizer_parameter_asymmetry",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "normalizeGoogleClaims takes 5 individual params while normalizeMicrosoftClaims takes a typed record",
+        "detail": {
+          "holistic": true,
+          "dimension": "api_surface_coherence",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java"
+          ],
+          "evidence": [
+            "normalizeGoogleClaims(String googleId, String email, String name, String pictureUrl, AuthFlow loginFlow) takes 5 individual parameters, while normalizeMicrosoftClaims(MicrosoftIdTokenClaims claims, AuthFlow loginFlow) takes a typed record. Both serve the same role in the normalizer's public API \u2014 transforming provider claims to NormalizedIdentity \u2014 but use asymmetric parameter styles."
+          ],
+          "suggestion": "Create a VerifiedGoogleIdentity-style typed record for the Google claims (note: GoogleTokenVerifier.VerifiedGoogleIdentity already exists) and change normalizeGoogleClaims to accept (VerifiedGoogleIdentity, AuthFlow), matching the Microsoft overload's shape. The caller in AuthCompletionService.completeGoogleAuthentication already has a VerifiedGoogleIdentity \u2014 it just destructures it unnecessarily.",
+          "reasoning": "",
+          "summary_hash": "9e460073"
+        }
+      },
+      {
+        "id": "review::.::holistic::api_surface_coherence::raw_json_bypass_auth_entry_point",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "SecurityConfig authentication entry point writes raw JSON instead of using ErrorResponse DTO",
+        "detail": {
+          "holistic": true,
+          "dimension": "api_surface_coherence",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/config/SecurityConfig.java"
+          ],
+          "evidence": [
+            "In SecurityConfig.filterChain(), the authenticationEntryPoint lambda writes '{\"error\":\"Unauthorized\"}' as a raw string via response.getWriter().write(), bypassing the ErrorResponse record and Jackson serialization used by all other endpoints"
+          ],
+          "suggestion": "Use an ObjectMapper to serialize an ErrorResponse instance, or delegate to a shared method/bean that produces consistent JSON output matching the DTO hierarchy. This keeps all API responses going through the same serialization path.",
+          "reasoning": "",
+          "summary_hash": "12a0a09a"
+        }
+      },
+      {
+        "id": "review::.::holistic::api_surface_coherence::sealed_type_mixed_json_keys",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "LogoutResponse uses 'message' top-level key while ErrorResponse uses 'error' \u2014 no discriminator field across sealed AuthApiResponse variants",
+        "detail": {
+          "holistic": true,
+          "dimension": "api_surface_coherence",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/controller/dto/LogoutResponse.java",
+            "backend/src/main/java/com/demo/sso/controller/dto/ErrorResponse.java",
+            "backend/src/main/java/com/demo/sso/controller/dto/TokenResponse.java",
+            "backend/src/main/java/com/demo/sso/controller/dto/AuthApiResponse.java"
+          ],
+          "evidence": [
+            "ErrorResponse serializes to {\"error\": \"...\"} via @JsonProperty(\"error\")",
+            "LogoutResponse serializes to {\"message\": \"...\"} \u2014 plain record field, no annotation",
+            "TokenResponse serializes to {\"token\": \"...\"}",
+            "MicrosoftChallengeResponse serializes to {\"challengeId\": \"...\", \"nonce\": \"...\"}",
+            "Frontend client.ts line 78-80 checks body.error specifically \u2014 if LogoutResponse were returned in an error-like context, the frontend would not extract the message",
+            "No @JsonTypeInfo or discriminator field exists on the sealed interface to help clients dispatch"
+          ],
+          "suggestion": "Either add a shared 'type' discriminator field via @JsonTypeInfo on AuthApiResponse, or standardize LogoutResponse to also use 'message' key on ErrorResponse (renaming @JsonProperty) so success/error responses share a common message key pattern",
+          "reasoning": "",
+          "summary_hash": "80b202f0"
+        }
+      },
+      {
+        "id": "review::.::holistic::authorization_consistency::noop_logout_no_token_invalidation",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "POST /auth/logout returns 'Logged out successfully' but performs no server-side JWT invalidation or token blocklisting",
+        "detail": {
+          "holistic": true,
+          "dimension": "authorization_consistency",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+            "frontend/src/hooks/useAuth.ts"
+          ],
+          "evidence": [
+            "AuthController.java:175-178 \u2014 logout() returns ResponseEntity.ok(new LogoutResponse('Logged out successfully')) with no SecurityContext clearing, no token blocklist insertion, no Redis revocation",
+            "useAuth.ts:31-34 \u2014 frontend logout() only removes JWT from localStorage, meaning the token remains valid until natural expiration",
+            "JwtTokenService has no revocation or blocklist mechanism \u2014 validateAndExtract only checks signature, issuer, audience, and expiration"
+          ],
+          "suggestion": "Either implement a Redis-backed token blocklist (add JTI to a Redis set on logout, check in JwtAuthenticationFilter) or document the endpoint as client-side-only and rename/remove the server-side route to avoid implying server-side invalidation",
+          "reasoning": "",
+          "summary_hash": "19fe9a13"
+        }
+      },
+      {
+        "id": "review::.::holistic::contract_coherence::apifetch_undefined_cast",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "apiFetch<T> returns 'undefined as T' for 204 responses, violating its Promise<T> return type",
+        "detail": {
+          "holistic": true,
+          "dimension": "contract_coherence",
+          "related_files": [
+            "frontend/src/api/client.ts"
+          ],
+          "evidence": [
+            "Line 56: function signature is 'async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T>'",
+            "Line 83-84: 'if (response.status === 204) { return undefined as T; }' \u2014 the unsafe cast silently lies about the return type",
+            "Comment on line 53-55 acknowledges the issue: 'Note: Returns undefined cast to T for 204 (No Content) responses. Callers expecting 204 should check for undefined explicitly.'"
+          ],
+          "suggestion": "Change return type to Promise<T | undefined> or create a separate function for endpoints that may return 204. The current approach pushes type-safety responsibility onto callers via comments rather than the type system.",
+          "reasoning": "",
+          "summary_hash": "c4e5b986"
+        }
+      },
+      {
+        "id": "review::.::holistic::contract_coherence::findorcreate_hidden_mutation",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "UserService.findOrCreateUser silently mutates existing user records despite 'findOrCreate' naming",
+        "detail": {
+          "holistic": true,
+          "dimension": "contract_coherence",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/service/user/UserService.java"
+          ],
+          "evidence": [
+            "Method name is 'findOrCreateUser' suggesting two behaviors: find or create",
+            "Lines 36-38: when user is found, delegates to 'updateExistingUser' which overwrites email, name, pictureUrl, provider identity fields, and lastLoginAt",
+            "The update-on-find behavior is a hidden side effect \u2014 callers (AuthCompletionService line 40) expect find-or-create semantics, not find-update-or-create"
+          ],
+          "suggestion": "Rename to 'findOrCreateAndUpdate' or 'syncUser' to make the mutation behavior explicit. Alternatively, add Javadoc documenting that existing users are always updated with latest identity claims on login.",
+          "reasoning": "",
+          "summary_hash": "8536248e"
+        }
+      },
+      {
+        "id": "review::.::holistic::contract_coherence::generatetoken_undocumented_throw",
+        "tier": 1,
+        "confidence": "high",
+        "summary": "JwtTokenService.generateToken can throw undocumented IllegalArgumentException in V2 mode",
+        "detail": {
+          "holistic": true,
+          "dimension": "contract_coherence",
+          "related_files": [
+            "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java"
+          ],
+          "evidence": [
+            "Line 84: public method 'generateToken(User user)' has no Javadoc or @throws annotation",
+            "Line 85-88: delegates to generateV2Token when mint mode is V2, which throws IllegalArgumentException on lines 92-93 if 'user.getId() == null || user.getEmail() == null || user.getProvider() == null || user.getProviderUserId() == null'",
+            "In LEGACY mode the method delegates to generateLegacyToken which does not validate inputs, creating mode-dependent preconditions that are invisible to callers"
+          ],
+          "suggestion": "Add Javadoc to generateToken documenting that it may throw IllegalArgumentException when JWT mint mode is V2 and user entity is missing required fields (id, email, provider, providerUserId).",
+          "reasoning": "",
+          "summary_hash": "8b078d8a"
+        }
       }
-    }
-  },
-  "scan_count": 18,
-  "last_scan": "2026-03-15T04:17:05+00:00",
-  "scan_metadata": {
-    "source": "scan"
-  },
-  "by_tier": {
-    "1": {
-      "auto_resolved": 0,
-      "deferred": 0,
-      "false_positive": 0,
-      "fixed": 48,
-      "open": 7,
-      "triaged_out": 0,
-      "wontfix": 42
-    },
-    "2": {
-      "auto_resolved": 0,
-      "deferred": 0,
-      "false_positive": 0,
-      "fixed": 33,
-      "open": 20,
-      "triaged_out": 0,
-      "wontfix": 32
-    },
-    "3": {
-      "auto_resolved": 12,
-      "deferred": 0,
-      "false_positive": 0,
-      "fixed": 13,
-      "open": 2,
-      "triaged_out": 0,
-      "wontfix": 57
-    },
-    "4": {
-      "auto_resolved": 0,
-      "deferred": 0,
-      "false_positive": 0,
-      "fixed": 0,
-      "open": 0,
-      "triaged_out": 0,
-      "wontfix": 10
-    }
-  },
-  "ignores": [],
-  "suppression": {
-    "last_ignored": 0,
-    "last_raw_issues": 47,
-    "last_suppressed_pct": 0.0,
-    "last_ignore_patterns": 0,
-    "recent_scans": 5,
-    "recent_ignored": 0,
-    "recent_raw_issues": 216,
-    "recent_suppressed_pct": 0.0
-  },
-  "potentials": {
-    "java": {
-      "structural": 41,
-      "flat_dirs": 36,
-      "signature": 2,
-      "security": 41,
-      "single_use": 0,
-      "cycles": 41,
-      "orphaned": 41,
-      "test_coverage": 247,
-      "boilerplate_duplication": 2,
-      "dupes": 132,
-      "stale_wontfix": 46
-    }
-  },
-  "codebase_metrics": {
-    "java": {
-      "total_files": 67,
-      "total_loc": 6364,
-      "total_directories": 26
-    }
-  },
-  "open_scope": {
-    "in_scope": 29,
-    "out_of_scope": 0,
-    "global": 29
-  },
-  "score_breakdown": {
-    "overall_score": 91.6,
-    "mechanical_fraction": 0.25,
-    "subjective_fraction": 0.75,
-    "mechanical_avg": 99.88347826086957,
-    "subjective_avg": 88.78455284552845,
-    "entries": [
+    ],
+    "backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java": [
       {
-        "name": "Code quality",
-        "pool": "mechanical",
-        "score": 100.0,
-        "checks": 77.0,
-        "sample_factor": 0.385,
-        "configured_weight": 1.0,
-        "effective_weight": 0.385,
-        "pool_share": 0.13391304347826088,
-        "overall_per_point": 0.03347826086956522,
-        "overall_contribution": 3.347826086956522,
-        "overall_drag": 0.0
+        "id": "orphaned::backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java",
+        "tier": 3,
+        "confidence": "medium",
+        "summary": "Orphaned file (67 LOC): zero importers, not an entry point",
+        "detail": {
+          "loc": 67
+        }
       },
       {
-        "name": "Security",
-        "pool": "mechanical",
-        "score": 100.0,
-        "checks": 82.0,
-        "sample_factor": 0.41,
-        "configured_weight": 1.0,
-        "effective_weight": 0.41,
-        "pool_share": 0.1426086956521739,
-        "overall_per_point": 0.035652173913043476,
-        "overall_contribution": 3.5652173913043477,
-        "overall_drag": 0.0
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/config/MicrosoftAuthorizationGateFilter.java::over_mocked::MicrosoftAuthorizationGateFilterTest.java",
+        "tier": 3,
+        "confidence": "low",
+        "summary": "Over-mocked tests: MicrosoftAuthorizationGateFilterTest.java has 47 mocks vs 36 assertions",
+        "detail": {
+          "kind": "over_mocked",
+          "test_file": "backend/src/test/java/com/demo/sso/config/MicrosoftAuthorizationGateFilterTest.java",
+          "mocks": 47,
+          "assertions": 36,
+          "loc_weight": 8.18535277187245
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/config/SecurityConfig.java": [
+      {
+        "id": "orphaned::backend/src/main/java/com/demo/sso/config/SecurityConfig.java",
+        "tier": 3,
+        "confidence": "medium",
+        "summary": "Orphaned file (86 LOC): zero importers, not an entry point",
+        "detail": {
+          "loc": 86
+        }
       },
       {
-        "name": "File health",
-        "pool": "mechanical",
-        "score": 100.0,
-        "checks": 41.0,
-        "sample_factor": 0.205,
-        "configured_weight": 2.0,
-        "effective_weight": 0.41,
-        "pool_share": 0.1426086956521739,
-        "overall_per_point": 0.035652173913043476,
-        "overall_contribution": 3.5652173913043477,
-        "overall_drag": 0.0
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/config/SecurityConfig.java::over_mocked::SecurityConfigTest.java",
+        "tier": 3,
+        "confidence": "low",
+        "summary": "Over-mocked tests: SecurityConfigTest.java has 25 mocks vs 22 assertions",
+        "detail": {
+          "kind": "over_mocked",
+          "test_file": "backend/src/test/java/com/demo/sso/config/SecurityConfigTest.java",
+          "mocks": 25,
+          "assertions": 22,
+          "loc_weight": 7.874007874011811
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilter.java": [
+      {
+        "id": "orphaned::backend/src/main/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilter.java",
+        "tier": 3,
+        "confidence": "medium",
+        "summary": "Orphaned file (69 LOC): zero importers, not an entry point",
+        "detail": {
+          "loc": 69
+        }
       },
       {
-        "name": "Duplication",
-        "pool": "mechanical",
-        "score": 99.5,
-        "checks": 134.0,
-        "sample_factor": 0.67,
-        "configured_weight": 1.0,
-        "effective_weight": 0.67,
-        "pool_share": 0.23304347826086957,
-        "overall_per_point": 0.058260869565217394,
-        "overall_contribution": 5.796956521739131,
-        "overall_drag": 0.029130434782608697
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilter.java::over_mocked::MicrosoftAuthorizationGateFilterTest.java",
+        "tier": 3,
+        "confidence": "low",
+        "summary": "Over-mocked tests: MicrosoftAuthorizationGateFilterTest.java has 47 mocks vs 36 assertions",
+        "detail": {
+          "kind": "over_mocked",
+          "test_file": "backend/src/test/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilterTest.java",
+          "mocks": 47,
+          "assertions": 36,
+          "loc_weight": 8.306623862918075
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/controller/UserController.java": [
+      {
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/controller/UserController.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (32 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 32,
+          "importer_count": 0,
+          "loc_weight": 5.656854249492381
+        }
       },
       {
-        "name": "Test health",
-        "pool": "mechanical",
-        "score": 100.0,
-        "checks": 247.0,
-        "sample_factor": 1.0,
-        "configured_weight": 1.0,
-        "effective_weight": 1.0,
-        "pool_share": 0.34782608695652173,
-        "overall_per_point": 0.08695652173913043,
-        "overall_contribution": 8.695652173913043,
-        "overall_drag": 0.0
-      },
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/controller/UserController.java::over_mocked::UserControllerTest.java",
+        "tier": 3,
+        "confidence": "low",
+        "summary": "Over-mocked tests: UserControllerTest.java has 17 mocks vs 13 assertions",
+        "detail": {
+          "kind": "over_mocked",
+          "test_file": "backend/src/test/java/com/demo/sso/controller/UserControllerTest.java",
+          "mocks": 17,
+          "assertions": 13,
+          "loc_weight": 7.3484692283495345
+        }
+      }
+    ],
+    ".m2": [
       {
-        "name": "Abstraction fit",
-        "pool": "subjective",
-        "score": 91.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 8.0,
-        "effective_weight": 8.0,
-        "pool_share": 0.06504065040650407,
-        "overall_per_point": 0.04878048780487805,
-        "overall_contribution": 4.439024390243903,
-        "overall_drag": 0.43902439024390244
-      },
+        "id": "stale_exclude::.m2::.m2",
+        "tier": 4,
+        "confidence": "low",
+        "summary": "Excluded directory '.m2' has 0 references from scanned code \u2014 may be stale",
+        "detail": {
+          "directory": ".m2",
+          "references": 0
+        }
+      }
+    ],
+    ".playwright-mcp": [
       {
-        "name": "AI generated debt",
-        "pool": "subjective",
-        "score": 88.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 1.0,
-        "effective_weight": 1.0,
-        "pool_share": 0.008130081300813009,
-        "overall_per_point": 0.006097560975609756,
-        "overall_contribution": 0.5365853658536586,
-        "overall_drag": 0.07317073170731708
-      },
+        "id": "stale_exclude::.playwright-mcp::.playwright-mcp",
+        "tier": 4,
+        "confidence": "low",
+        "summary": "Excluded directory '.playwright-mcp' has 0 references from scanned code \u2014 may be stale",
+        "detail": {
+          "directory": ".playwright-mcp",
+          "references": 0
+        }
+      }
+    ],
+    ".vscode": [
       {
-        "name": "API coherence",
-        "pool": "subjective",
-        "score": 90.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 1.0,
-        "effective_weight": 1.0,
-        "pool_share": 0.008130081300813009,
-        "overall_per_point": 0.006097560975609756,
-        "overall_contribution": 0.5487804878048781,
-        "overall_drag": 0.06097560975609756
-      },
+        "id": "stale_exclude::.vscode::.vscode",
+        "tier": 4,
+        "confidence": "low",
+        "summary": "Excluded directory '.vscode' has 0 references from scanned code \u2014 may be stale",
+        "detail": {
+          "directory": ".vscode",
+          "references": 0
+        }
+      }
+    ],
+    "backend/.m2": [
       {
-        "name": "Auth consistency",
-        "pool": "subjective",
-        "score": 91.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 1.0,
-        "effective_weight": 1.0,
-        "pool_share": 0.008130081300813009,
-        "overall_per_point": 0.006097560975609756,
-        "overall_contribution": 0.5548780487804879,
-        "overall_drag": 0.054878048780487805
-      },
+        "id": "stale_exclude::backend/.m2::backend/.m2",
+        "tier": 4,
+        "confidence": "low",
+        "summary": "Excluded directory 'backend/.m2' has 0 references from scanned code \u2014 may be stale",
+        "detail": {
+          "directory": "backend/.m2",
+          "references": 0
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/SsoApplication.java": [
       {
-        "name": "Contracts",
-        "pool": "subjective",
-        "score": 90.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 12.0,
-        "effective_weight": 12.0,
-        "pool_share": 0.0975609756097561,
-        "overall_per_point": 0.07317073170731708,
-        "overall_contribution": 6.585365853658537,
-        "overall_drag": 0.7317073170731708
-      },
+        "id": "orphaned::backend/src/main/java/com/demo/sso/SsoApplication.java",
+        "tier": 3,
+        "confidence": "medium",
+        "summary": "Orphaned file (11 LOC): zero importers, not an entry point",
+        "detail": {
+          "loc": 11
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/config/AuthRolloutProperties.java": [
       {
-        "name": "Convention drift",
-        "pool": "subjective",
-        "score": 89.5,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 1.0,
-        "effective_weight": 1.0,
-        "pool_share": 0.008130081300813009,
-        "overall_per_point": 0.006097560975609756,
-        "overall_contribution": 0.5457317073170732,
-        "overall_drag": 0.06402439024390244
-      },
+        "id": "orphaned::backend/src/main/java/com/demo/sso/config/AuthRolloutProperties.java",
+        "tier": 3,
+        "confidence": "medium",
+        "summary": "Orphaned file (99 LOC): zero importers, not an entry point",
+        "detail": {
+          "loc": 99
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java": [
       {
-        "name": "Cross-module arch",
-        "pool": "subjective",
-        "score": 88.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 1.0,
-        "effective_weight": 1.0,
-        "pool_share": 0.008130081300813009,
-        "overall_per_point": 0.006097560975609756,
-        "overall_contribution": 0.5365853658536586,
-        "overall_drag": 0.07317073170731708
-      },
+        "id": "orphaned::backend/src/main/java/com/demo/sso/config/IdentityContractGuard.java",
+        "tier": 3,
+        "confidence": "medium",
+        "summary": "Orphaned file (50 LOC): zero importers, not an entry point",
+        "detail": {
+          "loc": 50
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java": [
       {
-        "name": "Dep health",
-        "pool": "subjective",
-        "score": 87.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 1.0,
-        "effective_weight": 1.0,
-        "pool_share": 0.008130081300813009,
-        "overall_per_point": 0.006097560975609756,
-        "overall_contribution": 0.5304878048780488,
-        "overall_drag": 0.07926829268292683
-      },
+        "id": "orphaned::backend/src/main/java/com/demo/sso/config/JwtAuthenticationFilter.java",
+        "tier": 3,
+        "confidence": "medium",
+        "summary": "Orphaned file (65 LOC): zero importers, not an entry point",
+        "detail": {
+          "loc": 65
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java": [
       {
-        "name": "Design coherence",
-        "pool": "subjective",
-        "score": 88.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 10.0,
-        "effective_weight": 10.0,
-        "pool_share": 0.08130081300813008,
-        "overall_per_point": 0.06097560975609756,
-        "overall_contribution": 5.365853658536585,
-        "overall_drag": 0.7317073170731707
-      },
+        "id": "orphaned::backend/src/main/java/com/demo/sso/config/MicrosoftAuthProperties.java",
+        "tier": 3,
+        "confidence": "medium",
+        "summary": "Orphaned file (59 LOC): zero importers, not an entry point",
+        "detail": {
+          "loc": 59
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/config/filter/JwtAuthenticationFilter.java": [
       {
-        "name": "Error consistency",
-        "pool": "subjective",
-        "score": 88.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 3.0,
-        "effective_weight": 3.0,
-        "pool_share": 0.024390243902439025,
-        "overall_per_point": 0.01829268292682927,
-        "overall_contribution": 1.6097560975609757,
-        "overall_drag": 0.21951219512195125
-      },
+        "id": "orphaned::backend/src/main/java/com/demo/sso/config/filter/JwtAuthenticationFilter.java",
+        "tier": 3,
+        "confidence": "medium",
+        "summary": "Orphaned file (65 LOC): zero importers, not an entry point",
+        "detail": {
+          "loc": 65
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/config/guard/IdentityContractGuard.java": [
       {
-        "name": "High elegance",
-        "pool": "subjective",
-        "score": 89.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 22.0,
-        "effective_weight": 22.0,
-        "pool_share": 0.17886178861788618,
-        "overall_per_point": 0.13414634146341464,
-        "overall_contribution": 11.939024390243903,
-        "overall_drag": 1.475609756097561
-      },
+        "id": "orphaned::backend/src/main/java/com/demo/sso/config/guard/IdentityContractGuard.java",
+        "tier": 3,
+        "confidence": "medium",
+        "summary": "Orphaned file (53 LOC): zero importers, not an entry point",
+        "detail": {
+          "loc": 53
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/controller/AuthController.java": [
       {
-        "name": "Stale migration",
-        "pool": "subjective",
-        "score": 82.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 1.0,
-        "effective_weight": 1.0,
-        "pool_share": 0.008130081300813009,
-        "overall_per_point": 0.006097560975609756,
-        "overall_contribution": 0.5,
-        "overall_drag": 0.10975609756097561
-      },
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/controller/AuthController.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (232 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 232,
+          "importer_count": 0,
+          "loc_weight": 15.231546211727817
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java": [
       {
-        "name": "Init coupling",
-        "pool": "subjective",
-        "score": 89.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 1.0,
-        "effective_weight": 1.0,
-        "pool_share": 0.008130081300813009,
-        "overall_per_point": 0.006097560975609756,
-        "overall_contribution": 0.5426829268292683,
-        "overall_drag": 0.06707317073170732
-      },
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java::untested_module",
+        "tier": 3,
+        "confidence": "high",
+        "summary": "Untested module (37 LOC, 0 importers)",
+        "detail": {
+          "kind": "untested_module",
+          "loc": 37,
+          "importer_count": 0,
+          "loc_weight": 6.082762530298219
+        }
+      }
+    ],
+    "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java": [
       {
-        "name": "Logic clarity",
-        "pool": "subjective",
-        "score": 89.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 6.0,
-        "effective_weight": 6.0,
-        "pool_share": 0.04878048780487805,
-        "overall_per_point": 0.03658536585365854,
-        "overall_contribution": 3.25609756097561,
-        "overall_drag": 0.4024390243902439
-      },
+        "id": "test_coverage::backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java::over_mocked::OAuth2SuccessHandlerTest.java",
+        "tier": 3,
+        "confidence": "low",
+        "summary": "Over-mocked tests: OAuth2SuccessHandlerTest.java has 45 mocks vs 13 assertions",
+        "detail": {
+          "kind": "over_mocked",
+          "test_file": "backend/src/test/java/com/demo/sso/service/auth/OAuth2SuccessHandlerTest.java",
+          "mocks": 45,
+          "assertions": 13,
+          "loc_weight": 10.04987562112089
+        }
+      }
+    ],
+    "backend/target": [
       {
-        "name": "Low elegance",
-        "pool": "subjective",
-        "score": 89.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 12.0,
-        "effective_weight": 12.0,
-        "pool_share": 0.0975609756097561,
-        "overall_per_point": 0.07317073170731708,
-        "overall_contribution": 6.51219512195122,
-        "overall_drag": 0.8048780487804879
-      },
+        "id": "stale_exclude::backend/target::backend/target",
+        "tier": 4,
+        "confidence": "low",
+        "summary": "Excluded directory 'backend/target' has 0 references from scanned code \u2014 may be stale",
+        "detail": {
+          "directory": "backend/target",
+          "references": 0
+        }
+      }
+    ],
+    "backend/~": [
       {
-        "name": "Mid elegance",
-        "pool": "subjective",
-        "score": 88.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 22.0,
-        "effective_weight": 22.0,
-        "pool_share": 0.17886178861788618,
-        "overall_per_point": 0.13414634146341464,
-        "overall_contribution": 11.804878048780488,
-        "overall_drag": 1.6097560975609757
-      },
+        "id": "stale_exclude::backend/~::backend/~",
+        "tier": 4,
+        "confidence": "low",
+        "summary": "Excluded directory 'backend/~' has 0 references from scanned code \u2014 may be stale",
+        "detail": {
+          "directory": "backend/~",
+          "references": 0
+        }
+      }
+    ],
+    "frontend/dist": [
       {
-        "name": "Naming quality",
-        "pool": "subjective",
-        "score": 90.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 2.0,
-        "effective_weight": 2.0,
-        "pool_share": 0.016260162601626018,
-        "overall_per_point": 0.012195121951219513,
-        "overall_contribution": 1.0975609756097562,
-        "overall_drag": 0.12195121951219512
-      },
+        "id": "stale_exclude::frontend/dist::frontend/dist",
+        "tier": 4,
+        "confidence": "low",
+        "summary": "Excluded directory 'frontend/dist' has 0 references from scanned code \u2014 may be stale",
+        "detail": {
+          "directory": "frontend/dist",
+          "references": 0
+        }
+      }
+    ],
+    "frontend/node_modules": [
       {
-        "name": "Structure nav",
-        "pool": "subjective",
-        "score": 90.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 5.0,
-        "effective_weight": 5.0,
-        "pool_share": 0.04065040650406504,
-        "overall_per_point": 0.03048780487804878,
-        "overall_contribution": 2.74390243902439,
-        "overall_drag": 0.3048780487804878
-      },
+        "id": "stale_exclude::frontend/node_modules::frontend/node_modules",
+        "tier": 4,
+        "confidence": "low",
+        "summary": "Excluded directory 'frontend/node_modules' has 0 references from scanned code \u2014 may be stale",
+        "detail": {
+          "directory": "frontend/node_modules",
+          "references": 0
+        }
+      }
+    ],
+    "frontend/playwright-report": [
       {
-        "name": "Test strategy",
-        "pool": "subjective",
-        "score": 82.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 1.0,
-        "effective_weight": 1.0,
-        "pool_share": 0.008130081300813009,
-        "overall_per_point": 0.006097560975609756,
-        "overall_contribution": 0.5,
-        "overall_drag": 0.10975609756097561
-      },
+        "id": "stale_exclude::frontend/playwright-report::frontend/playwright-report",
+        "tier": 4,
+        "confidence": "low",
+        "summary": "Excluded directory 'frontend/playwright-report' has 0 references from scanned code \u2014 may be stale",
+        "detail": {
+          "directory": "frontend/playwright-report",
+          "references": 0
+        }
+      }
+    ],
+    "frontend/test-results": [
       {
-        "name": "Type safety",
-        "pool": "subjective",
-        "score": 88.0,
-        "checks": 0.0,
-        "sample_factor": 1.0,
-        "configured_weight": 12.0,
-        "effective_weight": 12.0,
-        "pool_share": 0.0975609756097561,
-        "overall_per_point": 0.07317073170731708,
-        "overall_contribution": 6.439024390243903,
-        "overall_drag": 0.878048780487805
+        "id": "stale_exclude::frontend/test-results::frontend/test-results",
+        "tier": 4,
+        "confidence": "low",
+        "summary": "Excluded directory 'frontend/test-results' has 0 references from scanned code \u2014 may be stale",
+        "detail": {
+          "directory": "frontend/test-results",
+          "references": 0
+        }
       }
     ]
   },
-  "next_command": "desloppify show boilerplate_duplication --status open",
+  "total_matching": 151,
+  "hidden": {
+    "by_detector": {
+      "review": 86,
+      "orphaned": 27
+    },
+    "total": 113
+  },
+  "noise_budget": 10,
+  "noise_global_budget": 0,
   "narrative": {
-    "phase": "refinement",
-    "headline": " (27 review work items \u2014 run `desloppify show review --status open`)",
+    "phase": "stagnation",
+    "headline": "All T1 and T2 items cleared!",
     "dimensions": {
       "lowest_dimensions": [
         {
@@ -1459,14 +595,14 @@
         },
         {
           "name": "Test health",
-          "strict": 71.1,
+          "strict": 71.3,
           "failing": 0,
           "impact": 0.0
         },
         {
           "name": "Stale migration",
           "strict": 82.0,
-          "failing": 2,
+          "failing": 0,
           "impact": 0.0,
           "subjective": true,
           "impact_description": "re-review to improve"
@@ -1483,8 +619,8 @@
         {
           "name": "Test health",
           "lenient": 100.0,
-          "strict": 71.1,
-          "gap": 28.9,
+          "strict": 71.3,
+          "gap": 28.7,
           "wontfix_count": 8
         }
       ],
@@ -1507,6 +643,11 @@
         {
           "name": "Duplication",
           "strict": 99.0,
+          "stuck_scans": 5
+        },
+        {
+          "name": "Test health",
+          "strict": 71.3,
           "stuck_scans": 5
         },
         {
@@ -1576,33 +717,7 @@
         "impact": 0.0,
         "dimension": "Duplication",
         "priority": 1,
-        "lane": "refactor_0"
-      },
-      {
-        "type": "refactor",
-        "detector": "review",
-        "count": 27,
-        "description": "27 review work items need investigation \u2014 run `desloppify show review --status open` to see them",
-        "command": "desloppify show review --status open",
-        "impact": 0.0,
-        "dimension": "Unknown",
-        "priority": 2,
-        "lane": "refactor_1"
-      },
-      {
-        "type": "manual_fix",
-        "detector": "unused",
-        "count": 1,
-        "description": "1 unused issues in 1 cluster(s) \u2014 run `desloppify next`",
-        "command": "desloppify next",
-        "impact": 0.0,
-        "dimension": "Code quality",
-        "priority": 3,
-        "clusters": [
-          "auto/unused"
-        ],
-        "cluster_count": 1,
-        "lane": "refactor_2"
+        "lane": "refactor"
       },
       {
         "type": "debt_review",
@@ -1610,20 +725,20 @@
         "description": "2.6 pts of wontfix debt \u2014 review stale decisions",
         "command": "desloppify show --status wontfix",
         "gap": 2.6,
-        "priority": 4,
+        "priority": 2,
         "lane": "debt_review"
       }
     ],
     "strategy": {
       "fixer_leverage": {
         "auto_fixable_count": 0,
-        "total_count": 83,
+        "total_count": 1,
         "coverage": 0.0,
         "impact_ratio": 0.0,
         "recommendation": "none"
       },
       "lanes": {
-        "refactor_0": {
+        "refactor": {
           "actions": [
             1
           ],
@@ -1632,27 +747,9 @@
           "automation": "manual",
           "run_first": false
         },
-        "refactor_1": {
-          "actions": [
-            2
-          ],
-          "file_count": 1,
-          "total_impact": 0.0,
-          "automation": "manual",
-          "run_first": false
-        },
-        "refactor_2": {
-          "actions": [
-            3
-          ],
-          "file_count": 1,
-          "total_impact": 0.0,
-          "automation": "manual",
-          "run_first": false
-        },
         "debt_review": {
           "actions": [
-            4
+            2
           ],
           "file_count": 0,
           "total_impact": 0.0,
@@ -1661,7 +758,7 @@
         }
       },
       "can_parallelize": false,
-      "hint": "Work through actions in priority order. Rescan after each fix to track progress. Review: 27 issue(s) \u2014 `desloppify show review --status open`."
+      "hint": "Try a different dimension to break the plateau."
     },
     "tools": {
       "fixers": [],
@@ -1684,17 +781,17 @@
     },
     "debt": {
       "overall_gap": 2.6,
-      "wontfix_count": 141,
+      "wontfix_count": 155,
       "worst_dimension": "Code quality",
       "worst_gap": 43.6,
       "trend": "stable"
     },
-    "milestone": null,
+    "milestone": "All T1 and T2 items cleared!",
     "primary_action": {
       "command": "desloppify show boilerplate_duplication --status open",
       "description": "1 boilerplate_duplication work items \u2014 extract shared boilerplate into reusable helpers or base classes"
     },
-    "why_now": "Work through actions in priority order. Rescan after each fix to track progress. Review: 27 issue(s) \u2014 `desloppify show review --status open`.",
+    "why_now": "Try a different dimension to break the plateau.",
     "verification_step": {
       "command": "desloppify scan",
       "reason": "revalidate after changes"
@@ -1703,7 +800,7 @@
       {
         "type": "wontfix_gap",
         "severity": "high",
-        "message": "Strict/lenient gap is 2.6 pts with 141 wontfix issues"
+        "message": "Strict/lenient gap is 2.6 pts with 155 wontfix issues"
       }
     ],
     "strict_target": {
@@ -1716,20 +813,13 @@
     "reminders": [],
     "reminder_history": {
       "zone_classification": 3,
-      "report_scores": 13,
+      "report_scores": 14,
       "review_issues_pending": 3,
       "stagnant_nudge": 3,
       "feedback_nudge": 3,
       "review_not_run": 3,
       "wontfix_growing": 3
     }
-  },
-  "plan": {
-    "active": true,
-    "focus": null,
-    "total_ordered": 29,
-    "total_skipped": 0,
-    "plan_overrides_narrative": true
   },
   "config": {
     "target_strict_score": 95,

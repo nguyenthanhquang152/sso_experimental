@@ -1,46 +1,46 @@
 {
   "version": 3,
   "created": "2026-03-14T18:25:37+00:00",
-  "last_scan": "2026-03-15T04:17:05+00:00",
-  "scan_count": 18,
+  "last_scan": "2026-03-15T04:31:10+00:00",
+  "scan_count": 19,
   "overall_score": 91.6,
   "objective_score": 99.9,
   "strict_score": 87.6,
-  "verified_strict_score": 86.6,
+  "verified_strict_score": 86.7,
   "stats": {
     "total": 276,
     "auto_resolved": 12,
     "deferred": 0,
     "false_positive": 0,
-    "fixed": 94,
-    "open": 29,
+    "fixed": 108,
+    "open": 8,
     "triaged_out": 0,
-    "wontfix": 141,
+    "wontfix": 148,
     "by_tier": {
       "1": {
         "auto_resolved": 0,
         "deferred": 0,
         "false_positive": 0,
-        "fixed": 48,
+        "fixed": 53,
         "open": 7,
         "triaged_out": 0,
-        "wontfix": 42
+        "wontfix": 37
       },
       "2": {
         "auto_resolved": 0,
         "deferred": 0,
         "false_positive": 0,
-        "fixed": 33,
-        "open": 20,
+        "fixed": 41,
+        "open": 0,
         "triaged_out": 0,
-        "wontfix": 32
+        "wontfix": 44
       },
       "3": {
         "auto_resolved": 12,
         "deferred": 0,
         "false_positive": 0,
-        "fixed": 13,
-        "open": 2,
+        "fixed": 14,
+        "open": 1,
         "triaged_out": 0,
         "wontfix": 57
       },
@@ -83,7 +83,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:02:50+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -114,7 +114,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:02:50+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -145,7 +145,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:02:50+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -176,7 +176,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:02:50+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -207,7 +207,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:02:50+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -238,7 +238,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:02:50+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -269,7 +269,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:02:50+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -300,7 +300,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:02:50+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -331,7 +331,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:02:50+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -362,7 +362,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:02:50+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -393,7 +393,7 @@
         "text": "I have actually Removed the flagged unused imports from the affected backend test files during the controller and DTO cleanup; current sources compile cleanly without those imports. and I am not gaming the score.",
         "attested_at": "2026-03-14T19:13:20+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:02:50+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       }
     },
@@ -408,7 +408,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -463,7 +463,7 @@
         "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
         "attested_at": "2026-03-15T02:53:53+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:17:05+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       },
       "wontfix_scan_count": 7,
@@ -488,7 +488,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -556,7 +556,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T03:37:18+00:00",
       "reopen_count": 2,
       "work_item_kind": "mechanical_defect",
@@ -650,7 +650,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -759,7 +759,7 @@
         "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
         "attested_at": "2026-03-15T02:53:53+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:17:05+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       },
       "wontfix_scan_count": 7,
@@ -779,14 +779,14 @@
       "file": "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (103 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (92 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 103
+        "loc": 92
       },
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -845,7 +845,7 @@
         "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
         "attested_at": "2026-03-15T02:53:53+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:17:05+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       },
       "wontfix_scan_count": 7,
@@ -865,14 +865,14 @@
       "file": "backend/src/main/java/com/demo/sso/config/SecurityConfig.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (74 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (86 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 74
+        "loc": 86
       },
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -931,7 +931,7 @@
         "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
         "attested_at": "2026-03-15T02:53:53+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:17:05+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       },
       "wontfix_scan_count": 7,
@@ -974,7 +974,7 @@
         "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
         "attested_at": "2026-03-15T02:53:53+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:17:05+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       },
       "wontfix_scan_count": 7,
@@ -1017,7 +1017,7 @@
         "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
         "attested_at": "2026-03-15T02:53:53+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:17:05+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       },
       "wontfix_scan_count": 7,
@@ -1094,7 +1094,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1187,7 +1187,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1280,7 +1280,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1323,7 +1323,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1366,7 +1366,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:38+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1458,7 +1458,7 @@
         "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
         "attested_at": "2026-03-15T02:53:53+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:17:05+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       },
       "wontfix_scan_count": 7,
@@ -1490,7 +1490,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1534,7 +1534,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1578,7 +1578,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1622,7 +1622,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1666,7 +1666,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1710,7 +1710,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1754,7 +1754,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1798,7 +1798,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1842,7 +1842,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -1886,7 +1886,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T18:25:42+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -3783,7 +3783,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-14T19:22:59+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -3845,7 +3845,7 @@
         "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
         "attested_at": "2026-03-15T02:53:53+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:17:05+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       },
       "wontfix_scan_count": 7,
@@ -3894,7 +3894,7 @@
         "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
         "attested_at": "2026-03-15T02:53:53+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:17:05+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       },
       "wontfix_scan_count": 7,
@@ -3943,7 +3943,7 @@
         "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
         "attested_at": "2026-03-15T02:53:53+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:17:05+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       },
       "wontfix_scan_count": 7,
@@ -5281,12 +5281,12 @@
         "reasoning": "",
         "summary_hash": "12a0a09a"
       },
-      "status": "wontfix",
+      "status": "open",
       "note": "All three are significant architectural changes requiring new test infrastructure or fundamental provider wiring redesign \u2014 beyond code quality improvement scope",
       "first_seen": "2026-03-15T02:05:07+00:00",
       "last_seen": "2026-03-15T02:05:07+00:00",
-      "resolved_at": "2026-03-15T02:53:53+00:00",
-      "reopen_count": 0,
+      "resolved_at": null,
+      "reopen_count": 1,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
       "origin": "review_import",
@@ -5295,30 +5295,11 @@
       "suppressed_at": null,
       "suppression_pattern": null,
       "resolution_attestation": {
-        "kind": "manual",
-        "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
-        "attested_at": "2026-03-15T02:53:53+00:00",
-        "scan_verified": false
-      },
-      "wontfix_scan_count": 7,
-      "wontfix_snapshot": {
-        "captured_at": "2026-03-15T02:53:53+00:00",
-        "scan_count": 7,
-        "tier": 1,
-        "confidence": "high",
-        "detail": {
-          "holistic": true,
-          "dimension": "api_surface_coherence",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/config/SecurityConfig.java"
-          ],
-          "evidence": [
-            "In SecurityConfig.filterChain(), the authenticationEntryPoint lambda writes '{\"error\":\"Unauthorized\"}' as a raw string via response.getWriter().write(), bypassing the ErrorResponse record and Jackson serialization used by all other endpoints"
-          ],
-          "suggestion": "Use an ObjectMapper to serialize an ErrorResponse instance, or delegate to a shared method/bean that produces consistent JSON output matching the DTO hierarchy. This keeps all API responses going through the same serialization path.",
-          "reasoning": "",
-          "summary_hash": "12a0a09a"
-        }
+        "kind": "manual_reopen",
+        "text": null,
+        "attested_at": "2026-03-15T04:36:20+00:00",
+        "scan_verified": false,
+        "previous_status": "wontfix"
       }
     },
     "review::.::holistic::api_surface_coherence::inconsistent_response_field_names": {
@@ -5405,12 +5386,12 @@
         "reasoning": "",
         "summary_hash": "9e460073"
       },
-      "status": "wontfix",
+      "status": "open",
       "note": "All three are significant architectural changes requiring new test infrastructure or fundamental provider wiring redesign \u2014 beyond code quality improvement scope",
       "first_seen": "2026-03-15T02:05:07+00:00",
       "last_seen": "2026-03-15T02:05:07+00:00",
-      "resolved_at": "2026-03-15T02:53:53+00:00",
-      "reopen_count": 0,
+      "resolved_at": null,
+      "reopen_count": 1,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
       "origin": "review_import",
@@ -5419,30 +5400,11 @@
       "suppressed_at": null,
       "suppression_pattern": null,
       "resolution_attestation": {
-        "kind": "manual",
-        "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
-        "attested_at": "2026-03-15T02:53:53+00:00",
-        "scan_verified": false
-      },
-      "wontfix_scan_count": 7,
-      "wontfix_snapshot": {
-        "captured_at": "2026-03-15T02:53:53+00:00",
-        "scan_count": 7,
-        "tier": 1,
-        "confidence": "high",
-        "detail": {
-          "holistic": true,
-          "dimension": "api_surface_coherence",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java"
-          ],
-          "evidence": [
-            "normalizeGoogleClaims(String googleId, String email, String name, String pictureUrl, AuthFlow loginFlow) takes 5 individual parameters, while normalizeMicrosoftClaims(MicrosoftIdTokenClaims claims, AuthFlow loginFlow) takes a typed record. Both serve the same role in the normalizer's public API \u2014 transforming provider claims to NormalizedIdentity \u2014 but use asymmetric parameter styles."
-          ],
-          "suggestion": "Create a VerifiedGoogleIdentity-style typed record for the Google claims (note: GoogleTokenVerifier.VerifiedGoogleIdentity already exists) and change normalizeGoogleClaims to accept (VerifiedGoogleIdentity, AuthFlow), matching the Microsoft overload's shape. The caller in AuthCompletionService.completeGoogleAuthentication already has a VerifiedGoogleIdentity \u2014 it just destructures it unnecessarily.",
-          "reasoning": "",
-          "summary_hash": "9e460073"
-        }
+        "kind": "manual_reopen",
+        "text": null,
+        "attested_at": "2026-03-15T04:36:15+00:00",
+        "scan_verified": false,
+        "previous_status": "wontfix"
       }
     },
     "review::.::holistic::authorization_consistency::csrf_wildcard_mismatch": {
@@ -5588,12 +5550,12 @@
         "reasoning": "",
         "summary_hash": "f4f1a56c"
       },
-      "status": "wontfix",
+      "status": "open",
       "note": "All three are significant architectural changes requiring new test infrastructure or fundamental provider wiring redesign \u2014 beyond code quality improvement scope",
       "first_seen": "2026-03-15T02:05:07+00:00",
       "last_seen": "2026-03-15T02:05:07+00:00",
-      "resolved_at": "2026-03-15T02:53:53+00:00",
-      "reopen_count": 0,
+      "resolved_at": null,
+      "reopen_count": 1,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
       "origin": "review_import",
@@ -5602,33 +5564,11 @@
       "suppressed_at": null,
       "suppression_pattern": null,
       "resolution_attestation": {
-        "kind": "manual",
-        "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
-        "attested_at": "2026-03-15T02:53:53+00:00",
-        "scan_verified": false
-      },
-      "wontfix_scan_count": 7,
-      "wontfix_snapshot": {
-        "captured_at": "2026-03-15T02:53:53+00:00",
-        "scan_count": 7,
-        "tier": 1,
-        "confidence": "high",
-        "detail": {
-          "holistic": true,
-          "dimension": "ai_generated_debt",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/service/challenge/AuthCodeStore.java",
-            "backend/src/main/java/com/demo/sso/service/challenge/MicrosoftChallengeStore.java"
-          ],
-          "evidence": [
-            "AuthCodeStore.storeJwt @return says 'a single-use code that can be exchanged via exchangeCode' \u2014 the method name and interface contract already communicate this.",
-            "MicrosoftChallengeStore.issueChallenge @return says 'a new MicrosoftChallenge containing the challenge ID and nonce' \u2014 this restates the return type.",
-            "MicrosoftChallengeStore.consumeNonce has a 7-line Javadoc block that restates the Optional return semantics that the type signature already conveys."
-          ],
-          "suggestion": "Trim interface Javadoc to WHY commentary only. Remove @return tags that restate the return type. Keep @throws tags where the exception contract is non-obvious.",
-          "reasoning": "",
-          "summary_hash": "f4f1a56c"
-        }
+        "kind": "manual_reopen",
+        "text": null,
+        "attested_at": "2026-03-15T04:36:05+00:00",
+        "scan_verified": false,
+        "previous_status": "wontfix"
       }
     },
     "review::.::holistic::ai_generated_debt::provider_config_warn_noise": {
@@ -5652,12 +5592,12 @@
         "reasoning": "",
         "summary_hash": "a49692cc"
       },
-      "status": "wontfix",
+      "status": "open",
       "note": "All three are significant architectural changes requiring new test infrastructure or fundamental provider wiring redesign \u2014 beyond code quality improvement scope",
       "first_seen": "2026-03-15T02:05:07+00:00",
       "last_seen": "2026-03-15T02:05:07+00:00",
-      "resolved_at": "2026-03-15T02:53:53+00:00",
-      "reopen_count": 0,
+      "resolved_at": null,
+      "reopen_count": 1,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
       "origin": "review_import",
@@ -5666,31 +5606,11 @@
       "suppressed_at": null,
       "suppression_pattern": null,
       "resolution_attestation": {
-        "kind": "manual",
-        "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
-        "attested_at": "2026-03-15T02:53:53+00:00",
-        "scan_verified": false
-      },
-      "wontfix_scan_count": 7,
-      "wontfix_snapshot": {
-        "captured_at": "2026-03-15T02:53:53+00:00",
-        "scan_count": 7,
-        "tier": 1,
-        "confidence": "high",
-        "detail": {
-          "holistic": true,
-          "dimension": "ai_generated_debt",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
-          ],
-          "evidence": [
-            "Lines 73, 76, 79, 92, 95: five logger.warn() calls for routine states like 'Google client-side login suppressed by rollout flag' and 'Google provider not configured: client ID is missing'.",
-            "These fire on every GET /auth/providers call when a provider is intentionally disabled, creating log noise in normal operation."
-          ],
-          "suggestion": "Downgrade to logger.debug() for expected disabled states. Reserve logger.warn() for conditions like 'rollout flag enabled but config missing' which already exists and is appropriate.",
-          "reasoning": "",
-          "summary_hash": "a49692cc"
-        }
+        "kind": "manual_reopen",
+        "text": null,
+        "attested_at": "2026-03-15T04:36:10+00:00",
+        "scan_verified": false,
+        "previous_status": "wontfix"
       }
     },
     "review::.::holistic::ai_generated_debt::duplicate_inline_comment": {
@@ -5714,12 +5634,12 @@
         "reasoning": "",
         "summary_hash": "7f958cbb"
       },
-      "status": "wontfix",
+      "status": "open",
       "note": "All three are significant architectural changes requiring new test infrastructure or fundamental provider wiring redesign \u2014 beyond code quality improvement scope",
       "first_seen": "2026-03-15T02:05:07+00:00",
       "last_seen": "2026-03-15T02:05:07+00:00",
-      "resolved_at": "2026-03-15T02:53:53+00:00",
-      "reopen_count": 0,
+      "resolved_at": null,
+      "reopen_count": 1,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
       "origin": "review_import",
@@ -5728,31 +5648,11 @@
       "suppressed_at": null,
       "suppression_pattern": null,
       "resolution_attestation": {
-        "kind": "manual",
-        "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
-        "attested_at": "2026-03-15T02:53:53+00:00",
-        "scan_verified": false
-      },
-      "wontfix_scan_count": 7,
-      "wontfix_snapshot": {
-        "captured_at": "2026-03-15T02:53:53+00:00",
-        "scan_count": 7,
-        "tier": 1,
-        "confidence": "high",
-        "detail": {
-          "holistic": true,
-          "dimension": "ai_generated_debt",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
-          ],
-          "evidence": [
-            "Lines 41 and 75 both contain the identical comment '// Write prefix depends on JWT mint mode: V2 mints use v2 key prefix, legacy uses legacy prefix'.",
-            "The comment restates what the code below it clearly shows \u2014 a ternary choosing between V2_KEY_PREFIX and LEGACY_KEY_PREFIX based on JwtMintMode."
-          ],
-          "suggestion": "Remove both inline comments. The method name currentWritePrefix() and the ternary expression are self-documenting.",
-          "reasoning": "",
-          "summary_hash": "7f958cbb"
-        }
+        "kind": "manual_reopen",
+        "text": null,
+        "attested_at": "2026-03-15T04:36:00+00:00",
+        "scan_verified": false,
+        "previous_status": "wontfix"
       }
     },
     "review::.::holistic::ai_generated_debt::dto_javadoc_overhead": {
@@ -6555,12 +6455,12 @@
         "reasoning": "",
         "summary_hash": "c4e5b986"
       },
-      "status": "wontfix",
+      "status": "open",
       "note": "All three are significant architectural changes requiring new test infrastructure or fundamental provider wiring redesign \u2014 beyond code quality improvement scope",
       "first_seen": "2026-03-15T02:05:07+00:00",
       "last_seen": "2026-03-15T02:05:07+00:00",
-      "resolved_at": "2026-03-15T02:53:53+00:00",
-      "reopen_count": 0,
+      "resolved_at": null,
+      "reopen_count": 1,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
       "origin": "review_import",
@@ -6569,32 +6469,11 @@
       "suppressed_at": null,
       "suppression_pattern": null,
       "resolution_attestation": {
-        "kind": "manual",
-        "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
-        "attested_at": "2026-03-15T02:53:53+00:00",
-        "scan_verified": false
-      },
-      "wontfix_scan_count": 7,
-      "wontfix_snapshot": {
-        "captured_at": "2026-03-15T02:53:53+00:00",
-        "scan_count": 7,
-        "tier": 1,
-        "confidence": "high",
-        "detail": {
-          "holistic": true,
-          "dimension": "contract_coherence",
-          "related_files": [
-            "frontend/src/api/client.ts"
-          ],
-          "evidence": [
-            "Line 56: function signature is 'async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T>'",
-            "Line 83-84: 'if (response.status === 204) { return undefined as T; }' \u2014 the unsafe cast silently lies about the return type",
-            "Comment on line 53-55 acknowledges the issue: 'Note: Returns undefined cast to T for 204 (No Content) responses. Callers expecting 204 should check for undefined explicitly.'"
-          ],
-          "suggestion": "Change return type to Promise<T | undefined> or create a separate function for endpoints that may return 204. The current approach pushes type-safety responsibility onto callers via comments rather than the type system.",
-          "reasoning": "",
-          "summary_hash": "c4e5b986"
-        }
+        "kind": "manual_reopen",
+        "text": null,
+        "attested_at": "2026-03-15T04:36:26+00:00",
+        "scan_verified": false,
+        "previous_status": "wontfix"
       }
     },
     "review::.::holistic::contract_coherence::findorcreate_hidden_mutation": {
@@ -6619,12 +6498,12 @@
         "reasoning": "",
         "summary_hash": "8536248e"
       },
-      "status": "wontfix",
+      "status": "open",
       "note": "All three are significant architectural changes requiring new test infrastructure or fundamental provider wiring redesign \u2014 beyond code quality improvement scope",
       "first_seen": "2026-03-15T02:05:07+00:00",
       "last_seen": "2026-03-15T02:05:07+00:00",
-      "resolved_at": "2026-03-15T02:53:53+00:00",
-      "reopen_count": 0,
+      "resolved_at": null,
+      "reopen_count": 1,
       "work_item_kind": "review_defect",
       "issue_kind": "review_defect",
       "origin": "review_import",
@@ -6633,32 +6512,11 @@
       "suppressed_at": null,
       "suppression_pattern": null,
       "resolution_attestation": {
-        "kind": "manual",
-        "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
-        "attested_at": "2026-03-15T02:53:53+00:00",
-        "scan_verified": false
-      },
-      "wontfix_scan_count": 7,
-      "wontfix_snapshot": {
-        "captured_at": "2026-03-15T02:53:53+00:00",
-        "scan_count": 7,
-        "tier": 1,
-        "confidence": "high",
-        "detail": {
-          "holistic": true,
-          "dimension": "contract_coherence",
-          "related_files": [
-            "backend/src/main/java/com/demo/sso/service/user/UserService.java"
-          ],
-          "evidence": [
-            "Method name is 'findOrCreateUser' suggesting two behaviors: find or create",
-            "Lines 36-38: when user is found, delegates to 'updateExistingUser' which overwrites email, name, pictureUrl, provider identity fields, and lastLoginAt",
-            "The update-on-find behavior is a hidden side effect \u2014 callers (AuthCompletionService line 40) expect find-or-create semantics, not find-update-or-create"
-          ],
-          "suggestion": "Rename to 'findOrCreateAndUpdate' or 'syncUser' to make the mutation behavior explicit. Alternatively, add Javadoc documenting that existing users are always updated with latest identity claims on login.",
-          "reasoning": "",
-          "summary_hash": "8536248e"
-        }
+        "kind": "manual_reopen",
+        "text": null,
+        "attested_at": "2026-03-15T04:36:31+00:00",
+        "scan_verified": false,
+        "previous_status": "wontfix"
       }
     },
     "review::.::holistic::contract_coherence::generatetoken_undocumented_throw": {
@@ -7060,7 +6918,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7119,7 +6977,7 @@
         "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
         "attested_at": "2026-03-15T02:53:53+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:17:05+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       },
       "wontfix_scan_count": 7,
@@ -7139,14 +6997,14 @@
       "file": "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (96 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (101 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 96
+        "loc": 101
       },
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7189,7 +7047,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7225,14 +7083,14 @@
       "file": "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (99 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (116 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 99
+        "loc": 116
       },
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7275,7 +7133,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7318,7 +7176,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7361,7 +7219,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7397,14 +7255,14 @@
       "file": "backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (69 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (60 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 69
+        "loc": 60
       },
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7447,7 +7305,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7490,7 +7348,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7533,7 +7391,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7569,14 +7427,14 @@
       "file": "backend/src/main/java/com/demo/sso/controller/GlobalExceptionHandler.java",
       "tier": 3,
       "confidence": "medium",
-      "summary": "Orphaned file (32 LOC): zero importers, not an entry point",
+      "summary": "Orphaned file (47 LOC): zero importers, not an entry point",
       "detail": {
-        "loc": 32
+        "loc": 47
       },
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7619,7 +7477,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7662,7 +7520,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7725,7 +7583,7 @@
         "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
         "attested_at": "2026-03-15T02:53:53+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:17:05+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       },
       "wontfix_scan_count": 7,
@@ -7760,7 +7618,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7800,18 +7658,18 @@
       "file": "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java",
       "tier": 3,
       "confidence": "low",
-      "summary": "Over-mocked tests: OAuth2SuccessHandlerTest.java has 39 mocks vs 13 assertions",
+      "summary": "Over-mocked tests: OAuth2SuccessHandlerTest.java has 45 mocks vs 13 assertions",
       "detail": {
         "kind": "over_mocked",
         "test_file": "backend/src/test/java/com/demo/sso/service/auth/OAuth2SuccessHandlerTest.java",
-        "mocks": 39,
+        "mocks": 45,
         "assertions": 13,
-        "loc_weight": 9.797958971132712
+        "loc_weight": 10.04987562112089
       },
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T02:25:28+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T02:53:53+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -7891,7 +7749,7 @@
         "text": "I have actually reviewed these deferred items and I am not gaming the score by skipping them permanently.",
         "attested_at": "2026-03-15T02:53:53+00:00",
         "scan_verified": true,
-        "scan_verified_at": "2026-03-15T04:17:05+00:00",
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
         "scan_verification_text": "Absent from detector output in latest scan"
       },
       "wontfix_scan_count": 7,
@@ -9957,7 +9815,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T03:21:12+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -9988,7 +9846,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T03:21:12+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T03:37:09+00:00",
       "reopen_count": 1,
       "work_item_kind": "mechanical_defect",
@@ -10032,7 +9890,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T03:21:12+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T03:36:59+00:00",
       "reopen_count": 1,
       "work_item_kind": "mechanical_defect",
@@ -10076,7 +9934,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T03:21:12+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T03:36:54+00:00",
       "reopen_count": 1,
       "work_item_kind": "mechanical_defect",
@@ -10120,7 +9978,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T03:21:12+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T03:37:13+00:00",
       "reopen_count": 1,
       "work_item_kind": "mechanical_defect",
@@ -10164,7 +10022,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T03:21:12+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T03:37:04+00:00",
       "reopen_count": 1,
       "work_item_kind": "mechanical_defect",
@@ -10212,7 +10070,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T03:21:12+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": null,
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -10258,11 +10116,11 @@
         ]
       },
       "status": "open",
-      "note": "Reopened (\u00d71) \u2014 reappeared in scan (was fixed)",
+      "note": "Reopened (\u00d72) \u2014 reappeared in scan (was fixed)",
       "first_seen": "2026-03-15T03:35:03+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": null,
-      "reopen_count": 1,
+      "reopen_count": 2,
       "work_item_kind": "mechanical_defect",
       "issue_kind": "mechanical_defect",
       "origin": "scan",
@@ -10271,7 +10129,7 @@
       "suppressed": false,
       "suppressed_at": null,
       "suppression_pattern": null,
-      "notes": "Fixed in latest commit"
+      "notes": "Already fixed in prior commit"
     },
     "review::.::holistic::cross_module_architecture::rollout_config_hub_fanout": {
       "id": "review::.::holistic::cross_module_architecture::rollout_config_hub_fanout",
@@ -10981,8 +10839,8 @@
       "confidence": "medium",
       "summary": "Unused import: AuthProvider",
       "detail": {},
-      "status": "open",
-      "note": null,
+      "status": "fixed",
+      "note": "Still absent from scan after manual resolution",
       "first_seen": "2026-03-15T04:02:46+00:00",
       "last_seen": "2026-03-15T04:02:46+00:00",
       "resolved_at": null,
@@ -10994,7 +10852,13 @@
       "zone": "test",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Already fixed in prior commit",
+      "resolution_attestation": {
+        "scan_verified": true,
+        "scan_verified_at": "2026-03-15T04:31:10+00:00",
+        "scan_verification_text": "Absent from detector output in latest scan"
+      }
     },
     "orphaned::backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java": {
       "id": "orphaned::backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java",
@@ -11009,7 +10873,7 @@
       "status": "wontfix",
       "note": "Still absent from scan after manual wontfix",
       "first_seen": "2026-03-15T04:02:46+00:00",
-      "last_seen": "2026-03-15T04:17:05+00:00",
+      "last_seen": "2026-03-15T04:31:10+00:00",
       "resolved_at": "2026-03-15T04:04:00+00:00",
       "reopen_count": 0,
       "work_item_kind": "mechanical_defect",
@@ -11060,7 +10924,7 @@
         "reasoning": "",
         "summary_hash": "60242c2c"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11072,7 +10936,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     },
     "review::.::holistic::high_level_elegance::legacy_migration_cognitive_load": {
       "id": "review::.::holistic::high_level_elegance::legacy_migration_cognitive_load",
@@ -11100,7 +10965,7 @@
         "reasoning": "",
         "summary_hash": "5418b5fe"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11112,7 +10977,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     },
     "review::.::holistic::convention_outlier::challenge_store_token_gen_inconsistency": {
       "id": "review::.::holistic::convention_outlier::challenge_store_token_gen_inconsistency",
@@ -11137,7 +11003,7 @@
         "reasoning": "",
         "summary_hash": "6911db21"
       },
-      "status": "open",
+      "status": "fixed",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11149,7 +11015,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Fixed in latest commit"
     },
     "review::.::holistic::error_consistency::useauth_silent_profile_error": {
       "id": "review::.::holistic::error_consistency::useauth_silent_profile_error",
@@ -11171,7 +11038,7 @@
         "reasoning": "",
         "summary_hash": "e6075884"
       },
-      "status": "open",
+      "status": "fixed",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11183,7 +11050,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Fixed in latest commit"
     },
     "review::.::holistic::naming_quality::complete_provider_returns_code": {
       "id": "review::.::holistic::naming_quality::complete_provider_returns_code",
@@ -11205,7 +11073,7 @@
         "reasoning": "",
         "summary_hash": "456054d5"
       },
-      "status": "open",
+      "status": "fixed",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11217,7 +11085,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Fixed in latest commit"
     },
     "review::.::holistic::abstraction_fitness::duplicate_secure_token_generation": {
       "id": "review::.::holistic::abstraction_fitness::duplicate_secure_token_generation",
@@ -11240,7 +11109,7 @@
         "reasoning": "",
         "summary_hash": "6b9109c4"
       },
-      "status": "open",
+      "status": "fixed",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11252,7 +11121,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Fixed in latest commit"
     },
     "review::.::holistic::low_level_elegance::duplicate_secure_token_gen": {
       "id": "review::.::holistic::low_level_elegance::duplicate_secure_token_gen",
@@ -11274,7 +11144,7 @@
         "reasoning": "",
         "summary_hash": "d926bb27"
       },
-      "status": "open",
+      "status": "fixed",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11286,7 +11156,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Fixed in latest commit"
     },
     "review::.::holistic::low_level_elegance::inline_auth_entrypoint_lambda": {
       "id": "review::.::holistic::low_level_elegance::inline_auth_entrypoint_lambda",
@@ -11308,7 +11179,7 @@
         "reasoning": "",
         "summary_hash": "612e4dd1"
       },
-      "status": "open",
+      "status": "fixed",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11320,7 +11191,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Fixed in latest commit"
     },
     "review::.::holistic::mid_level_elegance::implicit_google_default_registration": {
       "id": "review::.::holistic::mid_level_elegance::implicit_google_default_registration",
@@ -11342,7 +11214,7 @@
         "reasoning": "",
         "summary_hash": "37b1b2c4"
       },
-      "status": "open",
+      "status": "fixed",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11354,7 +11226,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Fixed in latest commit"
     },
     "review::.::holistic::mid_level_elegance::manual_frontend_backend_type_sync": {
       "id": "review::.::holistic::mid_level_elegance::manual_frontend_backend_type_sync",
@@ -11377,7 +11250,7 @@
         "reasoning": "",
         "summary_hash": "38aa0a4c"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11389,7 +11262,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     },
     "review::.::holistic::test_strategy::sequential_mock_ordering_fragility": {
       "id": "review::.::holistic::test_strategy::sequential_mock_ordering_fragility",
@@ -11411,7 +11285,7 @@
         "reasoning": "",
         "summary_hash": "7ab47448"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11423,7 +11297,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     },
     "review::.::holistic::test_strategy::no_full_oauth2_callback_integration": {
       "id": "review::.::holistic::test_strategy::no_full_oauth2_callback_integration",
@@ -11446,7 +11321,7 @@
         "reasoning": "",
         "summary_hash": "fdb4a572"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11458,7 +11333,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     },
     "review::.::holistic::test_strategy::redis_ttl_mock_only": {
       "id": "review::.::holistic::test_strategy::redis_ttl_mock_only",
@@ -11481,7 +11357,7 @@
         "reasoning": "",
         "summary_hash": "19ada145"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11493,7 +11369,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     },
     "review::.::holistic::api_surface_coherence::split_auth_controllers_shared_prefix": {
       "id": "review::.::holistic::api_surface_coherence::split_auth_controllers_shared_prefix",
@@ -11517,7 +11394,7 @@
         "reasoning": "",
         "summary_hash": "b2edd230"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11529,7 +11406,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     },
     "review::.::holistic::api_surface_coherence::no_machine_readable_error_codes": {
       "id": "review::.::holistic::api_surface_coherence::no_machine_readable_error_codes",
@@ -11553,7 +11431,7 @@
         "reasoning": "",
         "summary_hash": "a3563eec"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11565,7 +11443,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     },
     "review::.::holistic::authorization_consistency::csrf_paths_inline_strings": {
       "id": "review::.::holistic::authorization_consistency::csrf_paths_inline_strings",
@@ -11588,7 +11467,7 @@
         "reasoning": "",
         "summary_hash": "477186a4"
       },
-      "status": "open",
+      "status": "fixed",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11600,7 +11479,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Fixed in latest commit"
     },
     "review::.::holistic::ai_generated_debt::verbose_package_info": {
       "id": "review::.::holistic::ai_generated_debt::verbose_package_info",
@@ -11622,7 +11502,7 @@
         "reasoning": "",
         "summary_hash": "2bae373c"
       },
-      "status": "open",
+      "status": "fixed",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11634,7 +11514,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Fixed in latest commit"
     },
     "review::.::holistic::incomplete_migration::google_id_legacy_span": {
       "id": "review::.::holistic::incomplete_migration::google_id_legacy_span",
@@ -11659,7 +11540,7 @@
         "reasoning": "",
         "summary_hash": "a72ef60f"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11671,7 +11552,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     },
     "review::.::holistic::incomplete_migration::dual_authcode_prefixes": {
       "id": "review::.::holistic::incomplete_migration::dual_authcode_prefixes",
@@ -11694,7 +11576,7 @@
         "reasoning": "",
         "summary_hash": "fad02b07"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11706,7 +11588,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     },
     "review::.::holistic::initialization_coupling::google_verifier_eager_init": {
       "id": "review::.::holistic::initialization_coupling::google_verifier_eager_init",
@@ -11728,7 +11611,7 @@
         "reasoning": "",
         "summary_hash": "8e209c5a"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11740,7 +11623,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     },
     "review::.::holistic::design_coherence::authcompletion_combinatorial_surface": {
       "id": "review::.::holistic::design_coherence::authcompletion_combinatorial_surface",
@@ -11763,7 +11647,7 @@
         "reasoning": "",
         "summary_hash": "5a1546f4"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11775,7 +11659,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     },
     "review::.::holistic::design_coherence::provider_config_overbroad_catch": {
       "id": "review::.::holistic::design_coherence::provider_config_overbroad_catch",
@@ -11798,7 +11683,7 @@
         "reasoning": "",
         "summary_hash": "1d0ee3b6"
       },
-      "status": "open",
+      "status": "fixed",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11810,7 +11695,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Fixed in latest commit"
     },
     "review::.::holistic::contract_coherence::global_handler_masks_specific_errors": {
       "id": "review::.::holistic::contract_coherence::global_handler_masks_specific_errors",
@@ -11835,7 +11721,7 @@
         "reasoning": "",
         "summary_hash": "502da45a"
       },
-      "status": "open",
+      "status": "fixed",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11847,7 +11733,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Fixed in latest commit"
     },
     "review::.::holistic::logic_clarity::catch_npe_as_control_flow": {
       "id": "review::.::holistic::logic_clarity::catch_npe_as_control_flow",
@@ -11869,7 +11756,7 @@
         "reasoning": "",
         "summary_hash": "40d2021e"
       },
-      "status": "open",
+      "status": "fixed",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11881,7 +11768,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Fixed in latest commit"
     },
     "review::.::holistic::logic_clarity::loose_tenant_contains_check": {
       "id": "review::.::holistic::logic_clarity::loose_tenant_contains_check",
@@ -11903,7 +11791,7 @@
         "reasoning": "",
         "summary_hash": "20216f84"
       },
-      "status": "open",
+      "status": "fixed",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11915,7 +11803,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Fixed in latest commit"
     },
     "review::.::holistic::type_safety::no_nullable_annotations": {
       "id": "review::.::holistic::type_safety::no_nullable_annotations",
@@ -11938,7 +11827,7 @@
         "reasoning": "",
         "summary_hash": "4b77c107"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11950,7 +11839,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     },
     "review::.::holistic::type_safety::frontend_no_response_shape_validation": {
       "id": "review::.::holistic::type_safety::frontend_no_response_shape_validation",
@@ -11974,7 +11864,7 @@
         "reasoning": "",
         "summary_hash": "3e8bc14d"
       },
-      "status": "open",
+      "status": "wontfix",
       "note": null,
       "first_seen": "2026-03-15T04:16:59+00:00",
       "last_seen": "2026-03-15T04:16:59+00:00",
@@ -11986,7 +11876,8 @@
       "lang": "java",
       "suppressed": false,
       "suppressed_at": null,
-      "suppression_pattern": null
+      "suppression_pattern": null,
+      "notes": "Acceptable design pattern, active migration, or demo scope"
     }
   },
   "scan_coverage": {
@@ -12027,7 +11918,7 @@
           "reason": "tool_failed_unparsed_output"
         }
       ],
-      "updated_at": "2026-03-15T04:17:05+00:00"
+      "updated_at": "2026-03-15T04:31:10+00:00"
     }
   },
   "score_confidence": {
@@ -12082,12 +11973,18 @@
     "ai_generated_debt": {
       "score": 88.0,
       "source": "holistic",
-      "assessed_at": "2026-03-15T04:16:59+00:00"
+      "assessed_at": "2026-03-15T04:16:59+00:00",
+      "needs_review_refresh": true,
+      "refresh_reason": "review_issue_open",
+      "stale_since": "2026-03-15T04:36:10+00:00"
     },
     "api_surface_coherence": {
       "score": 90.0,
       "source": "holistic",
-      "assessed_at": "2026-03-15T04:16:59+00:00"
+      "assessed_at": "2026-03-15T04:16:59+00:00",
+      "needs_review_refresh": true,
+      "refresh_reason": "review_issue_open",
+      "stale_since": "2026-03-15T04:36:20+00:00"
     },
     "authorization_consistency": {
       "score": 91.0,
@@ -12097,15 +11994,15 @@
     "contract_coherence": {
       "score": 90.0,
       "source": "holistic",
-      "assessed_at": "2026-03-15T04:16:59+00:00"
+      "assessed_at": "2026-03-15T04:16:59+00:00",
+      "needs_review_refresh": true,
+      "refresh_reason": "review_issue_open",
+      "stale_since": "2026-03-15T04:36:31+00:00"
     },
     "convention_outlier": {
       "score": 89.5,
       "source": "holistic",
-      "assessed_at": "2026-03-15T04:16:59+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "mechanical_issues_changed",
-      "stale_since": "2026-03-15T04:17:05+00:00"
+      "assessed_at": "2026-03-15T04:16:59+00:00"
     },
     "cross_module_architecture": {
       "score": 88.0,
@@ -12120,10 +12017,7 @@
     "design_coherence": {
       "score": 88.0,
       "source": "holistic",
-      "assessed_at": "2026-03-15T04:16:59+00:00",
-      "needs_review_refresh": true,
-      "refresh_reason": "mechanical_issues_changed",
-      "stale_since": "2026-03-15T04:16:59+00:00"
+      "assessed_at": "2026-03-15T04:16:59+00:00"
     },
     "error_consistency": {
       "score": 88.0,
@@ -14503,6 +14397,135 @@
           "strict": 88.0
         }
       }
+    },
+    {
+      "timestamp": "2026-03-15T04:31:10+00:00",
+      "lang": "java",
+      "strict_score": 87.6,
+      "verified_strict_score": 86.7,
+      "objective_score": 99.9,
+      "overall_score": 91.6,
+      "open": 1,
+      "diff_new": 0,
+      "diff_resolved": 25,
+      "ignored": 0,
+      "raw_issues": 47,
+      "suppressed_pct": 0.0,
+      "ignore_patterns": 0,
+      "subjective_integrity": {
+        "status": "pass",
+        "matched_count": 0,
+        "reset_count": 0,
+        "target_score": 95.0
+      },
+      "score_confidence": {
+        "status": "reduced",
+        "confidence": 0.0,
+        "detector_count": 1,
+        "dimension_count": 0
+      },
+      "dimension_scores": {
+        "Code quality": {
+          "score": 100.0,
+          "strict": 56.4
+        },
+        "Security": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "File health": {
+          "score": 100.0,
+          "strict": 100.0
+        },
+        "Duplication": {
+          "score": 99.5,
+          "strict": 99.0
+        },
+        "Test health": {
+          "score": 100.0,
+          "strict": 71.3
+        },
+        "Abstraction fit": {
+          "score": 91.0,
+          "strict": 91.0
+        },
+        "AI generated debt": {
+          "score": 88.0,
+          "strict": 88.0
+        },
+        "API coherence": {
+          "score": 90.0,
+          "strict": 90.0
+        },
+        "Auth consistency": {
+          "score": 91.0,
+          "strict": 91.0
+        },
+        "Contracts": {
+          "score": 90.0,
+          "strict": 90.0
+        },
+        "Convention drift": {
+          "score": 89.5,
+          "strict": 89.5
+        },
+        "Cross-module arch": {
+          "score": 88.0,
+          "strict": 88.0
+        },
+        "Dep health": {
+          "score": 87.0,
+          "strict": 87.0
+        },
+        "Design coherence": {
+          "score": 88.0,
+          "strict": 88.0
+        },
+        "Error consistency": {
+          "score": 88.0,
+          "strict": 88.0
+        },
+        "High elegance": {
+          "score": 89.0,
+          "strict": 89.0
+        },
+        "Stale migration": {
+          "score": 82.0,
+          "strict": 82.0
+        },
+        "Init coupling": {
+          "score": 89.0,
+          "strict": 89.0
+        },
+        "Logic clarity": {
+          "score": 89.0,
+          "strict": 89.0
+        },
+        "Low elegance": {
+          "score": 89.0,
+          "strict": 89.0
+        },
+        "Mid elegance": {
+          "score": 88.0,
+          "strict": 88.0
+        },
+        "Naming quality": {
+          "score": 90.0,
+          "strict": 90.0
+        },
+        "Structure nav": {
+          "score": 90.0,
+          "strict": 90.0
+        },
+        "Test strategy": {
+          "score": 82.0,
+          "strict": 82.0
+        },
+        "Type safety": {
+          "score": 88.0,
+          "strict": 88.0
+        }
+      }
     }
   ],
   "lang_capabilities": {
@@ -14529,16 +14552,16 @@
       "single_use": 0,
       "cycles": 41,
       "orphaned": 41,
-      "test_coverage": 247,
+      "test_coverage": 249,
       "boilerplate_duplication": 2,
-      "dupes": 132,
+      "dupes": 134,
       "stale_wontfix": 46
     }
   },
   "codebase_metrics": {
     "java": {
       "total_files": 67,
-      "total_loc": 6364,
+      "total_loc": 6418,
       "total_directories": 26
     }
   },
@@ -14607,12 +14630,12 @@
       "score": 99.5,
       "strict": 99.0,
       "verified_strict_score": 99.0,
-      "checks": 134,
+      "checks": 136,
       "failing": 1,
       "tier": 3,
       "detectors": {
         "dupes": {
-          "potential": 132,
+          "potential": 134,
           "pass_rate": 1.0,
           "failing": 0,
           "weighted_failures": 0.0
@@ -14627,14 +14650,14 @@
     },
     "Test health": {
       "score": 100.0,
-      "strict": 71.1,
-      "verified_strict_score": 75.2,
-      "checks": 247,
+      "strict": 71.3,
+      "verified_strict_score": 75.3,
+      "checks": 249,
       "failing": 0,
       "tier": 4,
       "detectors": {
         "test_coverage": {
-          "potential": 247,
+          "potential": 249,
           "pass_rate": 1.0,
           "failing": 0,
           "weighted_failures": 0.0
@@ -14646,13 +14669,13 @@
       "strict": 91.0,
       "verified_strict_score": 91.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.91,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 0.9,
           "assessment_score": 91.0,
           "placeholder": false,
@@ -14682,13 +14705,13 @@
       "strict": 88.0,
       "verified_strict_score": 88.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 3,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.88,
-          "failing": 1,
+          "failing": 3,
           "weighted_failures": 1.2,
           "assessment_score": 88.0,
           "placeholder": false,
@@ -14724,13 +14747,13 @@
       "strict": 91.0,
       "verified_strict_score": 91.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.91,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 0.9,
           "assessment_score": 91.0,
           "placeholder": false,
@@ -14745,13 +14768,13 @@
       "strict": 90.0,
       "verified_strict_score": 90.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 2,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.9,
-          "failing": 1,
+          "failing": 2,
           "weighted_failures": 1.0,
           "assessment_score": 90.0,
           "placeholder": false,
@@ -14766,13 +14789,13 @@
       "strict": 89.5,
       "verified_strict_score": 89.5,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.895,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 1.05,
           "assessment_score": 89.5,
           "placeholder": false,
@@ -14787,13 +14810,13 @@
       "strict": 88.0,
       "verified_strict_score": 88.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.88,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 1.2,
           "assessment_score": 88.0,
           "placeholder": false,
@@ -14829,13 +14852,13 @@
       "strict": 88.0,
       "verified_strict_score": 88.0,
       "checks": 10,
-      "failing": 2,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.88,
-          "failing": 2,
+          "failing": 0,
           "weighted_failures": 1.2,
           "assessment_score": 88.0,
           "placeholder": false,
@@ -14850,13 +14873,13 @@
       "strict": 88.0,
       "verified_strict_score": 88.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.88,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 1.2,
           "assessment_score": 88.0,
           "placeholder": false,
@@ -14871,13 +14894,13 @@
       "strict": 89.0,
       "verified_strict_score": 89.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.89,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 1.1,
           "assessment_score": 89.0,
           "placeholder": false,
@@ -14892,13 +14915,13 @@
       "strict": 82.0,
       "verified_strict_score": 82.0,
       "checks": 10,
-      "failing": 2,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.82,
-          "failing": 2,
+          "failing": 0,
           "weighted_failures": 1.8,
           "assessment_score": 82.0,
           "placeholder": false,
@@ -14913,13 +14936,13 @@
       "strict": 89.0,
       "verified_strict_score": 89.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.89,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 1.1,
           "assessment_score": 89.0,
           "placeholder": false,
@@ -14934,13 +14957,13 @@
       "strict": 89.0,
       "verified_strict_score": 89.0,
       "checks": 10,
-      "failing": 2,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.89,
-          "failing": 2,
+          "failing": 0,
           "weighted_failures": 1.1,
           "assessment_score": 89.0,
           "placeholder": false,
@@ -14955,13 +14978,13 @@
       "strict": 89.0,
       "verified_strict_score": 89.0,
       "checks": 10,
-      "failing": 2,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.89,
-          "failing": 2,
+          "failing": 0,
           "weighted_failures": 1.1,
           "assessment_score": 89.0,
           "placeholder": false,
@@ -14976,13 +14999,13 @@
       "strict": 88.0,
       "verified_strict_score": 88.0,
       "checks": 10,
-      "failing": 2,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.88,
-          "failing": 2,
+          "failing": 0,
           "weighted_failures": 1.2,
           "assessment_score": 88.0,
           "placeholder": false,
@@ -14997,13 +15020,13 @@
       "strict": 90.0,
       "verified_strict_score": 90.0,
       "checks": 10,
-      "failing": 1,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.9,
-          "failing": 1,
+          "failing": 0,
           "weighted_failures": 1.0,
           "assessment_score": 90.0,
           "placeholder": false,
@@ -15039,13 +15062,13 @@
       "strict": 82.0,
       "verified_strict_score": 82.0,
       "checks": 10,
-      "failing": 3,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.82,
-          "failing": 3,
+          "failing": 0,
           "weighted_failures": 1.8,
           "assessment_score": 82.0,
           "placeholder": false,
@@ -15060,13 +15083,13 @@
       "strict": 88.0,
       "verified_strict_score": 88.0,
       "checks": 10,
-      "failing": 2,
+      "failing": 0,
       "tier": 4,
       "detectors": {
         "subjective_assessment": {
           "potential": 10,
           "pass_rate": 0.88,
-          "failing": 2,
+          "failing": 0,
           "weighted_failures": 1.2,
           "assessment_score": 88.0,
           "placeholder": false,
@@ -15079,7 +15102,7 @@
   },
   "reminder_history": {
     "zone_classification": 3,
-    "report_scores": 12,
+    "report_scores": 14,
     "review_issues_pending": 3,
     "stagnant_nudge": 3,
     "feedback_nudge": 3,

@@ -393,7 +393,7 @@
           "throws": 5
         },
         "controller/": {
-          "try_catch": 5
+          "try_catch": 3
         },
         "model/": {
           "throws": 4,
@@ -404,8 +404,8 @@
           "throws": 1
         },
         "auth/": {
-          "throws": 13,
-          "try_catch": 3,
+          "throws": 15,
+          "try_catch": 4,
           "returns_null": 1
         },
         "token/": {
@@ -442,7 +442,7 @@
         {
           "file": "backend/src/main/java/com/demo/sso/config/SecurityConfig.java",
           "max_chain_depth": 7,
-          "chain_count": 15
+          "chain_count": 18
         },
         {
           "file": "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java",
@@ -472,7 +472,7 @@
         {
           "file": "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java",
           "max_chain_depth": 6,
-          "chain_count": 7
+          "chain_count": 8
         },
         {
           "file": "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
@@ -510,19 +510,14 @@
           "chain_count": 10
         },
         {
+          "file": "backend/src/main/java/com/demo/sso/controller/GlobalExceptionHandler.java",
+          "max_chain_depth": 5,
+          "chain_count": 9
+        },
+        {
           "file": "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java",
           "max_chain_depth": 5,
           "chain_count": 8
-        },
-        {
-          "file": "backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java",
-          "max_chain_depth": 5,
-          "chain_count": 8
-        },
-        {
-          "file": "backend/src/main/java/com/demo/sso/controller/GlobalExceptionHandler.java",
-          "max_chain_depth": 5,
-          "chain_count": 7
         },
         {
           "file": "backend/src/main/java/com/demo/sso/config/properties/MicrosoftAuthProperties.java",
@@ -531,6 +526,11 @@
         },
         {
           "file": "backend/src/main/java/com/demo/sso/repository/UserRepository.java",
+          "max_chain_depth": 5,
+          "chain_count": 6
+        },
+        {
+          "file": "backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java",
           "max_chain_depth": 5,
           "chain_count": 6
         },
@@ -602,7 +602,7 @@
             "ProviderConfigController.java",
             "UserController.java"
           ],
-          "total_loc": 411,
+          "total_loc": 415,
           "avg_fan_in": 0.0,
           "avg_fan_out": 0.0,
           "zones": {
@@ -651,7 +651,7 @@
             "OAuth2SuccessHandler.java",
             "ProviderIdentityNormalizer.java"
           ],
-          "total_loc": 272,
+          "total_loc": 294,
           "avg_fan_in": 0.0,
           "avg_fan_out": 0.0,
           "zones": {
@@ -667,7 +667,7 @@
             "RedisMicrosoftChallengeStore.java",
             "SecureCodeGenerator.java"
           ],
-          "total_loc": 227,
+          "total_loc": 218,
           "avg_fan_in": 0.0,
           "avg_fan_out": 0.0,
           "zones": {
@@ -681,7 +681,7 @@
             "NormalizedIdentity.java",
             "package-info.java"
           ],
-          "total_loc": 87,
+          "total_loc": 81,
           "avg_fan_in": 0.0,
           "avg_fan_out": 0.0,
           "zones": {
@@ -707,7 +707,7 @@
     },
     "codebase_stats": {
       "total_files": 41,
-      "total_loc": 2254
+      "total_loc": 2277
     },
     "authorization": {},
     "ai_debt_signals": {
@@ -722,10 +722,10 @@
           "comment_ratio": 0.5
         },
         "backend/src/main/java/com/demo/sso/service/model/package-info.java": {
-          "comment_ratio": 0.88
+          "comment_ratio": 0.5
         }
       },
-      "codebase_avg_comment_ratio": 0.116
+      "codebase_avg_comment_ratio": 0.107
     },
     "migration_signals": {
       "deprecated_markers": {
@@ -795,8 +795,8 @@
     },
     "codebase_stats": {
       "total_files": 41,
-      "total_loc": 2254,
-      "avg_file_loc": 54
+      "total_loc": 2277,
+      "avg_file_loc": 55
     },
     "sibling_conventions": {},
     "ai_debt_signals": {
@@ -811,18 +811,17 @@
           "comment_ratio": 0.5
         },
         "backend/src/main/java/com/demo/sso/service/model/package-info.java": {
-          "comment_ratio": 0.88
+          "comment_ratio": 0.5
         }
       },
-      "codebase_avg_comment_ratio": 0.116
+      "codebase_avg_comment_ratio": 0.107
     },
     "error_strategies": {
       "backend/src/main/java/com/demo/sso/config/guard/IdentityContractGuard.java": "throw",
       "backend/src/main/java/com/demo/sso/controller/AuthController.java": "try_catch",
-      "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java": "try_catch",
       "backend/src/main/java/com/demo/sso/model/AuthFlow.java": "throw",
       "backend/src/main/java/com/demo/sso/service/UserService.java": "mixed",
-      "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java": "mixed",
+      "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java": "throw",
       "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java": "throw",
       "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java": "throw",
       "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java": "throw",
@@ -852,20 +851,388 @@
   },
   "historical_review_issues": {
     "summary": {
-      "total_review_issues": 165,
+      "total_review_issues": 192,
       "open_review_issues": 0,
       "status_counts": {
         "auto_resolved": 0,
         "deferred": 0,
         "false_positive": 0,
-        "fixed": 83,
+        "fixed": 96,
         "open": 0,
         "triaged_out": 0,
-        "wontfix": 82
+        "wontfix": 96
       },
       "dimension_open_counts": {}
     },
     "recent_issues": [
+      {
+        "dimension": "cross_module_architecture",
+        "status": "wontfix",
+        "summary": "AuthController depends on 7 injected collaborators spanning 5 distinct concerns, creating high blast radius for auth changes",
+        "suggestion": "Consider extracting provider-specific endpoint methods into focused controller classes (e.g., GoogleAuthController, MicrosoftAuthController) that each depend on only their relevant subset of servic...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "high_level_elegance",
+        "status": "wontfix",
+        "summary": "Legacy migration branches spread across 4 files create a secondary mental model for onboarding developers",
+        "suggestion": "Each migration branch is individually well-documented (class-level Javadoc, inline comments with removal criteria). The actionable improvement is to add a top-level migration guide document (e.g.,...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/UserService.java",
+          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
+          "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java",
+          "backend/src/main/java/com/demo/sso/controller/UserController.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "convention_outlier",
+        "status": "fixed",
+        "summary": "RedisMicrosoftChallengeStore duplicates SecureCodeGenerator logic instead of using shared utility",
+        "suggestion": "Replace the private generateSecureToken() method in RedisMicrosoftChallengeStore with calls to SecureCodeGenerator.generate(), matching the pattern used by RedisAuthCodeStore",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java",
+          "backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java",
+          "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
+        ],
+        "note": "",
+        "confidence": "high",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "error_consistency",
+        "status": "fixed",
+        "summary": "useAuth silently sets user to null on non-401 profile fetch errors, losing the error signal",
+        "suggestion": "Add an error state to useAuth (e.g., profileError) and set it on non-401 failures so consuming components can distinguish 'no user' from 'fetch failed'. Currently DashboardPage silently renders not...",
+        "related_files": [
+          "frontend/src/hooks/useAuth.ts"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "naming_quality",
+        "status": "fixed",
+        "summary": "completeProviderAuthentication() returns an auth code but name implies void completion",
+        "suggestion": "Rename to completeProviderAuthenticationAndIssueCode() or issueAuthCodeForProvider() to communicate that the return value is an auth code, consistent with the renamed createAuthCode() pattern",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "abstraction_fitness",
+        "status": "fixed",
+        "summary": "RedisMicrosoftChallengeStore duplicates SecureCodeGenerator.generate() logic",
+        "suggestion": "Replace the private generateSecureToken() method in RedisMicrosoftChallengeStore with calls to SecureCodeGenerator.generate(). The shared utility already exists in the same package and is explicitl...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java",
+          "backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java"
+        ],
+        "note": "",
+        "confidence": "high",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "low_level_elegance",
+        "status": "fixed",
+        "summary": "RedisMicrosoftChallengeStore duplicates SecureCodeGenerator's token generation pattern inline",
+        "suggestion": "Replace the private generateSecureToken() method in RedisMicrosoftChallengeStore with calls to SecureCodeGenerator.generate(). This removes 5 lines of duplicated logic and consolidates the secure c...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java"
+        ],
+        "note": "",
+        "confidence": "high",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "low_level_elegance",
+        "status": "fixed",
+        "summary": "SecurityConfig authentication entry point uses inline lambda mixing JSON serialization with filter chain config",
+        "suggestion": "Extract the authentication entry point lambda into a private method (e.g., writeUnauthorizedResponse) or a small helper class, consistent with how MicrosoftAuthorizationGateFilter now delegates JSO...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/config/SecurityConfig.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "mid_level_elegance",
+        "status": "fixed",
+        "summary": "OAuth2SuccessHandler defaults unknown registrationId to Google implicitly rather than using explicit provider dispatch",
+        "suggestion": "Add explicit else-if for 'google' and throw IllegalStateException for unknown providers: if (\"google\".equalsIgnoreCase(registrationId)) { ... } else { throw new IllegalStateException(\"Unsupported p...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "mid_level_elegance",
+        "status": "wontfix",
+        "summary": "Frontend-backend type contract for ProviderConfig relies on manual cross-reference comments rather than automated schema synchronization",
+        "suggestion": "For a demo project this is acceptable, but for production consider generating TypeScript types from Java DTOs (e.g., typescript-generator plugin) or adding a contract test that compares JSON schema...",
+        "related_files": [
+          "frontend/src/types/auth.ts",
+          "backend/src/main/java/com/demo/sso/controller/dto/ProviderConfigResponse.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "test_strategy",
+        "status": "wontfix",
+        "summary": "Frontend MicrosoftClientSideLogin test uses sequential mockResolvedValueOnce coupled to internal call order",
+        "suggestion": "Replace with URL-matching mock: mockApiFetch.mockImplementation((path) => { if (path === '/auth/microsoft/challenge') return Promise.resolve({...}); if (path === '/auth/microsoft/verify') return Pr...",
+        "related_files": [
+          "frontend/src/components/MicrosoftClientSideLogin.test.tsx"
+        ],
+        "note": "",
+        "confidence": "high",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "test_strategy",
+        "status": "wontfix",
+        "summary": "No integration test covers the full OAuth2 server-side callback \u2192 OAuth2SuccessHandler \u2192 auth code \u2192 redirect flow",
+        "suggestion": "Add an integration test that simulates an OAuth2 callback with a mocked OAuth2User and verifies the complete redirect-with-code response, including auth code validity via exchange endpoint",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java",
+          "backend/src/test/java/com/demo/sso/controller/MicrosoftServerSideIntegrationTest.java"
+        ],
+        "note": "",
+        "confidence": "high",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "test_strategy",
+        "status": "wontfix",
+        "summary": "Redis TTL enforcement and challenge expiration tested only via mock verification, not actual time-based behavior",
+        "suggestion": "Consider a Testcontainers-based Redis test for at least the auth code exchange to verify single-use semantics and TTL behavior with real Redis, similar to FlywayPostgresMigrationTest's approach",
+        "related_files": [
+          "backend/src/test/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStoreTest.java",
+          "backend/src/test/java/com/demo/sso/service/challenge/RedisAuthCodeStoreTest.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "api_surface_coherence",
+        "status": "wontfix",
+        "summary": "AuthController and ProviderConfigController both map to /auth, splitting endpoint discovery across two files",
+        "suggestion": "Document this split in a package-info.java or consider whether ProviderConfigController belongs under a different base path (e.g., /config/providers) since it serves configuration rather than authe...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+          "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "api_surface_coherence",
+        "status": "wontfix",
+        "summary": "Error responses use human-readable strings only, without machine-readable error codes for client-side branching",
+        "suggestion": "Add an optional 'code' field to ErrorResponse (e.g., MISSING_CREDENTIAL, INVALID_TOKEN, PROVIDER_DISABLED) so frontend can branch on stable identifiers rather than message text",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/dto/ErrorResponse.java",
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "authorization_consistency",
+        "status": "fixed",
+        "summary": "CSRF-disabled paths are inline strings in SecurityConfig rather than shared constants",
+        "suggestion": "Extract path constants to a shared class (e.g., AuthPaths.GOOGLE_VERIFY, AuthPaths.MICROSOFT_WILDCARD) or use the controller's @RequestMapping annotations programmatically to avoid drift",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/config/SecurityConfig.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "ai_generated_debt",
+        "status": "fixed",
+        "summary": "package-info.java over-documents a self-explanatory 3-class package",
+        "suggestion": "Trim to a single-sentence package description (e.g. 'Cross-service identity value objects.') or remove entirely \u2014 the record types communicate their purpose through their signatures.",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/model/package-info.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "incomplete_migration",
+        "status": "wontfix",
+        "summary": "Legacy google_id column and fallback paths span 6+ files without a tracking ticket or timeline",
+        "suggestion": "Add a SQL query or startup check that counts users where provider='GOOGLE' AND provider_user_id IS NULL (or where google_id IS NOT NULL AND provider_user_id IS NULL) to track migration progress. On...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/model/User.java",
+          "backend/src/main/java/com/demo/sso/service/UserService.java",
+          "backend/src/main/java/com/demo/sso/repository/UserRepository.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "incomplete_migration",
+        "status": "wontfix",
+        "summary": "RedisAuthCodeStore dual key-prefix routing adds complexity that persists beyond migration need",
+        "suggestion": "Given the 30-second TTL, consider simplifying: once JwtMintMode.V2 is deployed, switch to V2_ONLY mode within minutes rather than maintaining COMPATIBILITY mode. Document the 30-second safe-switch...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "initialization_coupling",
+        "status": "wontfix",
+        "summary": "GoogleTokenVerifier eagerly constructs SDK verifier even when Google auth may be disabled",
+        "suggestion": "Follow MicrosoftTokenVerifier's pattern: check if Google auth is configured before building the real verifier; return a stub that throws IllegalStateException('Google auth not configured') if disab...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "design_coherence",
+        "status": "wontfix",
+        "summary": "AuthCompletionService has 6 public methods from a 2\u00d73 provider\u00d7flow\u00d7code matrix that could be reduced",
+        "suggestion": "Consider having callers normalize identity before calling AuthCompletionService, reducing the public API to completeAuthentication(NormalizedIdentity) and completeAuthenticationWithCode(NormalizedI...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/auth/AuthCompletionService.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "design_coherence",
+        "status": "fixed",
+        "summary": "ProviderConfigController catches NullPointerException and UnsupportedOperationException for simple property access",
+        "suggestion": "Remove the NullPointerException and UnsupportedOperationException catches \u2014 these indicate a potential null-safety issue that should be fixed at the source rather than masked. If properties can gen...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+        ],
+        "note": "",
+        "confidence": "high",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "contract_coherence",
+        "status": "fixed",
+        "summary": "GlobalExceptionHandler catches bare IllegalArgumentException codebase-wide, masking controller-specific error messages",
+        "suggestion": "Either include e.getMessage() in the GlobalExceptionHandler error response (since IAE messages in this codebase are user-safe), or document that all controllers must handle IAE locally to preserve...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/GlobalExceptionHandler.java",
+          "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "logic_clarity",
+        "status": "fixed",
+        "summary": "ProviderConfigController catches NullPointerException as normal error handling, masking potential programming errors",
+        "suggestion": "Remove NullPointerException from catch clauses. Add explicit null checks in buildGoogleConfig/buildMicrosoftConfig for any values that could be null (e.g., microsoftAuthProperties.getScopes()). If...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+        ],
+        "note": "",
+        "confidence": "high",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "logic_clarity",
+        "status": "fixed",
+        "summary": "isSameTenantAuthority uses String.contains() for tenant ID matching, which could match unintended URL substrings",
+        "suggestion": "Use a more precise check, such as splitting the authority URL into path segments and checking if the tenant ID appears as a standalone path component. For example: URI.create(normalized).getPath()....",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "type_safety",
+        "status": "wontfix",
+        "summary": "Java code relies on convention rather than @Nullable annotations for null-safety",
+        "suggestion": "Add @Nullable annotations (from jakarta.annotation or org.jspecify) to nullable return types and record fields. For example, annotate firstPresent() return type and nullable MicrosoftIdTokenClaims...",
+        "related_files": [
+          "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java",
+          "backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
+      {
+        "dimension": "type_safety",
+        "status": "wontfix",
+        "summary": "Frontend trusts API response shapes without runtime type validation",
+        "suggestion": "Add a lightweight runtime type guard or validation function for critical API responses (e.g., function isTokenResponse(data: unknown): data is { token: string }). Apply to token verification respon...",
+        "related_files": [
+          "frontend/src/components/ClientSideLogin.tsx",
+          "frontend/src/components/MicrosoftClientSideLogin.tsx",
+          "frontend/src/hooks/useAuth.ts"
+        ],
+        "note": "",
+        "confidence": "medium",
+        "first_seen": "2026-03-15T04:16:59+00:00",
+        "last_seen": "2026-03-15T04:16:59+00:00"
+      },
       {
         "dimension": "cross_module_architecture",
         "status": "wontfix",
@@ -908,381 +1275,6 @@
         "confidence": "medium",
         "first_seen": "2026-03-15T03:47:51+00:00",
         "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "low_level_elegance",
-        "status": "fixed",
-        "summary": "MicrosoftAuthorizationGateFilter mixes JSON serialization inline with filter logic on line 54",
-        "suggestion": "Extract the error response writing into a private helper method similar to AuthController.badRequest(), e.g., writeJsonError(response, status, message), to separate serialization from filter routin...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilter.java"
-        ],
-        "note": "",
-        "confidence": "medium",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "mid_level_elegance",
-        "status": "fixed",
-        "summary": "OAuth2SuccessHandler directly calls ProviderIdentityNormalizer instead of routing through AuthCompletionService convenience methods",
-        "suggestion": "Add completeGoogleAuthenticationWithCode and completeMicrosoftAuthenticationWithCode convenience methods to AuthCompletionService, or accept this as intentional since server-side flow needs the cod...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java"
-        ],
-        "note": "",
-        "confidence": "medium",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "test_strategy",
-        "status": "fixed",
-        "summary": "MicrosoftClientSideLogin component has no tests despite handling challenge-response flow with nonce lifecycle",
-        "suggestion": "Create MicrosoftClientSideLogin.test.tsx mirroring the ClientSideLogin.test.tsx pattern \u2014 mock the MSAL provider, verify challenge request on mount, and test error state rendering.",
-        "related_files": [
-          "frontend/src/components/MicrosoftClientSideLogin.tsx"
-        ],
-        "note": "",
-        "confidence": "high",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "test_strategy",
-        "status": "fixed",
-        "summary": "useProviderConfig hook has no tests despite controlling which login flows are rendered",
-        "suggestion": "Create useProviderConfig.test.ts testing: successful config fetch, error fallback to DEFAULT_PROVIDER_CONFIG, and cleanup on unmount.",
-        "related_files": [
-          "frontend/src/hooks/useProviderConfig.ts"
-        ],
-        "note": "",
-        "confidence": "high",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "api_surface_coherence",
-        "status": "fixed",
-        "summary": "MicrosoftAuthorizationGateFilter writes raw Map JSON instead of using shared ErrorResponse DTO",
-        "suggestion": "Replace Map.of(\"error\", \"...\") with objectMapper.writeValueAsString(new ErrorResponse(\"Microsoft server-side login is disabled\")) to match the ErrorResponse DTO used consistently across all other e...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilter.java"
-        ],
-        "note": "",
-        "confidence": "high",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "ai_generated_debt",
-        "status": "fixed",
-        "summary": "Near-identical @Autowired explanation comment repeated across 4 service classes",
-        "suggestion": "Extract this pattern knowledge into a single README or CONTRIBUTING.md note about the test constructor pattern, and remove the per-file comments. The @Autowired annotation itself is self-documentin...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
-          "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java",
-          "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java",
-          "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
-        ],
-        "note": "",
-        "confidence": "medium",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "incomplete_migration",
-        "status": "wontfix",
-        "summary": "Legacy Google identity paths span 6+ files across model, service, and controller layers",
-        "suggestion": "Once V2_ONLY mode is deployed and legacy JWTs have expired (per the documented criteria), perform a coordinated removal: drop google_id column via migration, remove findByGoogleId, remove legacy br...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/model/User.java",
-          "backend/src/main/java/com/demo/sso/repository/UserRepository.java",
-          "backend/src/main/java/com/demo/sso/service/UserService.java",
-          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
-          "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java",
-          "backend/src/main/java/com/demo/sso/controller/UserController.java"
-        ],
-        "note": "",
-        "confidence": "high",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "incomplete_migration",
-        "status": "wontfix",
-        "summary": "AuthenticatedUserIdentity uses nullable fields instead of sealed type for legacy vs V2 variants",
-        "suggestion": "Consider a sealed interface with LegacyIdentity and V2Identity record implementations. This would provide compile-time safety and eliminate nullable field reasoning. However, this is a low priority...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java"
-        ],
-        "note": "",
-        "confidence": "medium",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "package_organization",
-        "status": "wontfix",
-        "summary": "guard/ subpackage contains only one file, adding a directory layer with minimal navigability benefit",
-        "suggestion": "Minor: if no additional guards are planned, IdentityContractGuard could live directly in config/. However, if more contract validation classes are anticipated, keeping the subpackage is fine. No ac...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/config/guard/IdentityContractGuard.java"
-        ],
-        "note": "",
-        "confidence": "low",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "initialization_coupling",
-        "status": "wontfix",
-        "summary": "MicrosoftTokenVerifier builds JwtDecoder eagerly but JWKS URI errors surface only at first use, not at startup",
-        "suggestion": "Consider adding a lightweight JWKS reachability check in the MicrosoftTokenVerifier constructor or a @PostConstruct method, similar to how IdentityContractGuard validates property invariants. This...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java"
-        ],
-        "note": "",
-        "confidence": "medium",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "contract_coherence",
-        "status": "fixed",
-        "summary": "UserResponse.from coerces null fields to empty strings, hiding optionality from API consumers",
-        "suggestion": "Return null for absent fields and add @JsonInclude(NON_NULL) on UserResponse, or document that empty string means 'not set'. This aligns the API contract with the actual domain semantics where pict...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java"
-        ],
-        "note": "",
-        "confidence": "medium",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "logic_clarity",
-        "status": "fixed",
-        "summary": "normalizeEmail checks isBlank() after trim() \u2014 trim already removes whitespace, so isBlank is redundant",
-        "suggestion": "Remove the isBlank check on line 78-80 since callers already validate that the email is non-blank before invoking normalizeEmail. The defensive check is harmless but adds a dead branch that could c...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java"
-        ],
-        "note": "",
-        "confidence": "medium",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "logic_clarity",
-        "status": "wontfix",
-        "summary": "MicrosoftTokenVerifier.buildDecoder returns a throwing lambda instead of failing fast when unconfigured",
-        "suggestion": "This is an acceptable defensive pattern given the IdentityContractGuard startup validation prevents the unconfigured path when Microsoft is actually enabled. Consider adding a brief comment at the...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java"
-        ],
-        "note": "",
-        "confidence": "low",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "type_safety",
-        "status": "wontfix",
-        "summary": "AuthenticatedUserIdentity uses nullable fields to model two distinct variants (legacy vs v2) instead of a sealed type hierarchy",
-        "suggestion": "Consider refactoring AuthenticatedUserIdentity into a sealed interface with two record implementations: LegacyIdentity(String email, String googleId) and V2Identity(Long userId, String email, AuthP...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java"
-        ],
-        "note": "",
-        "confidence": "medium",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "type_safety",
-        "status": "wontfix",
-        "summary": "apiFetch<T> returns T | undefined, forcing all callers to handle undefined even when 204 responses are unexpected",
-        "suggestion": "Consider splitting into two functions: apiFetch<T> that throws on 204 (for endpoints that always return a body) and apiFetchOptional<T> that returns T | undefined (for endpoints that may return 204...",
-        "related_files": [
-          "frontend/src/api/client.ts"
-        ],
-        "note": "",
-        "confidence": "low",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "type_safety",
-        "status": "wontfix",
-        "summary": "MicrosoftIdTokenClaims record allows null on fields that are contextually required (iss, tid, ver) without type-level distinction",
-        "suggestion": "Add validation in fromMap() for iss and tid (the claims that downstream validators require to be non-null), throwing IllegalArgumentException if they are missing. This would make the runtime contra...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java"
-        ],
-        "note": "",
-        "confidence": "medium",
-        "first_seen": "2026-03-15T03:47:51+00:00",
-        "last_seen": "2026-03-15T03:47:51+00:00"
-      },
-      {
-        "dimension": "dependency_health",
-        "status": "wontfix",
-        "summary": "Two JWT library families (jjwt + Nimbus/spring-security-oauth2-jose) coexist for related JWT operations",
-        "suggestion": "Evaluate using NimbusJwtEncoder (from spring-security-oauth2-jose, already transitively present) for session JWT minting, which would allow removing the jjwt dependency entirely. Alternatively, if...",
-        "related_files": [
-          "backend/pom.xml",
-          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
-          "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java"
-        ],
-        "note": "All three are significant architectural changes requiring new test infrastructure or fundamental provider wiring redesign \u2014 beyond code quality improvement scope",
-        "confidence": "medium",
-        "first_seen": "2026-03-15T02:05:07+00:00",
-        "last_seen": "2026-03-15T03:07:22+00:00"
-      },
-      {
-        "dimension": "dependency_health",
-        "status": "wontfix",
-        "summary": "google-api-client 2.7.2 pulls a large transitive tree for only 4 classes used in GoogleTokenVerifier",
-        "suggestion": "Implement manual Google JWKS token verification using spring-security-oauth2-jose (NimbusJwtDecoder with Google's JWKS endpoint), similar to MicrosoftTokenVerifier. This eliminates google-api-clien...",
-        "related_files": [
-          "backend/pom.xml",
-          "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java"
-        ],
-        "note": "All three are significant architectural changes requiring new test infrastructure or fundamental provider wiring redesign \u2014 beyond code quality improvement scope",
-        "confidence": "high",
-        "first_seen": "2026-03-15T02:05:07+00:00",
-        "last_seen": "2026-03-15T03:07:22+00:00"
-      },
-      {
-        "dimension": "test_strategy",
-        "status": "wontfix",
-        "summary": "No component-level tests exist for any of the 6 frontend React components, including business-critical auth flows",
-        "suggestion": "Add @testing-library/react component tests for at minimum: (1) HomePage auth code exchange flow (mock apiFetch, verify code exchange call, URL stripping, error display), (2) ClientSideLogin credent...",
-        "related_files": [
-          "frontend/src/components/ClientSideLogin.tsx",
-          "frontend/src/components/MicrosoftClientSideLogin.tsx",
-          "frontend/src/pages/HomePage.tsx",
-          "frontend/src/pages/DashboardPage.tsx"
-        ],
-        "note": "All three are significant architectural changes requiring new test infrastructure or fundamental provider wiring redesign \u2014 beyond code quality improvement scope",
-        "confidence": "high",
-        "first_seen": "2026-03-15T02:05:07+00:00",
-        "last_seen": "2026-03-15T03:07:22+00:00"
-      },
-      {
-        "dimension": "cross_module_architecture",
-        "status": "wontfix",
-        "summary": "AuthRolloutProperties is queried per-call inside RedisAuthCodeStore, coupling rollout semantics to the store abstraction",
-        "suggestion": "Inject a resolved key-prefix strategy (e.g., a record or enum value) at construction time so the store doesn't query rollout properties per-call. The migration mode should be a construction-time pa...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java",
-          "backend/src/main/java/com/demo/sso/config/AuthRolloutProperties.java"
-        ],
-        "note": "",
-        "confidence": "medium",
-        "first_seen": "2026-03-15T03:07:22+00:00",
-        "last_seen": "2026-03-15T03:07:22+00:00"
-      },
-      {
-        "dimension": "cross_module_architecture",
-        "status": "wontfix",
-        "summary": "AuthController has 6 injected dependencies spanning 4 packages, creating a high blast radius for auth changes",
-        "suggestion": "Consider whether the Microsoft challenge flow (challenge+verify endpoints) could be extracted to a dedicated MicrosoftAuthController, reducing AuthController's fan-out to Google verify + exchange +...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/controller/AuthController.java"
-        ],
-        "note": "",
-        "confidence": "low",
-        "first_seen": "2026-03-15T03:07:22+00:00",
-        "last_seen": "2026-03-15T03:07:22+00:00"
-      },
-      {
-        "dimension": "cross_module_architecture",
-        "status": "wontfix",
-        "summary": "NormalizedIdentity in service.model creates bidirectional package dependency with service.user",
-        "suggestion": "This issue appears resolved. NormalizedIdentity now lives in service.model, creating clean unidirectional dependencies: service.auth\u2192service.model\u2190service.user. Verify and close the existing open i...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/model/NormalizedIdentity.java",
-          "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java",
-          "backend/src/main/java/com/demo/sso/service/user/UserService.java"
-        ],
-        "note": "",
-        "confidence": "high",
-        "first_seen": "2026-03-15T03:07:22+00:00",
-        "last_seen": "2026-03-15T03:07:22+00:00"
-      },
-      {
-        "dimension": "high_level_elegance",
-        "status": "wontfix",
-        "summary": "Legacy/V2 identity migration branching spreads across UserService, JwtTokenService, RedisAuthCodeStore, and UserController, creating diffuse ownership",
-        "suggestion": "While each branch is well-documented with removal criteria, consider consolidating migration awareness into a single MigrationGate or IdentityMigrationStrategy that the four services consult, rathe...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/user/UserService.java",
-          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
-          "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java",
-          "backend/src/main/java/com/demo/sso/controller/UserController.java"
-        ],
-        "note": "",
-        "confidence": "medium",
-        "first_seen": "2026-03-15T03:07:22+00:00",
-        "last_seen": "2026-03-15T03:07:22+00:00"
-      },
-      {
-        "dimension": "high_level_elegance",
-        "status": "wontfix",
-        "summary": "ProviderConfigController catches bare RuntimeException for config-building, masking the distinction between expected config failures and programming errors",
-        "suggestion": "Define a specific ProviderConfigurationException (or use IllegalStateException) for known config failures, and only catch that. Let genuine programming errors (NPE, etc.) propagate to GlobalExcepti...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
-        ],
-        "note": "",
-        "confidence": "high",
-        "first_seen": "2026-03-15T03:07:22+00:00",
-        "last_seen": "2026-03-15T03:07:22+00:00"
-      },
-      {
-        "dimension": "high_level_elegance",
-        "status": "fixed",
-        "summary": "service.model sub-package holds only AuthenticatedUserIdentity while analogous cross-service types live elsewhere",
-        "suggestion": "The previously reported issue appears resolved. NormalizedIdentity has been consolidated into service.model. The package now has a clear role as the cross-service identity transfer boundary. Verify...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java",
-          "backend/src/main/java/com/demo/sso/service/model/NormalizedIdentity.java"
-        ],
-        "note": "",
-        "confidence": "high",
-        "first_seen": "2026-03-15T03:07:22+00:00",
-        "last_seen": "2026-03-15T03:07:22+00:00"
-      },
-      {
-        "dimension": "convention_outlier",
-        "status": "fixed",
-        "summary": "Four service classes use explicit @Autowired on dual constructors while 12+ sibling beans use implicit single-constructor injection",
-        "suggestion": "Unify injection pattern by removing test-only constructors from production code and using constructor-injection mocking (e.g., Mockito @InjectMocks or explicit instantiation in test setup) so all b...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java",
-          "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
-          "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java",
-          "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
-        ],
-        "note": "",
-        "confidence": "high",
-        "first_seen": "2026-03-15T03:07:22+00:00",
-        "last_seen": "2026-03-15T03:07:22+00:00"
-      },
-      {
-        "dimension": "error_consistency",
-        "status": "wontfix",
-        "summary": "ProviderConfigController catches RuntimeException broadly, masking potential NPEs from misconfigured properties alongside expected config failures",
-        "suggestion": "Narrow the catch to specific expected exceptions (e.g., IllegalStateException from property validation) or add explicit null checks in build methods and let unexpected RuntimeExceptions propagate t...",
-        "related_files": [
-          "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
-        ],
-        "note": "",
-        "confidence": "high",
-        "first_seen": "2026-03-15T03:07:22+00:00",
-        "last_seen": "2026-03-15T03:07:22+00:00"
       }
     ]
   },
@@ -1299,8 +1291,21 @@
           "cross_module_architecture"
         ],
         "max_items": 20,
-        "selected_count": 4,
+        "selected_count": 2,
         "issues": [
+          {
+            "dimension": "cross_module_architecture",
+            "status": "wontfix",
+            "summary": "AuthController depends on 7 injected collaborators spanning 5 distinct concerns, creating high blast radius for auth changes",
+            "suggestion": "Consider extracting provider-specific endpoint methods into focused controller classes (e.g., GoogleAuthController, MicrosoftAuthController) that each depend on only their relevant subset of servic...",
+            "related_files": [
+              "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+            ],
+            "note": "",
+            "confidence": "medium",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
+          },
           {
             "dimension": "cross_module_architecture",
             "status": "wontfix",
@@ -1317,46 +1322,6 @@
             "confidence": "medium",
             "first_seen": "2026-03-15T03:47:51+00:00",
             "last_seen": "2026-03-15T03:47:51+00:00"
-          },
-          {
-            "dimension": "cross_module_architecture",
-            "status": "wontfix",
-            "summary": "AuthRolloutProperties is queried per-call inside RedisAuthCodeStore, coupling rollout semantics to the store abstraction",
-            "suggestion": "Inject a resolved key-prefix strategy (e.g., a record or enum value) at construction time so the store doesn't query rollout properties per-call. The migration mode should be a construction-time pa...",
-            "related_files": [
-              "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
-            ],
-            "note": "",
-            "confidence": "medium",
-            "first_seen": "2026-03-15T03:07:22+00:00",
-            "last_seen": "2026-03-15T03:07:22+00:00"
-          },
-          {
-            "dimension": "cross_module_architecture",
-            "status": "wontfix",
-            "summary": "AuthController has 6 injected dependencies spanning 4 packages, creating a high blast radius for auth changes",
-            "suggestion": "Consider whether the Microsoft challenge flow (challenge+verify endpoints) could be extracted to a dedicated MicrosoftAuthController, reducing AuthController's fan-out to Google verify + exchange +...",
-            "related_files": [
-              "backend/src/main/java/com/demo/sso/controller/AuthController.java"
-            ],
-            "note": "",
-            "confidence": "low",
-            "first_seen": "2026-03-15T03:07:22+00:00",
-            "last_seen": "2026-03-15T03:07:22+00:00"
-          },
-          {
-            "dimension": "cross_module_architecture",
-            "status": "wontfix",
-            "summary": "NormalizedIdentity in service.model creates bidirectional package dependency with service.user",
-            "suggestion": "This issue appears resolved. NormalizedIdentity now lives in service.model, creating clean unidirectional dependencies: service.auth\u2192service.model\u2190service.user. Verify and close the existing open i...",
-            "related_files": [
-              "backend/src/main/java/com/demo/sso/service/model/NormalizedIdentity.java",
-              "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java"
-            ],
-            "note": "",
-            "confidence": "high",
-            "first_seen": "2026-03-15T03:07:22+00:00",
-            "last_seen": "2026-03-15T03:07:22+00:00"
           }
         ]
       }
@@ -1373,8 +1338,24 @@
           "high_level_elegance"
         ],
         "max_items": 20,
-        "selected_count": 4,
+        "selected_count": 2,
         "issues": [
+          {
+            "dimension": "high_level_elegance",
+            "status": "wontfix",
+            "summary": "Legacy migration branches spread across 4 files create a secondary mental model for onboarding developers",
+            "suggestion": "Each migration branch is individually well-documented (class-level Javadoc, inline comments with removal criteria). The actionable improvement is to add a top-level migration guide document (e.g.,...",
+            "related_files": [
+              "backend/src/main/java/com/demo/sso/service/UserService.java",
+              "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
+              "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java",
+              "backend/src/main/java/com/demo/sso/controller/UserController.java"
+            ],
+            "note": "",
+            "confidence": "medium",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
+          },
           {
             "dimension": "high_level_elegance",
             "status": "fixed",
@@ -1387,48 +1368,6 @@
             "confidence": "medium",
             "first_seen": "2026-03-15T03:47:51+00:00",
             "last_seen": "2026-03-15T03:47:51+00:00"
-          },
-          {
-            "dimension": "high_level_elegance",
-            "status": "wontfix",
-            "summary": "Legacy/V2 identity migration branching spreads across UserService, JwtTokenService, RedisAuthCodeStore, and UserController, creating diffuse ownership",
-            "suggestion": "While each branch is well-documented with removal criteria, consider consolidating migration awareness into a single MigrationGate or IdentityMigrationStrategy that the four services consult, rathe...",
-            "related_files": [
-              "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
-              "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java",
-              "backend/src/main/java/com/demo/sso/controller/UserController.java"
-            ],
-            "note": "",
-            "confidence": "medium",
-            "first_seen": "2026-03-15T03:07:22+00:00",
-            "last_seen": "2026-03-15T03:07:22+00:00"
-          },
-          {
-            "dimension": "high_level_elegance",
-            "status": "wontfix",
-            "summary": "ProviderConfigController catches bare RuntimeException for config-building, masking the distinction between expected config failures and programming errors",
-            "suggestion": "Define a specific ProviderConfigurationException (or use IllegalStateException) for known config failures, and only catch that. Let genuine programming errors (NPE, etc.) propagate to GlobalExcepti...",
-            "related_files": [
-              "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
-            ],
-            "note": "",
-            "confidence": "high",
-            "first_seen": "2026-03-15T03:07:22+00:00",
-            "last_seen": "2026-03-15T03:07:22+00:00"
-          },
-          {
-            "dimension": "high_level_elegance",
-            "status": "fixed",
-            "summary": "service.model sub-package holds only AuthenticatedUserIdentity while analogous cross-service types live elsewhere",
-            "suggestion": "The previously reported issue appears resolved. NormalizedIdentity has been consolidated into service.model. The package now has a clear role as the cross-service identity transfer boundary. Verify...",
-            "related_files": [
-              "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java",
-              "backend/src/main/java/com/demo/sso/service/model/NormalizedIdentity.java"
-            ],
-            "note": "",
-            "confidence": "high",
-            "first_seen": "2026-03-15T03:07:22+00:00",
-            "last_seen": "2026-03-15T03:07:22+00:00"
           }
         ]
       }
@@ -1453,18 +1392,17 @@
           {
             "dimension": "convention_outlier",
             "status": "fixed",
-            "summary": "Four service classes use explicit @Autowired on dual constructors while 12+ sibling beans use implicit single-constructor injection",
-            "suggestion": "Unify injection pattern by removing test-only constructors from production code and using constructor-injection mocking (e.g., Mockito @InjectMocks or explicit instantiation in test setup) so all b...",
+            "summary": "RedisMicrosoftChallengeStore duplicates SecureCodeGenerator logic instead of using shared utility",
+            "suggestion": "Replace the private generateSecureToken() method in RedisMicrosoftChallengeStore with calls to SecureCodeGenerator.generate(), matching the pattern used by RedisAuthCodeStore",
             "related_files": [
-              "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java",
-              "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
-              "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java",
+              "backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java",
+              "backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java",
               "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
             ],
             "note": "",
             "confidence": "high",
-            "first_seen": "2026-03-15T03:07:22+00:00",
-            "last_seen": "2026-03-15T03:07:22+00:00"
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           }
         ]
       }
@@ -1485,16 +1423,14 @@
         "issues": [
           {
             "dimension": "error_consistency",
-            "status": "wontfix",
-            "summary": "ProviderConfigController catches RuntimeException broadly, masking potential NPEs from misconfigured properties alongside expected config failures",
-            "suggestion": "Narrow the catch to specific expected exceptions (e.g., IllegalStateException from property validation) or add explicit null checks in build methods and let unexpected RuntimeExceptions propagate t...",
-            "related_files": [
-              "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
-            ],
+            "status": "fixed",
+            "summary": "useAuth silently sets user to null on non-401 profile fetch errors, losing the error signal",
+            "suggestion": "Add an error state to useAuth (e.g., profileError) and set it on non-401 failures so consuming components can distinguish 'no user' from 'fetch failed'. Currently DashboardPage silently renders not...",
+            "related_files": [],
             "note": "",
-            "confidence": "high",
-            "first_seen": "2026-03-15T03:07:22+00:00",
-            "last_seen": "2026-03-15T03:07:22+00:00"
+            "confidence": "medium",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           }
         ]
       }
@@ -1511,8 +1447,21 @@
           "naming_quality"
         ],
         "max_items": 20,
-        "selected_count": 1,
+        "selected_count": 2,
         "issues": [
+          {
+            "dimension": "naming_quality",
+            "status": "fixed",
+            "summary": "completeProviderAuthentication() returns an auth code but name implies void completion",
+            "suggestion": "Rename to completeProviderAuthenticationAndIssueCode() or issueAuthCodeForProvider() to communicate that the return value is an auth code, consistent with the renamed createAuthCode() pattern",
+            "related_files": [
+              "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java"
+            ],
+            "note": "",
+            "confidence": "medium",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
+          },
           {
             "dimension": "naming_quality",
             "status": "fixed",
@@ -1541,8 +1490,23 @@
           "abstraction_fitness"
         ],
         "max_items": 20,
-        "selected_count": 0,
-        "issues": []
+        "selected_count": 1,
+        "issues": [
+          {
+            "dimension": "abstraction_fitness",
+            "status": "fixed",
+            "summary": "RedisMicrosoftChallengeStore duplicates SecureCodeGenerator.generate() logic",
+            "suggestion": "Replace the private generateSecureToken() method in RedisMicrosoftChallengeStore with calls to SecureCodeGenerator.generate(). The shared utility already exists in the same package and is explicitl...",
+            "related_files": [
+              "backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java",
+              "backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java"
+            ],
+            "note": "",
+            "confidence": "high",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
+          }
+        ]
       }
     },
     {
@@ -1557,36 +1521,8 @@
           "dependency_health"
         ],
         "max_items": 20,
-        "selected_count": 2,
-        "issues": [
-          {
-            "dimension": "dependency_health",
-            "status": "wontfix",
-            "summary": "Two JWT library families (jjwt + Nimbus/spring-security-oauth2-jose) coexist for related JWT operations",
-            "suggestion": "Evaluate using NimbusJwtEncoder (from spring-security-oauth2-jose, already transitively present) for session JWT minting, which would allow removing the jjwt dependency entirely. Alternatively, if...",
-            "related_files": [
-              "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
-              "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java"
-            ],
-            "note": "All three are significant architectural changes requiring new test infrastructure or fundamental provider wiring redesign \u2014 beyond code quality improvement scope",
-            "confidence": "medium",
-            "first_seen": "2026-03-15T02:05:07+00:00",
-            "last_seen": "2026-03-15T03:07:22+00:00"
-          },
-          {
-            "dimension": "dependency_health",
-            "status": "wontfix",
-            "summary": "google-api-client 2.7.2 pulls a large transitive tree for only 4 classes used in GoogleTokenVerifier",
-            "suggestion": "Implement manual Google JWKS token verification using spring-security-oauth2-jose (NimbusJwtDecoder with Google's JWKS endpoint), similar to MicrosoftTokenVerifier. This eliminates google-api-clien...",
-            "related_files": [
-              "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java"
-            ],
-            "note": "All three are significant architectural changes requiring new test infrastructure or fundamental provider wiring redesign \u2014 beyond code quality improvement scope",
-            "confidence": "high",
-            "first_seen": "2026-03-15T02:05:07+00:00",
-            "last_seen": "2026-03-15T03:07:22+00:00"
-          }
-        ]
+        "selected_count": 0,
+        "issues": []
       }
     },
     {
@@ -1601,20 +1537,33 @@
           "low_level_elegance"
         ],
         "max_items": 20,
-        "selected_count": 1,
+        "selected_count": 2,
         "issues": [
           {
             "dimension": "low_level_elegance",
             "status": "fixed",
-            "summary": "MicrosoftAuthorizationGateFilter mixes JSON serialization inline with filter logic on line 54",
-            "suggestion": "Extract the error response writing into a private helper method similar to AuthController.badRequest(), e.g., writeJsonError(response, status, message), to separate serialization from filter routin...",
+            "summary": "RedisMicrosoftChallengeStore duplicates SecureCodeGenerator's token generation pattern inline",
+            "suggestion": "Replace the private generateSecureToken() method in RedisMicrosoftChallengeStore with calls to SecureCodeGenerator.generate(). This removes 5 lines of duplicated logic and consolidates the secure c...",
             "related_files": [
-              "backend/src/main/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilter.java"
+              "backend/src/main/java/com/demo/sso/service/challenge/RedisMicrosoftChallengeStore.java"
+            ],
+            "note": "",
+            "confidence": "high",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
+          },
+          {
+            "dimension": "low_level_elegance",
+            "status": "fixed",
+            "summary": "SecurityConfig authentication entry point uses inline lambda mixing JSON serialization with filter chain config",
+            "suggestion": "Extract the authentication entry point lambda into a private method (e.g., writeUnauthorizedResponse) or a small helper class, consistent with how MicrosoftAuthorizationGateFilter now delegates JSO...",
+            "related_files": [
+              "backend/src/main/java/com/demo/sso/config/SecurityConfig.java"
             ],
             "note": "",
             "confidence": "medium",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           }
         ]
       }
@@ -1631,20 +1580,33 @@
           "mid_level_elegance"
         ],
         "max_items": 20,
-        "selected_count": 1,
+        "selected_count": 2,
         "issues": [
           {
             "dimension": "mid_level_elegance",
             "status": "fixed",
-            "summary": "OAuth2SuccessHandler directly calls ProviderIdentityNormalizer instead of routing through AuthCompletionService convenience methods",
-            "suggestion": "Add completeGoogleAuthenticationWithCode and completeMicrosoftAuthenticationWithCode convenience methods to AuthCompletionService, or accept this as intentional since server-side flow needs the cod...",
+            "summary": "OAuth2SuccessHandler defaults unknown registrationId to Google implicitly rather than using explicit provider dispatch",
+            "suggestion": "Add explicit else-if for 'google' and throw IllegalStateException for unknown providers: if (\"google\".equalsIgnoreCase(registrationId)) { ... } else { throw new IllegalStateException(\"Unsupported p...",
             "related_files": [
               "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java"
             ],
             "note": "",
             "confidence": "medium",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
+          },
+          {
+            "dimension": "mid_level_elegance",
+            "status": "wontfix",
+            "summary": "Frontend-backend type contract for ProviderConfig relies on manual cross-reference comments rather than automated schema synchronization",
+            "suggestion": "For a demo project this is acceptable, but for production consider generating TypeScript types from Java DTOs (e.g., typescript-generator plugin) or adding a contract test that compares JSON schema...",
+            "related_files": [
+              "backend/src/main/java/com/demo/sso/controller/dto/ProviderConfigResponse.java"
+            ],
+            "note": "",
+            "confidence": "medium",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           }
         ]
       }
@@ -1665,36 +1627,38 @@
         "issues": [
           {
             "dimension": "test_strategy",
-            "status": "fixed",
-            "summary": "MicrosoftClientSideLogin component has no tests despite handling challenge-response flow with nonce lifecycle",
-            "suggestion": "Create MicrosoftClientSideLogin.test.tsx mirroring the ClientSideLogin.test.tsx pattern \u2014 mock the MSAL provider, verify challenge request on mount, and test error state rendering.",
+            "status": "wontfix",
+            "summary": "Frontend MicrosoftClientSideLogin test uses sequential mockResolvedValueOnce coupled to internal call order",
+            "suggestion": "Replace with URL-matching mock: mockApiFetch.mockImplementation((path) => { if (path === '/auth/microsoft/challenge') return Promise.resolve({...}); if (path === '/auth/microsoft/verify') return Pr...",
             "related_files": [],
             "note": "",
             "confidence": "high",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
-          },
-          {
-            "dimension": "test_strategy",
-            "status": "fixed",
-            "summary": "useProviderConfig hook has no tests despite controlling which login flows are rendered",
-            "suggestion": "Create useProviderConfig.test.ts testing: successful config fetch, error fallback to DEFAULT_PROVIDER_CONFIG, and cleanup on unmount.",
-            "related_files": [],
-            "note": "",
-            "confidence": "high",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           },
           {
             "dimension": "test_strategy",
             "status": "wontfix",
-            "summary": "No component-level tests exist for any of the 6 frontend React components, including business-critical auth flows",
-            "suggestion": "Add @testing-library/react component tests for at minimum: (1) HomePage auth code exchange flow (mock apiFetch, verify code exchange call, URL stripping, error display), (2) ClientSideLogin credent...",
-            "related_files": [],
-            "note": "All three are significant architectural changes requiring new test infrastructure or fundamental provider wiring redesign \u2014 beyond code quality improvement scope",
+            "summary": "No integration test covers the full OAuth2 server-side callback \u2192 OAuth2SuccessHandler \u2192 auth code \u2192 redirect flow",
+            "suggestion": "Add an integration test that simulates an OAuth2 callback with a mocked OAuth2User and verifies the complete redirect-with-code response, including auth code validity via exchange endpoint",
+            "related_files": [
+              "backend/src/main/java/com/demo/sso/service/auth/OAuth2SuccessHandler.java"
+            ],
+            "note": "",
             "confidence": "high",
-            "first_seen": "2026-03-15T02:05:07+00:00",
-            "last_seen": "2026-03-15T03:07:22+00:00"
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
+          },
+          {
+            "dimension": "test_strategy",
+            "status": "wontfix",
+            "summary": "Redis TTL enforcement and challenge expiration tested only via mock verification, not actual time-based behavior",
+            "suggestion": "Consider a Testcontainers-based Redis test for at least the auth code exchange to verify single-use semantics and TTL behavior with real Redis, similar to FlywayPostgresMigrationTest's approach",
+            "related_files": [],
+            "note": "",
+            "confidence": "medium",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           }
         ]
       }
@@ -1711,20 +1675,35 @@
           "api_surface_coherence"
         ],
         "max_items": 20,
-        "selected_count": 1,
+        "selected_count": 2,
         "issues": [
           {
             "dimension": "api_surface_coherence",
-            "status": "fixed",
-            "summary": "MicrosoftAuthorizationGateFilter writes raw Map JSON instead of using shared ErrorResponse DTO",
-            "suggestion": "Replace Map.of(\"error\", \"...\") with objectMapper.writeValueAsString(new ErrorResponse(\"Microsoft server-side login is disabled\")) to match the ErrorResponse DTO used consistently across all other e...",
+            "status": "wontfix",
+            "summary": "AuthController and ProviderConfigController both map to /auth, splitting endpoint discovery across two files",
+            "suggestion": "Document this split in a package-info.java or consider whether ProviderConfigController belongs under a different base path (e.g., /config/providers) since it serves configuration rather than authe...",
             "related_files": [
-              "backend/src/main/java/com/demo/sso/config/filter/MicrosoftAuthorizationGateFilter.java"
+              "backend/src/main/java/com/demo/sso/controller/AuthController.java",
+              "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
             ],
             "note": "",
-            "confidence": "high",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
+            "confidence": "medium",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
+          },
+          {
+            "dimension": "api_surface_coherence",
+            "status": "wontfix",
+            "summary": "Error responses use human-readable strings only, without machine-readable error codes for client-side branching",
+            "suggestion": "Add an optional 'code' field to ErrorResponse (e.g., MISSING_CREDENTIAL, INVALID_TOKEN, PROVIDER_DISABLED) so frontend can branch on stable identifiers rather than message text",
+            "related_files": [
+              "backend/src/main/java/com/demo/sso/controller/dto/ErrorResponse.java",
+              "backend/src/main/java/com/demo/sso/controller/AuthController.java"
+            ],
+            "note": "",
+            "confidence": "medium",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           }
         ]
       }
@@ -1741,8 +1720,22 @@
           "authorization_consistency"
         ],
         "max_items": 20,
-        "selected_count": 0,
-        "issues": []
+        "selected_count": 1,
+        "issues": [
+          {
+            "dimension": "authorization_consistency",
+            "status": "fixed",
+            "summary": "CSRF-disabled paths are inline strings in SecurityConfig rather than shared constants",
+            "suggestion": "Extract path constants to a shared class (e.g., AuthPaths.GOOGLE_VERIFY, AuthPaths.MICROSOFT_WILDCARD) or use the controller's @RequestMapping annotations programmatically to avoid drift",
+            "related_files": [
+              "backend/src/main/java/com/demo/sso/config/SecurityConfig.java"
+            ],
+            "note": "",
+            "confidence": "medium",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
+          }
+        ]
       }
     },
     {
@@ -1762,18 +1755,15 @@
           {
             "dimension": "ai_generated_debt",
             "status": "fixed",
-            "summary": "Near-identical @Autowired explanation comment repeated across 4 service classes",
-            "suggestion": "Extract this pattern knowledge into a single README or CONTRIBUTING.md note about the test constructor pattern, and remove the per-file comments. The @Autowired annotation itself is self-documentin...",
+            "summary": "package-info.java over-documents a self-explanatory 3-class package",
+            "suggestion": "Trim to a single-sentence package description (e.g. 'Cross-service identity value objects.') or remove entirely \u2014 the record types communicate their purpose through their signatures.",
             "related_files": [
-              "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
-              "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java",
-              "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java",
-              "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
+              "backend/src/main/java/com/demo/sso/service/model/package-info.java"
             ],
             "note": "",
             "confidence": "medium",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           }
         ]
       }
@@ -1795,33 +1785,30 @@
           {
             "dimension": "incomplete_migration",
             "status": "wontfix",
-            "summary": "Legacy Google identity paths span 6+ files across model, service, and controller layers",
-            "suggestion": "Once V2_ONLY mode is deployed and legacy JWTs have expired (per the documented criteria), perform a coordinated removal: drop google_id column via migration, remove findByGoogleId, remove legacy br...",
+            "summary": "Legacy google_id column and fallback paths span 6+ files without a tracking ticket or timeline",
+            "suggestion": "Add a SQL query or startup check that counts users where provider='GOOGLE' AND provider_user_id IS NULL (or where google_id IS NOT NULL AND provider_user_id IS NULL) to track migration progress. On...",
             "related_files": [
               "backend/src/main/java/com/demo/sso/model/User.java",
-              "backend/src/main/java/com/demo/sso/repository/UserRepository.java",
               "backend/src/main/java/com/demo/sso/service/UserService.java",
-              "backend/src/main/java/com/demo/sso/service/token/JwtTokenService.java",
-              "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java",
-              "backend/src/main/java/com/demo/sso/controller/UserController.java"
+              "backend/src/main/java/com/demo/sso/repository/UserRepository.java"
             ],
             "note": "",
-            "confidence": "high",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
+            "confidence": "medium",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           },
           {
             "dimension": "incomplete_migration",
             "status": "wontfix",
-            "summary": "AuthenticatedUserIdentity uses nullable fields instead of sealed type for legacy vs V2 variants",
-            "suggestion": "Consider a sealed interface with LegacyIdentity and V2Identity record implementations. This would provide compile-time safety and eliminate nullable field reasoning. However, this is a low priority...",
+            "summary": "RedisAuthCodeStore dual key-prefix routing adds complexity that persists beyond migration need",
+            "suggestion": "Given the 30-second TTL, consider simplifying: once JwtMintMode.V2 is deployed, switch to V2_ONLY mode within minutes rather than maintaining COMPATIBILITY mode. Document the 30-second safe-switch...",
             "related_files": [
-              "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java"
+              "backend/src/main/java/com/demo/sso/service/challenge/RedisAuthCodeStore.java"
             ],
             "note": "",
             "confidence": "medium",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           }
         ]
       }
@@ -1838,22 +1825,8 @@
           "package_organization"
         ],
         "max_items": 20,
-        "selected_count": 1,
-        "issues": [
-          {
-            "dimension": "package_organization",
-            "status": "wontfix",
-            "summary": "guard/ subpackage contains only one file, adding a directory layer with minimal navigability benefit",
-            "suggestion": "Minor: if no additional guards are planned, IdentityContractGuard could live directly in config/. However, if more contract validation classes are anticipated, keeping the subpackage is fine. No ac...",
-            "related_files": [
-              "backend/src/main/java/com/demo/sso/config/guard/IdentityContractGuard.java"
-            ],
-            "note": "",
-            "confidence": "low",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
-          }
-        ]
+        "selected_count": 0,
+        "issues": []
       }
     },
     {
@@ -1873,15 +1846,15 @@
           {
             "dimension": "initialization_coupling",
             "status": "wontfix",
-            "summary": "MicrosoftTokenVerifier builds JwtDecoder eagerly but JWKS URI errors surface only at first use, not at startup",
-            "suggestion": "Consider adding a lightweight JWKS reachability check in the MicrosoftTokenVerifier constructor or a @PostConstruct method, similar to how IdentityContractGuard validates property invariants. This...",
+            "summary": "GoogleTokenVerifier eagerly constructs SDK verifier even when Google auth may be disabled",
+            "suggestion": "Follow MicrosoftTokenVerifier's pattern: check if Google auth is configured before building the real verifier; return a stub that throws IllegalStateException('Google auth not configured') if disab...",
             "related_files": [
-              "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java"
+              "backend/src/main/java/com/demo/sso/service/token/GoogleTokenVerifier.java"
             ],
             "note": "",
             "confidence": "medium",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           }
         ]
       }
@@ -1892,17 +1865,41 @@
         "design_coherence"
       ],
       "why": "design_coherence review",
-      "mechanical_finding_counts": {
-        "unused": 1
-      },
       "concern_signals": [],
       "historical_issue_focus": {
         "dimensions": [
           "design_coherence"
         ],
         "max_items": 20,
-        "selected_count": 0,
-        "issues": []
+        "selected_count": 2,
+        "issues": [
+          {
+            "dimension": "design_coherence",
+            "status": "wontfix",
+            "summary": "AuthCompletionService has 6 public methods from a 2\u00d73 provider\u00d7flow\u00d7code matrix that could be reduced",
+            "suggestion": "Consider having callers normalize identity before calling AuthCompletionService, reducing the public API to completeAuthentication(NormalizedIdentity) and completeAuthenticationWithCode(NormalizedI...",
+            "related_files": [
+              "backend/src/main/java/com/demo/sso/service/auth/AuthCompletionService.java"
+            ],
+            "note": "",
+            "confidence": "medium",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
+          },
+          {
+            "dimension": "design_coherence",
+            "status": "fixed",
+            "summary": "ProviderConfigController catches NullPointerException and UnsupportedOperationException for simple property access",
+            "suggestion": "Remove the NullPointerException and UnsupportedOperationException catches \u2014 these indicate a potential null-safety issue that should be fixed at the source rather than masked. If properties can gen...",
+            "related_files": [
+              "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+            ],
+            "note": "",
+            "confidence": "high",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
+          }
+        ]
       }
     },
     {
@@ -1922,15 +1919,16 @@
           {
             "dimension": "contract_coherence",
             "status": "fixed",
-            "summary": "UserResponse.from coerces null fields to empty strings, hiding optionality from API consumers",
-            "suggestion": "Return null for absent fields and add @JsonInclude(NON_NULL) on UserResponse, or document that empty string means 'not set'. This aligns the API contract with the actual domain semantics where pict...",
+            "summary": "GlobalExceptionHandler catches bare IllegalArgumentException codebase-wide, masking controller-specific error messages",
+            "suggestion": "Either include e.getMessage() in the GlobalExceptionHandler error response (since IAE messages in this codebase are user-safe), or document that all controllers must handle IAE locally to preserve...",
             "related_files": [
-              "backend/src/main/java/com/demo/sso/controller/dto/UserResponse.java"
+              "backend/src/main/java/com/demo/sso/controller/GlobalExceptionHandler.java",
+              "backend/src/main/java/com/demo/sso/controller/AuthController.java"
             ],
             "note": "",
             "confidence": "medium",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           }
         ]
       }
@@ -1952,28 +1950,28 @@
           {
             "dimension": "logic_clarity",
             "status": "fixed",
-            "summary": "normalizeEmail checks isBlank() after trim() \u2014 trim already removes whitespace, so isBlank is redundant",
-            "suggestion": "Remove the isBlank check on line 78-80 since callers already validate that the email is non-blank before invoking normalizeEmail. The defensive check is harmless but adds a dead branch that could c...",
+            "summary": "ProviderConfigController catches NullPointerException as normal error handling, masking potential programming errors",
+            "suggestion": "Remove NullPointerException from catch clauses. Add explicit null checks in buildGoogleConfig/buildMicrosoftConfig for any values that could be null (e.g., microsoftAuthProperties.getScopes()). If...",
+            "related_files": [
+              "backend/src/main/java/com/demo/sso/controller/ProviderConfigController.java"
+            ],
+            "note": "",
+            "confidence": "high",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
+          },
+          {
+            "dimension": "logic_clarity",
+            "status": "fixed",
+            "summary": "isSameTenantAuthority uses String.contains() for tenant ID matching, which could match unintended URL substrings",
+            "suggestion": "Use a more precise check, such as splitting the authority URL into path segments and checking if the tenant ID appears as a standalone path component. For example: URI.create(normalized).getPath()....",
             "related_files": [
               "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java"
             ],
             "note": "",
             "confidence": "medium",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
-          },
-          {
-            "dimension": "logic_clarity",
-            "status": "wontfix",
-            "summary": "MicrosoftTokenVerifier.buildDecoder returns a throwing lambda instead of failing fast when unconfigured",
-            "suggestion": "This is an acceptable defensive pattern given the IdentityContractGuard startup validation prevents the unconfigured path when Microsoft is actually enabled. Consider adding a brief comment at the...",
-            "related_files": [
-              "backend/src/main/java/com/demo/sso/service/token/MicrosoftTokenVerifier.java"
-            ],
-            "note": "",
-            "confidence": "low",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           }
         ]
       }
@@ -1990,44 +1988,32 @@
           "type_safety"
         ],
         "max_items": 20,
-        "selected_count": 3,
+        "selected_count": 2,
         "issues": [
           {
             "dimension": "type_safety",
             "status": "wontfix",
-            "summary": "AuthenticatedUserIdentity uses nullable fields to model two distinct variants (legacy vs v2) instead of a sealed type hierarchy",
-            "suggestion": "Consider refactoring AuthenticatedUserIdentity into a sealed interface with two record implementations: LegacyIdentity(String email, String googleId) and V2Identity(Long userId, String email, AuthP...",
+            "summary": "Java code relies on convention rather than @Nullable annotations for null-safety",
+            "suggestion": "Add @Nullable annotations (from jakarta.annotation or org.jspecify) to nullable return types and record fields. For example, annotate firstPresent() return type and nullable MicrosoftIdTokenClaims...",
             "related_files": [
-              "backend/src/main/java/com/demo/sso/service/model/AuthenticatedUserIdentity.java"
-            ],
-            "note": "",
-            "confidence": "medium",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
-          },
-          {
-            "dimension": "type_safety",
-            "status": "wontfix",
-            "summary": "apiFetch<T> returns T | undefined, forcing all callers to handle undefined even when 204 responses are unexpected",
-            "suggestion": "Consider splitting into two functions: apiFetch<T> that throws on 204 (for endpoints that always return a body) and apiFetchOptional<T> that returns T | undefined (for endpoints that may return 204...",
-            "related_files": [],
-            "note": "",
-            "confidence": "low",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
-          },
-          {
-            "dimension": "type_safety",
-            "status": "wontfix",
-            "summary": "MicrosoftIdTokenClaims record allows null on fields that are contextually required (iss, tid, ver) without type-level distinction",
-            "suggestion": "Add validation in fromMap() for iss and tid (the claims that downstream validators require to be non-null), throwing IllegalArgumentException if they are missing. This would make the runtime contra...",
-            "related_files": [
+              "backend/src/main/java/com/demo/sso/service/auth/ProviderIdentityNormalizer.java",
               "backend/src/main/java/com/demo/sso/service/token/MicrosoftIdTokenClaims.java"
             ],
             "note": "",
             "confidence": "medium",
-            "first_seen": "2026-03-15T03:47:51+00:00",
-            "last_seen": "2026-03-15T03:47:51+00:00"
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
+          },
+          {
+            "dimension": "type_safety",
+            "status": "wontfix",
+            "summary": "Frontend trusts API response shapes without runtime type validation",
+            "suggestion": "Add a lightweight runtime type guard or validation function for critical API responses (e.g., function isTokenResponse(data: unknown): data is { token: string }). Apply to token verification respon...",
+            "related_files": [],
+            "note": "",
+            "confidence": "medium",
+            "first_seen": "2026-03-15T04:16:59+00:00",
+            "last_seen": "2026-03-15T04:16:59+00:00"
           }
         ]
       }
