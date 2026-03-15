@@ -14,6 +14,15 @@ interface UserProfile {
   lastLoginAt: string;
 }
 
+/**
+ * Auth hook with explicit tristate user management:
+ *   - `undefined` → fetch in progress (loading)
+ *   - `null`      → no authenticated user
+ *   - `UserProfile` → user loaded
+ *
+ * The returned `loading` flag is derived: `true` when a token exists
+ * but the profile fetch has not yet resolved (`user === undefined`).
+ */
 export function useAuth() {
   const [token, setToken] = useState<string | null>(() =>
     localStorage.getItem('jwt')
