@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.security.GeneralSecurityException;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -132,7 +131,7 @@ class GoogleTokenVerifierTest {
         // This tests initialization behavior with null client ID
         // The GoogleIdTokenVerifier might handle this differently
         assertDoesNotThrow(() -> {
-            new GoogleTokenVerifier(null);
+            new GoogleTokenVerifier((String) null);
         }, "Constructor should handle null client ID without throwing immediately");
     }
 
@@ -160,13 +159,10 @@ class GoogleTokenVerifierTest {
         GoogleIdTokenVerifier mockInternalVerifier = mock(GoogleIdTokenVerifier.class);
         when(mockInternalVerifier.verify("valid-token-string")).thenReturn(mockIdToken);
 
-        // Inject the mock verifier via reflection
-        Field verifierField = GoogleTokenVerifier.class.getDeclaredField("verifier");
-        verifierField.setAccessible(true);
-        verifierField.set(verifier, mockInternalVerifier);
+        GoogleTokenVerifier verifierWithMock = new GoogleTokenVerifier(mockInternalVerifier);
 
         // Act
-        VerifiedGoogleIdentity identity = verifier.verify("valid-token-string");
+        VerifiedGoogleIdentity identity = verifierWithMock.verify("valid-token-string");
 
         // Assert
         assertNotNull(identity, "Identity should not be null for a valid token");
@@ -192,12 +188,10 @@ class GoogleTokenVerifierTest {
         GoogleIdTokenVerifier mockInternalVerifier = mock(GoogleIdTokenVerifier.class);
         when(mockInternalVerifier.verify("minimal-token")).thenReturn(mockIdToken);
 
-        Field verifierField = GoogleTokenVerifier.class.getDeclaredField("verifier");
-        verifierField.setAccessible(true);
-        verifierField.set(verifier, mockInternalVerifier);
+        GoogleTokenVerifier verifierWithMock = new GoogleTokenVerifier(mockInternalVerifier);
 
         // Act
-        VerifiedGoogleIdentity identity = verifier.verify("minimal-token");
+        VerifiedGoogleIdentity identity = verifierWithMock.verify("minimal-token");
 
         // Assert
         assertEquals("987654321", identity.subject());
@@ -213,13 +207,11 @@ class GoogleTokenVerifierTest {
         GoogleIdTokenVerifier mockInternalVerifier = mock(GoogleIdTokenVerifier.class);
         when(mockInternalVerifier.verify("unverifiable-token")).thenReturn(null);
 
-        Field verifierField = GoogleTokenVerifier.class.getDeclaredField("verifier");
-        verifierField.setAccessible(true);
-        verifierField.set(verifier, mockInternalVerifier);
+        GoogleTokenVerifier verifierWithMock = new GoogleTokenVerifier(mockInternalVerifier);
 
         // Act & Assert
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
-                () -> verifier.verify("unverifiable-token"));
+                () -> verifierWithMock.verify("unverifiable-token"));
         assertEquals("Invalid Google ID token", ex.getMessage());
     }
 }

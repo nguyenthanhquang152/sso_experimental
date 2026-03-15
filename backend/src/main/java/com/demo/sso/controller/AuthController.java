@@ -23,6 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -177,28 +178,20 @@ public class AuthController {
     }
 
     private static boolean isInvalidMicrosoftVerifyRequest(MicrosoftVerifyRequest request) {
-        if (request == null) {
-            return true;
-        }
-        if (request.credential() == null || request.credential().isBlank()) {
-            return true;
-        }
-        return request.challengeId() == null || request.challengeId().isBlank();
+        return request == null
+                || request.credential() == null || request.credential().isBlank()
+                || request.challengeId() == null || request.challengeId().isBlank();
     }
 
     private Optional<String> currentChallengeSessionId(HttpServletRequest request) {
         if (request.getCookies() == null) {
             return Optional.empty();
         }
-
-        for (Cookie cookie : request.getCookies()) {
-            if (MICROSOFT_CHALLENGE_SESSION_COOKIE.equals(cookie.getName())
-                    && cookie.getValue() != null && !cookie.getValue().isBlank()) {
-                return Optional.of(cookie.getValue());
-            }
-        }
-
-        return Optional.empty();
+        return Arrays.stream(request.getCookies())
+                .filter(c -> MICROSOFT_CHALLENGE_SESSION_COOKIE.equals(c.getName()))
+                .map(Cookie::getValue)
+                .filter(v -> v != null && !v.isBlank())
+                .findFirst();
     }
 
     private String createChallengeSessionCookie(HttpServletResponse response) {
