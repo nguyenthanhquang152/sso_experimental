@@ -3,12 +3,12 @@ package com.demo.sso.controller;
 import com.demo.sso.config.properties.AuthRolloutProperties;
 import com.demo.sso.controller.dto.AuthCodeExchangeRequest;
 import com.demo.sso.controller.dto.GoogleVerifyRequest;
-import com.demo.sso.controller.dto.LogoutResponse;
-import com.demo.sso.controller.dto.MicrosoftChallengeResponse;
 import com.demo.sso.controller.dto.MicrosoftVerifyRequest;
-import com.demo.sso.controller.dto.TokenResponse;
 import com.demo.sso.dto.AuthApiResponse;
 import com.demo.sso.dto.ErrorResponse;
+import com.demo.sso.dto.LogoutResponse;
+import com.demo.sso.dto.MicrosoftChallengeResponse;
+import com.demo.sso.dto.TokenResponse;
 import com.demo.sso.exception.InvalidAuthCodeException;
 import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.exception.InvalidTokenException;
@@ -19,8 +19,8 @@ import com.demo.sso.service.challenge.AuthCodeStore;
 import com.demo.sso.service.challenge.MicrosoftChallengeStore;
 import com.demo.sso.service.model.MicrosoftIdTokenClaims;
 import com.demo.sso.service.model.NormalizedIdentity;
+import com.demo.sso.service.model.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier;
-import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.MicrosoftTokenVerifier;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,6 +43,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Thin REST controller for authentication endpoints.
+ *
+ * <p>This controller deliberately depends on multiple services (verifiers,
+ * normaliser, completion, challenge store) because each endpoint orchestrates
+ * a short <em>verify → normalise → complete</em> pipeline whose steps are
+ * one-liners. Introducing a façade would add an indirection layer without
+ * reducing complexity for a project of this size.
+ */
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

@@ -9,7 +9,7 @@ import com.demo.sso.service.challenge.AuthCodeStore;
 import com.demo.sso.service.token.GoogleTokenVerifier;
 import com.demo.sso.service.token.JwtTokenService;
 import com.demo.sso.service.token.MicrosoftTokenVerifier;
-import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
+import com.demo.sso.service.model.VerifiedGoogleIdentity;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;

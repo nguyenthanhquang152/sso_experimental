@@ -18,7 +18,7 @@ import com.demo.sso.model.User;
 import com.demo.sso.repository.UserRepository;
 import com.demo.sso.service.token.GoogleTokenVerifier;
 import com.demo.sso.service.token.JwtTokenService;
-import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
+import com.demo.sso.service.model.VerifiedGoogleIdentity;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;

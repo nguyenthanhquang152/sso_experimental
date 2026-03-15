@@ -3,8 +3,9 @@ package com.demo.sso.service.auth;
 import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.exception.SsoException;
 import com.demo.sso.model.AuthFlow;
+import com.demo.sso.model.AuthProvider;
 import com.demo.sso.service.model.NormalizedIdentity;
-import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
+import com.demo.sso.service.model.VerifiedGoogleIdentity;
 import com.demo.sso.service.model.MicrosoftIdTokenClaims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -65,25 +66,32 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         }
         String registrationId = oauth2Token.getAuthorizedClientRegistrationId();
 
-        if ("microsoft".equalsIgnoreCase(registrationId)) {
-            try {
-                MicrosoftIdTokenClaims claims = MicrosoftIdTokenClaims.fromMap(oAuth2User.getAttributes());
-                NormalizedIdentity identity = providerIdentityNormalizer.normalizeMicrosoftClaims(claims, AuthFlow.SERVER_SIDE);
-                return authCompletionService.completeAuthenticationWithCode(identity);
-            } catch (IllegalArgumentException | InvalidIdentityException e) {
-                throw new OAuth2IdentityException("missing_attributes", "invalid identity claims", e);
-            }
-        } else if ("google".equalsIgnoreCase(registrationId)) {
-            try {
-                VerifiedGoogleIdentity google = VerifiedGoogleIdentity.fromOAuth2User(oAuth2User);
-                NormalizedIdentity identity = providerIdentityNormalizer.normalizeGoogleClaims(google, AuthFlow.SERVER_SIDE);
-                return authCompletionService.completeAuthenticationWithCode(identity);
-            } catch (IllegalArgumentException | InvalidIdentityException e) {
-                throw new OAuth2IdentityException("missing_attributes", "invalid identity claims", e);
-            }
-        } else {
+        AuthProvider provider;
+        try {
+            provider = AuthProvider.fromRegistrationId(registrationId);
+        } catch (IllegalArgumentException e) {
             throw new OAuth2IdentityException("unsupported_provider", "Unsupported provider: " + registrationId);
         }
+
+        try {
+            NormalizedIdentity identity = extractNormalizedIdentity(provider, oAuth2User);
+            return authCompletionService.completeAuthenticationWithCode(identity);
+        } catch (IllegalArgumentException | InvalidIdentityException e) {
+            throw new OAuth2IdentityException("missing_attributes", "invalid identity claims", e);
+        }
+    }
+
+    private NormalizedIdentity extractNormalizedIdentity(AuthProvider provider, OAuth2User oAuth2User) {
+        return switch (provider) {
+            case MICROSOFT -> {
+                MicrosoftIdTokenClaims claims = MicrosoftIdTokenClaims.fromMap(oAuth2User.getAttributes());
+                yield providerIdentityNormalizer.normalizeMicrosoftClaims(claims, AuthFlow.SERVER_SIDE);
+            }
+            case GOOGLE -> {
+                VerifiedGoogleIdentity google = VerifiedGoogleIdentity.fromOAuth2User(oAuth2User);
+                yield providerIdentityNormalizer.normalizeGoogleClaims(google, AuthFlow.SERVER_SIDE);
+            }
+        };
     }
 
     /** Thrown when OAuth2 identity claims fail validation. */

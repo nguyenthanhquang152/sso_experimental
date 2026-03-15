@@ -7,7 +7,7 @@ import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.model.AuthFlow;
 import com.demo.sso.model.AuthProvider;
 import com.demo.sso.service.model.NormalizedIdentity;
-import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
+import com.demo.sso.service.model.VerifiedGoogleIdentity;
 import com.demo.sso.service.model.MicrosoftIdTokenClaims;
 import java.util.HashMap;
 import java.util.Map;
