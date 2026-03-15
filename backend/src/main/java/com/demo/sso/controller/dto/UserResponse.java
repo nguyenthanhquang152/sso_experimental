@@ -3,7 +3,7 @@ package com.demo.sso.controller.dto;
 import com.demo.sso.model.User;
 
 public record UserResponse(
-        long id,
+        Long id,
         String email,
         String name,
         String pictureUrl,
