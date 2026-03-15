@@ -17,19 +17,19 @@ class GlobalExceptionHandlerTest {
 
         assertEquals(400, response.getStatusCode().value());
         assertNotNull(response.getBody());
-        assertEquals("bad input", response.getBody().error());
+        assertEquals("Bad request", response.getBody().error());
         assertEquals(400, response.getBody().status());
     }
 
     @Test
-    void handleIllegalStateReturns409WithMessage() {
+    void handleIllegalStateReturns500WithSanitizedMessage() {
         ResponseEntity<ErrorResponse> response =
                 handler.handleIllegalState(new IllegalStateException("conflict detected"));
 
-        assertEquals(409, response.getStatusCode().value());
+        assertEquals(500, response.getStatusCode().value());
         assertNotNull(response.getBody());
-        assertEquals("conflict detected", response.getBody().error());
-        assertEquals(409, response.getBody().status());
+        assertEquals("Internal server error", response.getBody().error());
+        assertEquals(500, response.getBody().status());
     }
 
     @Test

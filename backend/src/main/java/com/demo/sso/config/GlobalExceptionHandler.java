@@ -17,14 +17,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleIllegalArgument(IllegalArgumentException ex) {
         logger.warn("Bad request: {}", ex.getMessage());
         return ResponseEntity.badRequest()
-                .body(ErrorResponse.of(ex.getMessage(), HttpStatus.BAD_REQUEST.value()));
+                .body(ErrorResponse.of("Bad request", HttpStatus.BAD_REQUEST.value()));
     }
 
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<ErrorResponse> handleIllegalState(IllegalStateException ex) {
-        logger.warn("Conflict: {}", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(ErrorResponse.of(ex.getMessage(), HttpStatus.CONFLICT.value()));
+        logger.error("Illegal state: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ErrorResponse.of("Internal server error",
+                        HttpStatus.INTERNAL_SERVER_ERROR.value()));
     }
 
     @ExceptionHandler(Exception.class)
