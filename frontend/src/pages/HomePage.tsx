@@ -6,6 +6,7 @@ import { MicrosoftClientSideLogin } from '../components/MicrosoftClientSideLogin
 import { useAuth } from '../hooks/useAuth';
 import { ApiError, apiFetch, getErrorMessage } from '../api/client';
 import type { ProviderConfig } from '../types/auth';
+import styles from './HomePage.module.css';
 
 interface HomePageProps {
   providerConfig: ProviderConfig;
@@ -62,20 +63,20 @@ export function HomePage({ providerConfig }: HomePageProps) {
   };
 
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '40px 20px' }}>
+    <div className={styles.container}>
       <h1>SSO Demo</h1>
-      <p style={{ color: '#666', marginBottom: '32px' }}>
+      <p className={styles.subtitle}>
         Choose a provider and flow to sign in.
       </p>
       {exchangeError ? (
         <p
-          style={{ color: '#b91c1c', marginBottom: '20px', fontWeight: 500 }}
+          className={styles.errorMessage}
           role="alert"
         >
           {exchangeError}
         </p>
       ) : null}
-      <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+      <div className={styles.cardGrid}>
         {providerConfig.google.serverSideEnabled ? (
           <ServerSideLogin
             providerName="Google"

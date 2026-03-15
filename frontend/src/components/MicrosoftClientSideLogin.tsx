@@ -3,6 +3,7 @@ import { PublicClientApplication } from '@azure/msal-browser';
 import { apiFetch, getErrorMessage } from '../api/client';
 import { LoginCard } from './LoginCard';
 import type { MicrosoftProviderConfig } from '../types/auth';
+import styles from './MicrosoftClientSideLogin.module.css';
 
 interface MicrosoftClientSideLoginProps {
   config: MicrosoftProviderConfig;
@@ -13,17 +14,6 @@ interface MicrosoftChallengeResponse {
   challengeId: string;
   nonce: string;
 }
-
-const buttonStyle = {
-  width: '100%',
-  padding: '12px 16px',
-  backgroundColor: '#2f2f2f',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '8px',
-  fontWeight: 700,
-  cursor: 'pointer',
-} as const;
 
 export function MicrosoftClientSideLogin({ config, onSuccess }: MicrosoftClientSideLoginProps) {
   const [submitting, setSubmitting] = useState(false);
@@ -97,7 +87,7 @@ export function MicrosoftClientSideLogin({ config, onSuccess }: MicrosoftClientS
       accentColor="#2f2f2f"
       footer={
         error ? (
-          <p style={{ color: '#b91c1c', fontSize: '13px', margin: 0 }} role="alert">
+          <p className={styles.errorMessage} role="alert">
             {error}
           </p>
         ) : null
@@ -107,11 +97,7 @@ export function MicrosoftClientSideLogin({ config, onSuccess }: MicrosoftClientS
         type="button"
         onClick={handleLogin}
         disabled={!ready || submitting}
-        style={{
-          ...buttonStyle,
-          opacity: !ready || submitting ? 0.65 : 1,
-          cursor: !ready || submitting ? 'not-allowed' : 'pointer',
-        }}
+        className={`${styles.button}${!ready || submitting ? ` ${styles.disabled}` : ''}`}
       >
         {submitting ? 'Signing in with Microsoft…' : 'Continue with Microsoft'}
       </button>

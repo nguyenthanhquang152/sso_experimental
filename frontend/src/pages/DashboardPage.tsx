@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { useEffect } from 'react';
+import styles from './DashboardPage.module.css';
 
 function getAvatarInitials(name: string, email: string) {
   const source = name.trim() || email.trim();
@@ -31,7 +32,7 @@ export function DashboardPage() {
   }, [isAuthenticated, navigate]);
 
   if (loading) {
-    return <div style={{ padding: '40px', textAlign: 'center' }}>Loading...</div>;
+    return <div className={styles.loadingContainer}>Loading...</div>;
   }
 
   if (!user) {
@@ -45,66 +46,38 @@ export function DashboardPage() {
 
   const avatarInitials = getAvatarInitials(user.name, user.email);
 
-  const avatarStyle = {
-    width: '64px',
-    height: '64px',
-    borderRadius: '50%',
-    flexShrink: 0,
-  } as const;
-
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '40px 20px' }}>
+    <div className={styles.container}>
       <h1>Dashboard</h1>
-      <div style={{
-        border: '1px solid #e0e0e0',
-        borderRadius: '8px',
-        padding: '24px',
-        marginTop: '20px',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '20px' }}>
+      <div className={styles.card}>
+        <div className={styles.profileRow}>
           {user.pictureUrl ? (
             <img
               src={user.pictureUrl}
               alt={user.name}
               referrerPolicy="no-referrer"
               crossOrigin="anonymous"
-              style={avatarStyle}
+              className={styles.avatar}
             />
           ) : (
             <div
               role="img"
               aria-label={`Avatar fallback for ${user.name}`}
-              style={{
-                ...avatarStyle,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#e3f2fd',
-                color: '#1565c0',
-                fontWeight: 700,
-                fontSize: '24px',
-              }}
+              className={styles.avatarFallback}
             >
               {avatarInitials}
             </div>
           )}
           <div>
-            <h2 style={{ margin: 0 }}>{user.name}</h2>
-            <p style={{ margin: '4px 0', color: '#666' }}>{user.email}</p>
+            <h2 className={styles.userName}>{user.name}</h2>
+            <p className={styles.userEmail}>{user.email}</p>
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '14px' }}>
+        <div className={styles.infoGrid}>
           <div>
             <strong>Login Method: </strong>
-            <span style={{
-              padding: '2px 8px',
-              borderRadius: '4px',
-              backgroundColor: user.lastLoginFlow === 'SERVER_SIDE' ? '#e3f2fd' : '#f3e5f5',
-              color: user.lastLoginFlow === 'SERVER_SIDE' ? '#1565c0' : '#7b1fa2',
-              fontWeight: 'bold',
-              fontSize: '12px',
-            }}>
+            <span className={user.lastLoginFlow === 'SERVER_SIDE' ? styles.badgeServerSide : styles.badgeClientSide}>
               {user.lastLoginFlow}
             </span>
           </div>
@@ -120,16 +93,7 @@ export function DashboardPage() {
 
         <button
           onClick={handleLogout}
-          style={{
-            marginTop: '24px',
-            padding: '10px 24px',
-            backgroundColor: '#f44336',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            fontWeight: 'bold',
-          }}
+          className={styles.logoutButton}
         >
           Logout
         </button>

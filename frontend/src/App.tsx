@@ -4,7 +4,7 @@ import { HomePage } from './pages/HomePage';
 import { DashboardPage } from './pages/DashboardPage';
 import { useProviderConfig } from './hooks/useProviderConfig';
 
-function App() {
+export function App() {
   const { providerConfig } = useProviderConfig();
 
   const routes = (
@@ -27,5 +27,3 @@ function App() {
     </GoogleOAuthProvider>
   );
 }
-
-export default App;

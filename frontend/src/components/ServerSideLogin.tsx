@@ -1,4 +1,5 @@
 import { LoginCard } from './LoginCard';
+import styles from './ServerSideLogin.module.css';
 
 interface ServerSideLoginProps {
   providerName: string;
@@ -25,15 +26,8 @@ export function ServerSideLogin({
     >
       <a
         href={href}
-        style={{
-          display: 'inline-block',
-          padding: '10px 24px',
-          backgroundColor: accentColor,
-          color: 'white',
-          textDecoration: 'none',
-          borderRadius: '8px',
-          fontWeight: 'bold',
-        }}
+        className={styles.button}
+        style={{ backgroundColor: accentColor, color: 'white' }}
       >
         {buttonLabel}
       </a>
