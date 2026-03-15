@@ -1,8 +1,6 @@
 package com.demo.sso.service.challenge;
 
-import java.security.SecureRandom;
 import java.time.Duration;
-import java.util.Base64;
 import java.util.Optional;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -15,7 +13,6 @@ public class RedisMicrosoftChallengeStore implements MicrosoftChallengeStore {
     private static final Duration CHALLENGE_TTL = Duration.ofMinutes(5);
     private static final String CHALLENGE_PREFIX = "mschallenge:";
     private static final String ACTIVE_CHALLENGE_PREFIX = "mschallenge-active:";
-    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     private final StringRedisTemplate redisTemplate;
 
@@ -30,8 +27,8 @@ public class RedisMicrosoftChallengeStore implements MicrosoftChallengeStore {
             redisTemplate.delete(challengeKey(sessionId, previousChallengeId));
         }
 
-        String challengeId = generateSecureToken();
-        String nonce = generateSecureToken();
+        String challengeId = SecureCodeGenerator.generate();
+        String nonce = SecureCodeGenerator.generate();
         redisTemplate.opsForValue().set(challengeKey(sessionId, challengeId), nonce, CHALLENGE_TTL);
         redisTemplate.opsForValue().set(activeChallengeKey(sessionId), challengeId, CHALLENGE_TTL);
         return new MicrosoftChallenge(challengeId, nonce);
@@ -59,11 +56,5 @@ public class RedisMicrosoftChallengeStore implements MicrosoftChallengeStore {
 
     private static String activeChallengeKey(String sessionId) {
         return ACTIVE_CHALLENGE_PREFIX + sessionId;
-    }
-
-    private static String generateSecureToken() {
-        byte[] tokenBytes = new byte[32];
-        SECURE_RANDOM.nextBytes(tokenBytes);
-        return Base64.getUrlEncoder().withoutPadding().encodeToString(tokenBytes);
     }
 }

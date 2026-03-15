@@ -5,12 +5,15 @@ import com.demo.sso.config.filter.MicrosoftAuthorizationGateFilter;
 import com.demo.sso.controller.dto.ErrorResponse;
 import com.demo.sso.service.auth.OAuth2SuccessHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -18,6 +21,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private static final String AUTH_GOOGLE_VERIFY_PATH = "/auth/google/verify";
+    private static final String AUTH_MICROSOFT_PATH = "/auth/microsoft/**";
+    private static final String AUTH_EXCHANGE_PATH = "/auth/exchange";
+    private static final String AUTH_LOGOUT_PATH = "/auth/logout";
 
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -39,10 +47,10 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf
                 .ignoringRequestMatchers(
-                    "/auth/google/verify",
-                    "/auth/microsoft/**",
-                    "/auth/exchange",
-                    "/auth/logout"
+                    AUTH_GOOGLE_VERIFY_PATH,
+                    AUTH_MICROSOFT_PATH,
+                    AUTH_EXCHANGE_PATH,
+                    AUTH_LOGOUT_PATH
                 )
             )
             .sessionManagement(session ->
@@ -60,15 +68,19 @@ public class SecurityConfig {
                 .successHandler(oAuth2SuccessHandler)
             )
             .exceptionHandling(ex -> ex
-                .authenticationEntryPoint((request, response, authException) -> {
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    response.setContentType("application/json");
-                    response.getWriter().write(objectMapper.writeValueAsString(new ErrorResponse("Unauthorized")));
-                })
+                .authenticationEntryPoint(this::handleUnauthorized)
             )
             .addFilterBefore(microsoftAuthorizationGateFilter, OAuth2AuthorizationRequestRedirectFilter.class)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+    private void handleUnauthorized(HttpServletRequest request,
+                                     HttpServletResponse response,
+                                     AuthenticationException authException) throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
+        response.getWriter().write(objectMapper.writeValueAsString(new ErrorResponse("Unauthorized")));
     }
 }

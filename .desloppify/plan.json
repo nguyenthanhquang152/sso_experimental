@@ -1,24 +1,40 @@
 {
   "version": 8,
   "created": "2026-03-14T18:25:42+00:00",
-  "updated": "2026-03-15T04:04:00+00:00",
+  "updated": "2026-03-15T04:17:06+00:00",
   "queue_order": [
     "workflow::communicate-score",
-    "workflow::create-plan"
+    "workflow::create-plan",
+    "review::.::holistic::abstraction_fitness::duplicate_secure_token_generation",
+    "review::.::holistic::ai_generated_debt::verbose_package_info",
+    "review::.::holistic::api_surface_coherence::no_machine_readable_error_codes",
+    "review::.::holistic::api_surface_coherence::split_auth_controllers_shared_prefix",
+    "review::.::holistic::authorization_consistency::csrf_paths_inline_strings",
+    "review::.::holistic::contract_coherence::global_handler_masks_specific_errors",
+    "review::.::holistic::convention_outlier::challenge_store_token_gen_inconsistency",
+    "review::.::holistic::cross_module_architecture::auth_controller_fan_out",
+    "review::.::holistic::design_coherence::authcompletion_combinatorial_surface",
+    "review::.::holistic::design_coherence::provider_config_overbroad_catch",
+    "review::.::holistic::error_consistency::useauth_silent_profile_error",
+    "review::.::holistic::high_level_elegance::legacy_migration_cognitive_load",
+    "review::.::holistic::incomplete_migration::dual_authcode_prefixes",
+    "review::.::holistic::incomplete_migration::google_id_legacy_span",
+    "review::.::holistic::initialization_coupling::google_verifier_eager_init",
+    "review::.::holistic::logic_clarity::catch_npe_as_control_flow",
+    "review::.::holistic::logic_clarity::loose_tenant_contains_check",
+    "review::.::holistic::low_level_elegance::duplicate_secure_token_gen",
+    "review::.::holistic::low_level_elegance::inline_auth_entrypoint_lambda",
+    "review::.::holistic::mid_level_elegance::implicit_google_default_registration",
+    "review::.::holistic::mid_level_elegance::manual_frontend_backend_type_sync",
+    "review::.::holistic::naming_quality::complete_provider_returns_code",
+    "review::.::holistic::test_strategy::no_full_oauth2_callback_integration",
+    "review::.::holistic::test_strategy::redis_ttl_mock_only",
+    "review::.::holistic::test_strategy::sequential_mock_ordering_fragility",
+    "review::.::holistic::type_safety::frontend_no_response_shape_validation",
+    "review::.::holistic::type_safety::no_nullable_annotations"
   ],
   "deferred": [],
-  "skipped": {
-    "orphaned::backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java": {
-      "issue_id": "orphaned::backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java",
-      "kind": "permanent",
-      "reason": null,
-      "note": "Used via same-package reference in RedisAuthCodeStore - no import needed",
-      "attestation": "I have reviewed this triage skip against the code and I am not gaming the score by suppressing a real defect.",
-      "created_at": "2026-03-15T04:04:00+00:00",
-      "review_after": null,
-      "skipped_at_scan": 15
-    }
-  },
+  "skipped": {},
   "active_cluster": null,
   "overrides": {
     "unused::backend/src/test/java/com/demo/sso/controller/ControllerCompatibilityIntegrationTest.java::unused_import::15": {
@@ -2397,19 +2413,35 @@
       "superseded_at": "2026-03-15T04:02:51+00:00",
       "remapped_to": null,
       "candidates": []
+    },
+    "orphaned::backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java": {
+      "original_id": "orphaned::backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java",
+      "original_detector": "orphaned",
+      "original_file": "backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java",
+      "original_summary": "Orphaned file (21 LOC): zero importers, not an entry point",
+      "status": "superseded",
+      "superseded_at": "2026-03-15T04:04:22+00:00",
+      "remapped_to": null,
+      "candidates": []
     }
   },
   "promoted_ids": [],
-  "plan_start_scores": {},
+  "plan_start_scores": {
+    "strict": 87.6,
+    "overall": 91.6,
+    "objective": 99.9,
+    "verified": 86.6
+  },
   "refresh_state": {
-    "lifecycle_phase": "execute",
-    "subjective_review_completed_at_scan_count": 13,
+    "lifecycle_phase": "workflow_postflight",
+    "subjective_review_completed_at_scan_count": 17,
     "pending_import_scores": {
       "timestamp": "2026-03-15T02:05:07+00:00",
       "import_file": ".desloppify/subagents/runs/20260315_010629/holistic_issues_merged.json",
       "normalized_import_file": "/home/nt-quang/Workspaces/personal/sso_experimental/.desloppify/subagents/runs/20260315_010629/holistic_issues_merged.json",
       "packet_sha256": "dd7612a7f073142fcd20d89c7eafe064a7263e09cd7df523b67817d0382874d0"
-    }
+    },
+    "postflight_scan_completed_at_scan_count": 18
   },
   "execution_log": [
     {
@@ -6126,6 +6158,196 @@
         "kind": "permanent",
         "reason": null
       }
+    },
+    {
+      "timestamp": "2026-03-15T04:04:22+00:00",
+      "action": "reconcile",
+      "issue_ids": [
+        "orphaned::backend/src/main/java/com/demo/sso/service/challenge/SecureCodeGenerator.java"
+      ],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "superseded_count": 1,
+        "pruned_count": 0,
+        "resurfaced_count": 0,
+        "clusters_completed_count": 0
+      }
+    },
+    {
+      "timestamp": "2026-03-15T04:04:22+00:00",
+      "action": "sync_communicate_score",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "injected": true
+      }
+    },
+    {
+      "timestamp": "2026-03-15T04:04:22+00:00",
+      "action": "sync_create_plan",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "injected": true
+      }
+    },
+    {
+      "timestamp": "2026-03-15T04:04:22+00:00",
+      "action": "sync_lifecycle_phase",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "phase": "workflow_postflight"
+      }
+    },
+    {
+      "timestamp": "2026-03-15T04:16:59+00:00",
+      "action": "review_import_sync",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "trigger": "review_import",
+        "new_ids": [
+          "review::.::holistic::abstraction_fitness::duplicate_secure_token_generation",
+          "review::.::holistic::ai_generated_debt::verbose_package_info",
+          "review::.::holistic::api_surface_coherence::no_machine_readable_error_codes",
+          "review::.::holistic::api_surface_coherence::split_auth_controllers_shared_prefix",
+          "review::.::holistic::authorization_consistency::csrf_paths_inline_strings",
+          "review::.::holistic::contract_coherence::global_handler_masks_specific_errors",
+          "review::.::holistic::convention_outlier::challenge_store_token_gen_inconsistency",
+          "review::.::holistic::cross_module_architecture::auth_controller_fan_out",
+          "review::.::holistic::design_coherence::authcompletion_combinatorial_surface",
+          "review::.::holistic::design_coherence::provider_config_overbroad_catch",
+          "review::.::holistic::error_consistency::useauth_silent_profile_error",
+          "review::.::holistic::high_level_elegance::legacy_migration_cognitive_load",
+          "review::.::holistic::incomplete_migration::dual_authcode_prefixes",
+          "review::.::holistic::incomplete_migration::google_id_legacy_span",
+          "review::.::holistic::initialization_coupling::google_verifier_eager_init",
+          "review::.::holistic::logic_clarity::catch_npe_as_control_flow",
+          "review::.::holistic::logic_clarity::loose_tenant_contains_check",
+          "review::.::holistic::low_level_elegance::duplicate_secure_token_gen",
+          "review::.::holistic::low_level_elegance::inline_auth_entrypoint_lambda",
+          "review::.::holistic::mid_level_elegance::implicit_google_default_registration",
+          "review::.::holistic::mid_level_elegance::manual_frontend_backend_type_sync",
+          "review::.::holistic::naming_quality::complete_provider_returns_code",
+          "review::.::holistic::test_strategy::no_full_oauth2_callback_integration",
+          "review::.::holistic::test_strategy::redis_ttl_mock_only",
+          "review::.::holistic::test_strategy::sequential_mock_ordering_fragility",
+          "review::.::holistic::type_safety::frontend_no_response_shape_validation",
+          "review::.::holistic::type_safety::no_nullable_annotations"
+        ],
+        "added_to_queue": [
+          "review::.::holistic::abstraction_fitness::duplicate_secure_token_generation",
+          "review::.::holistic::ai_generated_debt::verbose_package_info",
+          "review::.::holistic::api_surface_coherence::no_machine_readable_error_codes",
+          "review::.::holistic::api_surface_coherence::split_auth_controllers_shared_prefix",
+          "review::.::holistic::authorization_consistency::csrf_paths_inline_strings",
+          "review::.::holistic::contract_coherence::global_handler_masks_specific_errors",
+          "review::.::holistic::convention_outlier::challenge_store_token_gen_inconsistency",
+          "review::.::holistic::cross_module_architecture::auth_controller_fan_out",
+          "review::.::holistic::design_coherence::authcompletion_combinatorial_surface",
+          "review::.::holistic::design_coherence::provider_config_overbroad_catch",
+          "review::.::holistic::error_consistency::useauth_silent_profile_error",
+          "review::.::holistic::high_level_elegance::legacy_migration_cognitive_load",
+          "review::.::holistic::incomplete_migration::dual_authcode_prefixes",
+          "review::.::holistic::incomplete_migration::google_id_legacy_span",
+          "review::.::holistic::initialization_coupling::google_verifier_eager_init",
+          "review::.::holistic::logic_clarity::catch_npe_as_control_flow",
+          "review::.::holistic::logic_clarity::loose_tenant_contains_check",
+          "review::.::holistic::low_level_elegance::duplicate_secure_token_gen",
+          "review::.::holistic::low_level_elegance::inline_auth_entrypoint_lambda",
+          "review::.::holistic::mid_level_elegance::implicit_google_default_registration",
+          "review::.::holistic::mid_level_elegance::manual_frontend_backend_type_sync",
+          "review::.::holistic::naming_quality::complete_provider_returns_code",
+          "review::.::holistic::test_strategy::no_full_oauth2_callback_integration",
+          "review::.::holistic::test_strategy::redis_ttl_mock_only",
+          "review::.::holistic::test_strategy::sequential_mock_ordering_fragility",
+          "review::.::holistic::type_safety::frontend_no_response_shape_validation",
+          "review::.::holistic::type_safety::no_nullable_annotations"
+        ],
+        "workflow_injected_ids": [],
+        "triage_injected": false,
+        "triage_injected_ids": [],
+        "triage_deferred": false,
+        "diff_new": 27,
+        "diff_reopened": 0,
+        "diff_auto_resolved": 58,
+        "stale_pruned_from_queue": [],
+        "covered_subjective_pruned_from_queue": [],
+        "covered_subjective": [
+          "subjective::abstraction_fitness",
+          "subjective::ai_generated_debt",
+          "subjective::api_surface_coherence",
+          "subjective::authorization_consistency",
+          "subjective::contract_coherence",
+          "subjective::convention_outlier",
+          "subjective::cross_module_architecture",
+          "subjective::dependency_health",
+          "subjective::design_coherence",
+          "subjective::error_consistency",
+          "subjective::high_level_elegance",
+          "subjective::incomplete_migration",
+          "subjective::initialization_coupling",
+          "subjective::logic_clarity",
+          "subjective::low_level_elegance",
+          "subjective::mid_level_elegance",
+          "subjective::naming_quality",
+          "subjective::package_organization",
+          "subjective::test_strategy",
+          "subjective::type_safety"
+        ],
+        "stale_sync_injected": [],
+        "stale_sync_pruned": [],
+        "auto_cluster_changes": 0,
+        "import_scores_injected": [],
+        "import_scores_pruned": [],
+        "sync_status": "synced",
+        "sync_message": null
+      }
+    },
+    {
+      "timestamp": "2026-03-15T04:17:06+00:00",
+      "action": "reconcile",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "superseded_count": 0,
+        "pruned_count": 0,
+        "resurfaced_count": 0,
+        "clusters_completed_count": 0
+      }
+    },
+    {
+      "timestamp": "2026-03-15T04:17:06+00:00",
+      "action": "seed_start_scores",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {}
+    },
+    {
+      "timestamp": "2026-03-15T04:17:06+00:00",
+      "action": "complete_postflight_scan",
+      "issue_ids": [],
+      "cluster_name": null,
+      "actor": "system",
+      "note": null,
+      "detail": {
+        "scan_count": 18
+      }
     }
   ],
   "epic_triage_meta": {
@@ -6829,5 +7051,5 @@
   ],
   "uncommitted_issues": [],
   "commit_tracking_branch": null,
-  "previous_plan_start_scores": {}
+  "scan_count_at_plan_start": 18
 }

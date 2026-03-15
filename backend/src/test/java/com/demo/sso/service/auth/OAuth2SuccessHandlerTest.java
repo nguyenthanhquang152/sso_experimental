@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -32,7 +31,7 @@ class OAuth2SuccessHandlerTest {
     @Mock private AuthCompletionService authCompletionService;
     @Mock private HttpServletRequest request;
     @Mock private HttpServletResponse response;
-    @Mock private Authentication authentication;
+    @Mock private OAuth2AuthenticationToken authentication;
     @Mock private OAuth2User oAuth2User;
 
     private OAuth2SuccessHandler handler;
@@ -44,6 +43,7 @@ class OAuth2SuccessHandlerTest {
 
     private void setupVerifiedOAuth2User(String sub, String email, String name, String picture) {
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
+        when(authentication.getAuthorizedClientRegistrationId()).thenReturn("google");
         when(oAuth2User.getAttribute("email_verified")).thenReturn(true);
         when(oAuth2User.getAttribute("sub")).thenReturn(sub);
         when(oAuth2User.getAttribute("email")).thenReturn(email);
@@ -90,6 +90,7 @@ class OAuth2SuccessHandlerTest {
             authCompletionService, "https://myapp.com");
 
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
+        when(authentication.getAuthorizedClientRegistrationId()).thenReturn("google");
         when(oAuth2User.getAttribute("email_verified")).thenReturn(true);
         when(oAuth2User.getAttribute("sub")).thenReturn("g");
         when(oAuth2User.getAttribute("email")).thenReturn("e@e.com");
@@ -106,6 +107,7 @@ class OAuth2SuccessHandlerTest {
     @Test
     void onAuthenticationSuccess_rejectsUnverifiedEmail() throws IOException {
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
+        when(authentication.getAuthorizedClientRegistrationId()).thenReturn("google");
         when(oAuth2User.getAttribute("email_verified")).thenReturn(false);
 
         handler.onAuthenticationSuccess(request, response, authentication);
@@ -117,6 +119,7 @@ class OAuth2SuccessHandlerTest {
     @Test
     void onAuthenticationSuccess_rejectsNullEmailVerified() throws IOException {
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
+        when(authentication.getAuthorizedClientRegistrationId()).thenReturn("google");
         when(oAuth2User.getAttribute("email_verified")).thenReturn(null);
 
         handler.onAuthenticationSuccess(request, response, authentication);
@@ -128,6 +131,7 @@ class OAuth2SuccessHandlerTest {
     @Test
     void onAuthenticationSuccess_rejectsMissingSub() throws IOException {
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
+        when(authentication.getAuthorizedClientRegistrationId()).thenReturn("google");
         when(oAuth2User.getAttribute("email_verified")).thenReturn(true);
         when(oAuth2User.getAttribute("sub")).thenReturn(null);
         when(oAuth2User.getAttribute("email")).thenReturn("test@test.com");
@@ -144,6 +148,7 @@ class OAuth2SuccessHandlerTest {
     @Test
     void onAuthenticationSuccess_rejectsMissingEmail() throws IOException {
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
+        when(authentication.getAuthorizedClientRegistrationId()).thenReturn("google");
         when(oAuth2User.getAttribute("email_verified")).thenReturn(true);
         when(oAuth2User.getAttribute("sub")).thenReturn("google-123");
         when(oAuth2User.getAttribute("email")).thenReturn(null);
@@ -173,7 +178,7 @@ class OAuth2SuccessHandlerTest {
 
     @Test
     void onAuthenticationSuccess_normalizesMicrosoftServerSideIdentityAndRedirects() throws IOException {
-        Authentication microsoftAuthentication = new OAuth2AuthenticationToken(
+        OAuth2AuthenticationToken microsoftAuthentication = new OAuth2AuthenticationToken(
             new DefaultOAuth2User(
                 List.of(new SimpleGrantedAuthority("ROLE_USER")),
                 Map.of(

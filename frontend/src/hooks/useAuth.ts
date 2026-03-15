@@ -21,17 +21,20 @@ export function useAuth() {
   const [user, setUser] = useState<UserProfile | null | undefined>(() =>
     localStorage.getItem('jwt') ? undefined : null
   );
+  const [error, setError] = useState<string | null>(null);
 
   const login = useCallback((jwt: string) => {
     localStorage.setItem('jwt', jwt);
     setToken(jwt);
     setUser(undefined);
+    setError(null);
   }, []);
 
   const logout = useCallback(() => {
     localStorage.removeItem('jwt');
     setToken(null);
     setUser(null);
+    setError(null);
   }, []);
 
   useEffect(() => {
@@ -40,14 +43,19 @@ export function useAuth() {
     }
 
     apiFetch<UserProfile>('/user/me')
-      .then(setUser)
+      .then((profile) => {
+        setUser(profile);
+        setError(null);
+      })
       .catch((err) => {
         if (err instanceof ApiError && err.status === 401) {
           console.warn('Session expired, logging out');
           logout();
         } else {
-          console.warn('Failed to fetch user profile:', err instanceof Error ? err.message : err);
+          const message = err instanceof Error ? err.message : String(err);
+          console.warn('Failed to fetch user profile:', message);
           setUser(null);
+          setError(message);
         }
       });
   }, [token, logout]);
@@ -56,6 +64,7 @@ export function useAuth() {
     token,
     user: user ?? null,
     loading: Boolean(token) && user === undefined,
+    error,
     login,
     logout,
     isAuthenticated: !!token,

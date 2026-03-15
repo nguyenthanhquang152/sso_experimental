@@ -4,6 +4,7 @@ import com.demo.sso.model.AuthFlow;
 import com.demo.sso.service.model.NormalizedIdentity;
 import com.demo.sso.service.token.GoogleTokenVerifier.VerifiedGoogleIdentity;
 import com.demo.sso.service.token.MicrosoftIdTokenClaims;
+import java.net.URI;
 import java.util.Locale;
 import org.springframework.stereotype.Service;
 
@@ -67,9 +68,25 @@ public class ProviderIdentityNormalizer {
     }
 
     private static boolean isSameTenantAuthority(String identityProvider, String issuer, String tenantId) {
-        String normalized = identityProvider.trim().toLowerCase(Locale.ROOT);
-        return normalized.equals(issuer.toLowerCase(Locale.ROOT))
-            || normalized.contains(tenantId.toLowerCase(Locale.ROOT));
+        String normalizedIdp = identityProvider.trim().toLowerCase(Locale.ROOT);
+        if (normalizedIdp.equals(issuer.toLowerCase(Locale.ROOT))) {
+            return true;
+        }
+        // Parse the IDP URL and match the tenant ID as an exact path segment
+        String normalizedTenantId = tenantId.toLowerCase(Locale.ROOT);
+        try {
+            String path = URI.create(normalizedIdp).getPath();
+            if (path != null) {
+                for (String segment : path.split("/")) {
+                    if (!segment.isEmpty() && segment.equals(normalizedTenantId)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (IllegalArgumentException ignored) {
+            // Not a valid URI — cannot match by path segment
+        }
+        return false;
     }
 
     private static String normalizeEmail(String email) {

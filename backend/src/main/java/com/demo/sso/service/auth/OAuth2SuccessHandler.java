@@ -40,7 +40,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         String code;
         try {
-            code = completeProviderAuthentication(authentication, oAuth2User);
+            code = authenticateAndCreateCode(authentication, oAuth2User);
         } catch (OAuth2IdentityException e) {
             logger.warn("OAuth2 login rejected: {}", e.errorCode());
             response.sendRedirect(frontendUrl + "/?error=" + e.errorCode());
@@ -51,12 +51,13 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         response.sendRedirect(frontendUrl + "/?code=" + encodedCode);
     }
 
-    private String completeProviderAuthentication(
+    private String authenticateAndCreateCode(
             Authentication authentication,
             OAuth2User oAuth2User) {
-        String registrationId = authentication instanceof OAuth2AuthenticationToken oauth2AuthenticationToken
-            ? oauth2AuthenticationToken.getAuthorizedClientRegistrationId()
-            : "google";
+        if (!(authentication instanceof OAuth2AuthenticationToken oauth2Token)) {
+            throw new IllegalArgumentException("Expected OAuth2AuthenticationToken");
+        }
+        String registrationId = oauth2Token.getAuthorizedClientRegistrationId();
 
         if ("microsoft".equalsIgnoreCase(registrationId)) {
             try {
@@ -65,6 +66,10 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
             } catch (IllegalArgumentException e) {
                 throw new OAuth2IdentityException("missing_attributes", "invalid identity claims");
             }
+        }
+
+        if (!"google".equalsIgnoreCase(registrationId)) {
+            throw new IllegalArgumentException("Unknown OAuth2 provider: " + registrationId);
         }
 
         Boolean emailVerified = oAuth2User.getAttribute("email_verified");

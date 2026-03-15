@@ -138,7 +138,7 @@ describe('useAuth', () => {
       expect(result.current.user).toEqual(userProfile);
     });
 
-    it('sets user to null on non-401 fetch error', async () => {
+    it('exposes error state on non-401 fetch error', async () => {
       storage['jwt'] = 'valid-token';
 
       mockFetch.mockResolvedValue({
@@ -155,6 +155,7 @@ describe('useAuth', () => {
       });
 
       expect(result.current.user).toBeNull();
+      expect(result.current.error).toBe('Internal Server Error');
       // Token is NOT cleared on non-401 errors
       expect(result.current.isAuthenticated).toBe(true);
     });

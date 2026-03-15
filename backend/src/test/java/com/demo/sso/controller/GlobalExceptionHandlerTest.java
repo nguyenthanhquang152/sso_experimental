@@ -4,6 +4,8 @@ import com.demo.sso.controller.dto.ErrorResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -15,6 +17,30 @@ class GlobalExceptionHandlerTest {
     @BeforeEach
     void setUp() {
         handler = new GlobalExceptionHandler();
+    }
+
+    @Test
+    void handleMissingParameter_returns400WithParameterName() throws Exception {
+        MissingServletRequestParameterException ex =
+            new MissingServletRequestParameterException("token", "String");
+
+        ResponseEntity<ErrorResponse> response = handler.handleMissingParameter(ex);
+
+        assertEquals(400, response.getStatusCode().value());
+        assertNotNull(response.getBody());
+        assertEquals("Missing required parameter: token", response.getBody().message());
+    }
+
+    @Test
+    void handleUnreadableMessage_returns400WithMessage() {
+        HttpMessageNotReadableException ex =
+            new HttpMessageNotReadableException("Could not read JSON");
+
+        ResponseEntity<ErrorResponse> response = handler.handleUnreadableMessage(ex);
+
+        assertEquals(400, response.getStatusCode().value());
+        assertNotNull(response.getBody());
+        assertEquals("Malformed request body", response.getBody().message());
     }
 
     @Test

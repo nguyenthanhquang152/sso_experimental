@@ -37,21 +37,8 @@ public class ProviderConfigController {
 
     @GetMapping("/providers")
     public ResponseEntity<ProviderConfigResponse> getProviders() {
-        ProviderConfigResponse.GoogleProviderConfig googleConfig;
-        try {
-            googleConfig = buildGoogleConfig();
-        } catch (IllegalStateException | NullPointerException e) {
-            logger.error("Failed to build Google provider config, returning disabled fallback", e);
-            googleConfig = new ProviderConfigResponse.GoogleProviderConfig(false, false, "");
-        }
-
-        ProviderConfigResponse.MicrosoftProviderConfig microsoftConfig;
-        try {
-            microsoftConfig = buildMicrosoftConfig();
-        } catch (IllegalStateException | NullPointerException | UnsupportedOperationException e) {
-            logger.error("Failed to build Microsoft provider config, returning disabled fallback", e);
-            microsoftConfig = new ProviderConfigResponse.MicrosoftProviderConfig(false, false, null, null, List.of(), null);
-        }
+        ProviderConfigResponse.GoogleProviderConfig googleConfig = buildGoogleConfig();
+        ProviderConfigResponse.MicrosoftProviderConfig microsoftConfig = buildMicrosoftConfig();
 
         if (!googleConfig.serverSideEnabled() && !googleConfig.clientSideEnabled()
                 && !microsoftConfig.serverSideEnabled() && !microsoftConfig.clientSideEnabled()) {
@@ -66,8 +53,9 @@ public class ProviderConfigController {
 
     private ProviderConfigResponse.GoogleProviderConfig buildGoogleConfig() {
         boolean configured = !googleClientId.isBlank();
-        boolean serverSideEnabled = configured && rolloutProperties.getGoogle().isServerSideEnabled();
-        boolean clientSideEnabled = configured && rolloutProperties.getGoogle().isClientSideEnabled();
+        var googleRollout = rolloutProperties.getGoogle();
+        boolean serverSideEnabled = configured && googleRollout != null && googleRollout.isServerSideEnabled();
+        boolean clientSideEnabled = configured && googleRollout != null && googleRollout.isClientSideEnabled();
 
         if (!configured) {
             logger.debug("Google provider not configured: client ID is missing");
@@ -79,15 +67,16 @@ public class ProviderConfigController {
     }
 
     private ProviderConfigResponse.MicrosoftProviderConfig buildMicrosoftConfig() {
+        var microsoftRollout = rolloutProperties.getMicrosoft();
         boolean clientSideConfigured = microsoftAuthProperties.isClientSideConfigured();
         boolean serverSideConfigured = microsoftAuthProperties.isServerSideConfigured();
-        boolean serverSideEnabled = rolloutProperties.getMicrosoft().isServerSideEnabled() && serverSideConfigured;
-        boolean clientSideEnabled = rolloutProperties.getMicrosoft().isClientSideEnabled() && clientSideConfigured;
+        boolean serverSideEnabled = microsoftRollout != null && microsoftRollout.isServerSideEnabled() && serverSideConfigured;
+        boolean clientSideEnabled = microsoftRollout != null && microsoftRollout.isClientSideEnabled() && clientSideConfigured;
 
-        if (!clientSideConfigured && rolloutProperties.getMicrosoft().isClientSideEnabled()) {
+        if (!clientSideConfigured && microsoftRollout != null && microsoftRollout.isClientSideEnabled()) {
             logger.warn("Microsoft client-side config missing despite rollout flag being enabled");
         }
-        if (!serverSideConfigured && rolloutProperties.getMicrosoft().isServerSideEnabled()) {
+        if (!serverSideConfigured && microsoftRollout != null && microsoftRollout.isServerSideEnabled()) {
             logger.warn("Microsoft server-side config missing despite rollout flag being enabled");
         }
 
