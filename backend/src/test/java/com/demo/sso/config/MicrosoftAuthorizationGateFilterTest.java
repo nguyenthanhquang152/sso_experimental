@@ -65,6 +65,7 @@ class MicrosoftAuthorizationGateFilterTest {
         // Arrange
         rolloutProperties.getMicrosoft().setServerSideEnabled(false);
         when(request.getRequestURI()).thenReturn("/oauth2/authorization/microsoft");
+        when(request.getServletPath()).thenReturn("/oauth2/authorization/microsoft");
 
         // Act
         filter.doFilterInternal(request, response, filterChain);
@@ -81,6 +82,7 @@ class MicrosoftAuthorizationGateFilterTest {
         // Arrange
         rolloutProperties.getMicrosoft().setServerSideEnabled(true);
         when(request.getRequestURI()).thenReturn("/oauth2/authorization/microsoft");
+        when(request.getServletPath()).thenReturn("/oauth2/authorization/microsoft");
 
         // Act
         filter.doFilterInternal(request, response, filterChain);
@@ -97,10 +99,11 @@ class MicrosoftAuthorizationGateFilterTest {
         // Arrange
         rolloutProperties.getMicrosoft().setServerSideEnabled(false);
         when(request.getRequestURI()).thenReturn("/login/oauth2/code/microsoft");
-        
+        when(request.getServletPath()).thenReturn("/login/oauth2/code/microsoft");
+
         HttpSession session = mock(HttpSession.class);
         when(request.getSession(false)).thenReturn(session);
-        
+
         // Set some authentication in SecurityContext to verify it gets cleared
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(mock(org.springframework.security.core.Authentication.class));
@@ -113,7 +116,7 @@ class MicrosoftAuthorizationGateFilterTest {
         verify(session).invalidate();
         verify(response).sendRedirect(frontendUrl + "/?error=provider_disabled&provider=microsoft&flow=server_side");
         verify(filterChain, never()).doFilter(request, response);
-        
+
         // Verify SecurityContext was cleared
         assertNull(SecurityContextHolder.getContext().getAuthentication(),
                 "SecurityContext should be cleared");
@@ -124,6 +127,7 @@ class MicrosoftAuthorizationGateFilterTest {
         // Arrange
         rolloutProperties.getMicrosoft().setServerSideEnabled(false);
         when(request.getRequestURI()).thenReturn("/login/oauth2/code/microsoft");
+        when(request.getServletPath()).thenReturn("/login/oauth2/code/microsoft");
         when(request.getSession(false)).thenReturn(null); // No session
 
         // Act
@@ -142,6 +146,7 @@ class MicrosoftAuthorizationGateFilterTest {
         // Arrange
         rolloutProperties.getMicrosoft().setServerSideEnabled(true);
         when(request.getRequestURI()).thenReturn("/login/oauth2/code/microsoft");
+        when(request.getServletPath()).thenReturn("/login/oauth2/code/microsoft");
 
         // Act
         filter.doFilterInternal(request, response, filterChain);
@@ -168,6 +173,7 @@ class MicrosoftAuthorizationGateFilterTest {
         for (String path : testPaths) {
             reset(request, response, filterChain);
             when(request.getRequestURI()).thenReturn(path);
+            when(request.getServletPath()).thenReturn(path);
 
             // Act
             filter.doFilterInternal(request, response, filterChain);
@@ -193,6 +199,7 @@ class MicrosoftAuthorizationGateFilterTest {
         for (String path : nonMatchingPaths) {
             reset(request, response, filterChain);
             when(request.getRequestURI()).thenReturn(path);
+            when(request.getServletPath()).thenReturn(path);
 
             // Act
             filter.doFilterInternal(request, response, filterChain);
@@ -209,6 +216,7 @@ class MicrosoftAuthorizationGateFilterTest {
         rolloutProperties.getMicrosoft().setServerSideEnabled(false);
         
         when(request.getRequestURI()).thenReturn("/oauth2/authorization/microsoft/extra");
+        when(request.getServletPath()).thenReturn("/oauth2/authorization/microsoft/extra");
 
         // Act
         filter.doFilterInternal(request, response, filterChain);
@@ -227,6 +235,7 @@ class MicrosoftAuthorizationGateFilterTest {
         
         rolloutProperties.getMicrosoft().setServerSideEnabled(false);
         when(request.getRequestURI()).thenReturn("/login/oauth2/code/microsoft");
+        when(request.getServletPath()).thenReturn("/login/oauth2/code/microsoft");
         when(request.getSession(false)).thenReturn(null);
 
         // Act
@@ -244,6 +253,7 @@ class MicrosoftAuthorizationGateFilterTest {
         rolloutProperties.getMicrosoft().setClientSideEnabled(true); // This should not matter
         
         when(request.getRequestURI()).thenReturn("/oauth2/authorization/microsoft");
+        when(request.getServletPath()).thenReturn("/oauth2/authorization/microsoft");
 
         // Act
         filter.doFilterInternal(request, response, filterChain);
@@ -260,6 +270,7 @@ class MicrosoftAuthorizationGateFilterTest {
 
         // Test authorization endpoint
         when(request.getRequestURI()).thenReturn("/oauth2/authorization/microsoft");
+        when(request.getServletPath()).thenReturn("/oauth2/authorization/microsoft");
         filter.doFilterInternal(request, response, filterChain);
         verify(response).setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
         verify(filterChain, never()).doFilter(request, response);
@@ -270,6 +281,7 @@ class MicrosoftAuthorizationGateFilterTest {
         
         // Test callback endpoint
         when(request.getRequestURI()).thenReturn("/login/oauth2/code/microsoft");
+        when(request.getServletPath()).thenReturn("/login/oauth2/code/microsoft");
         filter.doFilterInternal(request, response, filterChain);
         verify(response).sendRedirect(anyString());
         verify(filterChain, never()).doFilter(request, response);
@@ -282,6 +294,7 @@ class MicrosoftAuthorizationGateFilterTest {
 
         // Test authorization endpoint
         when(request.getRequestURI()).thenReturn("/oauth2/authorization/microsoft");
+        when(request.getServletPath()).thenReturn("/oauth2/authorization/microsoft");
         filter.doFilterInternal(request, response, filterChain);
         verify(filterChain).doFilter(request, response);
 
@@ -290,6 +303,7 @@ class MicrosoftAuthorizationGateFilterTest {
         
         // Test callback endpoint
         when(request.getRequestURI()).thenReturn("/login/oauth2/code/microsoft");
+        when(request.getServletPath()).thenReturn("/login/oauth2/code/microsoft");
         filter.doFilterInternal(request, response, filterChain);
         verify(filterChain, times(1)).doFilter(request, response);
     }

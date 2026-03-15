@@ -7,11 +7,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
 public class MicrosoftAuthorizationGateFilter extends OncePerRequestFilter {
+
+    private static final RequestMatcher AUTHORIZATION_MATCHER =
+            new AntPathRequestMatcher("/**/oauth2/authorization/microsoft");
+    private static final RequestMatcher CALLBACK_MATCHER =
+            new AntPathRequestMatcher("/**/login/oauth2/code/microsoft");
 
     private final AuthRolloutProperties rolloutProperties;
     private final String frontendUrl;
@@ -28,16 +35,20 @@ public class MicrosoftAuthorizationGateFilter extends OncePerRequestFilter {
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
-        String path = request.getRequestURI();
 
-        if (path.endsWith("/oauth2/authorization/microsoft") && !rolloutProperties.getMicrosoft().isServerSideEnabled()) {
+        if (rolloutProperties.getMicrosoft().isServerSideEnabled()) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        if (AUTHORIZATION_MATCHER.matches(request)) {
             response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
             response.setContentType("application/json");
             response.getWriter().write("{\"error\":\"Microsoft server-side login is disabled\"}");
             return;
         }
 
-        if (path.endsWith("/login/oauth2/code/microsoft") && !rolloutProperties.getMicrosoft().isServerSideEnabled()) {
+        if (CALLBACK_MATCHER.matches(request)) {
             SecurityContextHolder.clearContext();
             if (request.getSession(false) != null) {
                 request.getSession(false).invalidate();
