@@ -155,7 +155,7 @@ describe('useAuth', () => {
       });
 
       expect(result.current.user).toBeNull();
-      expect(result.current.error).toBe('Internal Server Error');
+      expect(result.current.error?.message).toBe('Internal Server Error');
       // Token is NOT cleared on non-401 errors
       expect(result.current.isAuthenticated).toBe(true);
     });

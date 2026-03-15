@@ -21,7 +21,7 @@ export function useAuth() {
   const [user, setUser] = useState<UserProfile | null | undefined>(() =>
     localStorage.getItem('jwt') ? undefined : null
   );
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | null>(null);
 
   const login = useCallback((jwt: string) => {
     localStorage.setItem('jwt', jwt);
@@ -55,7 +55,7 @@ export function useAuth() {
           const message = err instanceof Error ? err.message : String(err);
           console.warn('Failed to fetch user profile:', message);
           setUser(null);
-          setError(message);
+          setError(new Error(message));
         }
       });
   }, [token, logout]);

@@ -36,7 +36,7 @@ export function DashboardPage() {
   }
 
   if (error) {
-    return <div className={styles.error}>{error}</div>;
+    return <div className={styles.error}>{error.message}</div>;
   }
 
   if (!user) {

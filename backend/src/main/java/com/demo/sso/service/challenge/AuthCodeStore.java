@@ -1,8 +1,13 @@
 package com.demo.sso.service.challenge;
 
 /**
- * Stores short-lived, single-use authorization codes that map to JWTs.
- * Codes are generated during OAuth2 success and exchanged by the frontend for a JWT.
+ * Store for single-use authorization codes that bridge OAuth authentication and JWT token exchange.
+ *
+ * <p>This store uses a throw-on-failure strategy: {@link #exchangeCode} throws
+ * {@link com.demo.sso.exception.InvalidAuthCodeException} for invalid or expired codes.
+ * This differs from {@link MicrosoftChallengeStore}'s Optional-return strategy
+ * because auth code exchange is a critical authentication boundary where failures
+ * must be explicit and auditable.</p>
  */
 public interface AuthCodeStore {
 
