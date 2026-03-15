@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Optional;
 
@@ -184,6 +185,31 @@ class UserServiceTest {
             () -> userService.findByEmail("user@example.com"));
 
         assertTrue(error.getMessage().contains("Ambiguous legacy email identity"));
+    }
+
+    @Test
+    void syncUser_recoversConcurrentCreationViaProviderLookup() {
+        NormalizedIdentity identity = NormalizedIdentity.google(
+            "google-123", "user@example.com", "John", "http://pic.url", AuthFlow.CLIENT_SIDE);
+
+        User recovered = new User();
+        recovered.setId(42L);
+        recovered.setEmail("user@example.com");
+        recovered.setGoogleId("google-123");
+
+        when(userRepository.findByProviderAndProviderUserId(AuthProvider.GOOGLE, "google-123"))
+            .thenReturn(Optional.empty());
+        // First call (legacy fallback in syncUser): empty; second call (recovery): found
+        when(userRepository.findByGoogleId("google-123"))
+            .thenReturn(Optional.empty())
+            .thenReturn(Optional.of(recovered));
+        when(userRepository.save(any(User.class)))
+            .thenThrow(new DataIntegrityViolationException("Duplicate entry"));
+
+        User result = userService.syncUser(identity);
+
+        assertEquals(42L, result.getId());
+        assertEquals("user@example.com", result.getEmail());
     }
 
     @Test
