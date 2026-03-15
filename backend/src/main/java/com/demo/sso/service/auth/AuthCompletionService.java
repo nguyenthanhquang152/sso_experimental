@@ -29,7 +29,12 @@ public class AuthCompletionService {
         this.authCodeStore = authCodeStore;
     }
 
-    /** For client-side flows: syncs user state and returns a JWT directly. */
+    /**
+     * For client-side flows: syncs user state and returns a JWT directly.
+     *
+     * @throws InvalidIdentityException if concurrent-creation recovery fails
+     * @throws IllegalArgumentException if V2 mint mode is active and the user is missing required fields
+     */
     public String completeAuthentication(NormalizedIdentity identity) {
         User user = userService.syncUser(identity);
         String jwt = jwtTokenService.generateToken(user);
@@ -38,7 +43,13 @@ public class AuthCompletionService {
         return jwt;
     }
 
-    /** For server-side flows: syncs user state, mints a JWT, and returns an auth code for exchange. */
+    /**
+     * For server-side flows: syncs user state, mints a JWT, and returns an auth code for exchange.
+     *
+     * @throws InvalidIdentityException if concurrent-creation recovery fails
+     * @throws IllegalArgumentException if V2 mint mode is active and the user is missing required fields,
+     *         or if the resulting JWT is null/blank
+     */
     public String completeAuthenticationWithCode(NormalizedIdentity identity) {
         String jwt = completeAuthentication(identity);
         return authCodeStore.createAuthCode(jwt);

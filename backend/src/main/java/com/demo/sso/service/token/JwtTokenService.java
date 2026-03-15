@@ -62,50 +62,17 @@ public class JwtTokenService {
     }
 
     /**
-     * @deprecated Legacy token format — use {@link #generateToken(User)} instead.
-     *             Retained only for backward-compatible JWT minting in LEGACY mode.
-     *             Remove when all deployments use JwtMintMode.V2 and all legacy tokens have expired.
-     */
-    @Deprecated
-    String generateLegacyToken(String email, String googleId) {
-        Date now = new Date();
-        Date expiry = new Date(now.getTime() + expirationMs);
-
-        return Jwts.builder()
-                .subject(email)
-                .claim("googleId", googleId)
-                .issuer(ISSUER)
-                .audience().add(AUDIENCE).and()
-                .id(UUID.randomUUID().toString())
-                .issuedAt(now)
-                .expiration(expiry)
-                .signWith(key)
-                .compact();
-    }
-
-    /**
-     * Generates a signed JWT for the given user, dispatching to legacy or V2 format
-     * based on {@link AuthRolloutProperties#getJwtMintMode()}.
+     * Generates a signed V2 JWT for the given user.
      *
-     * <p>The token format depends on the configured {@link AuthRolloutProperties.JwtMintMode}:
-     * in {@code V2} mode, the user must have {@code id}, {@code email}, {@code provider},
-     * and {@code providerUserId} set; in {@code LEGACY} mode, only {@code email} and
-     * {@code googleId} are required.
-     *
-     * <p><b>Migration note:</b> the legacy branch calls {@link #generateLegacyToken}
-     * which is deprecated for direct use but is still the correct mint path when
-     * {@code JwtMintMode.LEGACY} is active. Once all deployments switch to
-     * {@code JwtMintMode.V2}, this dispatch and the legacy method can be removed.
+     * <p>The user must have {@code id}, {@code email}, {@code provider},
+     * and {@code providerUserId} set.
      *
      * @param user the authenticated user to mint a token for
      * @return the signed JWT string
-     * @throws IllegalArgumentException if V2 mode is active and the user is missing required fields
+     * @throws IllegalArgumentException if the user is missing required fields
      */
     public String generateToken(User user) {
-        if (rolloutProperties.getJwtMintMode() == AuthRolloutProperties.JwtMintMode.V2) {
-            return generateV2Token(user);
-        }
-        return generateLegacyToken(user.getEmail(), user.getGoogleId());
+        return generateV2Token(user);
     }
 
     private String generateV2Token(User user) {
@@ -130,6 +97,13 @@ public class JwtTokenService {
                 .compact();
     }
 
+    /**
+     * Validates the JWT signature, issuer, and audience, then returns the parsed claims.
+     *
+     * @param token the signed JWT string to parse
+     * @return the verified {@link Claims} payload
+     * @throws JwtException if the token is malformed, expired, or fails signature/issuer/audience verification
+     */
     public Claims parseToken(String token) {
         return Jwts.parser()
                 .verifyWith(key)

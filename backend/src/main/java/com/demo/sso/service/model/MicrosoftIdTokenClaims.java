@@ -31,6 +31,8 @@ public record MicrosoftIdTokenClaims(
     /**
      * Extracts and converts all relevant Microsoft ID token claims from a raw
      * attribute map in one pass.
+     *
+     * @throws InvalidTokenException if the {@code sub} claim is missing or blank
      */
     public static MicrosoftIdTokenClaims fromMap(Map<String, Object> claims) {
         MicrosoftIdTokenClaims result = new MicrosoftIdTokenClaims(

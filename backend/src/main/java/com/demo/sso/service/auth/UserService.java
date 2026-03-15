@@ -3,7 +3,6 @@ package com.demo.sso.service.auth;
 import com.demo.sso.exception.InvalidIdentityException;
 import com.demo.sso.service.model.AuthenticatedUserIdentity;
 import com.demo.sso.service.model.NormalizedIdentity;
-import com.demo.sso.model.AuthProvider;
 import com.demo.sso.model.User;
 import com.demo.sso.repository.UserRepository;
 import org.slf4j.Logger;
@@ -19,24 +18,9 @@ import java.util.Optional;
 /**
  * Core user lifecycle service: lookup, creation, and update.
  *
- * <h3>Legacy Google identity branches (migration artifact)</h3>
- * <p>Several methods contain {@code AuthProvider.GOOGLE}-specific branches that
- * fall back to the legacy {@code google_id} column. These exist because users
- * created before the V3 migration may only be findable via {@code google_id},
- * not yet via the provider-neutral {@code (provider, provider_user_id)} pair.
- *
- * <p>Affected methods:
- * <ul>
- *   <li>{@link #syncUser} — falls back to {@code findByGoogleId}
- *   <li>{@link #recoverFromConcurrentCreation} — recovers via {@code findByGoogleId}
- * </ul>
- *
- * <p><b>Removal criteria:</b>
- * <ol>
- *   <li>{@code JwtMintMode.V2} deployed for &gt;= token expiration period
- *   <li>No legacy {@code findByGoogleId} fallback hits logged
- *   <li>{@code google_id} column can be dropped from database
- * </ol>
+ * <p>All providers use the provider-neutral {@code (provider, provider_user_id)} pair
+ * for user lookup. The legacy {@code google_id} column is retained in the database
+ * for backward compatibility but is no longer queried in production code paths.
  */
 @Service
 public class UserService {
@@ -55,15 +39,6 @@ public class UserService {
             identity.provider(),
             identity.providerUserId()
         );
-
-        // Legacy migration fallback: pre-V3 Google users may only have google_id populated.
-        // See class-level Javadoc for removal criteria.
-        if (existing.isEmpty() && identity.provider() == AuthProvider.GOOGLE) {
-            existing = userRepository.findByGoogleId(identity.providerUserId());
-            if (existing.isPresent()) {
-                logger.info("Legacy findByGoogleId fallback triggered for provider={}", identity.provider());
-            }
-        }
 
         return existing.isPresent()
             ? updateExistingUser(existing.get(), identity)
@@ -96,23 +71,11 @@ public class UserService {
 
     /**
      * Recovers from a concurrent user creation race condition by re-querying the user.
-     *
-     * <p><b>Provider divergence:</b> Google recovery uses {@code findByGoogleId} because
-     * pre-V3 users may only have the legacy {@code google_id} column populated, making
-     * the provider-neutral {@code (provider, provider_user_id)} lookup unreliable for
-     * Google users until all legacy rows are migrated. Non-Google providers always use
-     * the provider-neutral lookup.
      */
     private User recoverFromConcurrentCreation(NormalizedIdentity identity, DataIntegrityViolationException cause) {
-        if (identity.provider() != AuthProvider.GOOGLE) {
-            return userRepository.findByProviderAndProviderUserId(identity.provider(), identity.providerUserId())
-                .orElseThrow(() -> new InvalidIdentityException(
-                    "Concurrent user creation recovery failed for provider: " + identity.provider()));
-        }
-        // Legacy fallback: pre-V3 Google users may only have google_id populated.
-        return userRepository.findByGoogleId(identity.providerUserId())
+        return userRepository.findByProviderAndProviderUserId(identity.provider(), identity.providerUserId())
             .orElseThrow(() -> new InvalidIdentityException(
-                "Concurrent user creation recovery failed for provider: " + identity.provider()));
+                "Concurrent user creation recovery failed for provider: " + identity.provider(), cause));
     }
 
     private static void applyProviderIdentityFields(User user, NormalizedIdentity identity) {

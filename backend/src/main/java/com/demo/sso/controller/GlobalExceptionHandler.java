@@ -26,43 +26,46 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleUnreadableMessage(HttpMessageNotReadableException e) {
-        logger.warn("Malformed request body: {}", e.getMessage());
-        return ResponseEntity.badRequest().body(new ErrorResponse("Malformed request body"));
+        return logAndRespond(400, "Malformed request body", e, "Malformed request body");
     }
 
     @ExceptionHandler(InvalidTokenException.class)
     public ResponseEntity<ErrorResponse> handleInvalidToken(InvalidTokenException e) {
-        logger.warn("Invalid token: {}", e.getMessage());
-        return ResponseEntity.status(401).body(new ErrorResponse("Invalid or expired token"));
+        return logAndRespond(401, "Invalid token", e, "Invalid or expired token");
     }
 
     @ExceptionHandler(InvalidIdentityException.class)
     public ResponseEntity<ErrorResponse> handleInvalidIdentity(InvalidIdentityException e) {
-        logger.warn("Invalid identity: {}", e.getMessage());
-        return ResponseEntity.badRequest().body(new ErrorResponse("Invalid identity"));
+        return logAndRespond(400, "Invalid identity", e, "Invalid identity");
     }
 
     @ExceptionHandler(InvalidAuthCodeException.class)
     public ResponseEntity<ErrorResponse> handleInvalidAuthCode(InvalidAuthCodeException e) {
-        logger.warn("Invalid auth code: {}", e.getMessage());
-        return ResponseEntity.status(410).body(new ErrorResponse("Invalid or expired authorization code"));
+        return logAndRespond(410, "Invalid auth code", e, "Invalid or expired authorization code");
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleIllegalArgument(IllegalArgumentException e) {
-        logger.warn("Bad request: {}", e.getMessage());
-        return ResponseEntity.badRequest().body(new ErrorResponse("Invalid request"));
+        return logAndRespond(400, "Bad request", e, "Invalid request");
     }
 
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<ErrorResponse> handleIllegalState(IllegalStateException e) {
-        logger.error("Internal error: {}", e.getMessage());
-        return ResponseEntity.internalServerError().body(new ErrorResponse("Internal server error"));
+        return logAndRespond(500, "Internal error", e, "Internal server error");
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleUnexpected(Exception e) {
         logger.error("Unexpected error", e);
         return ResponseEntity.internalServerError().body(new ErrorResponse("Internal server error"));
+    }
+
+    private ResponseEntity<ErrorResponse> logAndRespond(int status, String logPrefix, Exception e, String message) {
+        if (status >= 500) {
+            logger.error("{}: {}", logPrefix, e.getMessage());
+        } else {
+            logger.warn("{}: {}", logPrefix, e.getMessage());
+        }
+        return ResponseEntity.status(status).body(new ErrorResponse(message));
     }
 }
